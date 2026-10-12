@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{--pink:#e0427e;--pink-soft:#fff0f6;--ink:#111827;--ink-2:#374151;--muted:#9ca3af;--line:#f1f1f4;--line-2:#f8f8fa;--paper:#fff;--bg:#fafafa;--radius:12px;--radius-lg:18px;--tr:all .2s ease}
+:root{--pink:#e0427e;--pink-soft:#fff0f6;--ink:#111827;--ink-2:#374151;--muted:#9ca3af;--line:#f1f1f4;--line-2:#f8f8fa;--paper:#fff;--bg:#fafafa;--radius:12px;--tr:all .2s ease}
 [data-theme="dark"]{--pink:#e0427e;--pink-soft:#3a1d2a;--ink:#f3f3f5;--ink-2:#d1d5db;--muted:#9ca3af;--line:#252836;--line-2:#1a1c25;--paper:#0f1117;--bg:#08090d}
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-tap-highlight-color:transparent}
@@ -19,7 +19,6 @@ button{cursor:pointer;border:none;background:none}
 img{display:block;max-width:100%}
 .hidden{display:none!important}
 
-/* ==== LOADER ==== */
 .loader{position:fixed;inset:0;background:var(--paper);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .3s}
 .loader.hide{opacity:0;pointer-events:none}
 .loader-logo{font-size:38px;font-weight:900;letter-spacing:-1px;margin-bottom:20px;direction:ltr}
@@ -28,7 +27,6 @@ img{display:block;max-width:100%}
 .loader-bar::after{content:'';display:block;height:100%;width:40%;background:var(--pink);border-radius:2px;animation:load 1.2s infinite}
 @keyframes load{0%{transform:translateX(-100%)}100%{transform:translateX(300%)}}
 
-/* ==== AUTH ==== */
 .auth{position:fixed;inset:0;background:var(--paper);z-index:8000;display:flex;align-items:center;justify-content:center;padding:24px;overflow-y:auto}
 .auth.hide{display:none}
 .auth-box{width:100%;max-width:380px}
@@ -46,7 +44,6 @@ img{display:block;max-width:100%}
 .auth-switch{text-align:center;margin-top:20px;font-size:12.5px;color:var(--muted)}
 .auth-switch button{color:var(--pink);font-weight:700}
 
-/* ==== APP ==== */
 .app{width:100%;max-width:480px;min-height:100dvh;background:var(--paper);position:relative;display:flex;flex-direction:column;box-shadow:0 0 60px rgba(0,0,0,0.05)}
 .app.hide{display:none}
 .app-header{position:sticky;top:0;z-index:50;background:var(--paper);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line-2)}
@@ -66,7 +63,6 @@ main{flex:1;padding-bottom:80px;overflow-y:auto}
 .page.active{display:block;animation:fade .2s}
 @keyframes fade{from{opacity:0}to{opacity:1}}
 
-/* ==== HOME ==== */
 .tabs-scroll{display:flex;gap:22px;padding:12px 16px 10px;overflow-x:auto;scrollbar-width:none;background:var(--paper);border-bottom:1px solid var(--line-2)}
 .tabs-scroll::-webkit-scrollbar{display:none}
 .tab{font-size:14px;font-weight:600;color:var(--muted);white-space:nowrap;padding:4px 0;position:relative;background:none}
@@ -82,7 +78,6 @@ main{flex:1;padding-bottom:80px;overflow-y:auto}
 .story.plus .story-ring svg{width:24px;height:24px;stroke:var(--pink);fill:none;stroke-width:2.2}
 .story-name{font-size:10.5px;color:var(--ink);text-align:center;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
-/* ==== INSTAGRAM POST ==== */
 .post{background:var(--paper);border-bottom:8px solid var(--line-2)}
 .post-header{display:flex;align-items:center;gap:10px;padding:10px 14px}
 .post-avatar{width:38px;height:38px;border-radius:50%;object-fit:cover;cursor:pointer}
@@ -90,7 +85,7 @@ main{flex:1;padding-bottom:80px;overflow-y:auto}
 .post-user b{display:block;font-size:13px;font-weight:800;color:var(--ink)}
 .post-user small{font-size:10.5px;color:var(--muted)}
 .post-menu{width:32px;height:32px;color:var(--muted);font-size:20px;display:grid;place-items:center;border-radius:50%}
-.post-image{background:#000;cursor:pointer;position:relative}
+.post-image{background:#000;position:relative}
 .post-image img{width:100%;height:auto;max-height:600px;object-fit:contain;display:block}
 .post-actions{display:flex;align-items:center;gap:14px;padding:10px 14px 4px}
 .post-action{width:34px;height:34px;display:grid;place-items:center;color:var(--ink)}
@@ -105,14 +100,13 @@ main{flex:1;padding-bottom:80px;overflow-y:auto}
 .post-comment-link{font-size:12.5px;color:var(--muted);font-weight:500}
 .post-time{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;margin-top:6px}
 
-/* ==== TEXT POST ==== */
 .text-post{background:var(--paper);border-bottom:8px solid var(--line-2);padding:16px 14px}
 .text-post-cat{display:inline-block;background:var(--line-2);color:var(--ink-2);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;margin-bottom:10px}
 .text-post h3{font-size:17px;font-weight:800;line-height:1.6;margin-bottom:8px}
 .text-post p{font-size:13.5px;color:var(--ink-2);line-height:1.9;margin-bottom:12px}
 .text-post-author{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);padding-bottom:10px;border-bottom:1px solid var(--line-2);margin-bottom:10px}
-.text-post-author img{width:26px;height:26px;border-radius:50%;object-fit:cover}
-.text-post-author b{color:var(--ink);font-weight:700;font-size:12px}
+.text-post-author img{width:26px;height:26px;border-radius:50%;object-fit:cover;cursor:pointer}
+.text-post-author b{color:var(--ink);font-weight:700;font-size:12px;cursor:pointer}
 .text-post-author .sp{flex:1}
 .text-post-actions{display:flex;gap:18px}
 .text-post-actions button{display:flex;align-items:center;gap:5px;font-size:12px;color:var(--muted);font-weight:600}
@@ -120,7 +114,6 @@ main{flex:1;padding-bottom:80px;overflow-y:auto}
 .text-post-actions button.liked{color:#ed4956}
 .text-post-actions button.liked svg{fill:#ed4956;stroke:#ed4956}
 
-/* ==== SEARCH ==== */
 .search-wrap{padding:16px 16px 0}
 .page-title{font-size:22px;font-weight:900;margin-bottom:14px}
 .search-box{display:flex;align-items:center;gap:10px;background:var(--line-2);border-radius:10px;padding:11px 14px;margin-bottom:14px;border:1.5px solid transparent}
@@ -140,7 +133,6 @@ main{flex:1;padding-bottom:80px;overflow-y:auto}
 .article-row-meta{display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--muted);font-weight:600}
 .article-row-meta img{width:18px;height:18px;border-radius:50%;object-fit:cover;flex-shrink:0}
 
-/* ==== FRIENDS ==== */
 .friends-tabs{display:flex;gap:8px;padding:12px 16px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line-2)}
 .friends-tabs::-webkit-scrollbar{display:none}
 .ftab{padding:8px 14px;border-radius:18px;font-size:12.5px;font-weight:600;color:var(--muted);white-space:nowrap;background:var(--line-2);border:1.5px solid transparent}
@@ -157,36 +149,38 @@ main{flex:1;padding-bottom:80px;overflow-y:auto}
 .btn-sm{padding:8px 14px;border-radius:18px;font-size:11.5px;font-weight:700;white-space:nowrap}
 .btn-sm.primary{background:var(--ink);color:var(--paper)}
 .btn-sm.pending{background:var(--line-2);color:var(--muted)}
+.btn-sm.danger{background:var(--line-2);color:#ef4444}
 .btn-sm.chat{padding:8px 10px;background:var(--line-2);color:var(--ink)}
 .btn-sm.chat svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2}
 
-/* ==== NOTIFICATIONS ==== */
 .notif-tabs{display:flex;padding:0 16px;border-bottom:1px solid var(--line-2);background:var(--paper)}
 .ntab{flex:1;padding:14px 0;font-size:13.5px;font-weight:700;color:var(--muted);border-bottom:2.5px solid transparent;text-align:center;background:none}
 .ntab.active{color:var(--ink);border-bottom-color:var(--ink)}
-.notif{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line-2);background:var(--paper)}
+.notif{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line-2);background:var(--paper);position:relative}
 .notif img{width:44px;height:44px;border-radius:50%;object-fit:cover;flex-shrink:0}
 .notif-info{flex:1;min-width:0}
 .notif-info p{font-size:12.5px;line-height:1.6;margin-bottom:3px}
 .notif-info p b{font-weight:800}
 .notif-info time{font-size:10.5px;color:var(--muted)}
-.chat-row{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line-2);cursor:pointer;background:var(--paper)}
-.chat-row img{width:50px;height:50px;border-radius:50%;object-fit:cover;flex-shrink:0}
-.chat-row-info{flex:1;min-width:0}
+.notif-del{position:absolute;top:10px;left:10px;width:26px;height:26px;display:grid;place-items:center;color:var(--muted);border-radius:50%;font-size:16px}
+.notif-del:hover{background:var(--line-2)}
+
+.chat-row{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line-2);background:var(--paper);position:relative}
+.chat-row>img{width:50px;height:50px;border-radius:50%;object-fit:cover;flex-shrink:0;cursor:pointer}
+.chat-row-info{flex:1;min-width:0;cursor:pointer}
 .chat-row-info h4{font-size:13.5px;font-weight:800;margin-bottom:2px}
 .chat-row-info p{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.chat-row-time{font-size:10.5px;color:var(--muted);flex-shrink:0}
+.chat-row-time{font-size:10.5px;color:var(--muted);flex-shrink:0;margin-left:4px}
 
-/* ==== CHAT ==== */
 .chat-top{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--line-2);background:var(--paper);position:sticky;top:0;z-index:20}
 .back-btn{width:36px;height:36px;display:grid;place-items:center;border-radius:50%;color:var(--ink)}
 .back-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2}
-.chat-top img{width:40px;height:40px;border-radius:50%;object-fit:cover}
-.chat-top-info{flex:1}
+.chat-top img{width:40px;height:40px;border-radius:50%;object-fit:cover;cursor:pointer}
+.chat-top-info{flex:1;cursor:pointer}
 .chat-top-info h4{font-size:14px;font-weight:800}
 .chat-top-info small{font-size:11px;color:#10b981;font-weight:600}
 .chat-body{padding:14px 16px;display:flex;flex-direction:column;gap:8px;min-height:400px}
-.bubble{max-width:75%;padding:9px 13px;border-radius:16px;font-size:13px;line-height:1.6;word-wrap:break-word}
+.bubble{max-width:75%;padding:9px 13px;border-radius:16px;font-size:13px;line-height:1.6;word-wrap:break-word;position:relative;cursor:pointer}
 .bubble.me{align-self:flex-end;background:var(--ink);color:var(--paper);border-bottom-right-radius:4px}
 .bubble.them{align-self:flex-start;background:var(--line-2);color:var(--ink);border-bottom-left-radius:4px}
 .bubble time{font-size:9px;opacity:.7;display:block;margin-top:3px}
@@ -196,7 +190,6 @@ main{flex:1;padding-bottom:80px;overflow-y:auto}
 .chat-inputbar button{width:42px;height:42px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;flex-shrink:0}
 .chat-inputbar svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2}
 
-/* ==== PROFILE ==== */
 .profile-cover{height:160px;background:var(--line);position:relative;overflow:hidden}
 .profile-cover img{width:100%;height:100%;object-fit:cover}
 .profile-head{text-align:center;padding:0 16px;margin-top:-46px;position:relative;z-index:2}
@@ -204,12 +197,13 @@ main{flex:1;padding-bottom:80px;overflow-y:auto}
 .profile-name{font-size:19px;font-weight:800;margin-bottom:4px}
 .profile-bio{font-size:12.5px;color:var(--muted);line-height:1.8;margin-bottom:14px;max-width:320px;margin-left:auto;margin-right:auto}
 .profile-stats{display:flex;justify-content:center;gap:30px;padding:12px 0;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);margin-bottom:14px;font-size:11px;color:var(--muted);font-weight:600}
-.profile-stats>div{display:flex;flex-direction:column;align-items:center;gap:3px}
+.profile-stats>div{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
 .profile-stats b{font-size:16px;font-weight:800;color:var(--ink)}
 .profile-btns{display:flex;gap:8px;justify-content:center;margin-bottom:14px}
 .pbtn{padding:9px 20px;border-radius:20px;font-size:12.5px;font-weight:700}
 .pbtn.primary{background:var(--ink);color:var(--paper)}
 .pbtn.secondary{background:var(--line-2);color:var(--ink)}
+.pbtn.danger{background:#fee2e2;color:#dc2626}
 .profile-tabs{display:flex;border-bottom:1px solid var(--line-2);padding:0 16px}
 .ptab{flex:1;padding:12px 0;font-size:12.5px;font-weight:700;color:var(--muted);border-bottom:2.5px solid transparent;text-align:center;background:none}
 .ptab.active{color:var(--ink);border-bottom-color:var(--ink)}
@@ -224,7 +218,6 @@ main{flex:1;padding-bottom:80px;overflow-y:auto}
 .text-post-card p{font-size:12px;color:var(--muted);line-height:1.8;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
 .section-label{padding:14px 16px 6px;font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.3px}
 
-/* ==== ARTICLE READER ==== */
 .article-cover{height:260px;position:relative;background:var(--line)}
 .article-cover img{width:100%;height:100%;object-fit:cover}
 .article-cover::after{content:'';position:absolute;inset:30% 0 0;background:linear-gradient(transparent,rgba(0,0,0,.75))}
@@ -234,7 +227,6 @@ main{flex:1;padding-bottom:80px;overflow-y:auto}
 .article-body{padding:16px;font-size:14.5px;line-height:2.2;color:var(--ink-2)}
 .article-body p{margin-bottom:16px}
 
-/* ==== CREATE ==== */
 .create-wrap{padding:16px}
 .create-box{background:var(--paper);border:1px solid var(--line-2);border-radius:16px;padding:16px}
 .create-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
@@ -269,7 +261,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 .switch.on::after{left:23px}
 .btn-main{width:100%;background:var(--ink);color:var(--paper);border-radius:12px;padding:14px;font-size:14px;font-weight:800}
 
-/* ==== SETTINGS ==== */
 .settings-list{padding:16px;display:flex;flex-direction:column;gap:6px}
 .s-item{display:flex;align-items:center;gap:12px;padding:14px;background:var(--paper);border:1px solid var(--line-2);border-radius:12px;cursor:pointer}
 .s-item:active{background:var(--line-2)}
@@ -281,7 +272,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 .doc{padding:16px;font-size:13.5px;line-height:2;color:var(--ink-2)}
 .doc h2{font-size:15px;font-weight:800;color:var(--ink);margin:18px 0 8px}
 
-/* ==== MODAL ==== */
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:300;display:none;align-items:flex-end;justify-content:center}
 .modal.show{display:flex}
 .modal-box{background:var(--paper);width:100%;max-width:480px;border-radius:20px 20px 0 0;max-height:85vh;display:flex;flex-direction:column;animation:up .25s}
@@ -294,15 +284,22 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 .modal-foot input{flex:1;border:1.5px solid var(--line);border-radius:22px;padding:10px 16px;font-size:13px;outline:none;background:var(--line-2)}
 .modal-foot input:focus{border-color:var(--ink);background:var(--paper)}
 .modal-foot button{background:var(--ink);color:var(--paper);border-radius:22px;padding:10px 18px;font-size:12.5px;font-weight:700}
+
+/* Post menu modal */
+.menu-list{padding:8px 0}
+.menu-item{display:flex;align-items:center;gap:12px;padding:14px 20px;font-size:13.5px;font-weight:600;color:var(--ink);background:none;width:100%;text-align:right}
+.menu-item:active{background:var(--line-2)}
+.menu-item svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0}
+.menu-item.danger{color:#ef4444}
+
 .comment-row{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--line-2)}
 .comment-row:last-child{border-bottom:none}
-.comment-row img{width:36px;height:36px;border-radius:50%;object-fit:cover;flex-shrink:0}
+.comment-row img{width:36px;height:36px;border-radius:50%;object-fit:cover;flex-shrink:0;cursor:pointer}
 .comment-row-body{flex:1}
-.comment-row-body b{font-size:12.5px;font-weight:800}
+.comment-row-body b{font-size:12.5px;font-weight:800;cursor:pointer}
 .comment-row-body p{font-size:12.5px;line-height:1.7;margin:3px 0 4px}
 .comment-row-body time{font-size:10px;color:var(--muted)}
 
-/* ==== CONFIRM ==== */
 .confirm{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:400;display:none;align-items:center;justify-content:center;padding:20px}
 .confirm.show{display:flex}
 .confirm-box{background:var(--paper);border-radius:14px;padding:22px;max-width:320px;width:100%}
@@ -313,11 +310,9 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 .confirm-actions .cancel{background:var(--line-2);color:var(--ink)}
 .confirm-actions .danger{background:#ef4444;color:#fff}
 
-/* ==== TOAST ==== */
 .toast{position:fixed;bottom:90px;left:50%;transform:translate(-50%,20px);background:var(--ink);color:var(--paper);padding:11px 20px;border-radius:12px;font-size:12.5px;font-weight:600;opacity:0;transition:all .3s;pointer-events:none;z-index:500;max-width:90%;text-align:center}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 
-/* ==== BOTTOM NAV ==== */
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;height:68px;display:flex;align-items:center;justify-content:space-around;background:var(--paper);border-top:1px solid var(--line-2);z-index:100}
 .nav{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:9.5px;color:var(--muted);padding:8px 10px;font-weight:600;position:relative;min-width:50px}
 .nav.active{color:var(--ink)}
@@ -336,13 +331,11 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 </head>
 <body>
 
-<!-- LOADER -->
 <div class="loader" id="loader">
   <div class="loader-logo">Luno<span>.</span></div>
   <div class="loader-bar"></div>
 </div>
 
-<!-- AUTH -->
 <div class="auth hide" id="authScreen">
   <div class="auth-box">
     <div class="auth-logo">Luno<span>.</span></div>
@@ -372,7 +365,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
   </div>
 </div>
 
-<!-- APP -->
 <div class="app hide" id="app">
   <header class="app-header">
     <div class="header-left">
@@ -380,8 +372,8 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
       <span class="admin-tag hidden" id="adminTag">مدیر</span>
     </div>
     <div class="header-right">
-      <button class="hbtn" id="themeBtn" aria-label="تم"><svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg></button>
-      <button class="hbtn primary" data-go="create" aria-label="ساخت پست"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
+      <button class="hbtn" id="themeBtn"><svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg></button>
+      <button class="hbtn primary" data-go="create"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
     </div>
   </header>
 
@@ -438,8 +430,11 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
     <section class="page" id="page-chat">
       <div class="chat-top">
         <button class="back-btn" data-back><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
-        <img id="chatAvatar" src="" alt="">
-        <div class="chat-top-info"><h4 id="chatName"></h4><small id="chatStatus"></small></div>
+        <img id="chatAvatar" src="" alt="" data-chat-profile>
+        <div class="chat-top-info" data-chat-profile>
+          <h4 id="chatName"></h4>
+          <small id="chatStatus"></small>
+        </div>
       </div>
       <div class="chat-body" id="chatBody"></div>
       <div class="chat-inputbar">
@@ -459,7 +454,7 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
         <div class="profile-bio" id="myBio"></div>
         <div class="profile-stats">
           <div><b id="myPostsCount">0</b>پست</div>
-          <div><b id="myFriendsCount">0</b>دوست</div>
+          <div id="myFriendsBtn"><b id="myFriendsCount">0</b>دوست</div>
         </div>
         <div class="profile-btns">
           <button class="pbtn primary" id="editProfileBtn">ویرایش پروفایل</button>
@@ -469,15 +464,14 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
       <div class="profile-tabs">
         <button class="ptab active" data-ptab="posts">پست‌ها</button>
         <button class="ptab" data-ptab="saved">ذخیره‌ها</button>
+        <button class="ptab" data-ptab="friends">دوستان</button>
       </div>
       <div id="myProfileContent"></div>
     </section>
 
     <!-- USER PROFILE -->
     <section class="page" id="page-user">
-      <div class="profile-cover" id="userCover">
-        <img id="userCoverImg" src="" alt="" style="display:none">
-      </div>
+      <div class="profile-cover" id="userCover"></div>
       <div class="profile-head">
         <img class="profile-avatar" id="userAvatar" src="" alt="">
         <div class="profile-name" id="userName"></div>
@@ -508,8 +502,8 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
         </div>
       </div>
       <div style="display:flex;align-items:center;gap:8px;padding:12px 16px;font-size:11px;color:var(--muted)">
-        <img id="artAvatar" style="width:28px;height:28px;border-radius:50%;object-fit:cover" alt="">
-        <b id="artAuthor" style="color:var(--ink);font-weight:700">کاربر</b>
+        <img id="artAvatar" style="width:28px;height:28px;border-radius:50%;object-fit:cover;cursor:pointer" alt="" data-art-author>
+        <b id="artAuthor" style="color:var(--ink);font-weight:700;cursor:pointer" data-art-author></b>
         <span style="flex:1"></span>
         <span id="artTime"></span>
       </div>
@@ -638,6 +632,14 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
     </div>
   </div>
 
+  <!-- POST MENU MODAL -->
+  <div class="modal" id="postMenuModal">
+    <div class="modal-box">
+      <div class="modal-head"><h3>عملیات پست</h3><button class="modal-close" data-close>×</button></div>
+      <div class="menu-list" id="postMenuList"></div>
+    </div>
+  </div>
+
   <!-- EDIT PROFILE MODAL -->
   <div class="modal" id="editModal">
     <div class="modal-box">
@@ -651,6 +653,14 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
         <input type="file" id="editAvatar" accept="image/*" class="field">
       </div>
       <div class="modal-foot"><button id="saveProfileBtn" style="flex:1">ذخیره</button></div>
+    </div>
+  </div>
+
+  <!-- FRIENDS LIST MODAL (own profile) -->
+  <div class="modal" id="friendsListModal">
+    <div class="modal-box">
+      <div class="modal-head"><h3>دوستان من</h3><button class="modal-close" data-close>×</button></div>
+      <div class="modal-body" id="friendsListModalBody"></div>
     </div>
   </div>
 
@@ -678,7 +688,7 @@ const POPULAR_LIKES = 20;
 const DEFAULT_AVATAR = 'data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#e5e7eb"/><circle cx="50" cy="40" r="15" fill="#9ca3af"/><path fill="#9ca3af" d="M20 85c0-16 13-30 30-30s30 14 30 30z"/></svg>');
 const PLACEHOLDER = DEFAULT_AVATAR;
 
-// یک کاربر فیک فقط برای نمایش مکانیزم دوست‌یابی
+// کاربر فیک برای نمایش مکانیزم
 const FAKE_USERS = [
   {
     id: 'f1',
@@ -691,14 +701,13 @@ const FAKE_USERS = [
   }
 ];
 
-// ===== STATE =====
 let state = {
   user: JSON.parse(localStorage.getItem('luno_user') || 'null'),
   posts: JSON.parse(localStorage.getItem('luno_posts') || '[]'),
   liked: JSON.parse(localStorage.getItem('luno_liked') || '[]'),
   saved: JSON.parse(localStorage.getItem('luno_saved') || '[]'),
   friends: JSON.parse(localStorage.getItem('luno_friends') || '[]'),
-  pendingRequests: JSON.parse(localStorage.getItem('luno_pending') || '[]'),
+  pending: JSON.parse(localStorage.getItem('luno_pending') || '[]'),
   notifications: JSON.parse(localStorage.getItem('luno_notifs') || '[]'),
   chats: JSON.parse(localStorage.getItem('luno_chats') || '{}'),
   comments: JSON.parse(localStorage.getItem('luno_comments') || '{}'),
@@ -706,6 +715,7 @@ let state = {
   feedFilter: 'newest',
   currentChat: null,
   currentPostId: null,
+  currentPostMenu: null,
   notifTab: 'notifs',
   friendTab: 'suggest',
   searchTab: 'articles',
@@ -719,7 +729,7 @@ function save() {
   localStorage.setItem('luno_liked', JSON.stringify(state.liked));
   localStorage.setItem('luno_saved', JSON.stringify(state.saved));
   localStorage.setItem('luno_friends', JSON.stringify(state.friends));
-  localStorage.setItem('luno_pending', JSON.stringify(state.pendingRequests));
+  localStorage.setItem('luno_pending', JSON.stringify(state.pending));
   localStorage.setItem('luno_notifs', JSON.stringify(state.notifications));
   localStorage.setItem('luno_chats', JSON.stringify(state.chats));
   localStorage.setItem('luno_comments', JSON.stringify(state.comments));
@@ -731,7 +741,7 @@ const isAdmin = () => state.user?.phone === ADMIN_PHONE;
 const isLiked = id => state.liked.includes(id);
 const isSaved = id => state.saved.includes(id);
 const isFriend = id => state.friends.includes(id);
-const isPending = id => state.pendingRequests.some(r => r.to === id);
+const isPending = id => state.pending.some(r => r.to === id);
 const isPopular = p => p.isPopular === true || (p.likes||0) >= POPULAR_LIKES;
 
 function toast(msg) {
@@ -832,7 +842,6 @@ function updateBadge() {
 
 // ===== HOME =====
 function renderHome() {
-  // Stories
   $('#stories').innerHTML = `<button class="story plus" id="addStory"><div class="story-ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg></div><span class="story-name">استوری</span></button>`;
 
   let posts = [...state.posts];
@@ -946,7 +955,7 @@ function renderSearch(q = '') {
       wrap.innerHTML = emptyState(q ? 'کاربری پیدا نشد' : 'کاربری موجود نیست', 'users');
       return;
     }
-    wrap.innerHTML = users.map(u => renderUserRow(u, 'suggest')).join('');
+    wrap.innerHTML = users.map(u => renderUserRow(u)).join('');
   }
 }
 
@@ -959,7 +968,7 @@ function renderFriends() {
   if (state.friendTab === 'suggest') {
     users = FAKE_USERS.filter(u => !isFriend(u.id) && !isPending(u.id));
   } else if (state.friendTab === 'pending') {
-    users = state.pendingRequests.map(r => FAKE_USERS.find(u => u.id === r.to)).filter(Boolean);
+    users = state.pending.map(r => FAKE_USERS.find(u => u.id === r.to)).filter(Boolean);
   } else {
     users = FAKE_USERS.filter(u => isFriend(u.id));
   }
@@ -974,10 +983,10 @@ function renderFriends() {
     return;
   }
 
-  wrap.innerHTML = users.map(u => renderUserRow(u, state.friendTab)).join('');
+  wrap.innerHTML = users.map(u => renderUserRow(u)).join('');
 }
 
-function renderUserRow(u, tab) {
+function renderUserRow(u) {
   const friend = isFriend(u.id);
   const pending = isPending(u.id);
   let actions = '';
@@ -985,7 +994,7 @@ function renderUserRow(u, tab) {
   if (friend) {
     actions = `<button class="btn-sm chat" data-chat="${u.id}" title="پیام"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.4 9 9 0 0 1-4.3-1L3 20l1.2-4.5A8.3 8.3 0 0 1 3.5 11.5 8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5Z"/></svg></button>`;
   } else if (pending) {
-    actions = `<button class="btn-sm pending">در انتظار تایید</button>`;
+    actions = `<button class="btn-sm pending">در انتظار</button>`;
   } else {
     actions = `<button class="btn-sm primary" data-request="${u.id}">درخواست چت</button>`;
   }
@@ -1007,15 +1016,15 @@ function sendChatRequest(uid) {
   if (isFriend(uid) || isPending(uid)) return;
   const u = FAKE_USERS.find(x => x.id === uid);
   if (!u) return;
-  state.pendingRequests.push({ to: uid, at: Date.now() });
+  state.pending.push({ to: uid, at: Date.now() });
   save();
   renderFriends();
   toast('درخواست چت ارسال شد');
 
-  // شبیه‌سازی قبول شدن بعد از ۴ ثانیه (فقط برای نمایش مکانیزم)
+  // شبیه‌سازی قبول بعد از ۴ ثانیه
   setTimeout(() => {
     if (!isPending(uid)) return;
-    state.pendingRequests = state.pendingRequests.filter(r => r.to !== uid);
+    state.pending = state.pending.filter(r => r.to !== uid);
     if (!isFriend(uid)) state.friends.push(uid);
     state.notifications.unshift({
       id: 'n' + Date.now(),
@@ -1027,7 +1036,20 @@ function sendChatRequest(uid) {
     save();
     updateBadge();
     if ($('#page-friends').classList.contains('active')) renderFriends();
+    if ($('#page-profile').classList.contains('active')) renderMyProfile();
   }, 4000);
+}
+
+function removeFriend(uid) {
+  const u = FAKE_USERS.find(x => x.id === uid);
+  showConfirm('حذف دوست', `مطمئنی ${u?.name || 'این کاربر'} رو از دوستانت حذف کنی؟`, () => {
+    state.friends = state.friends.filter(x => x !== uid);
+    save();
+    toast('از دوستان حذف شد');
+    if ($('#page-user').classList.contains('active')) openUserProfile(uid);
+    if ($('#page-friends').classList.contains('active')) renderFriends();
+    if ($('#page-profile').classList.contains('active')) renderMyProfile();
+  });
 }
 
 // ===== NOTIFICATIONS =====
@@ -1047,6 +1069,7 @@ function renderNotifs() {
           <p>${n.text}</p>
           <time>${esc(n.time || 'همین حالا')}</time>
         </div>
+        <button class="notif-del" data-del-notif="${n.id}">×</button>
       </div>
     `).join('');
     state.notifications.forEach(n => n.read = true);
@@ -1063,13 +1086,14 @@ function renderNotifs() {
       if (!u) return '';
       const msgs = state.chats[uid];
       const last = msgs[msgs.length - 1];
-      return `<div class="chat-row" data-chat="${uid}">
-        <img src="${u.avatar}" alt="">
-        <div class="chat-row-info">
+      return `<div class="chat-row">
+        <img src="${u.avatar}" alt="" data-chat="${uid}">
+        <div class="chat-row-info" data-chat="${uid}">
           <h4>${esc(u.name)}</h4>
           <p>${esc(last?.text || '')}</p>
         </div>
         <span class="chat-row-time">${esc(last?.time || '')}</span>
+        <button class="notif-del" data-del-chat="${uid}">×</button>
       </div>`;
     }).join('');
   }
@@ -1094,7 +1118,7 @@ function renderChatBody() {
   const msgs = state.chats[uid] || [];
   const body = $('#chatBody');
   body.innerHTML = msgs.length
-    ? msgs.map(m => `<div class="bubble ${m.from === 'me' ? 'me' : 'them'}">${esc(m.text)}<time>${esc(m.time)}</time></div>`).join('')
+    ? msgs.map((m, i) => `<div class="bubble ${m.from === 'me' ? 'me' : 'them'}" data-del-bubble="${i}">${esc(m.text)}<time>${esc(m.time)}</time></div>`).join('')
     : emptyState('شروع گفتگو', 'chat');
   setTimeout(() => body.scrollTop = body.scrollHeight, 60);
 }
@@ -1132,11 +1156,9 @@ function renderMyProfile() {
   $('#myPostsCount').textContent = myPosts.length;
   $('#myFriendsCount').textContent = state.friends.length;
 
-  // Image posts on top (grid), text posts below
-  const imgPosts = myPosts.filter(p => p.hasImage !== false);
-  const textPosts = myPosts.filter(p => p.hasImage === false);
-
   if (state.profileTab === 'posts') {
+    const imgPosts = myPosts.filter(p => p.hasImage !== false);
+    const textPosts = myPosts.filter(p => p.hasImage === false);
     let html = '';
     if (imgPosts.length) {
       html += `<div class="pin-grid">${imgPosts.map(p => `
@@ -1155,7 +1177,7 @@ function renderMyProfile() {
     }
     if (!html) html = emptyState('هنوز پستی نساختی', 'edit', 'ساخت پست', 'go-create');
     $('#myProfileContent').innerHTML = html;
-  } else {
+  } else if (state.profileTab === 'saved') {
     const savedPosts = state.posts.filter(p => isSaved(p.id));
     if (!savedPosts.length) {
       $('#myProfileContent').innerHTML = emptyState('چیزی ذخیره نکرده‌ای', 'edit');
@@ -1165,6 +1187,14 @@ function renderMyProfile() {
       ? `<div class="pin pin-text" data-article="${p.id}"><h4>${esc(p.title)}</h4></div>`
       : `<div class="pin" data-article="${p.id}"><img src="${p.image || PLACEHOLDER}" alt=""></div>`
     ).join('')}</div>`;
+  } else {
+    // Friends tab
+    const friendsList = FAKE_USERS.filter(u => isFriend(u.id));
+    if (!friendsList.length) {
+      $('#myProfileContent').innerHTML = emptyState('هنوز دوستی اضافه نکردی', 'users');
+      return;
+    }
+    $('#myProfileContent').innerHTML = friendsList.map(u => renderUserRow(u)).join('');
   }
 }
 
@@ -1222,13 +1252,13 @@ function openUserProfile(uid) {
   $('#userBio').textContent = u.bio || 'بیوگرافی خالی است';
   $('#userPostsCount').textContent = u.posts || 0;
   $('#userFriendsCount').textContent = u.friends || 0;
-  $('#userCoverImg').style.display = 'none';
 
   const friend = isFriend(uid);
   const pending = isPending(uid);
   let btns = '';
   if (friend) {
-    btns = `<button class="pbtn primary" data-chat="${uid}">پیام</button>`;
+    btns = `<button class="pbtn primary" data-chat="${uid}">پیام</button>
+            <button class="pbtn danger" data-unfriend="${uid}">حذف دوست</button>`;
   } else if (pending) {
     btns = `<button class="pbtn secondary">در انتظار تایید</button>`;
   } else {
@@ -1240,9 +1270,11 @@ function openUserProfile(uid) {
 }
 
 // ===== ARTICLE READER =====
+let currentArticleAuthorId = null;
 function openArticle(id) {
   const p = state.posts.find(x => x.id === id);
   if (!p) return;
+  currentArticleAuthorId = p.authorId;
   $('#artImg').src = p.image || PLACEHOLDER;
   $('#artTitle').textContent = p.title;
   $('#artTag').textContent = p.category;
@@ -1350,7 +1382,6 @@ $('#publishBtn').addEventListener('click', () => {
     isPopular: false
   });
   save();
-  // reset
   $('#postTitle').value = '';
   $('#postText').value = '';
   $('#charCount').textContent = '0';
@@ -1369,31 +1400,29 @@ $('#publishBtn').addEventListener('click', () => {
   renderHome();
 });
 
-// ===== POST MENU =====
+// ===== POST MENU MODAL =====
 function openPostMenu(postId) {
   const p = state.posts.find(x => x.id === postId);
   if (!p) return;
+  state.currentPostMenu = postId;
   const isMine = p.authorId === state.user?.phone;
   const adm = isAdmin();
-  const options = [];
-  if (adm) options.push({ label: p.isPopular ? 'حذف از محبوب‌ها' : 'افزودن به محبوب‌ها', action: () => {
-    p.isPopular = !p.isPopular; save(); renderHome();
-    toast(p.isPopular ? 'به محبوب‌ها اضافه شد' : 'حذف شد');
-  }});
-  if (isMine || adm) options.push({ label: 'حذف پست', action: () => {
-    showConfirm('حذف پست', 'مطمئنی می‌خوای حذف کنی؟', () => {
-      state.posts = state.posts.filter(x => x.id !== postId);
-      save(); renderHome(); renderMyProfile();
-      toast('پست حذف شد');
-    });
-  }});
-  if (!options.length) return;
+  let html = '';
 
-  const labels = options.map((o, i) => (i + 1) + '. ' + o.label).join('\n');
-  const choice = prompt('عملیات:\n' + labels + '\n\nشماره رو وارد کن:');
-  if (!choice) return;
-  const idx = parseInt(choice) - 1;
-  if (idx >= 0 && idx < options.length) options[idx].action();
+  if (adm) {
+    html += `<button class="menu-item" data-menu-action="popular">
+      <svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20"/></svg>
+      ${p.isPopular ? 'حذف از محبوب‌ها' : 'افزودن به محبوب‌ها'}
+    </button>`;
+  }
+  if (isMine || adm) {
+    html += `<button class="menu-item danger" data-menu-action="delete">
+      <svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>
+      حذف پست
+    </button>`;
+  }
+  $('#postMenuList').innerHTML = html;
+  $('#postMenuModal').classList.add('show');
 }
 
 // ===== NAV =====
@@ -1430,18 +1459,14 @@ $('#confirmOk').addEventListener('click', () => { $('#confirmBox').classList.rem
 
 // ===== GLOBAL CLICK =====
 document.addEventListener('click', e => {
-  // go to page
   const go = e.target.closest('[data-go]');
   if (go) { showPage(go.dataset.go); return; }
 
-  // empty state action
   const em = e.target.closest('[data-empty]');
   if (em && em.dataset.empty === 'go-create') { showPage('create'); return; }
 
-  // story
   if (e.target.closest('#addStory')) { toast('استوری به‌زودی'); return; }
 
-  // like
   const like = e.target.closest('[data-like]');
   if (like) {
     e.stopPropagation();
@@ -1459,7 +1484,6 @@ document.addEventListener('click', e => {
     return;
   }
 
-  // save
   const sv = e.target.closest('[data-save]');
   if (sv) {
     e.stopPropagation();
@@ -1472,11 +1496,9 @@ document.addEventListener('click', e => {
     return;
   }
 
-  // comment
   const cm = e.target.closest('[data-comment]');
   if (cm) { e.stopPropagation(); openComments(cm.dataset.comment); return; }
 
-  // share
   const sh = e.target.closest('[data-share]');
   if (sh) {
     e.stopPropagation();
@@ -1486,11 +1508,79 @@ document.addEventListener('click', e => {
     return;
   }
 
-  // post menu
+  // Post menu
   const mn = e.target.closest('[data-menu]');
   if (mn) { e.stopPropagation(); openPostMenu(mn.dataset.menu); return; }
 
-  // user click (avatar or name)
+  // Post menu actions
+  const ma = e.target.closest('[data-menu-action]');
+  if (ma) {
+    e.stopPropagation();
+    const postId = state.currentPostMenu;
+    const p = state.posts.find(x => x.id === postId);
+    if (!p) return;
+    if (ma.dataset.menuAction === 'popular') {
+      p.isPopular = !p.isPopular;
+      save();
+      renderHome();
+      toast(p.isPopular ? 'به محبوب‌ها اضافه شد' : 'حذف شد');
+    } else if (ma.dataset.menuAction === 'delete') {
+      $('#postMenuModal').classList.remove('show');
+      showConfirm('حذف پست', 'مطمئنی می‌خوای حذف کنی؟', () => {
+        state.posts = state.posts.filter(x => x.id !== postId);
+        save();
+        renderHome();
+        renderMyProfile();
+        toast('پست حذف شد');
+      });
+      return;
+    }
+    $('#postMenuModal').classList.remove('show');
+    return;
+  }
+
+  // Delete notification
+  const dn = e.target.closest('[data-del-notif]');
+  if (dn) {
+    e.stopPropagation();
+    state.notifications = state.notifications.filter(n => n.id !== dn.dataset.delNotif);
+    save();
+    renderNotifs();
+    updateBadge();
+    return;
+  }
+
+  // Delete chat
+  const dc = e.target.closest('[data-del-chat]');
+  if (dc) {
+    e.stopPropagation();
+    const uid = dc.dataset.delChat;
+    showConfirm('حذف گفتگو', 'مطمئنی می‌خوای این گفتگو رو حذف کنی؟', () => {
+      delete state.chats[uid];
+      save();
+      renderNotifs();
+      toast('گفتگو حذف شد');
+    });
+    return;
+  }
+
+  // Delete chat bubble
+  const db = e.target.closest('[data-del-bubble]');
+  if (db) {
+    e.stopPropagation();
+    const idx = parseInt(db.dataset.delBubble);
+    if (!isNaN(idx) && state.currentChat) {
+      showConfirm('حذف پیام', 'این پیام حذف بشه؟', () => {
+        state.chats[state.currentChat].splice(idx, 1);
+        save();
+        renderChatBody();
+        toast('پیام حذف شد');
+      });
+    }
+    return;
+  }
+
+  // user click
   const ur = e.target.closest('[data-user]');
   if (ur) {
     e.stopPropagation();
@@ -1498,15 +1588,31 @@ document.addEventListener('click', e => {
     return;
   }
 
+  // chat profile click
+  if (e.target.closest('[data-chat-profile]') && state.currentChat) {
+    openUserProfile(state.currentChat);
+    return;
+  }
+
+  // article author click
+  if (e.target.closest('[data-art-author]') && currentArticleAuthorId) {
+    openUserProfile(currentArticleAuthorId);
+    return;
+  }
+
   // chat request
   const rq = e.target.closest('[data-request]');
   if (rq) { e.stopPropagation(); sendChatRequest(rq.dataset.request); return; }
 
-  // chat open
+  // remove friend
+  const uf = e.target.closest('[data-unfriend]');
+  if (uf) { e.stopPropagation(); removeFriend(uf.dataset.unfriend); return; }
+
+  // open chat
   const ch = e.target.closest('[data-chat]');
   if (ch) { e.stopPropagation(); openChat(ch.dataset.chat); return; }
 
-  // article open
+  // open article
   const ar = e.target.closest('[data-article]');
   if (ar) { openArticle(ar.dataset.article); return; }
 
@@ -1561,6 +1667,13 @@ $('#themeBtn').addEventListener('click', () => {
   else document.documentElement.setAttribute('data-theme', 'dark');
 });
 
+// Friends count click on profile → friends tab
+$('#myFriendsBtn').addEventListener('click', () => {
+  state.profileTab = 'friends';
+  $$('.ptab').forEach(t => t.classList.toggle('active', t.dataset.ptab === 'friends'));
+  renderMyProfile();
+});
+
 // ===== INIT =====
 setTimeout(() => {
   $('#loader').classList.add('hide');
@@ -1570,4 +1683,4 @@ setTimeout(() => {
 }, 700);
 </script>
 </body>
-                                                                      </html>
+  </html>
