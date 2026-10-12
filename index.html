@@ -58,7 +58,6 @@ img{display:block;max-width:100%}
 .auth-btn:hover{background:#000}
 .auth-switch{text-align:center;margin-top:24px;font-size:12.5px;color:var(--muted)}
 .auth-switch button{color:var(--pink);font-weight:700}
-.auth-hint{font-size:11px;color:var(--muted);text-align:center;margin-top:16px;font-weight:500;line-height:1.8}
 
 .app{width:100%;max-width:480px;min-height:100dvh;background:var(--paper);position:relative;box-shadow:0 0 80px rgba(20,15,40,0.06);display:flex;flex-direction:column;overflow:hidden}
 .app.hidden{display:none}
@@ -90,6 +89,45 @@ main{flex:1;padding:0 16px 90px;overflow-y:auto}
 .link-btn{color:var(--pink);font-size:12px;font-weight:700;padding:6px;transition:var(--transition);border-radius:6px}
 .link-btn:hover{opacity:.7}
 
+/* Hero Card (admin post) */
+.hero-card{border-radius:var(--radius-lg);overflow:hidden;background:var(--paper);box-shadow:var(--shadow);margin-bottom:24px;border:1px solid var(--line-2);transition:var(--transition)}
+.hero-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.hero-image{position:relative;height:230px;background:var(--line-2);cursor:pointer}
+.hero-image img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.hero-card:hover .hero-image img{transform:scale(1.03)}
+.hero-image::after{content:'';position:absolute;inset:30% 0 0;background:linear-gradient(transparent,rgba(10,5,25,0.85))}
+.hero-label{position:absolute;bottom:18px;left:18px;right:18px;color:#fff;z-index:1}
+.hero-label .tag{display:inline-block;background:var(--pink);color:#fff;border-radius:20px;padding:5px 12px;font-size:10px;font-weight:700;margin-bottom:10px}
+.hero-label h1{font-size:20px;font-weight:800;line-height:1.5;margin-bottom:6px}
+.hero-label p{font-size:12px;opacity:.92;line-height:1.6}
+.article-meta{display:flex;align-items:center;gap:10px;padding:14px 18px;font-size:11px;color:var(--muted)}
+.article-meta img{width:32px;height:32px;border-radius:50%;object-fit:cover;border:2px solid var(--line-2)}
+.article-meta b{color:var(--ink);font-weight:700;font-size:12px}
+.meta-spacer{flex:1}
+.action-row{display:flex;align-items:center;gap:18px;padding:10px 18px 16px;border-top:1px solid var(--line-2);flex-wrap:wrap}
+.action{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);padding:4px;transition:var(--transition);font-weight:600;border-radius:8px}
+.action:hover{color:var(--ink)}
+.action:active{transform:scale(0.95)}
+.action svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.action.liked{color:var(--pink)}
+.action.liked svg{fill:var(--pink);stroke:var(--pink)}
+.action.saved{color:var(--pink)}
+.action.saved svg{fill:var(--pink);stroke:var(--pink)}
+
+/* Post Card */
+.post-card{border-radius:var(--radius-lg);overflow:hidden;background:var(--paper);box-shadow:var(--shadow);margin-bottom:20px;border:1px solid var(--line-2)}
+.post-image{position:relative;height:260px;background:var(--line-2);cursor:pointer}
+.post-image img{width:100%;height:100%;object-fit:cover}
+.post-content{padding:16px 18px}
+.post-category{display:inline-block;background:var(--pink-light);color:var(--pink);border-radius:20px;padding:4px 12px;font-size:10px;font-weight:700;margin-bottom:10px}
+.post-content h2{font-size:17px;font-weight:800;line-height:1.6;margin-bottom:8px;cursor:pointer}
+.post-content p{font-size:13px;color:var(--muted);line-height:1.9;margin-bottom:12px}
+.post-author{display:flex;align-items:center;gap:10px;padding-top:12px;border-top:1px solid var(--line-2)}
+.post-author img{width:32px;height:32px;border-radius:50%;object-fit:cover}
+.post-author b{font-size:12px;font-weight:700}
+.post-author time{font-size:10px;color:var(--muted);margin-right:auto}
+.post-menu-btn{position:absolute;top:12px;right:12px;width:32px;height:32px;background:rgba(0,0,0,0.5);color:#fff;border-radius:50%;display:grid;place-items:center;font-size:16px;z-index:2;backdrop-filter:blur(4px)}
+
 .mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .mini-card{border-radius:var(--radius);overflow:hidden;background:var(--paper);border:1px solid var(--line-2);box-shadow:var(--shadow);transition:var(--transition);cursor:pointer;position:relative}
 .mini-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
@@ -97,7 +135,6 @@ main{flex:1;padding:0 16px 90px;overflow-y:auto}
 .mini-card .mini-text{padding:12px 14px}
 .mini-card h3{font-size:12.5px;font-weight:700;line-height:1.6;margin-bottom:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .mini-card p{font-size:10px;color:var(--muted);font-weight:500}
-.card-menu-btn{position:absolute;top:8px;right:8px;width:28px;height:28px;background:rgba(0,0,0,0.5);color:#fff;border-radius:50%;display:grid;place-items:center;font-size:14px;z-index:2}
 
 .list-article{display:flex;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line-2);cursor:pointer;transition:var(--transition)}
 .list-article:hover{background:var(--line-2);margin:0 -16px;padding:14px 16px}
@@ -138,11 +175,10 @@ main{flex:1;padding:0 16px 90px;overflow-y:auto}
 .article-body p{margin-bottom:18px}
 .quote{border-right:3px solid var(--pink);background:var(--pink-light);padding:18px;border-radius:10px;color:var(--pink);margin:24px 0;font-style:italic;font-weight:500;line-height:2}
 
-.profile-cover{height:150px;border-radius:var(--radius);overflow:hidden;margin-bottom:0;border:1px solid var(--line-2);background:linear-gradient(135deg,var(--pink),#ff8ab8);position:relative}
+.profile-cover{height:150px;border-radius:var(--radius);overflow:hidden;margin-bottom:0;border:1px solid var(--line-2);background:linear-gradient(135deg,var(--pink),#ff8ab8);position:relative;cursor:pointer}
 .profile-cover img{width:100%;height:100%;object-fit:cover}
-.profile-cover.edit{cursor:pointer}
-.profile-cover.edit::after{content:'📷';position:absolute;inset:0;display:grid;place-items:center;background:rgba(0,0,0,0.4);color:#fff;font-size:24px;opacity:0;transition:var(--transition)}
-.profile-cover.edit:hover::after{opacity:1}
+.profile-cover::after{content:'📷 تغییر کاور';position:absolute;inset:0;display:grid;place-items:center;background:rgba(0,0,0,0.4);color:#fff;font-size:14px;font-weight:700;opacity:0;transition:var(--transition)}
+.profile-cover:hover::after{opacity:1}
 .profile-info{text-align:center;padding:0 16px 16px;margin-top:-45px;position:relative}
 .profile-avatar{width:90px;height:90px;border-radius:50%;border:5px solid var(--paper);object-fit:cover;margin:0 auto 10px;position:relative;z-index:1;background:var(--paper);box-shadow:0 4px 20px rgba(20,15,40,0.08)}
 .profile-info h2{font-size:19px;font-weight:800;margin:0 0 6px}
@@ -179,7 +215,6 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 .char-count{text-align:left;font-size:10px;color:var(--muted);margin:-10px 0 12px 4px;font-weight:600}
 .primary-btn{width:100%;border:none;border-radius:14px;background:var(--ink);color:var(--paper);font-weight:800;padding:16px;font-size:14px;transition:var(--transition)}
 .primary-btn:hover{background:#000}
-.primary-btn:disabled{opacity:0.5;cursor:not-allowed}
 
 .notice{display:flex;align-items:flex-start;gap:14px;padding:16px 0;border-bottom:1px solid var(--line-2);font-size:12.5px;line-height:1.8;transition:var(--transition);position:relative}
 .notice:hover{background:var(--line-2);margin:0 -16px;padding:16px}
@@ -188,8 +223,10 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 .notice div{flex:1}
 .notice b{font-weight:800;color:var(--ink)}
 .notice time{display:block;font-size:10.5px;color:var(--muted);margin-top:3px;font-weight:500}
-.notice .delete-notice{position:absolute;top:12px;left:12px;width:26px;height:26px;background:var(--line-2);color:var(--muted);border-radius:50%;display:grid;place-items:center;font-size:14px;opacity:0;transition:var(--transition)}
-.notice:hover .delete-notice{opacity:1}
+
+.tabs-notif{display:flex;gap:8px;margin-bottom:20px;border-bottom:1px solid var(--line-2)}
+.tab-notif{flex:1;padding:12px 0;font-size:13px;font-weight:700;color:var(--muted);border-bottom:2.5px solid transparent;transition:var(--transition);text-align:center}
+.tab-notif.active{color:var(--ink);border-bottom-color:var(--ink)}
 
 .messages-list{display:flex;flex-direction:column}
 .message-row{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line-2);cursor:pointer;transition:var(--transition)}
@@ -197,7 +234,6 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 .message-row:last-child{border-bottom:none}
 .message-avatar{position:relative;flex-shrink:0}
 .message-avatar img{width:52px;height:52px;border-radius:50%;object-fit:cover}
-.message-avatar .online{position:absolute;bottom:2px;right:2px;width:12px;height:12px;background:#10b981;border-radius:50%;border:2px solid var(--paper)}
 .message-info{flex:1;min-width:0}
 .message-info h4{font-size:13.5px;font-weight:800;margin-bottom:3px}
 .message-info p{font-size:11.5px;color:var(--muted);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -208,9 +244,8 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 .chat-header img{width:44px;height:44px;border-radius:50%;object-fit:cover}
 .chat-header div{flex:1}
 .chat-header h4{font-size:14px;font-weight:800}
-.chat-header p{font-size:11px;color:#10b981;font-weight:600}
 .chat-messages{display:flex;flex-direction:column;gap:10px;padding-bottom:16px;min-height:400px}
-.chat-bubble{max-width:75%;padding:10px 14px;border-radius:16px;font-size:13px;line-height:1.7;word-wrap:break-word;position:relative}
+.chat-bubble{max-width:75%;padding:10px 14px;border-radius:16px;font-size:13px;line-height:1.7;word-wrap:break-word}
 .chat-bubble.me{align-self:flex-end;background:var(--pink);color:#fff;border-bottom-right-radius:4px}
 .chat-bubble.other{align-self:flex-start;background:var(--line-2);color:var(--ink);border-bottom-left-radius:4px}
 .chat-bubble time{font-size:9px;opacity:0.7;display:block;margin-top:4px;text-align:left}
@@ -218,7 +253,6 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 .chat-input input{flex:1;border:1.5px solid var(--line);border-radius:22px;padding:12px 18px;font-size:13px;outline:none;background:var(--line-2);transition:var(--transition)}
 .chat-input input:focus{border-color:var(--pink);background:var(--paper)}
 .chat-input button{width:44px;height:44px;border-radius:50%;background:var(--pink);color:#fff;display:grid;place-items:center;transition:var(--transition);flex-shrink:0}
-.chat-input button:hover{background:var(--pink-hover)}
 .chat-input button svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.2}
 
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;height:74px;padding:0 8px;display:flex;align-items:center;justify-content:space-around;background:var(--paper);border-top:1px solid var(--line-2);z-index:100}
@@ -226,12 +260,11 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 .navbtn:hover{color:var(--ink)}
 .navbtn:active{transform:scale(0.94)}
 .navbtn.active{color:var(--pink)}
-.navbtn svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;transition:var(--transition)}
-.navbtn.active svg{stroke-width:2.3;transform:translateY(-1px)}
-.navbtn .badge{position:absolute;top:6px;right:10px;min-width:9px;height:9px;background:var(--pink);border-radius:50%;border:2px solid var(--paper);display:none;animation:pulse 2s infinite}
+.navbtn svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.navbtn.active svg{stroke-width:2.3}
+.navbtn .badge{position:absolute;top:6px;right:10px;min-width:9px;height:9px;background:var(--pink);border-radius:50%;border:2px solid var(--paper);display:none}
 .navbtn .badge.show{display:block}
 .navbtn .badge.with-count{height:16px;border-radius:8px;font-size:9px;padding:0 4px;display:grid;place-items:center;color:#fff;top:2px;right:6px}
-@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
 
 .toast{position:fixed;bottom:95px;left:50%;transform:translate(-50%,20px);background:var(--ink);color:var(--paper);padding:14px 24px;border-radius:14px;font-size:12.5px;font-weight:600;opacity:0;transition:var(--transition);pointer-events:none;z-index:200;max-width:90%;text-align:center;box-shadow:0 8px 32px rgba(20,15,40,0.2)}
 .toast.show{opacity:1;transform:translate(-50%,0)}
@@ -250,11 +283,10 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 .modal-footer input{flex:1;border:1.5px solid var(--line);border-radius:22px;padding:12px 18px;font-size:13px;outline:none;background:var(--line-2);transition:var(--transition);font-weight:500}
 .modal-footer input:focus{border-color:var(--pink);background:var(--paper)}
 .modal-footer button{background:var(--ink);color:var(--paper);border-radius:22px;padding:12px 22px;font-size:13px;font-weight:700;transition:var(--transition)}
-.modal-footer button:hover{background:#000}
 
 .comment{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line-2);position:relative}
 .comment:last-child{border-bottom:none}
-.comment img{width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--line-2)}
+.comment img{width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0}
 .comment div{flex:1}
 .comment b{font-size:13px;font-weight:800;color:var(--ink)}
 .comment>div>p{font-size:13px;color:var(--ink-2);line-height:1.8;margin:4px 0 6px}
@@ -263,58 +295,15 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 .comment .comment-actions button:hover{color:var(--pink)}
 .comment .comment-actions button.liked{color:var(--pink)}
 .comment time{font-size:10px;color:var(--muted);font-weight:500}
-.comment .comment-menu{width:26px;height:26px;color:var(--muted);display:grid;place-items:center;border-radius:50%;transition:var(--transition);margin-right:auto;font-size:16px}
-.comment .comment-menu:hover{background:var(--line-2)}
 .comment-replies{margin-right:52px;margin-top:8px;padding-right:12px;border-right:2px solid var(--line-2)}
 .reply{display:flex;gap:10px;padding:8px 0}
-.reply img{width:32px;height:32px;border-radius:50%;object-fit:cover;border:2px solid var(--line-2)}
+.reply img{width:32px;height:32px;border-radius:50%;object-fit:cover}
 .reply div{flex:1}
 .reply b{font-size:12px;font-weight:700}
 .reply p{font-size:12px;color:var(--ink-2);line-height:1.7;margin:2px 0}
-.reply time{font-size:9px;color:var(--muted)}
 .reply-input{margin-top:8px;display:flex;gap:6px}
 .reply-input input{flex:1;border:1.5px solid var(--line);border-radius:20px;padding:8px 14px;font-size:11.5px;outline:none;background:var(--line-2)}
 .reply-input button{background:var(--ink);color:var(--paper);border-radius:20px;padding:8px 14px;font-size:11px;font-weight:700}
-
-.admin-badge{background:var(--pink);color:#fff;font-size:9px;padding:3px 10px;border-radius:10px;font-weight:800;vertical-align:middle;margin-right:8px}
-.admin-tabs{display:flex;gap:6px;margin-bottom:20px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
-.admin-tabs::-webkit-scrollbar{display:none}
-.admin-tab{padding:10px 18px;border-radius:12px;font-size:12px;font-weight:700;color:var(--muted);background:var(--line-2);white-space:nowrap;transition:var(--transition)}
-.admin-tab.active{background:var(--ink);color:var(--paper)}
-.admin-card{background:var(--paper);border:1px solid var(--line-2);border-radius:var(--radius);padding:16px;margin-bottom:10px;box-shadow:var(--shadow);display:flex;align-items:center;gap:14px}
-.admin-card img{width:44px;height:44px;border-radius:50%;object-fit:cover;flex-shrink:0}
-.admin-card div{flex:1;min-width:0}
-.admin-card h4{font-size:13.5px;font-weight:800;margin-bottom:3px}
-.admin-card p{font-size:11px;color:var(--muted);font-weight:500}
-.admin-card .admin-actions{display:flex;gap:6px;flex-wrap:wrap}
-.admin-card button{padding:7px 14px;border-radius:10px;font-size:10.5px;font-weight:700;background:var(--line-2);color:var(--ink);transition:var(--transition)}
-.admin-card button.danger{background:#ffebee;color:#d32f2f}
-.admin-card button.success{background:#e8f5e9;color:#2e7d32}
-.admin-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
-.admin-stat{background:var(--paper);border:1px solid var(--line-2);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
-.admin-stat h4{font-size:11px;color:var(--muted);font-weight:600;margin-bottom:6px}
-.admin-stat b{font-size:22px;font-weight:900;color:var(--ink)}
-
-.user-row{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line-2);transition:var(--transition);cursor:pointer}
-.user-row:hover{background:var(--line-2);margin:0 -16px;padding:14px 16px}
-.user-row:last-child{border-bottom:none}
-.user-row img{width:48px;height:48px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--line-2)}
-.user-row div{flex:1}
-.user-row h4{font-size:13.5px;font-weight:800;margin-bottom:3px}
-.user-row p{font-size:11px;color:var(--muted);font-weight:500}
-.user-row button{padding:8px 18px;border-radius:20px;font-size:11.5px;font-weight:700;background:var(--ink);color:var(--paper);transition:var(--transition)}
-.user-row button.following{background:var(--line-2);color:var(--ink)}
-
-.confirm-dialog{position:fixed;inset:0;background:rgba(10,5,25,0.6);z-index:400;display:none;align-items:center;justify-content:center;padding:20px}
-.confirm-dialog.show{display:flex}
-.confirm-content{background:var(--paper);border-radius:var(--radius-lg);padding:24px;max-width:340px;width:100%;animation:scaleIn .2s}
-@keyframes scaleIn{from{transform:scale(0.9);opacity:0}to{transform:scale(1);opacity:1}}
-.confirm-content h3{font-size:16px;font-weight:800;margin-bottom:8px}
-.confirm-content p{font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:20px}
-.confirm-actions{display:flex;gap:10px}
-.confirm-actions button{flex:1;padding:12px;border-radius:12px;font-size:13px;font-weight:700;transition:var(--transition)}
-.confirm-actions button.cancel{background:var(--line-2);color:var(--ink)}
-.confirm-actions button.danger{background:#ef4444;color:#fff}
 
 .empty-state{text-align:center;padding:60px 20px;color:var(--muted)}
 .empty-state svg{width:64px;height:64px;stroke:var(--muted-light);fill:none;stroke-width:1.5;margin:0 auto 20px;opacity:0.5}
@@ -337,16 +326,26 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 .doc-content ul{padding-right:22px;margin-bottom:14px}
 .doc-content li{margin-bottom:6px}
 
+.confirm-dialog{position:fixed;inset:0;background:rgba(10,5,25,0.6);z-index:400;display:none;align-items:center;justify-content:center;padding:20px}
+.confirm-dialog.show{display:flex}
+.confirm-content{background:var(--paper);border-radius:var(--radius-lg);padding:24px;max-width:340px;width:100%}
+.confirm-content h3{font-size:16px;font-weight:800;margin-bottom:8px}
+.confirm-content p{font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:20px}
+.confirm-actions{display:flex;gap:10px}
+.confirm-actions button{flex:1;padding:12px;border-radius:12px;font-size:13px;font-weight:700;transition:var(--transition)}
+.confirm-actions button.cancel{background:var(--line-2);color:var(--ink)}
+.confirm-actions button.danger{background:#ef4444;color:#fff}
+
 .offline-banner{position:fixed;top:0;left:0;right:0;background:#ef4444;color:#fff;text-align:center;padding:8px;font-size:12px;font-weight:700;z-index:9998;transform:translateY(-100%);transition:transform 0.3s}
 .offline-banner.show{transform:translateY(0)}
 
 .fab{position:fixed;bottom:95px;right:20px;width:56px;height:56px;border-radius:50%;background:var(--pink);color:#fff;display:grid;place-items:center;box-shadow:0 8px 24px rgba(244,91,155,0.4);z-index:90;transition:var(--transition);display:none}
 .fab:hover{background:var(--pink-hover);transform:scale(1.05)}
 .fab.show{display:grid}
-.fab svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.fab svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2.4}
 
 @media(min-width:600px){body{padding:24px 0}.app{border-radius:28px;min-height:calc(100dvh - 48px);max-height:920px}header{border-radius:28px 28px 0 0}.bottom-nav{border-radius:0 0 28px 28px;bottom:24px}.modal-overlay{align-items:center}.modal-content{border-radius:22px;max-height:80vh}}
-@media(max-width:380px){.mini-card img{height:115px}.article-cover{height:220px}.profile-grid .mini-card img{height:130px}}
+@media(max-width:380px){.mini-card img{height:115px}.article-cover{height:220px}.post-image{height:220px}}
 </style>
 </head>
 <body>
@@ -358,7 +357,6 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
   <div class="loader-bar"></div>
 </div>
 
-<!-- Onboarding -->
 <div class="onboarding hide" id="onboarding">
   <div class="onboarding-icon">
     <svg viewBox="0 0 24 24" id="onboardingIcon"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
@@ -366,12 +364,9 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
   <h1 id="onboardingTitle">به Luno خوش آمدی</h1>
   <p id="onboardingText">اینجا جاییه که می‌تونی ایده‌ها، تجربه‌ها و لحظه‌های کوچک زندگیت رو با دیگران به اشتراک بذاری.</p>
   <button class="onboarding-btn" id="onboardingBtn">شروع کنیم</button>
-  <div class="onboarding-dots">
-    <span class="active"></span><span></span><span></span>
-  </div>
+  <div class="onboarding-dots"><span class="active"></span><span></span><span></span></div>
 </div>
 
-<!-- Auth -->
 <div class="auth-screen hide" id="authScreen">
   <div class="auth-card">
     <div class="auth-logo">Luno<span>.</span></div>
@@ -398,11 +393,9 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
       <span id="authSwitchText">حساب نداری؟</span>
       <button type="button" id="authSwitchBtn">ثبت‌نام</button>
     </div>
-    <div class="auth-hint">نسخه دمو - اطلاعات فقط روی همین دستگاه ذخیره می‌شود</div>
   </div>
 </div>
 
-<!-- Main App -->
 <div class="app hidden" id="mainApp">
   <header>
     <div class="logo" id="logoBtn">Luno<span>.</span></div>
@@ -428,13 +421,14 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
         <button class="top-tab" data-feed="articles">مقاله‌ها</button>
         <button class="top-tab" data-go="categories">دسته‌بندی‌ها</button>
       </div>
+      <div id="adminHeroArea"></div>
       <div id="homeContent"></div>
     </section>
 
-    <!-- Categories -->
-    <section class="screen" id="categories">
-      <h1 class="section-heading">دسته‌بندی‌ها</h1>
-      <p class="section-sub">دنیای موردعلاقه‌ات را پیدا کن.</p>
+    <!-- Articles -->
+    <section class="screen" id="articles">
+      <h1 class="section-heading">مقاله‌ها</h1>
+      <p class="section-sub">مطالب و مقالات مجله لونو.</p>
       <div class="category-grid" id="categoryGrid"></div>
     </section>
 
@@ -447,11 +441,10 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
         <input id="searchInput" placeholder="جست‌وجو..." autocomplete="off">
       </label>
       <div class="search-filters">
-        <button class="search-filter active" data-search-type="all">همه</button>
+        <button class="search-filter active" data-search-type="newest">جدیدترین</button>
         <button class="search-filter" data-search-type="popular">محبوب‌ترین</button>
-        <button class="search-filter" data-search-type="newest">جدیدترین</button>
       </div>
-      <div class="section-title"><h2 id="searchResultsTitle">مطالب پیشنهادی</h2></div>
+      <div class="section-title"><h2 id="searchResultsTitle">نتایج</h2></div>
       <div id="searchResults"></div>
     </section>
 
@@ -462,7 +455,7 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
       <div id="catDetailList"></div>
     </section>
 
-    <!-- Article -->
+    <!-- Article Detail -->
     <section class="screen" id="article">
       <div style="display:flex;justify-content:space-between;align-items:center;margin:14px 0">
         <button class="link-btn" data-back>← بازگشت</button>
@@ -513,15 +506,18 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
           <option>سبک زندگی</option><option>انیمه و فیلم</option><option>هنر و خلاقیت</option>
           <option>علم و دانستنی</option><option>سفر و گردشگری</option><option>موسیقی</option><option>کتاب و ادبیات</option>
         </select>
-        <button class="primary-btn" type="submit" id="publishBtn">انتشار</button>
+        <button class="primary-btn" type="submit">انتشار</button>
       </form>
     </section>
 
-    <!-- Messages -->
-    <section class="screen" id="messages">
-      <h1 class="section-heading">پیام‌ها</h1>
-      <p class="section-sub">گفتگوهای اخیر تو.</p>
-      <div class="messages-list" id="messagesList"></div>
+    <!-- Notifications + Messages -->
+    <section class="screen" id="notifications">
+      <h1 class="section-heading">اعلان‌ها</h1>
+      <div class="tabs-notif">
+        <button class="tab-notif active" data-notif-tab="notifs">اعلان‌ها</button>
+        <button class="tab-notif" data-notif-tab="messages">پیام‌ها</button>
+      </div>
+      <div id="notifTabContent"></div>
     </section>
 
     <!-- Chat -->
@@ -535,21 +531,9 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
       </div>
     </section>
 
-    <!-- Notifications -->
-    <section class="screen" id="notifications">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <div>
-          <h1 class="section-heading">اعلان‌ها</h1>
-          <p class="section-sub">خبرهای تازه.</p>
-        </div>
-        <button class="link-btn" id="clearAllNotifs" style="display:none">پاک کردن همه</button>
-      </div>
-      <div id="noticeList"></div>
-    </section>
-
     <!-- Profile -->
     <section class="screen" id="profile">
-      <div class="profile-cover edit" id="profileCover">
+      <div class="profile-cover" id="profileCover">
         <img id="profileCoverImg" src="" alt="" style="display:none">
       </div>
       <div class="profile-info">
@@ -558,8 +542,8 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
         <p id="profileBio"></p>
         <div class="stats">
           <div data-profile-tab="posts"><b id="profilePostsCount">0</b>پست</div>
-          <div data-profile-tab="followers"><b>0</b>دنبال‌کننده</div>
-          <div data-profile-tab="following"><b>0</b>دنبال‌شونده</div>
+          <div><b>0</b>دنبال‌کننده</div>
+          <div><b>0</b>دنبال‌شونده</div>
         </div>
         <div class="profile-buttons">
           <button class="pill-btn primary" id="editProfileBtn">ویرایش پروفایل</button>
@@ -632,8 +616,6 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
           <li>اسپم و تبلیغات ناخواسته ممنوع است.</li>
           <li>ایجاد چند حساب برای دور زدن قوانین ممنوع است.</li>
         </ul>
-        <h2>۴. حق حذف</h2>
-        <p>مدیران برنامه حق حذف هر محتوا یا مسدود کردن هر کاربری که قوانین را نقض کند، بدون اطلاع قبلی دارند.</p>
       </div>
     </section>
 
@@ -645,21 +627,14 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
         <p><strong>Luno</strong> یک مجله اجتماعی است که برای به اشتراک گذاشتن ایده‌ها، تجربه‌ها و لحظه‌های کوچک زندگی ساخته شده.</p>
         <h2>هدف ما</h2>
         <p>می‌خواهیم فضایی آرام و الهام‌بخش بسازیم که در آن هر کسی بتواند داستان خودش را با دیگران به اشتراک بگذارد.</p>
-        <h2>تماس با ما</h2>
-        <p>برای پیشنهاد، انتقاد یا گزارش مشکل، از طریق ایمیل با ما در تماس باشید.</p>
         <p style="text-align:center;margin-top:30px;color:var(--muted);font-size:12px">نسخه ۱.۰.۰ - ساخته شده با ❤️</p>
       </div>
     </section>
 
     <!-- Admin -->
     <section class="screen" id="admin">
-      <h1 class="section-heading">پنل مدیریت <span class="admin-badge">ADMIN</span></h1>
-      <p class="section-sub">مدیریت کاربران، پست‌ها و نظرات.</p>
-      <div class="admin-tabs">
-        <button class="admin-tab active" data-admin-tab="overview">نمای کلی</button>
-        <button class="admin-tab" data-admin-tab="posts">پست‌ها</button>
-        <button class="admin-tab" data-admin-tab="comments">نظرات</button>
-      </div>
+      <h1 class="section-heading">پنل مدیریت <span style="background:var(--pink);color:#fff;font-size:9px;padding:3px 10px;border-radius:10px;font-weight:800;margin-right:8px">ADMIN</span></h1>
+      <p class="section-sub">مدیریت پست‌ها و نظرات.</p>
       <div id="adminContent"></div>
     </section>
   </main>
@@ -667,14 +642,13 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
   <nav class="bottom-nav">
     <button class="navbtn active" data-go="home"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg><span>خانه</span></button>
     <button class="navbtn" data-go="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7.5"/><path d="m16.5 16.5 4.5 4.5"/></svg><span>جستجو</span></button>
-    <button class="navbtn" data-go="messages"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.4 9 9 0 0 1-4.3-1L3 20l1.2-4.5A8.3 8.3 0 0 1 3.5 11.5 8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5Z"/></svg><span>پیام</span><span class="badge" id="msgBadge"></span></button>
+    <button class="navbtn" data-go="articles"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>مقاله</span></button>
     <button class="navbtn" data-go="notifications"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><span>اعلان</span><span class="badge" id="notifBadge"></span></button>
     <button class="navbtn" data-go="profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>پروفایل</span></button>
   </nav>
 
   <button class="fab" id="fabCreate"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
 
-  <!-- Comments Modal -->
   <div class="modal-overlay" id="commentsModal">
     <div class="modal-content">
       <div class="modal-header"><h3>نظرات</h3><button class="modal-close" data-close-modal>×</button></div>
@@ -686,7 +660,6 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
     </div>
   </div>
 
-  <!-- Edit Profile Modal -->
   <div class="modal-overlay" id="editProfileModal">
     <div class="modal-content">
       <div class="modal-header"><h3>ویرایش پروفایل</h3><button class="modal-close" data-close-modal>×</button></div>
@@ -702,7 +675,6 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
     </div>
   </div>
 
-  <!-- Edit Post Modal -->
   <div class="modal-overlay" id="editPostModal">
     <div class="modal-content">
       <div class="modal-header"><h3>ویرایش پست</h3><button class="modal-close" data-close-modal>×</button></div>
@@ -718,23 +690,18 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
     </div>
   </div>
 
-  <!-- Report Modal -->
-  <div class="modal-overlay" id="reportModal">
+  <div class="modal-overlay" id="postMenuModal">
     <div class="modal-content">
-      <div class="modal-header"><h3>گزارش</h3><button class="modal-close" data-close-modal>×</button></div>
+      <div class="modal-header"><h3>عملیات</h3><button class="modal-close" data-close-modal>×</button></div>
       <div class="modal-body">
-        <p class="section-sub">دلیل گزارش را انتخاب کنید:</p>
         <div class="settings-list">
-          <div class="settings-item" data-report-reason="محتوای نامناسب"><div><h4>محتوای نامناسب</h4></div></div>
-          <div class="settings-item" data-report-reason="اسپم"><div><h4>اسپم</h4></div></div>
-          <div class="settings-item" data-report-reason="نقض حق نشر"><div><h4>نقض حق نشر</h4></div></div>
-          <div class="settings-item" data-report-reason="آزار و اذیت"><div><h4>آزار و اذیت</h4></div></div>
+          <div class="settings-item" id="menuEditPost"><div><h4>✏️ ویرایش پست</h4></div></div>
+          <div class="settings-item" id="menuDeletePost"><div><h4 style="color:#ef4444">🗑️ حذف پست</h4></div></div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Confirm Dialog -->
   <div class="confirm-dialog" id="confirmDialog">
     <div class="confirm-content">
       <h3 id="confirmTitle"></h3>
@@ -759,12 +726,20 @@ const storage={
   remove(k){try{localStorage.removeItem('luno_'+k)}catch(e){}}
 };
 
-const PLACEHOLDER_IMG='data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="#f5f3f7" width="100" height="100"/><path fill="#b5b0c0" d="M50 35c-8 0-15 7-15 15s7 15 15 15 15-7 15-15-7-15-15-15zm0 5c5.5 0 10 4.5 10 10s-4.5 10-10 10-10-4.5-10-10 4.5-10 10-10z"/></svg>');
 const DEFAULT_AVATAR='data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#f45b9b"/><circle cx="50" cy="40" r="15" fill="#fff"/><path fill="#fff" d="M20 85c0-16 13-30 30-30s30 14 30 30z"/></svg>');
+const PLACEHOLDER_IMG='data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="#f5f3f7" width="100" height="100"/><circle cx="50" cy="40" r="12" fill="#b5b0c0"/><path fill="#b5b0c0" d="M25 80c0-14 11-25 25-25s25 11 25 25z"/></svg>');
 
 const categories=[['سبک زندگی','https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=400&q=80'],['انیمه و فیلم','https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=400&q=80'],['سفر و گردشگری','https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=400&q=80'],['هنر و خلاقیت','https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=400&q=80'],['علم و دانستنی','https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=400&q=80'],['غذا و آشپزی','https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=400&q=80'],['موسیقی','https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=400&q=80'],['طبیعت','https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=400&q=80']];
 
-// State
+const ADMIN_POST={
+  id:'admin1',title:'چطور یک عادت خوب بسازیم؟',category:'سبک زندگی',
+  image:'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1000&q=85',
+  desc:'عادت‌های کوچک، قدم‌های آرام و راه‌هایی برای ساختن روزهای بهتر.',
+  body:'<p>گاهی برای تغییر زندگی به تصمیم‌های بزرگ نیاز نداریم. یک قدم کوچک که هر روز تکرار شود، می‌تواند شروع یک مسیر تازه باشد.</p><h2>از قدم‌های کوچک شروع کن</h2><p>به‌جای اینکه همه چیز را یک‌باره تغییر بدهی، یک کار ساده انتخاب کن.</p><div class="quote">قرار نیست هر روز عالی باشی؛ کافی است دوباره شروع کنی.</div><h2>به خودت فرصت بده</h2><p>ساختن عادت زمان می‌برد. پیشرفت آرام هم پیشرفت است.</p>',
+  author:'مدیر لونو',authorAvatar:DEFAULT_AVATAR,
+  createdAt:Date.now()-86400000,likes:842,isAdmin:true
+};
+
 let state={
   currentArticle:null,
   feedFilter:'all',
@@ -776,15 +751,15 @@ let state={
   comments:storage.get('comments',{}),
   chats:storage.get('chats',{}),
   notifications:storage.get('notifications',[]),
-  readNotifs:storage.get('readNotifs',false),
-  readMsgs:storage.get('readMsgs',false),
   currentChat:null,
   currentCommentsPostId:null,
   currentEditPostId:null,
   theme:storage.get('theme','light'),
   history:['home'],
-  searchType:'all',
-  onboardingSeen:storage.get('onboardingSeen',false)
+  searchType:'newest',
+  onboardingSeen:storage.get('onboardingSeen',false),
+  notifTab:'notifs',
+  showAdminHero:storage.get('showAdminHero',true)
 };
 
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -801,8 +776,6 @@ function saveAll(){
   storage.set('comments',state.comments);
   storage.set('chats',state.chats);
   storage.set('notifications',state.notifications);
-  storage.set('readNotifs',state.readNotifs);
-  storage.set('readMsgs',state.readMsgs);
   if(state.user)storage.set('user',state.user);
 }
 
@@ -811,40 +784,83 @@ function isSaved(id){return state.savedPosts.includes(id)}
 function toggleLike(id){if(isLiked(id))state.likedPosts=state.likedPosts.filter(x=>x!==id);else state.likedPosts.push(id);saveAll()}
 function toggleSave(id){if(isSaved(id))state.savedPosts=state.savedPosts.filter(x=>x!==id);else state.savedPosts.push(id);saveAll()}
 
-function toJalali(dateStr){
-  try{
-    const d=new Date(dateStr);
-    return d.toLocaleDateString('fa-IR',{year:'numeric',month:'long',day:'numeric'})+' - '+d.toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'});
-  }catch(e){return ''}
+function formatTime(ts){
+  if(!ts)return '';
+  const d=new Date(ts);
+  const now=new Date();
+  const diff=Math.floor((now-d)/1000);
+  if(diff<60)return 'همین حالا';
+  if(diff<3600)return Math.floor(diff/60)+' دقیقه پیش';
+  if(diff<86400)return Math.floor(diff/3600)+' ساعت پیش';
+  if(diff<604800)return Math.floor(diff/86400)+' روز پیش';
+  return d.toLocaleDateString('fa-IR',{year:'numeric',month:'long',day:'numeric'});
 }
 
-// Update badges
 function updateBadges(){
   const notifBadge=$('#notifBadge');
-  if(state.notifications.length&&!state.readNotifs){notifBadge.classList.add('show')}else{notifBadge.classList.remove('show')}
-  const msgBadge=$('#msgBadge');
-  const unreadChats=Object.values(state.chats).filter(arr=>arr.some(m=>m.from==='them'&&!m.read)).length;
-  if(unreadChats>0&&!state.readMsgs){msgBadge.textContent=unreadChats;msgBadge.classList.add('show','with-count')}else{msgBadge.classList.remove('show')}
+  if(state.notifications.length){notifBadge.classList.add('show')}else{notifBadge.classList.remove('show')}
 }
 
 // Renders
-function card(a){
+function renderPostCard(a){
   const isMine=a.authorId===state.user?.phone;
-  return `<article class="mini-card" data-article="${a.id}">
-    <img src="${a.image||PLACEHOLDER_IMG}" alt="${esc(a.title)}" loading="lazy" onerror="this.src='${PLACEHOLDER_IMG}'">
-    <div class="mini-text"><h3>${esc(a.title)}</h3><p>${esc(a.category)}</p></div>
-    ${isMine?'<button class="card-menu-btn" data-post-menu="'+a.id+'">⋯</button>':''}
-  </article>`;
+  return `<div class="post-card" data-article="${a.id}">
+    ${a.image?`<div class="post-image" data-article-open="${a.id}"><img src="${a.image}" alt="${esc(a.title)}" loading="lazy" onerror="this.src='${PLACEHOLDER_IMG}'"><button class="post-menu-btn" data-post-menu="${a.id}">⋯</button></div>`:''}
+    <div class="post-content">
+      <span class="post-category">${esc(a.category)}</span>
+      <h2 data-article-open="${a.id}">${esc(a.title)}</h2>
+      <p>${esc((a.desc||'').slice(0,140))}${a.desc&&a.desc.length>140?'...':''}</p>
+      <div class="post-author">
+        <img src="${a.authorAvatar||DEFAULT_AVATAR}" alt="">
+        <b>${esc(a.author||'کاربر')}</b>
+        <time>${formatTime(a.createdAt)}</time>
+      </div>
+    </div>
+  </div>`;
 }
+
+function renderMiniCard(a){
+  return `<article class="mini-card" data-article="${a.id}"><img src="${a.image||PLACEHOLDER_IMG}" alt="${esc(a.title)}" loading="lazy" onerror="this.src='${PLACEHOLDER_IMG}'"><div class="mini-text"><h3>${esc(a.title)}</h3><p>${esc(a.category)}</p></div></article>`;
+}
+
 function listItem(a){
-  return `<div class="list-article" data-article="${a.id}"><img src="${a.image||PLACEHOLDER_IMG}" alt="" loading="lazy" onerror="this.src='${PLACEHOLDER_IMG}'"><div class="list-copy"><h3>${esc(a.title)}</h3><p>${esc(a.desc||'')}</p><small>${esc(a.category)} · ${esc(a.author||'کاربر')}</small></div></div>`;
+  return `<div class="list-article" data-article="${a.id}"><img src="${a.image||PLACEHOLDER_IMG}" alt="" loading="lazy" onerror="this.src='${PLACEHOLDER_IMG}'"><div class="list-copy"><h3>${esc(a.title)}</h3><p>${esc((a.desc||'').slice(0,80))}</p><small>${esc(a.category)} · ${formatTime(a.createdAt)}</small></div></div>`;
 }
+
 function emptyState(msg,icon='alert',btnText='',btnAction=''){
   const icons={alert:'<circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>',search:'<circle cx="11" cy="11" r="7.5"/><path d="m16.5 16.5 4.5 4.5"/>',heart:'<path d="M20.8 8.6c0 5.5-8.8 11-8.8 11s-8.8-5.5-8.8-11A4.6 4.6 0 0 1 12 6.1a4.6 4.6 0 0 1 8.8 2.5Z"/>',edit:'<path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',bell:'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/>',chat:'<path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.4 9 9 0 0 1-4.3-1L3 20l1.2-4.5A8.3 8.3 0 0 1 3.5 11.5 8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5Z"/>'};
   return `<div class="empty-state"><svg viewBox="0 0 24 24">${icons[icon]||icons.alert}</svg><h3>خالیه</h3><p>${esc(msg)}</p>${btnText?`<button data-empty-action="${btnAction}">${esc(btnText)}</button>`:''}</div>`;
 }
 
+function renderAdminHero(){
+  if(!state.showAdminHero){$('#adminHeroArea').innerHTML='';return}
+  $('#adminHeroArea').innerHTML=`
+    <article class="hero-card">
+      <div class="hero-image" data-article-open="${ADMIN_POST.id}">
+        <img src="${ADMIN_POST.image}" alt="${esc(ADMIN_POST.title)}">
+        <div class="hero-label">
+          <span class="tag">مدیر برنامه</span>
+          <h1>${esc(ADMIN_POST.title)}</h1>
+          <p>${esc(ADMIN_POST.desc)}</p>
+        </div>
+      </div>
+      <div class="article-meta">
+        <img src="${ADMIN_POST.authorAvatar}" alt="">
+        <b>${esc(ADMIN_POST.author)}</b>
+        <span class="meta-spacer"></span>
+        <span>${formatTime(ADMIN_POST.createdAt)}</span>
+      </div>
+      <div class="action-row">
+        <button class="action" data-like="${ADMIN_POST.id}"><svg viewBox="0 0 24 24"><path d="M20.8 8.6c0 5.5-8.8 11-8.8 11s-8.8-5.5-8.8-11A4.6 4.6 0 0 1 12 6.1a4.6 4.6 0 0 1 8.8 2.5Z"/></svg><span>${ADMIN_POST.likes}</span></button>
+        <button class="action" data-comment="${ADMIN_POST.id}"><svg viewBox="0 0 24 24"><path d="M20 11.5a7.5 7.5 0 0 1-8 7.5 9 9 0 0 1-4-.9L3 20l1.5-4.2A7.2 7.2 0 0 1 4 11.5 7.5 7.5 0 0 1 12 4a7.5 7.5 0 0 1 8 7.5Z"/></svg>کامنت</button>
+        <button class="action" data-share="${ADMIN_POST.id}"><svg viewBox="0 0 24 24"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13"/></svg>اشتراک</button>
+      </div>
+    </article>
+  `;
+}
+
 function renderHome(){
+  renderAdminHero();
   let filtered=[...state.customPosts];
   if(state.feedFilter==='popular')filtered=[...filtered].sort((a,b)=>(b.likes||0)-(a.likes||0));
   else filtered=[...filtered].sort((a,b)=>b.createdAt-a.createdAt);
@@ -853,33 +869,32 @@ function renderHome(){
     content.innerHTML=emptyState('هنوز هیچ پستی منتشر نشده. اولین نفری باش که پست میذاره!','edit','ساخت اولین پست','go-create');
     return;
   }
-  const images=filtered.filter(a=>a.hasImage!==false);
-  content.innerHTML=`
-    <div class="section-title"><h2>تازه‌های مجله</h2></div>
-    <div class="mini-grid">${images.length?images.slice(0,6).map(card).join(''):emptyState('پستی موجود نیست','edit')}</div>
-    <div class="section-title"><h2>همه مطالب</h2></div>
-    <div>${filtered.slice(6).map(listItem).join('')||''}</div>
-  `;
+  content.innerHTML=filtered.map(renderPostCard).join('');
 }
-function renderCategories(){
+
+function renderArticles(){
   $('#categoryGrid').innerHTML=categories.map(([n,img])=>`<button class="category" data-category-detail="${esc(n)}"><img src="${img}" alt="" loading="lazy"><span>${esc(n)}</span></button>`).join('');
 }
+
 function renderCategoryDetail(catName){
   $('#catDetailTitle').textContent=catName;
   const f=state.customPosts.filter(a=>a.category===catName);
-  $('#catDetailList').innerHTML=f.length?f.map(listItem).join(''):emptyState('هنوز مطلبی در این دسته منتشر نشده','edit','ساخت پست در این دسته','go-create');
+  $('#catDetailList').innerHTML=f.length?f.map(listItem).join(''):emptyState('هنوز مطلبی در این دسته منتشر نشده','edit','ساخت پست','go-create');
 }
+
 function renderSearch(q=''){
   let r=[...state.customPosts].filter(a=>(a.title+' '+a.category+' '+(a.desc||'')).includes(q));
   if(state.searchType==='popular')r=[...r].sort((a,b)=>(b.likes||0)-(a.likes||0));
-  else if(state.searchType==='newest')r=[...r].sort((a,b)=>b.createdAt-a.createdAt);
-  $('#searchResultsTitle').textContent=q?'نتایج جست‌وجو':'مطالب';
+  else r=[...r].sort((a,b)=>b.createdAt-a.createdAt);
+  $('#searchResultsTitle').textContent=q?'نتایج جست‌وجو':'همه مطالب';
   $('#searchResults').innerHTML=r.length?r.map(listItem).join(''):emptyState(q?'مطلبی با این عبارت پیدا نشد':'هنوز پستی منتشر نشده','search');
 }
+
 function renderSaved(){
   const list=state.customPosts.filter(a=>isSaved(a.id));
-  $('#savedList').innerHTML=list.length?list.map(listItem).join(''):emptyState('هنوز مطلبی ذخیره نکرده‌ای. روی آیکون ذخیره در پست‌ها بزن','heart');
+  $('#savedList').innerHTML=list.length?list.map(listItem).join(''):emptyState('هنوز مطلبی ذخیره نکرده‌ای','heart');
 }
+
 function renderProfile(){
   $('#profileName').textContent=state.profile.name;
   $('#profileBio').textContent=state.profile.bio||'بیوگرافی خالی است';
@@ -888,66 +903,60 @@ function renderProfile(){
   if(state.profile.cover){coverImg.src=state.profile.cover;coverImg.style.display='block'}else{coverImg.style.display='none'}
   const myPosts=myArticles();
   $('#profilePostsCount').textContent=myPosts.length;
-  $('#profileGrid').innerHTML=myPosts.length?myPosts.map(card).join(''):emptyState('هنوز پستی نساختی','edit','ساخت اولین پست','go-create');
+  $('#profileGrid').innerHTML=myPosts.length?myPosts.map(renderMiniCard).join(''):emptyState('هنوز پستی نساختی','edit','ساخت اولین پست','go-create');
   const saved=state.customPosts.filter(a=>isSaved(a.id));
   $('#profileSavedList').innerHTML=saved.length?saved.map(listItem).join(''):emptyState('چیزی ذخیره نکرده‌ای','heart');
 }
-function renderMessages(){
-  const chats=state.chats;
-  const chatUsers=Object.keys(chats).map(uid=>uid);
-  if(chatUsers.length===0){
-    $('#messagesList').innerHTML=emptyState('هنوز پیامی نداری. از پروفایل کاربران میتونی پیام بفرستی','chat');
-    return;
+
+function renderNotifTab(){
+  const content=$('#notifTabContent');
+  if(state.notifTab==='notifs'){
+    content.innerHTML=state.notifications.length?state.notifications.map(n=>`<div class="notice"><img src="${n.avatar||DEFAULT_AVATAR}" alt=""><div><b>${esc(n.name)}</b> ${esc(n.text)}<time>${esc(n.time)}</time></div></div>`).join(''):emptyState('اعلان جدیدی نداری','bell');
+  } else {
+    const chatUsers=Object.keys(state.chats);
+    if(chatUsers.length===0){
+      content.innerHTML=emptyState('هنوز پیامی نداری. وقتی با کسی گفتگو کنی اینجا نشون داده میشه','chat');
+      return;
+    }
+    content.innerHTML=chatUsers.map(uid=>{
+      const msgs=state.chats[uid]||[];
+      const last=msgs[msgs.length-1];
+      const user=state.userDirectory?.[uid]||{name:'کاربر',avatar:DEFAULT_AVATAR};
+      return `<div class="message-row" data-chat-user="${uid}"><div class="message-avatar"><img src="${user.avatar||DEFAULT_AVATAR}" alt=""></div><div class="message-info"><h4>${esc(user.name)}</h4><p>${last?esc(last.text):'گفتگویی شروع نشده'}</p></div><div class="message-meta"><time>${last?esc(last.time):''}</time></div></div>`;
+    }).join('');
   }
-  $('#messagesList').innerHTML=chatUsers.map(uid=>{
-    const msgs=chats[uid]||[];
-    const last=msgs[msgs.length-1];
-    const unread=msgs.filter(m=>m.from==='them'&&!m.read).length;
-    const user=state.userDirectory?.[uid]||{name:'کاربر',avatar:DEFAULT_AVATAR};
-    return `<div class="message-row" data-chat-user="${uid}"><div class="message-avatar"><img src="${user.avatar||DEFAULT_AVATAR}" alt=""></div><div class="message-info"><h4>${esc(user.name)}</h4><p>${last?esc(last.text):'گفتگویی شروع نشده'}</p></div><div class="message-meta"><time>${last?esc(last.time):''}</time></div></div>`;
-  }).join('');
 }
+
 function renderChat(userId){
   state.currentChat=userId;
   const msgs=state.chats[userId]||[];
   const user=state.userDirectory?.[userId]||{name:'کاربر',avatar:DEFAULT_AVATAR};
-  $('#chatHeader').innerHTML=`<img src="${user.avatar||DEFAULT_AVATAR}" alt=""><div><h4>${esc(user.name)}</h4><p>گفتگو</p></div>`;
+  $('#chatHeader').innerHTML=`<img src="${user.avatar||DEFAULT_AVATAR}" alt=""><div><h4>${esc(user.name)}</h4></div>`;
   $('#chatMessages').innerHTML=msgs.length?msgs.map(m=>`<div class="chat-bubble ${m.from==='me'?'me':'other'}">${esc(m.text)}<time>${esc(m.time)}</time></div>`).join(''):emptyState('گفتگو را شروع کن','chat');
-  msgs.forEach(m=>m.read=true);
-  state.readMsgs=true;saveAll();updateBadges();
   setTimeout(()=>$('#chatMessages').scrollTop=$('#chatMessages').scrollHeight,100);
 }
-function renderNotifications(){
-  $('#noticeList').innerHTML=state.notifications.length?state.notifications.map(n=>`<div class="notice"><img src="${n.avatar||DEFAULT_AVATAR}" alt=""><div><b>${esc(n.name)}</b> ${esc(n.text)}<time>${esc(n.time)}</time></div></div>`).join(''):emptyState('اعلان جدیدی نداری','bell');
-  $('#clearAllNotifs').style.display=state.notifications.length?'block':'none';
-  state.readNotifs=true;saveAll();updateBadges();
-}
-function renderAdmin(tab='overview'){
-  $$('.admin-tab').forEach(t=>t.classList.toggle('active',t.dataset.adminTab===tab));
+
+function renderAdmin(){
   const content=$('#adminContent');
-  if(tab==='overview'){
-    content.innerHTML=`<div class="admin-stats"><div class="admin-stat"><h4>پست‌ها</h4><b>${state.customPosts.length}</b></div><div class="admin-stat"><h4>نظرات</h4><b>${Object.values(state.comments).flat().length}</b></div></div>`;
-  } else if(tab==='posts'){
-    content.innerHTML=state.customPosts.length?state.customPosts.map(p=>`<div class="admin-card"><img src="${p.image||PLACEHOLDER_IMG}" alt="" style="border-radius:8px"><div><h4>${esc(p.title)}</h4><p>${esc(p.category)}</p></div><div class="admin-actions"><button class="danger" data-admin-delete-post="${p.id}">حذف</button></div></div>`).join(''):emptyState('پستی موجود نیست');
-  } else if(tab==='comments'){
-    const allComments=Object.entries(state.comments).flatMap(([pid,arr])=>arr.map(c=>({...c,pid})));
-    content.innerHTML=allComments.length?allComments.map(c=>`<div class="admin-card"><img src="${c.avatar||DEFAULT_AVATAR}" alt=""><div><h4>${esc(c.user)}</h4><p>${esc(c.text)}</p></div><div class="admin-actions"><button class="danger" data-admin-delete-comment="${c.pid}:${c.id}">حذف</button></div></div>`).join(''):emptyState('نظری موجود نیست');
-  }
+  content.innerHTML=`
+    <div class="section-title"><h2>پست‌ها (${state.customPosts.length})</h2></div>
+    ${state.customPosts.length?state.customPosts.map(p=>`<div class="post-card" style="margin-bottom:12px"><div class="post-content"><h2 style="font-size:14px">${esc(p.title)}</h2><p style="font-size:11px">${esc(p.category)} · ${esc(p.author||'کاربر')}</p><button class="primary-btn" style="margin-top:12px;background:#ef4444;padding:10px;font-size:12px" data-admin-delete-post="${p.id}">حذف پست</button></div></div>`).join(''):emptyState('پستی موجود نیست')}
+  `;
 }
+
 function showScreen(id,push=true){
   if(!$('#'+id))id='home';
   $$('.screen').forEach(s=>s.classList.toggle('active',s.id===id));
-  $$('.navbtn[data-go]').forEach(b=>b.classList.toggle('active',b.dataset.go===id||(id==='chat'&&b.dataset.go==='messages')));
+  $$('.navbtn[data-go]').forEach(b=>b.classList.toggle('active',b.dataset.go===id||(id==='chat'&&b.dataset.go==='notifications')||(id==='categoryDetail'&&b.dataset.go==='articles')));
   if(id==='home')renderHome();
+  if(id==='articles')renderArticles();
   if(id==='search')renderSearch($('#searchInput').value);
   if(id==='saved')renderSaved();
   if(id==='profile')renderProfile();
-  if(id==='messages')renderMessages();
-  if(id==='notifications')renderNotifications();
+  if(id==='notifications')renderNotifTab();
   if(id==='admin')renderAdmin();
   if(push&&state.history[state.history.length-1]!==id)state.history.push(id);
   window.scrollTo({top:0,behavior:'smooth'});
-  // FAB
   $('#fabCreate').classList.toggle('show',id==='home');
 }
 function goBack(){
@@ -955,22 +964,25 @@ function goBack(){
   else showScreen('home',false);
 }
 function openArticle(id){
-  const a=state.customPosts.find(x=>x.id===id);
+  let a;
+  if(id==='admin1'){a=ADMIN_POST}
+  else{a=state.customPosts.find(x=>x.id===id)}
   if(!a)return;
   state.currentArticle=id;
   $('#articleImage').src=a.image||PLACEHOLDER_IMG;
   $('#articleTitle').textContent=a.title;
   $('#articleTag').textContent=a.category;
-  $('#articleTime').textContent=toJalali(a.createdAt);
+  $('#articleTime').textContent=formatTime(a.createdAt);
   $('#articleAuthorName').textContent=a.author||'کاربر';
   $('#articleAuthorAvatar').src=a.authorAvatar||DEFAULT_AVATAR;
   $('#articleLikes').textContent=(a.likes||0)+(isLiked(id)?1:0);
   $('#articleBody').innerHTML=a.body||`<p>${esc(a.desc||'')}</p>`;
   $('#articleLike').classList.toggle('liked',isLiked(id));
   $('#articleSave').classList.toggle('saved',isSaved(id));
-  $('#articleMenuBtn').style.display=a.authorId===state.user?.phone?'block':'none';
+  $('#articleMenuBtn').style.display=(a.authorId===state.user?.phone)?'block':'none';
   showScreen('article');
 }
+
 function renderComments(postId){
   const comments=state.comments[postId]||[];
   $('#commentsList').innerHTML=comments.length?comments.map(c=>`
@@ -983,7 +995,7 @@ function renderComments(postId){
           <button class="${c.liked?'liked':''}" data-like-comment="${c.id}" data-post-id="${postId}">❤️ ${c.likes||0}</button>
           <button data-reply-comment="${c.id}">پاسخ</button>
           <time>${esc(c.time)}</time>
-          ${c.user===state.profile.name?'<button class="comment-menu" data-delete-comment="'+c.id+'" data-post-id="'+postId+'" style="margin-right:auto">⋯</button>':''}
+          ${c.userId===state.user?.phone?'<button data-delete-comment="'+c.id+'" data-post-id="'+postId+'" style="margin-right:auto;color:#ef4444">حذف</button>':''}
         </div>
         ${c.replies&&c.replies.length?`<div class="comment-replies">${c.replies.map(r=>`<div class="reply"><img src="${r.avatar||DEFAULT_AVATAR}" alt=""><div><b>${esc(r.user)}</b><p>${esc(r.text)}</p><time>${esc(r.time)}</time></div></div>`).join('')}</div>`:''}
         <div class="reply-input" id="replyInput-${c.id}" style="display:none">
@@ -994,9 +1006,6 @@ function renderComments(postId){
     </div>`).join(''):emptyState('هنوز نظری نیست. اولین نظر رو بنویس!','chat');
   state.currentCommentsPostId=postId;
 }
-
-// Init UI
-$('#categoryGrid').innerHTML=categories.map(([n,img])=>`<button class="category" data-category-detail="${esc(n)}"><img src="${img}" alt="" loading="lazy"><span>${esc(n)}</span></button>`).join('');
 
 // Theme
 if(state.theme==='dark')document.documentElement.setAttribute('data-theme','dark');
@@ -1025,7 +1034,7 @@ $('#authForm').addEventListener('submit',e=>{
   if(!/^09\d{9}$/.test(phone)){$('#phoneError').classList.add('show');$('#authPhone').classList.add('error');err=true}
   if(pass.length<6){$('#passwordError').classList.add('show');$('#authPassword').classList.add('error');err=true}
   if(err)return;
-  const user={name:authMode==='signup'?name:state.profile.name,phone};
+  const user={name:authMode==='signup'?name:state.profile.name||'کاربر لونو',phone};
   state.user=user;
   if(authMode==='signup'){state.profile={name,bio:'',avatar:DEFAULT_AVATAR,cover:null}}
   storage.set('user',user);storage.set('profile',state.profile);
@@ -1038,7 +1047,6 @@ $('#logoutBtn').addEventListener('click',()=>{
   });
 });
 
-// Confirm
 let confirmCallback=null;
 function showConfirm(title,msg,cb,okText='تأیید'){
   $('#confirmTitle').textContent=title;$('#confirmMessage').textContent=msg;
@@ -1051,7 +1059,7 @@ $('#confirmOk').addEventListener('click',()=>{$('#confirmDialog').classList.remo
 function showAuth(){$('#authScreen').classList.remove('hide');$('#mainApp').classList.add('hidden')}
 function showApp(){$('#authScreen').classList.add('hide');$('#mainApp').classList.remove('hidden');renderProfile();renderHome();updateBadges()}
 
-// Loader + Onboarding + Auth
+// Loader + Onboarding
 setTimeout(()=>{
   $('#loader').classList.add('hide');setTimeout(()=>$('#loader').remove(),500);
   if(!state.onboardingSeen){$('#onboarding').classList.remove('hide')}
@@ -1059,7 +1067,6 @@ setTimeout(()=>{
   else{showAuth()}
 },900);
 
-// Onboarding
 let onboardingStep=0;
 const onboardingData=[
   {title:'به Luno خوش آمدی',text:'اینجا جاییه که می‌تونی ایده‌ها، تجربه‌ها و لحظه‌های کوچک زندگیت رو با دیگران به اشتراک بذاری.',icon:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>'},
@@ -1087,13 +1094,15 @@ document.addEventListener('click',e=>{
   if(go){showScreen(go.dataset.go);return}
   const emptyAct=e.target.closest('[data-empty-action]');
   if(emptyAct){if(emptyAct.dataset.emptyAction==='go-create')showScreen('create');return}
+  const articleOpen=e.target.closest('[data-article-open]');
+  if(articleOpen&&!e.target.closest('[data-post-menu]')){openArticle(articleOpen.dataset.articleOpen);return}
   const a=e.target.closest('[data-article]');
   if(a&&!e.target.closest('[data-post-menu]')){openArticle(a.dataset.article);return}
+  const postMenu=e.target.closest('[data-post-menu]');
+  if(postMenu){e.stopPropagation();e.preventDefault();state.currentEditPostId=postMenu.dataset.postMenu;$('#postMenuModal').classList.add('show');return}
   const catD=e.target.closest('[data-category-detail]');
   if(catD){renderCategoryDetail(catD.dataset.categoryDetail);showScreen('categoryDetail');return}
   if(e.target.closest('[data-back]')){goBack();return}
-  const postMenu=e.target.closest('[data-post-menu]');
-  if(postMenu){e.stopPropagation();showPostMenu(postMenu.dataset.postMenu);return}
   const chatRow=e.target.closest('[data-chat-user]');if(chatRow){renderChat(chatRow.dataset.chatUser);showScreen('chat');return}
   const closeBtn=e.target.closest('[data-close-modal]');if(closeBtn){closeBtn.closest('.modal-overlay').classList.remove('show');return}
   const commentBtn=e.target.closest('[data-comment]');if(commentBtn){renderComments(commentBtn.dataset.comment);$('#commentsModal').classList.add('show');return}
@@ -1105,13 +1114,14 @@ document.addEventListener('click',e=>{
   if(sendReply){const cid=+sendReply.dataset.sendReply;const pid=sendReply.dataset.postId;const input=$(`[data-reply-input="${cid}"]`);const text=input.value.trim();if(!text)return;const c=(state.comments[pid]||[]).find(x=>x.id===cid);if(c){if(!c.replies)c.replies=[];c.replies.push({user:state.profile.name,avatar:state.profile.avatar,text,time:'همین حالا'});saveAll();renderComments(pid);toast('پاسخ ثبت شد')}return}
   const delComment=e.target.closest('[data-delete-comment]');
   if(delComment){const cid=+delComment.dataset.deleteComment;const pid=delComment.dataset.postId;showConfirm('حذف نظر','این نظر حذف بشه؟',()=>{if(state.comments[pid])state.comments[pid]=state.comments[pid].filter(c=>c.id!==cid);saveAll();renderComments(pid);toast('حذف شد')});return}
-  const reportReason=e.target.closest('[data-report-reason]');
-  if(reportReason){$('#reportModal').classList.remove('show');toast('گزارش شما ثبت شد. ممنون!');return}
-  const adminTab=e.target.closest('[data-admin-tab]');if(adminTab){renderAdmin(adminTab.dataset.adminTab);return}
+  const likeBtn=e.target.closest('[data-like]');
+  if(likeBtn){const id=likeBtn.dataset.like;toggleLike(id);toast(isLiked(id)?'پسندیده شد':'لغو شد');renderHome();return}
+  const shareBtn=e.target.closest('[data-share]');
+  if(shareBtn){const url=location.href;if(navigator.share){navigator.share({title:'Luno',url})}else{navigator.clipboard?.writeText(url);toast('لینک کپی شد')}return}
+  const notifTab=e.target.closest('[data-notif-tab]');
+  if(notifTab){$$('.tab-notif').forEach(t=>t.classList.toggle('active',t===notifTab));state.notifTab=notifTab.dataset.notifTab;renderNotifTab();return}
   const adminDelPost=e.target.closest('[data-admin-delete-post]');
-  if(adminDelPost){const pid=adminDelPost.dataset.adminDeletePost;showConfirm('حذف پست','این پست حذف بشه؟',()=>{state.customPosts=state.customPosts.filter(p=>p.id!==pid);saveAll();renderAdmin('posts');renderHome();toast('پست حذف شد')});return}
-  const adminDelComment=e.target.closest('[data-admin-delete-comment]');
-  if(adminDelComment){const [pid,cid]=adminDelComment.dataset.adminDeleteComment.split(':');showConfirm('حذف نظر','این نظر حذف بشه؟',()=>{if(state.comments[pid])state.comments[pid]=state.comments[pid].filter(c=>c.id!==+cid);saveAll();renderAdmin('comments');toast('حذف شد')});return}
+  if(adminDelPost){const pid=adminDelPost.dataset.adminDeletePost;showConfirm('حذف پست','این پست حذف بشه؟',()=>{state.customPosts=state.customPosts.filter(p=>p.id!==pid);saveAll();renderAdmin();renderHome();toast('پست حذف شد')});return}
   const profileTab=e.target.closest('[data-profile-tab]');
   if(profileTab&&profileTab.classList.contains('profile-tab')){
     $$('.profile-tab').forEach(t=>t.classList.toggle('active',t===profileTab));
@@ -1127,11 +1137,38 @@ document.addEventListener('click',e=>{
 $$('[data-feed]').forEach(b=>b.addEventListener('click',()=>{$$('[data-feed]').forEach(x=>x.classList.toggle('active',x===b));state.feedFilter=b.dataset.feed;renderHome()}));
 $('#searchInput').addEventListener('input',e=>renderSearch(e.target.value.trim()));
 
-// Article actions
+// Post menu modal
+$('#menuEditPost').addEventListener('click',()=>{
+  const pid=state.currentEditPostId;if(!pid)return;
+  const a=state.customPosts.find(x=>x.id===pid);if(!a)return;
+  $('#editPostTitle').value=a.title;
+  $('#editPostText').value=(a.desc||'');
+  $('#editPostCategory').value=a.category;
+  $('#postMenuModal').classList.remove('show');
+  $('#editPostModal').classList.add('show');
+});
+$('#menuDeletePost').addEventListener('click',()=>{
+  const pid=state.currentEditPostId;if(!pid)return;
+  $('#postMenuModal').classList.remove('show');
+  showConfirm('حذف پست','این پست حذف بشه؟',()=>{
+    state.customPosts=state.customPosts.filter(p=>p.id!==pid);
+    saveAll();renderHome();renderProfile();toast('پست حذف شد');
+    if(state.currentArticle===pid)showScreen('home');
+  });
+});
+$('#saveEditPostBtn').addEventListener('click',()=>{
+  const pid=state.currentEditPostId;if(!pid)return;
+  const a=state.customPosts.find(x=>x.id===pid);if(!a)return;
+  a.title=$('#editPostTitle').value.trim()||a.title;
+  a.desc=$('#editPostText').value.trim();
+  a.category=$('#editPostCategory').value;
+  saveAll();renderHome();renderProfile();$('#editPostModal').classList.remove('show');toast('پست ویرایش شد');
+});
+
 $('#articleLike').addEventListener('click',()=>{
   if(!state.currentArticle)return;
   toggleLike(state.currentArticle);
-  const a=state.customPosts.find(x=>x.id===state.currentArticle);
+  const a=state.currentArticle==='admin1'?ADMIN_POST:state.customPosts.find(x=>x.id===state.currentArticle);
   if(a){$('#articleLike').classList.toggle('liked',isLiked(state.currentArticle));$('#articleLikes').textContent=(a.likes||0)+(isLiked(state.currentArticle)?1:0);toast(isLiked(state.currentArticle)?'پسندیده شد':'لغو شد')}
 });
 $('#articleSave').addEventListener('click',()=>{
@@ -1141,59 +1178,19 @@ $('#articleSave').addEventListener('click',()=>{
   toast(isSaved(state.currentArticle)?'ذخیره شد':'حذف شد');
 });
 $('#articleCommentBtn').addEventListener('click',()=>{if(!state.currentArticle)return;renderComments(state.currentArticle);$('#commentsModal').classList.add('show')});
-$('#articleShare').addEventListener('click',()=>{
-  const url=location.href+'#post-'+state.currentArticle;
-  if(navigator.share){navigator.share({title:$('#articleTitle').textContent,url})}
-  else{navigator.clipboard?.writeText(url);toast('لینک کپی شد')}
-});
-$('#articleMenuBtn').addEventListener('click',()=>{if(!state.currentArticle)return;showPostMenu(state.currentArticle)});
+$('#articleShare').addEventListener('click',()=>{const url=location.href+'#post-'+state.currentArticle;if(navigator.share){navigator.share({title:$('#articleTitle').textContent,url})}else{navigator.clipboard?.writeText(url);toast('لینک کپی شد')}});
+$('#articleMenuBtn').addEventListener('click',()=>{if(!state.currentArticle)return;state.currentEditPostId=state.currentArticle;$('#postMenuModal').classList.add('show')});
 
 $('#submitCommentBtn').addEventListener('click',()=>{
   const text=$('#newCommentInput').value.trim();if(!text)return;
   const pid=state.currentCommentsPostId;if(!pid)return;
   if(!state.comments[pid])state.comments[pid]=[];
-  state.comments[pid].unshift({id:Date.now(),user:state.profile.name,avatar:state.profile.avatar,text,time:'همین الان',likes:0,liked:false,replies:[]});
+  state.comments[pid].unshift({id:Date.now(),user:state.profile.name,userId:state.user.phone,avatar:state.profile.avatar,text,time:'همین حالا',likes:0,liked:false,replies:[]});
   $('#newCommentInput').value='';saveAll();renderComments(pid);toast('نظر ثبت شد');
 });
 
-// Post menu
-function showPostMenu(postId){
-  const a=state.customPosts.find(x=>x.id===postId);
-  if(!a)return;
-  if(a.authorId===state.user?.phone){
-    state.currentEditPostId=postId;
-    const action=prompt('عملیات: 1=ویرایش، 2=حذف، 3=انصراف');
-    if(action==='1'){openEditPost(postId)}
-    else if(action==='2'){showConfirm('حذف پست','این پست حذف بشه؟',()=>{state.customPosts=state.customPosts.filter(p=>p.id!==postId);saveAll();renderHome();renderProfile();showScreen('home');toast('پست حذف شد')})}
-  } else {
-    $('#reportModal').classList.add('show');
-  }
-}
-function openEditPost(postId){
-  const a=state.customPosts.find(x=>x.id===postId);if(!a)return;
-  $('#editPostTitle').value=a.title;
-  $('#editPostText').value=a.body?.replace(/<[^>]*>/g,'')||'';
-  $('#editPostCategory').value=a.category;
-  $('#editPostModal').classList.add('show');
-}
-$('#saveEditPostBtn').addEventListener('click',()=>{
-  const pid=state.currentEditPostId;if(!pid)return;
-  const a=state.customPosts.find(x=>x.id===pid);if(!a)return;
-  a.title=$('#editPostTitle').value.trim()||a.title;
-  const newBody=$('#editPostText').value.trim();
-  if(newBody)a.body=`<p>${esc(newBody).replace(/\n/g,'<br>')}</p>`;
-  a.desc=newBody.slice(0,95);
-  a.category=$('#editPostCategory').value;
-  saveAll();renderHome();renderProfile();openArticle(pid);$('#editPostModal').classList.remove('show');toast('پست ویرایش شد');
-});
-
-// Create post
-const DRAFT_KEY='draft';
-function saveDraft(){const t=$('#postTitle').value.trim();const b=$('#postText').value.trim();if(t||b){storage.set(DRAFT_KEY,{title:t,text:b,category:$('#postCategory').value})}}
-function loadDraft(){const d=storage.get(DRAFT_KEY,null);if(d){$('#postTitle').value=d.title||'';$('#postText').value=d.text||'';$('#postCategory').value=d.category||'سبک زندگی';$('#charCount').textContent=(d.text||'').length}}
-function clearDraft(){storage.remove(DRAFT_KEY)}
-$('#postTitle').addEventListener('input',()=>{clearTimeout(window._dt);window._dt=setTimeout(saveDraft,800)});
-$('#postText').addEventListener('input',e=>{$('#charCount').textContent=e.target.value.length;clearTimeout(window._dt);window._dt=setTimeout(saveDraft,800)});
+$('#postTitle').addEventListener('input',()=>{});
+$('#postText').addEventListener('input',e=>{$('#charCount').textContent=e.target.value.length});
 $('#imageFile').addEventListener('change',function(){const f=this.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{$('#previewImg').src=e.target.result;$('#uploadPreview').classList.add('show');$('#uploadLabel').textContent='تصویر انتخاب شد'};r.readAsDataURL(f)});
 $('#removeImage').addEventListener('click',()=>{$('#imageFile').value='';$('#uploadPreview').classList.remove('show');$('#uploadLabel').textContent='افزودن تصویر (اختیاری)'});
 $('#createForm').addEventListener('submit',e=>{
@@ -1205,19 +1202,17 @@ $('#createForm').addEventListener('submit',e=>{
   if(body.length<10){$('#textError').classList.add('show');$('#postText').classList.add('error');hasError=true}
   if(hasError)return;
   const add=(img,hasImage)=>{
-    state.customPosts.unshift({id:'u'+Date.now(),title,category,image:img,hasImage,desc:body.slice(0,95),body:`<p>${esc(body).replace(/\n/g,'<br>')}</p>`,createdAt:Date.now(),likes:0,author:state.profile.name,authorId:state.user.phone,authorAvatar:state.profile.avatar});
-    saveAll();clearDraft();$('#createForm').reset();$('#uploadPreview').classList.remove('show');$('#uploadLabel').textContent='افزودن تصویر (اختیاری)';$('#charCount').textContent='0';
+    state.customPosts.unshift({id:'u'+Date.now(),title,category,image:img,hasImage,desc:body.slice(0,140),body:`<p>${esc(body).replace(/\n/g,'<br>')}</p>`,createdAt:Date.now(),likes:0,author:state.profile.name,authorId:state.user.phone,authorAvatar:state.profile.avatar});
+    saveAll();$('#createForm').reset();$('#uploadPreview').classList.remove('show');$('#uploadLabel').textContent='افزودن تصویر (اختیاری)';$('#charCount').textContent='0';
     renderHome();renderProfile();showScreen('home');toast(hasImage?'پست تصویری منتشر شد':'پست متنی منتشر شد');
   };
   if(file){
-    if(!file.type.startsWith('image/')){toast('یک تصویر انتخاب کن','error');return}
+    if(!file.type.startsWith('image/')){toast('تصویر انتخاب کن','error');return}
     if(file.size>4*1024*1024){toast('حجم کمتر از ۴ مگابایت','error');return}
     const r=new FileReader();r.onload=()=>add(r.result,true);r.readAsDataURL(file);
   } else add(null,false);
 });
-loadDraft();
 
-// Chat
 $('#sendChatBtn').addEventListener('click',()=>{
   const text=$('#chatInput').value.trim();if(!text||!state.currentChat)return;
   if(!state.chats[state.currentChat])state.chats[state.currentChat]=[];
@@ -1227,7 +1222,6 @@ $('#sendChatBtn').addEventListener('click',()=>{
 });
 $('#chatInput').addEventListener('keypress',e=>{if(e.key==='Enter')$('#sendChatBtn').click()});
 
-// Edit profile
 $('#editProfileBtn').addEventListener('click',openEditProfile);
 $('#settingsEditProfile').addEventListener('click',openEditProfile);
 $('#profileCover').addEventListener('click',()=>{
@@ -1248,26 +1242,17 @@ $('#saveProfileBtn').addEventListener('click',()=>{
   if(f){const r=new FileReader();r.onload=e=>{state.profile.avatar=e.target.result;done()};r.readAsDataURL(f)}else done();
 });
 
-// Clear notifications
-$('#clearAllNotifs').addEventListener('click',()=>{showConfirm('پاک کردن اعلان‌ها','همه اعلان‌ها پاک بشن؟',()=>{state.notifications=[];saveAll();renderNotifications();toast('همه پاک شد')})});
-
-// FAB
 $('#fabCreate').addEventListener('click',()=>showScreen('create'));
 
-// Admin via double-click logo
 let clickTimer=null;
 $('#logoBtn').addEventListener('click',()=>{
   if(clickTimer){clearTimeout(clickTimer);clickTimer=null;showScreen('admin');toast('ورود به پنل مدیریت')}
   else clickTimer=setTimeout(()=>{clickTimer=null;showScreen('home')},280);
 });
 
-// Offline detection
 window.addEventListener('online',()=>$('#offlineBanner').classList.remove('show'));
 window.addEventListener('offline',()=>$('#offlineBanner').classList.add('show'));
 if(!navigator.onLine)$('#offlineBanner').classList.add('show');
-
-// Register Service Worker (PWA)
-if('serviceWorker' in navigator){navigator.serviceWorker.register('service-worker.js').catch(()=>{})}
 
 window.addEventListener('popstate',()=>goBack());
 })();
