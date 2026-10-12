@@ -63,6 +63,75 @@ main{flex:1;padding-bottom:80px;overflow-y:auto}
 .page.active{display:block;animation:fade .2s}
 @keyframes fade{from{opacity:0}to{opacity:1}}
 
+/* ===== CHAT (full-screen like Telegram) ===== */
+#page-chat{display:none}
+#page-chat.active{
+  display:flex;
+  flex-direction:column;
+  position:fixed;
+  top:0;bottom:0;
+  left:50%;transform:translateX(-50%);
+  width:100%;max-width:480px;
+  background:var(--paper);
+  z-index:200;
+}
+.chat-top{
+  display:flex;align-items:center;gap:10px;
+  padding:12px 14px;
+  border-bottom:1px solid var(--line-2);
+  background:var(--paper);
+  flex-shrink:0;
+  padding-top:calc(12px + env(safe-area-inset-top));
+}
+.back-btn{width:36px;height:36px;display:grid;place-items:center;border-radius:50%;color:var(--ink);flex-shrink:0}
+.back-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2}
+.chat-top img{width:42px;height:42px;border-radius:50%;object-fit:cover;cursor:pointer;flex-shrink:0}
+.chat-top-info{flex:1;cursor:pointer;min-width:0}
+.chat-top-info h4{font-size:14px;font-weight:800;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.chat-top-info small{font-size:11px;color:#10b981;font-weight:600}
+.chat-body{
+  flex:1;
+  overflow-y:auto;
+  padding:14px 16px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  background:var(--bg);
+}
+.bubble{
+  max-width:78%;
+  padding:9px 13px;
+  border-radius:16px;
+  font-size:13.5px;
+  line-height:1.65;
+  word-wrap:break-word;
+  position:relative;
+  cursor:pointer;
+}
+.bubble.me{align-self:flex-end;background:var(--ink);color:var(--paper);border-bottom-right-radius:4px}
+.bubble.them{align-self:flex-start;background:var(--paper);color:var(--ink);border-bottom-left-radius:4px;border:1px solid var(--line-2)}
+.bubble time{font-size:9px;opacity:.65;display:block;margin-top:3px;text-align:left}
+.chat-inputbar{
+  display:flex;gap:8px;
+  padding:10px 14px;
+  padding-bottom:calc(10px + env(safe-area-inset-bottom));
+  border-top:1px solid var(--line-2);
+  background:var(--paper);
+  flex-shrink:0;
+}
+.chat-inputbar input{
+  flex:1;border:1.5px solid var(--line);border-radius:22px;
+  padding:11px 16px;font-size:13.5px;outline:none;
+  background:var(--line-2);
+}
+.chat-inputbar input:focus{border-color:var(--ink);background:var(--paper)}
+.chat-inputbar button{
+  width:44px;height:44px;border-radius:50%;
+  background:var(--ink);color:var(--paper);
+  display:grid;place-items:center;flex-shrink:0;
+}
+.chat-inputbar svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2.2}
+
 .tabs-scroll{display:flex;gap:22px;padding:12px 16px 10px;overflow-x:auto;scrollbar-width:none;background:var(--paper);border-bottom:1px solid var(--line-2)}
 .tabs-scroll::-webkit-scrollbar{display:none}
 .tab{font-size:14px;font-weight:600;color:var(--muted);white-space:nowrap;padding:4px 0;position:relative;background:none}
@@ -100,8 +169,11 @@ main{flex:1;padding-bottom:80px;overflow-y:auto}
 .post-comment-link{font-size:12.5px;color:var(--muted);font-weight:500}
 .post-time{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;margin-top:6px}
 
-.text-post{background:var(--paper);border-bottom:8px solid var(--line-2);padding:16px 14px}
-.text-post-cat{display:inline-block;background:var(--line-2);color:var(--ink-2);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;margin-bottom:10px}
+/* Text post with menu button */
+.text-post{background:var(--paper);border-bottom:8px solid var(--line-2);padding:16px 14px;position:relative}
+.text-post-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:10px}
+.text-post-cat{display:inline-block;background:var(--line-2);color:var(--ink-2);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700}
+.text-post-menu{width:30px;height:30px;color:var(--muted);font-size:20px;display:grid;place-items:center;border-radius:50%;flex-shrink:0}
 .text-post h3{font-size:17px;font-weight:800;line-height:1.6;margin-bottom:8px}
 .text-post p{font-size:13.5px;color:var(--ink-2);line-height:1.9;margin-bottom:12px}
 .text-post-author{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--muted);padding-bottom:10px;border-bottom:1px solid var(--line-2);margin-bottom:10px}
@@ -149,7 +221,7 @@ main{flex:1;padding-bottom:80px;overflow-y:auto}
 .btn-sm{padding:8px 14px;border-radius:18px;font-size:11.5px;font-weight:700;white-space:nowrap}
 .btn-sm.primary{background:var(--ink);color:var(--paper)}
 .btn-sm.pending{background:var(--line-2);color:var(--muted)}
-.btn-sm.danger{background:var(--line-2);color:#ef4444}
+.btn-sm.danger{background:#fee2e2;color:#dc2626}
 .btn-sm.chat{padding:8px 10px;background:var(--line-2);color:var(--ink)}
 .btn-sm.chat svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2}
 
@@ -163,7 +235,6 @@ main{flex:1;padding-bottom:80px;overflow-y:auto}
 .notif-info p b{font-weight:800}
 .notif-info time{font-size:10.5px;color:var(--muted)}
 .notif-del{position:absolute;top:10px;left:10px;width:26px;height:26px;display:grid;place-items:center;color:var(--muted);border-radius:50%;font-size:16px}
-.notif-del:hover{background:var(--line-2)}
 
 .chat-row{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line-2);background:var(--paper);position:relative}
 .chat-row>img{width:50px;height:50px;border-radius:50%;object-fit:cover;flex-shrink:0;cursor:pointer}
@@ -171,24 +242,6 @@ main{flex:1;padding-bottom:80px;overflow-y:auto}
 .chat-row-info h4{font-size:13.5px;font-weight:800;margin-bottom:2px}
 .chat-row-info p{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .chat-row-time{font-size:10.5px;color:var(--muted);flex-shrink:0;margin-left:4px}
-
-.chat-top{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid var(--line-2);background:var(--paper);position:sticky;top:0;z-index:20}
-.back-btn{width:36px;height:36px;display:grid;place-items:center;border-radius:50%;color:var(--ink)}
-.back-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2}
-.chat-top img{width:40px;height:40px;border-radius:50%;object-fit:cover;cursor:pointer}
-.chat-top-info{flex:1;cursor:pointer}
-.chat-top-info h4{font-size:14px;font-weight:800}
-.chat-top-info small{font-size:11px;color:#10b981;font-weight:600}
-.chat-body{padding:14px 16px;display:flex;flex-direction:column;gap:8px;min-height:400px}
-.bubble{max-width:75%;padding:9px 13px;border-radius:16px;font-size:13px;line-height:1.6;word-wrap:break-word;position:relative;cursor:pointer}
-.bubble.me{align-self:flex-end;background:var(--ink);color:var(--paper);border-bottom-right-radius:4px}
-.bubble.them{align-self:flex-start;background:var(--line-2);color:var(--ink);border-bottom-left-radius:4px}
-.bubble time{font-size:9px;opacity:.7;display:block;margin-top:3px}
-.chat-inputbar{position:sticky;bottom:74px;background:var(--paper);padding:10px 16px;border-top:1px solid var(--line-2);display:flex;gap:8px;z-index:15}
-.chat-inputbar input{flex:1;border:1.5px solid var(--line);border-radius:22px;padding:10px 16px;font-size:13px;outline:none;background:var(--line-2)}
-.chat-inputbar input:focus{border-color:var(--ink);background:var(--paper)}
-.chat-inputbar button{width:42px;height:42px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;flex-shrink:0}
-.chat-inputbar svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2}
 
 .profile-cover{height:160px;background:var(--line);position:relative;overflow:hidden}
 .profile-cover img{width:100%;height:100%;object-fit:cover}
@@ -199,7 +252,7 @@ main{flex:1;padding-bottom:80px;overflow-y:auto}
 .profile-stats{display:flex;justify-content:center;gap:30px;padding:12px 0;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);margin-bottom:14px;font-size:11px;color:var(--muted);font-weight:600}
 .profile-stats>div{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
 .profile-stats b{font-size:16px;font-weight:800;color:var(--ink)}
-.profile-btns{display:flex;gap:8px;justify-content:center;margin-bottom:14px}
+.profile-btns{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
 .pbtn{padding:9px 20px;border-radius:20px;font-size:12.5px;font-weight:700}
 .pbtn.primary{background:var(--ink);color:var(--paper)}
 .pbtn.secondary{background:var(--line-2);color:var(--ink)}
@@ -213,9 +266,11 @@ main{flex:1;padding-bottom:80px;overflow-y:auto}
 .pin-text{padding:14px;display:flex;align-items:center;justify-content:center}
 .pin-text h4{font-size:11px;font-weight:700;line-height:1.5;text-align:center;overflow:hidden;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical}
 .text-post-list{padding:12px 16px}
-.text-post-card{background:var(--paper);border:1px solid var(--line-2);border-radius:12px;padding:14px;margin-bottom:10px}
+.text-post-card{background:var(--paper);border:1px solid var(--line-2);border-radius:12px;padding:14px;margin-bottom:10px;position:relative}
+.text-post-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
 .text-post-card h4{font-size:14px;font-weight:800;margin-bottom:6px;line-height:1.5}
 .text-post-card p{font-size:12px;color:var(--muted);line-height:1.8;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
+.text-post-card-menu{width:28px;height:28px;color:var(--muted);font-size:18px;display:grid;place-items:center;border-radius:50%;flex-shrink:0}
 .section-label{padding:14px 16px 6px;font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.3px}
 
 .article-cover{height:260px;position:relative;background:var(--line)}
@@ -284,14 +339,11 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 .modal-foot input{flex:1;border:1.5px solid var(--line);border-radius:22px;padding:10px 16px;font-size:13px;outline:none;background:var(--line-2)}
 .modal-foot input:focus{border-color:var(--ink);background:var(--paper)}
 .modal-foot button{background:var(--ink);color:var(--paper);border-radius:22px;padding:10px 18px;font-size:12.5px;font-weight:700}
-
-/* Post menu modal */
 .menu-list{padding:8px 0}
 .menu-item{display:flex;align-items:center;gap:12px;padding:14px 20px;font-size:13.5px;font-weight:600;color:var(--ink);background:none;width:100%;text-align:right}
 .menu-item:active{background:var(--line-2)}
 .menu-item svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0}
 .menu-item.danger{color:#ef4444}
-
 .comment-row{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--line-2)}
 .comment-row:last-child{border-bottom:none}
 .comment-row img{width:36px;height:36px;border-radius:50%;object-fit:cover;flex-shrink:0;cursor:pointer}
@@ -326,7 +378,7 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 .empty p{font-size:12.5px;line-height:1.7;margin-bottom:14px;max-width:260px;margin-left:auto;margin-right:auto}
 .empty button{background:var(--ink);color:var(--paper);border-radius:10px;padding:10px 22px;font-size:12.5px;font-weight:700}
 
-@media(min-width:600px){body{padding:20px 0;background:#e8e8ec}.app{border-radius:20px;max-height:900px;min-height:calc(100dvh - 40px)}.bottom-nav{border-radius:0 0 20px 20px}}
+@media(min-width:600px){body{padding:20px 0;background:#e8e8ec}.app{border-radius:20px;max-height:900px;min-height:calc(100dvh - 40px)}.bottom-nav{border-radius:0 0 20px 20px}#page-chat.active{border-radius:20px;height:calc(100dvh - 40px);top:50%;transform:translate(-50%,-50%);bottom:auto}}
 </style>
 </head>
 <body>
@@ -378,7 +430,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
   </header>
 
   <main>
-    <!-- HOME -->
     <section class="page active" id="page-home">
       <div class="tabs-scroll">
         <button class="tab active" data-feed="newest">جدیدترین</button>
@@ -388,7 +439,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
       <div id="feed"></div>
     </section>
 
-    <!-- SEARCH -->
     <section class="page" id="page-search">
       <div class="search-wrap">
         <h1 class="page-title">جستجو</h1>
@@ -404,7 +454,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
       <div id="searchResults"></div>
     </section>
 
-    <!-- FRIENDS -->
     <section class="page" id="page-friends">
       <h1 class="page-title" style="padding:16px 16px 0">دوستان</h1>
       <p style="font-size:12.5px;color:var(--muted);padding:0 16px 12px">کاربران لونو را ببین و درخواست چت بفرست.</p>
@@ -416,7 +465,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
       <div id="friendsList"></div>
     </section>
 
-    <!-- NOTIFICATIONS -->
     <section class="page" id="page-notifs">
       <h1 class="page-title" style="padding:16px 16px 0">اعلان‌ها</h1>
       <div class="notif-tabs">
@@ -426,7 +474,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
       <div id="notifsList"></div>
     </section>
 
-    <!-- CHAT -->
     <section class="page" id="page-chat">
       <div class="chat-top">
         <button class="back-btn" data-back><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
@@ -443,7 +490,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
       </div>
     </section>
 
-    <!-- MY PROFILE -->
     <section class="page" id="page-profile">
       <div class="profile-cover" id="myCover">
         <img id="myCoverImg" src="" alt="" style="display:none">
@@ -469,7 +515,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
       <div id="myProfileContent"></div>
     </section>
 
-    <!-- USER PROFILE -->
     <section class="page" id="page-user">
       <div class="profile-cover" id="userCover"></div>
       <div class="profile-head">
@@ -488,7 +533,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
       <div id="userPostsList"></div>
     </section>
 
-    <!-- ARTICLE READER -->
     <section class="page" id="page-article">
       <div class="chat-top">
         <button class="back-btn" data-back><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
@@ -510,7 +554,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
       <div class="article-body" id="artBody"></div>
     </section>
 
-    <!-- CREATE -->
     <section class="page" id="page-create">
       <div class="create-wrap">
         <div class="create-box">
@@ -556,7 +599,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
       </div>
     </section>
 
-    <!-- SETTINGS -->
     <section class="page" id="page-settings">
       <div class="chat-top">
         <button class="back-btn" data-back><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
@@ -620,7 +662,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
     <button class="nav" data-go="profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>پروفایل</span></button>
   </nav>
 
-  <!-- COMMENT MODAL -->
   <div class="modal" id="commentModal">
     <div class="modal-box">
       <div class="modal-head"><h3>نظرات</h3><button class="modal-close" data-close>×</button></div>
@@ -632,7 +673,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
     </div>
   </div>
 
-  <!-- POST MENU MODAL -->
   <div class="modal" id="postMenuModal">
     <div class="modal-box">
       <div class="modal-head"><h3>عملیات پست</h3><button class="modal-close" data-close>×</button></div>
@@ -640,7 +680,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
     </div>
   </div>
 
-  <!-- EDIT PROFILE MODAL -->
   <div class="modal" id="editModal">
     <div class="modal-box">
       <div class="modal-head"><h3>ویرایش پروفایل</h3><button class="modal-close" data-close>×</button></div>
@@ -656,15 +695,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
     </div>
   </div>
 
-  <!-- FRIENDS LIST MODAL (own profile) -->
-  <div class="modal" id="friendsListModal">
-    <div class="modal-box">
-      <div class="modal-head"><h3>دوستان من</h3><button class="modal-close" data-close>×</button></div>
-      <div class="modal-body" id="friendsListModalBody"></div>
-    </div>
-  </div>
-
-  <!-- CONFIRM -->
   <div class="confirm" id="confirmBox">
     <div class="confirm-box">
       <h3 id="confirmTitle"></h3>
@@ -688,17 +718,8 @@ const POPULAR_LIKES = 20;
 const DEFAULT_AVATAR = 'data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#e5e7eb"/><circle cx="50" cy="40" r="15" fill="#9ca3af"/><path fill="#9ca3af" d="M20 85c0-16 13-30 30-30s30 14 30 30z"/></svg>');
 const PLACEHOLDER = DEFAULT_AVATAR;
 
-// کاربر فیک برای نمایش مکانیزم
 const FAKE_USERS = [
-  {
-    id: 'f1',
-    name: 'سارا محمدی',
-    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80',
-    bio: 'عاشق عکاسی و سفر',
-    online: true,
-    posts: 0,
-    friends: 120
-  }
+  {id:'f1', name:'سارا محمدی', avatar:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80', bio:'عاشق عکاسی و سفر', online:true, posts:0, friends:120}
 ];
 
 let state = {
@@ -865,9 +886,14 @@ function renderHome() {
 }
 
 function renderPost(p) {
+  const canManage = isAdmin() || p.authorId === state.user?.phone;
+
   if (p.hasImage === false) {
     return `<div class="text-post">
-      <span class="text-post-cat">${esc(p.category)}</span>
+      <div class="text-post-head">
+        <span class="text-post-cat">${esc(p.category)}</span>
+        ${canManage ? `<button class="text-post-menu" data-menu="${p.id}">⋯</button>` : ''}
+      </div>
       <h3>${esc(p.title)}</h3>
       <p>${esc(p.desc || '')}</p>
       <div class="text-post-author">
@@ -885,7 +911,6 @@ function renderPost(p) {
   }
 
   const commentsCount = (state.comments[p.id] || []).length;
-  const canManage = isAdmin() || p.authorId === state.user?.phone;
   return `<div class="post">
     <div class="post-header">
       <img class="post-avatar" src="${p.authorAvatar || DEFAULT_AVATAR}" alt="" data-user="${p.authorId}">
@@ -994,7 +1019,7 @@ function renderUserRow(u) {
   if (friend) {
     actions = `<button class="btn-sm chat" data-chat="${u.id}" title="پیام"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.4 9 9 0 0 1-4.3-1L3 20l1.2-4.5A8.3 8.3 0 0 1 3.5 11.5 8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5Z"/></svg></button>`;
   } else if (pending) {
-    actions = `<button class="btn-sm pending">در انتظار</button>`;
+    actions = `<button class="btn-sm pending">در انتظار تایید</button>`;
   } else {
     actions = `<button class="btn-sm primary" data-request="${u.id}">درخواست چت</button>`;
   }
@@ -1019,9 +1044,9 @@ function sendChatRequest(uid) {
   state.pending.push({ to: uid, at: Date.now() });
   save();
   renderFriends();
-  toast('درخواست چت ارسال شد');
+  toast('درخواست چت ارسال شد. در انتظار تایید ' + u.name);
 
-  // شبیه‌سازی قبول بعد از ۴ ثانیه
+  // شبیه‌سازی تایید بعد از ۱۲ ثانیه
   setTimeout(() => {
     if (!isPending(uid)) return;
     state.pending = state.pending.filter(r => r.to !== uid);
@@ -1037,7 +1062,8 @@ function sendChatRequest(uid) {
     updateBadge();
     if ($('#page-friends').classList.contains('active')) renderFriends();
     if ($('#page-profile').classList.contains('active')) renderMyProfile();
-  }, 4000);
+    toast(u.name + ' درخواستت رو قبول کرد');
+  }, 12000);
 }
 
 function removeFriend(uid) {
@@ -1099,7 +1125,7 @@ function renderNotifs() {
   }
 }
 
-// ===== CHAT =====
+// ===== CHAT (full-screen) =====
 function openChat(uid) {
   const u = FAKE_USERS.find(x => x.id === uid);
   if (!u) return;
@@ -1110,6 +1136,8 @@ function openChat(uid) {
   if (!state.chats[uid]) state.chats[uid] = [];
   renderChatBody();
   showPage('chat');
+  // Focus on input after a small delay
+  setTimeout(() => $('#chatInput').focus(), 200);
 }
 
 function renderChatBody() {
@@ -1169,9 +1197,14 @@ function renderMyProfile() {
     }
     if (textPosts.length) {
       html += `<div class="section-label">پست‌های متنی</div><div class="text-post-list">${textPosts.map(p => `
-        <div class="text-post-card" data-article="${p.id}">
-          <h4>${esc(p.title)}</h4>
-          <p>${esc(p.desc || '')}</p>
+        <div class="text-post-card">
+          <div class="text-post-card-head">
+            <div data-article="${p.id}" style="flex:1;cursor:pointer">
+              <h4>${esc(p.title)}</h4>
+            </div>
+            <button class="text-post-card-menu" data-menu="${p.id}">⋯</button>
+          </div>
+          <p data-article="${p.id}" style="cursor:pointer">${esc(p.desc || '')}</p>
         </div>
       `).join('')}</div>`;
     }
@@ -1188,7 +1221,6 @@ function renderMyProfile() {
       : `<div class="pin" data-article="${p.id}"><img src="${p.image || PLACEHOLDER}" alt=""></div>`
     ).join('')}</div>`;
   } else {
-    // Friends tab
     const friendsList = FAKE_USERS.filter(u => isFriend(u.id));
     if (!friendsList.length) {
       $('#myProfileContent').innerHTML = emptyState('هنوز دوستی اضافه نکردی', 'users');
@@ -1400,7 +1432,7 @@ $('#publishBtn').addEventListener('click', () => {
   renderHome();
 });
 
-// ===== POST MENU MODAL =====
+// ===== POST MENU =====
 function openPostMenu(postId) {
   const p = state.posts.find(x => x.id === postId);
   if (!p) return;
@@ -1441,6 +1473,12 @@ function showPage(id, push = true) {
 }
 
 function goBack() {
+  // If in chat, exit chat overlay
+  if ($('#page-chat').classList.contains('active')) {
+    $('#page-chat').classList.remove('active');
+    state.currentChat = null;
+    return;
+  }
   state.history.pop();
   const prev = state.history[state.history.length - 1] || 'home';
   showPage(prev, false);
@@ -1508,11 +1546,9 @@ document.addEventListener('click', e => {
     return;
   }
 
-  // Post menu
   const mn = e.target.closest('[data-menu]');
   if (mn) { e.stopPropagation(); openPostMenu(mn.dataset.menu); return; }
 
-  // Post menu actions
   const ma = e.target.closest('[data-menu-action]');
   if (ma) {
     e.stopPropagation();
@@ -1539,7 +1575,6 @@ document.addEventListener('click', e => {
     return;
   }
 
-  // Delete notification
   const dn = e.target.closest('[data-del-notif]');
   if (dn) {
     e.stopPropagation();
@@ -1550,7 +1585,6 @@ document.addEventListener('click', e => {
     return;
   }
 
-  // Delete chat
   const dc = e.target.closest('[data-del-chat]');
   if (dc) {
     e.stopPropagation();
@@ -1564,7 +1598,6 @@ document.addEventListener('click', e => {
     return;
   }
 
-  // Delete chat bubble
   const db = e.target.closest('[data-del-bubble]');
   if (db) {
     e.stopPropagation();
@@ -1580,7 +1613,6 @@ document.addEventListener('click', e => {
     return;
   }
 
-  // user click
   const ur = e.target.closest('[data-user]');
   if (ur) {
     e.stopPropagation();
@@ -1588,43 +1620,34 @@ document.addEventListener('click', e => {
     return;
   }
 
-  // chat profile click
   if (e.target.closest('[data-chat-profile]') && state.currentChat) {
     openUserProfile(state.currentChat);
     return;
   }
 
-  // article author click
   if (e.target.closest('[data-art-author]') && currentArticleAuthorId) {
     openUserProfile(currentArticleAuthorId);
     return;
   }
 
-  // chat request
   const rq = e.target.closest('[data-request]');
   if (rq) { e.stopPropagation(); sendChatRequest(rq.dataset.request); return; }
 
-  // remove friend
   const uf = e.target.closest('[data-unfriend]');
   if (uf) { e.stopPropagation(); removeFriend(uf.dataset.unfriend); return; }
 
-  // open chat
   const ch = e.target.closest('[data-chat]');
   if (ch) { e.stopPropagation(); openChat(ch.dataset.chat); return; }
 
-  // open article
   const ar = e.target.closest('[data-article]');
   if (ar) { openArticle(ar.dataset.article); return; }
 
-  // friend tabs
   const ft = e.target.closest('[data-ftab]');
   if (ft) { state.friendTab = ft.dataset.ftab; renderFriends(); return; }
 
-  // notif tabs
   const nt = e.target.closest('[data-ntab]');
   if (nt) { state.notifTab = nt.dataset.ntab; renderNotifs(); return; }
 
-  // profile tabs
   const pt = e.target.closest('[data-ptab]');
   if (pt) {
     state.profileTab = pt.dataset.ptab;
@@ -1633,7 +1656,6 @@ document.addEventListener('click', e => {
     return;
   }
 
-  // search tabs
   const st = e.target.closest('[data-search]');
   if (st) {
     state.searchTab = st.dataset.search;
@@ -1642,7 +1664,6 @@ document.addEventListener('click', e => {
     return;
   }
 
-  // feed tabs
   const fd = e.target.closest('[data-feed]');
   if (fd) {
     state.feedFilter = fd.dataset.feed;
@@ -1651,11 +1672,9 @@ document.addEventListener('click', e => {
     return;
   }
 
-  // close modal
   const cl = e.target.closest('[data-close]');
   if (cl) { cl.closest('.modal').classList.remove('show'); return; }
 
-  // back
   if (e.target.closest('[data-back]')) { goBack(); return; }
 });
 
@@ -1667,7 +1686,6 @@ $('#themeBtn').addEventListener('click', () => {
   else document.documentElement.setAttribute('data-theme', 'dark');
 });
 
-// Friends count click on profile → friends tab
 $('#myFriendsBtn').addEventListener('click', () => {
   state.profileTab = 'friends';
   $$('.ptab').forEach(t => t.classList.toggle('active', t.dataset.ptab === 'friends'));
@@ -1678,6 +1696,8 @@ $('#myFriendsBtn').addEventListener('click', () => {
 setTimeout(() => {
   $('#loader').classList.add('hide');
   setTimeout(() => $('#loader').remove(), 500);
+  if (state.user) enterApp();
+  else $('#authScreen').classList.remove('hidden');
   if (state.user) enterApp();
   else $('#authScreen').classList.remove('hide');
 }, 700);
