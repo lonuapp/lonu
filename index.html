@@ -63,73 +63,30 @@ main{flex:1;padding-bottom:80px;overflow-y:auto}
 .page.active{display:block;animation:fade .2s}
 @keyframes fade{from{opacity:0}to{opacity:1}}
 
-/* ===== CHAT (full-screen like Telegram) ===== */
 #page-chat{display:none}
 #page-chat.active{
-  display:flex;
-  flex-direction:column;
-  position:fixed;
-  top:0;bottom:0;
+  display:flex;flex-direction:column;
+  position:fixed;top:0;bottom:0;
   left:50%;transform:translateX(-50%);
   width:100%;max-width:480px;
-  background:var(--paper);
-  z-index:200;
+  background:var(--paper);z-index:200;
 }
-.chat-top{
-  display:flex;align-items:center;gap:10px;
-  padding:12px 14px;
-  border-bottom:1px solid var(--line-2);
-  background:var(--paper);
-  flex-shrink:0;
-  padding-top:calc(12px + env(safe-area-inset-top));
-}
+.chat-top{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--line-2);background:var(--paper);flex-shrink:0;padding-top:calc(12px + env(safe-area-inset-top))}
 .back-btn{width:36px;height:36px;display:grid;place-items:center;border-radius:50%;color:var(--ink);flex-shrink:0}
 .back-btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2}
 .chat-top img{width:42px;height:42px;border-radius:50%;object-fit:cover;cursor:pointer;flex-shrink:0}
 .chat-top-info{flex:1;cursor:pointer;min-width:0}
 .chat-top-info h4{font-size:14px;font-weight:800;margin-bottom:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .chat-top-info small{font-size:11px;color:#10b981;font-weight:600}
-.chat-body{
-  flex:1;
-  overflow-y:auto;
-  padding:14px 16px;
-  display:flex;
-  flex-direction:column;
-  gap:6px;
-  background:var(--bg);
-}
-.bubble{
-  max-width:78%;
-  padding:9px 13px;
-  border-radius:16px;
-  font-size:13.5px;
-  line-height:1.65;
-  word-wrap:break-word;
-  position:relative;
-  cursor:pointer;
-}
+.chat-body{flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:6px;background:var(--bg)}
+.bubble{max-width:78%;padding:9px 13px;border-radius:16px;font-size:13.5px;line-height:1.65;word-wrap:break-word;position:relative;cursor:pointer}
 .bubble.me{align-self:flex-end;background:var(--ink);color:var(--paper);border-bottom-right-radius:4px}
 .bubble.them{align-self:flex-start;background:var(--paper);color:var(--ink);border-bottom-left-radius:4px;border:1px solid var(--line-2)}
 .bubble time{font-size:9px;opacity:.65;display:block;margin-top:3px;text-align:left}
-.chat-inputbar{
-  display:flex;gap:8px;
-  padding:10px 14px;
-  padding-bottom:calc(10px + env(safe-area-inset-bottom));
-  border-top:1px solid var(--line-2);
-  background:var(--paper);
-  flex-shrink:0;
-}
-.chat-inputbar input{
-  flex:1;border:1.5px solid var(--line);border-radius:22px;
-  padding:11px 16px;font-size:13.5px;outline:none;
-  background:var(--line-2);
-}
+.chat-inputbar{display:flex;gap:8px;padding:10px 14px;padding-bottom:calc(10px + env(safe-area-inset-bottom));border-top:1px solid var(--line-2);background:var(--paper);flex-shrink:0}
+.chat-inputbar input{flex:1;border:1.5px solid var(--line);border-radius:22px;padding:11px 16px;font-size:13.5px;outline:none;background:var(--line-2)}
 .chat-inputbar input:focus{border-color:var(--ink);background:var(--paper)}
-.chat-inputbar button{
-  width:44px;height:44px;border-radius:50%;
-  background:var(--ink);color:var(--paper);
-  display:grid;place-items:center;flex-shrink:0;
-}
+.chat-inputbar button{width:44px;height:44px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;flex-shrink:0}
 .chat-inputbar svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2.2}
 
 .tabs-scroll{display:flex;gap:22px;padding:12px 16px 10px;overflow-x:auto;scrollbar-width:none;background:var(--paper);border-bottom:1px solid var(--line-2)}
@@ -169,7 +126,6 @@ main{flex:1;padding-bottom:80px;overflow-y:auto}
 .post-comment-link{font-size:12.5px;color:var(--muted);font-weight:500}
 .post-time{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;margin-top:6px}
 
-/* Text post with menu button */
 .text-post{background:var(--paper);border-bottom:8px solid var(--line-2);padding:16px 14px;position:relative}
 .text-post-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:10px}
 .text-post-cat{display:inline-block;background:var(--line-2);color:var(--ink-2);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700}
@@ -477,8 +433,8 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
     <section class="page" id="page-chat">
       <div class="chat-top">
         <button class="back-btn" data-back><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
-        <img id="chatAvatar" src="" alt="" data-chat-profile>
-        <div class="chat-top-info" data-chat-profile>
+        <img id="chatAvatar" src="" alt="">
+        <div class="chat-top-info">
           <h4 id="chatName"></h4>
           <small id="chatStatus"></small>
         </div>
@@ -718,9 +674,8 @@ const POPULAR_LIKES = 20;
 const DEFAULT_AVATAR = 'data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#e5e7eb"/><circle cx="50" cy="40" r="15" fill="#9ca3af"/><path fill="#9ca3af" d="M20 85c0-16 13-30 30-30s30 14 30 30z"/></svg>');
 const PLACEHOLDER = DEFAULT_AVATAR;
 
-const FAKE_USERS = [
-  {id:'f1', name:'سارا محمدی', avatar:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80', bio:'عاشق عکاسی و سفر', online:true, posts:0, friends:120}
-];
+// ✅ حذف کامل کاربران فیک
+// (سیستم دوستان تا وقتی سرور نداشته باشیم خالی می‌مونه)
 
 let state = {
   user: JSON.parse(localStorage.getItem('luno_user') || 'null'),
@@ -852,6 +807,9 @@ function enterApp() {
   $('#adminTag').classList.toggle('hidden', !isAdmin());
   renderHome();
   updateBadge();
+  // ✅ history entry اولیه برای مدیریت دکمه بازگشت
+  history.replaceState({ page: 'home' }, '');
+  history.pushState({ page: 'home' }, '');
 }
 
 function updateBadge() {
@@ -974,33 +932,56 @@ function renderSearch(q = '') {
       </div>
     `).join('');
   } else {
-    let users = [...FAKE_USERS];
+    // کاربران واقعی (از پست‌ها استخراج می‌شن)
+    let users = extractRealUsers();
     if (q) users = users.filter(u => u.name.includes(q) || (u.bio || '').includes(q));
     if (!users.length) {
-      wrap.innerHTML = emptyState(q ? 'کاربری پیدا نشد' : 'کاربری موجود نیست', 'users');
+      wrap.innerHTML = emptyState(q ? 'کاربری پیدا نشد' : 'هنوز کاربری ثبت‌نام نکرده', 'users');
       return;
     }
     wrap.innerHTML = users.map(u => renderUserRow(u)).join('');
   }
 }
 
+// ✅ استخراج کاربران واقعی از پست‌ها و localStorage
+function extractRealUsers() {
+  const map = new Map();
+  // کاربران ثبت‌نام شده
+  const allUsers = JSON.parse(localStorage.getItem('luno_users') || '[]');
+  allUsers.forEach(u => {
+    if (u.phone !== state.user?.phone) {
+      map.set(u.phone, {
+        id: u.phone,
+        name: u.name,
+        avatar: u.avatar || DEFAULT_AVATAR,
+        bio: u.bio || '',
+        online: false,
+        posts: state.posts.filter(p => p.authorId === u.phone).length,
+        friends: 0
+      });
+    }
+  });
+  return Array.from(map.values());
+}
+
 // ===== FRIENDS =====
 function renderFriends() {
   $$('.ftab').forEach(t => t.classList.toggle('active', t.dataset.ftab === state.friendTab));
   const wrap = $('#friendsList');
-  let users = [];
+  const allUsers = extractRealUsers();
 
+  let users = [];
   if (state.friendTab === 'suggest') {
-    users = FAKE_USERS.filter(u => !isFriend(u.id) && !isPending(u.id));
+    users = allUsers.filter(u => !isFriend(u.id) && !isPending(u.id));
   } else if (state.friendTab === 'pending') {
-    users = state.pending.map(r => FAKE_USERS.find(u => u.id === r.to)).filter(Boolean);
+    users = state.pending.map(r => allUsers.find(u => u.id === r.to)).filter(Boolean);
   } else {
-    users = FAKE_USERS.filter(u => isFriend(u.id));
+    users = allUsers.filter(u => isFriend(u.id));
   }
 
   if (!users.length) {
     const msgs = {
-      suggest: 'کاربری برای پیشنهاد نیست',
+      suggest: 'هنوز کاربر دیگری ثبت‌نام نکرده',
       pending: 'درخواستی ارسال نکرده‌ای',
       friends: 'هنوز دوستی اضافه نکردی'
     };
@@ -1039,35 +1020,18 @@ function renderUserRow(u) {
 
 function sendChatRequest(uid) {
   if (isFriend(uid) || isPending(uid)) return;
-  const u = FAKE_USERS.find(x => x.id === uid);
+  const allUsers = extractRealUsers();
+  const u = allUsers.find(x => x.id === uid);
   if (!u) return;
   state.pending.push({ to: uid, at: Date.now() });
   save();
   renderFriends();
   toast('درخواست چت ارسال شد. در انتظار تایید ' + u.name);
-
-  // شبیه‌سازی تایید بعد از ۱۲ ثانیه
-  setTimeout(() => {
-    if (!isPending(uid)) return;
-    state.pending = state.pending.filter(r => r.to !== uid);
-    if (!isFriend(uid)) state.friends.push(uid);
-    state.notifications.unshift({
-      id: 'n' + Date.now(),
-      text: `<b>${esc(u.name)}</b> درخواست چت شما را پذیرفت`,
-      avatar: u.avatar,
-      time: 'همین حالا',
-      read: false
-    });
-    save();
-    updateBadge();
-    if ($('#page-friends').classList.contains('active')) renderFriends();
-    if ($('#page-profile').classList.contains('active')) renderMyProfile();
-    toast(u.name + ' درخواستت رو قبول کرد');
-  }, 12000);
 }
 
 function removeFriend(uid) {
-  const u = FAKE_USERS.find(x => x.id === uid);
+  const allUsers = extractRealUsers();
+  const u = allUsers.find(x => x.id === uid);
   showConfirm('حذف دوست', `مطمئنی ${u?.name || 'این کاربر'} رو از دوستانت حذف کنی؟`, () => {
     state.friends = state.friends.filter(x => x !== uid);
     save();
@@ -1107,8 +1071,9 @@ function renderNotifs() {
       wrap.innerHTML = emptyState('هنوز پیامی نداری', 'chat');
       return;
     }
+    const allUsers = extractRealUsers();
     wrap.innerHTML = ids.map(uid => {
-      const u = FAKE_USERS.find(x => x.id === uid);
+      const u = allUsers.find(x => x.id === uid);
       if (!u) return '';
       const msgs = state.chats[uid];
       const last = msgs[msgs.length - 1];
@@ -1125,9 +1090,10 @@ function renderNotifs() {
   }
 }
 
-// ===== CHAT (full-screen) =====
+// ===== CHAT =====
 function openChat(uid) {
-  const u = FAKE_USERS.find(x => x.id === uid);
+  const allUsers = extractRealUsers();
+  const u = allUsers.find(x => x.id === uid);
   if (!u) return;
   state.currentChat = uid;
   $('#chatAvatar').src = u.avatar;
@@ -1136,7 +1102,6 @@ function openChat(uid) {
   if (!state.chats[uid]) state.chats[uid] = [];
   renderChatBody();
   showPage('chat');
-  // Focus on input after a small delay
   setTimeout(() => $('#chatInput').focus(), 200);
 }
 
@@ -1160,13 +1125,6 @@ $('#chatSend').addEventListener('click', () => {
   $('#chatInput').value = '';
   save();
   renderChatBody();
-  const uid = state.currentChat;
-  setTimeout(() => {
-    const replies = ['باشه', 'حتماً', 'ممنون', 'جالب بود'];
-    state.chats[uid].push({ from: 'them', text: replies[Math.floor(Math.random() * replies.length)], time });
-    save();
-    if (state.currentChat === uid) renderChatBody();
-  }, 1500);
 });
 $('#chatInput').addEventListener('keypress', e => { if (e.key === 'Enter') $('#chatSend').click(); });
 
@@ -1221,7 +1179,8 @@ function renderMyProfile() {
       : `<div class="pin" data-article="${p.id}"><img src="${p.image || PLACEHOLDER}" alt=""></div>`
     ).join('')}</div>`;
   } else {
-    const friendsList = FAKE_USERS.filter(u => isFriend(u.id));
+    const allUsers = extractRealUsers();
+    const friendsList = allUsers.filter(u => isFriend(u.id));
     if (!friendsList.length) {
       $('#myProfileContent').innerHTML = emptyState('هنوز دوستی اضافه نکردی', 'users');
       return;
@@ -1246,6 +1205,15 @@ $('#saveProfileBtn').addEventListener('click', () => {
   const f = $('#editAvatar').files[0];
   const done = () => {
     save();
+    // بروزرسانی کاربر در لیست کاربران
+    const allUsers = JSON.parse(localStorage.getItem('luno_users') || '[]');
+    const idx = allUsers.findIndex(u => u.phone === state.user.phone);
+    if (idx !== -1) {
+      allUsers[idx].name = state.user.name;
+      allUsers[idx].bio = state.user.bio;
+      if (state.user.avatar) allUsers[idx].avatar = state.user.avatar;
+      localStorage.setItem('luno_users', JSON.stringify(allUsers));
+    }
     renderMyProfile();
     $('#editModal').classList.remove('show');
     toast('ذخیره شد');
@@ -1271,9 +1239,10 @@ $('#myCover').addEventListener('click', () => {
   input.click();
 });
 
-// ===== USER PROFILE (other) =====
+// ===== USER PROFILE =====
 function openUserProfile(uid) {
-  const u = FAKE_USERS.find(x => x.id === uid);
+  const allUsers = extractRealUsers();
+  const u = allUsers.find(x => x.id === uid);
   if (!u) {
     if (uid === state.user?.phone) { showPage('profile'); renderMyProfile(); return; }
     toast('کاربر پیدا نشد');
@@ -1297,7 +1266,12 @@ function openUserProfile(uid) {
     btns = `<button class="pbtn primary" data-request="${uid}">درخواست چت</button>`;
   }
   $('#userBtns').innerHTML = btns;
-  $('#userPostsList').innerHTML = emptyState('هنوز پستی منتشر نکرده', 'edit');
+  const userPosts = state.posts.filter(p => p.authorId === uid);
+  $('#userPostsList').innerHTML = userPosts.length
+    ? `<div class="pin-grid">${userPosts.filter(p => p.hasImage !== false).map(p => `
+        <div class="pin" data-article="${p.id}"><img src="${p.image}" alt=""></div>
+      `).join('')}</div>`
+    : emptyState('هنوز پستی منتشر نکرده', 'edit');
   showPage('user');
 }
 
@@ -1468,21 +1442,66 @@ function showPage(id, push = true) {
   if (id === 'friends') renderFriends();
   if (id === 'notifs') renderNotifs();
   if (id === 'profile') renderMyProfile();
-  if (push && state.history[state.history.length - 1] !== id) state.history.push(id);
+  if (push && state.history[state.history.length - 1] !== id) {
+    state.history.push(id);
+    // ✅ push state برای مدیریت دکمه بازگشت
+    history.pushState({ page: id }, '');
+  }
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function goBack() {
-  // If in chat, exit chat overlay
+  // اگر در چت هستیم، ازش خارج شو
   if ($('#page-chat').classList.contains('active')) {
     $('#page-chat').classList.remove('active');
     state.currentChat = null;
+    if (state.history.length > 1) state.history.pop();
+    return;
+  }
+  // اگر مودال بازه، ببندش
+  const openModal = $('.modal.show') || $('.confirm.show');
+  if (openModal) {
+    openModal.classList.remove('show');
+    return;
+  }
+  // اگر در خانه هستیم، از برنامه خارج شو (به کاربر بذار تصمیم بگیره)
+  if (state.history.length <= 1 || state.history[state.history.length - 1] === 'home') {
+    // کاربر می‌تونه از سایت خارج بشه
+    history.back();
     return;
   }
   state.history.pop();
   const prev = state.history[state.history.length - 1] || 'home';
   showPage(prev, false);
 }
+
+// ✅ مدیریت دکمه بازگشت مرورگر/گوشی
+window.addEventListener('popstate', (e) => {
+  // اگر در چت هستیم، ببندش
+  if ($('#page-chat').classList.contains('active')) {
+    $('#page-chat').classList.remove('active');
+    state.currentChat = null;
+    history.pushState({ page: state.history[state.history.length - 1] || 'home' }, '');
+    return;
+  }
+  // اگر مودال بازه، ببندش
+  const openModal = $('.modal.show') || $('.confirm.show');
+  if (openModal) {
+    openModal.classList.remove('show');
+    history.pushState({ page: state.history[state.history.length - 1] || 'home' }, '');
+    return;
+  }
+  // اگر در خانه نیستیم، برو به خانه
+  if (state.history.length > 1 && state.history[state.history.length - 1] !== 'home') {
+    state.history.pop();
+    const prev = state.history[state.history.length - 1] || 'home';
+    showPage(prev, false);
+    history.pushState({ page: prev }, '');
+    return;
+  }
+  // در خانه هستیم → اجازه بده کاربر خارج بشه
+  // (مرورگر خودش مدیریت می‌کنه)
+});
 
 // ===== CONFIRM =====
 let confirmCb = null;
@@ -1620,11 +1639,6 @@ document.addEventListener('click', e => {
     return;
   }
 
-  if (e.target.closest('[data-chat-profile]') && state.currentChat) {
-    openUserProfile(state.currentChat);
-    return;
-  }
-
   if (e.target.closest('[data-art-author]') && currentArticleAuthorId) {
     openUserProfile(currentArticleAuthorId);
     return;
@@ -1697,10 +1711,8 @@ setTimeout(() => {
   $('#loader').classList.add('hide');
   setTimeout(() => $('#loader').remove(), 500);
   if (state.user) enterApp();
-  else $('#authScreen').classList.remove('hidden');
-  if (state.user) enterApp();
   else $('#authScreen').classList.remove('hide');
 }, 700);
 </script>
 </body>
-  </html>
+      </html>
