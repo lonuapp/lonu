@@ -35,8 +35,7 @@ img{display:block;max-width:100%}
 .onboarding-icon svg{width:60px;height:60px;stroke:#fff;fill:none;stroke-width:2.5}
 .onboarding h1{font-size:26px;font-weight:900;margin-bottom:12px;letter-spacing:-0.5px}
 .onboarding p{font-size:14px;color:var(--muted);line-height:2;margin-bottom:36px;max-width:340px}
-.onboarding-btn{width:100%;max-width:380px;background:var(--ink);color:var(--paper);border-radius:14px;padding:16px;font-size:14px;font-weight:800;transition:var(--transition)}
-.onboarding-btn:hover{background:#000}
+.onboarding-btn{width:100%;max-width:380px;background:var(--pink);color:#fff;border-radius:14px;padding:16px;font-size:14px;font-weight:800;transition:var(--transition)}
 .onboarding-dots{display:flex;gap:8px;margin-top:30px}
 .onboarding-dots span{width:8px;height:8px;border-radius:50%;background:var(--line);transition:var(--transition)}
 .onboarding-dots span.active{background:var(--pink);width:24px;border-radius:4px}
@@ -54,8 +53,7 @@ img{display:block;max-width:100%}
 .auth-field input.error{border-color:#ef4444}
 .auth-error{color:#ef4444;font-size:11px;margin:-8px 0 12px 4px;font-weight:600;display:none}
 .auth-error.show{display:block}
-.auth-btn{width:100%;background:var(--ink);color:var(--paper);border-radius:14px;padding:16px;font-size:14px;font-weight:800;transition:var(--transition);margin-top:6px}
-.auth-btn:hover{background:#000}
+.auth-btn{width:100%;background:var(--pink);color:#fff;border-radius:14px;padding:16px;font-size:14px;font-weight:800;transition:var(--transition);margin-top:6px}
 .auth-switch{text-align:center;margin-top:24px;font-size:12.5px;color:var(--muted)}
 .auth-switch button{color:var(--pink);font-weight:700}
 
@@ -78,76 +76,90 @@ main{flex:1;padding:0 16px 90px;overflow-y:auto}
 .screen.active{display:block;animation:fadeIn .25s ease}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-.top-tabs{display:flex;gap:8px;padding:16px 0 12px;overflow-x:auto;scrollbar-width:none}
+/* Top Tabs */
+.top-tabs{display:flex;gap:20px;padding:14px 0 12px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line-2);margin-bottom:16px}
 .top-tabs::-webkit-scrollbar{display:none}
-.top-tab{padding:9px 18px;border-radius:22px;font-size:13px;font-weight:600;color:var(--muted);white-space:nowrap;transition:var(--transition);background:var(--line-2);border:1px solid transparent}
-.top-tab.active{background:var(--ink);color:var(--paper)}
+.top-tab{padding:6px 0;font-size:14px;font-weight:600;color:var(--muted);white-space:nowrap;transition:var(--transition);position:relative;background:none}
+.top-tab.active{color:var(--pink);font-weight:800}
+.top-tab.active::after{content:'';position:absolute;bottom:-13px;right:0;left:0;height:2.5px;background:var(--pink);border-radius:2px}
 
-.section-title{display:flex;align-items:center;justify-content:space-between;margin:28px 0 16px}
+/* Stories */
+.stories{display:flex;gap:10px;padding:4px 0 16px;overflow-x:auto;scrollbar-width:none}
+.stories::-webkit-scrollbar{display:none}
+.story{flex:0 0 62px;height:96px;border-radius:14px;overflow:hidden;position:relative;background:var(--line-2);transition:var(--transition);border:2px solid transparent;cursor:pointer}
+.story img{width:100%;height:100%;object-fit:cover}
+.story.plus{border:2px dashed var(--pink);display:grid;place-items:center;color:var(--pink);background:var(--pink-light)}
+.story.plus svg{width:24px;height:24px;stroke-width:2.5}
+.story span:last-child{position:absolute;bottom:5px;left:0;right:0;text-align:center;font-size:9px;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,0.7);font-weight:600;padding:0 4px}
+.story.plus span:last-child{color:var(--pink);text-shadow:none;font-weight:700;bottom:6px;font-size:10px}
+
+.section-title{display:flex;align-items:center;justify-content:space-between;margin:24px 0 16px}
 .section-title h2{font-size:17px;font-weight:800;letter-spacing:-0.3px}
 .section-title .link-btn{font-size:12px}
 .link-btn{color:var(--pink);font-size:12px;font-weight:700;padding:6px;transition:var(--transition);border-radius:6px}
-.link-btn:hover{opacity:.7}
 
-/* Hero Card (admin post) */
-.hero-card{border-radius:var(--radius-lg);overflow:hidden;background:var(--paper);box-shadow:var(--shadow);margin-bottom:24px;border:1px solid var(--line-2);transition:var(--transition)}
-.hero-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
-.hero-image{position:relative;height:230px;background:var(--line-2);cursor:pointer}
-.hero-image img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
-.hero-card:hover .hero-image img{transform:scale(1.03)}
-.hero-image::after{content:'';position:absolute;inset:30% 0 0;background:linear-gradient(transparent,rgba(10,5,25,0.85))}
-.hero-label{position:absolute;bottom:18px;left:18px;right:18px;color:#fff;z-index:1}
-.hero-label .tag{display:inline-block;background:var(--pink);color:#fff;border-radius:20px;padding:5px 12px;font-size:10px;font-weight:700;margin-bottom:10px}
-.hero-label h1{font-size:20px;font-weight:800;line-height:1.5;margin-bottom:6px}
-.hero-label p{font-size:12px;opacity:.92;line-height:1.6}
-.article-meta{display:flex;align-items:center;gap:10px;padding:14px 18px;font-size:11px;color:var(--muted)}
-.article-meta img{width:32px;height:32px;border-radius:50%;object-fit:cover;border:2px solid var(--line-2)}
-.article-meta b{color:var(--ink);font-weight:700;font-size:12px}
+/* Hero Card - Admin Post */
+.hero-card{border-radius:var(--radius-lg);overflow:hidden;background:var(--paper);box-shadow:var(--shadow);margin-bottom:20px;border:1px solid var(--line-2);transition:var(--transition);cursor:pointer}
+.hero-image{position:relative;height:220px;background:var(--line-2)}
+.hero-image img{width:100%;height:100%;object-fit:cover}
+.hero-image::after{content:'';position:absolute;inset:30% 0 0;background:linear-gradient(transparent,rgba(10,5,25,0.75))}
+.hero-label{position:absolute;bottom:14px;left:14px;right:14px;color:#fff;z-index:1}
+.hero-label .tag{display:inline-block;background:var(--pink);color:#fff;border-radius:20px;padding:4px 10px;font-size:10px;font-weight:700;margin-bottom:8px}
+.hero-label h1{font-size:17px;font-weight:800;line-height:1.5;margin-bottom:4px}
+.hero-label p{font-size:11px;opacity:.9;line-height:1.5}
+.article-meta{display:flex;align-items:center;gap:8px;padding:10px 14px;font-size:10.5px;color:var(--muted)}
+.article-meta img{width:28px;height:28px;border-radius:50%;object-fit:cover}
+.article-meta b{color:var(--ink);font-weight:700;font-size:11px}
 .meta-spacer{flex:1}
-.action-row{display:flex;align-items:center;gap:18px;padding:10px 18px 16px;border-top:1px solid var(--line-2);flex-wrap:wrap}
-.action{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);padding:4px;transition:var(--transition);font-weight:600;border-radius:8px}
-.action:hover{color:var(--ink)}
-.action:active{transform:scale(0.95)}
-.action svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.action-row{display:flex;align-items:center;gap:14px;padding:8px 14px 12px;border-top:1px solid var(--line-2)}
+.action{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--muted);padding:4px;transition:var(--transition);font-weight:600}
+.action svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .action.liked{color:var(--pink)}
 .action.liked svg{fill:var(--pink);stroke:var(--pink)}
 .action.saved{color:var(--pink)}
 .action.saved svg{fill:var(--pink);stroke:var(--pink)}
 
-/* Post Card */
-.post-card{border-radius:var(--radius-lg);overflow:hidden;background:var(--paper);box-shadow:var(--shadow);margin-bottom:20px;border:1px solid var(--line-2)}
-.post-image{position:relative;height:260px;background:var(--line-2);cursor:pointer}
-.post-image img{width:100%;height:100%;object-fit:cover}
-.post-content{padding:16px 18px}
-.post-category{display:inline-block;background:var(--pink-light);color:var(--pink);border-radius:20px;padding:4px 12px;font-size:10px;font-weight:700;margin-bottom:10px}
-.post-content h2{font-size:17px;font-weight:800;line-height:1.6;margin-bottom:8px;cursor:pointer}
-.post-content p{font-size:13px;color:var(--muted);line-height:1.9;margin-bottom:12px}
-.post-author{display:flex;align-items:center;gap:10px;padding-top:12px;border-top:1px solid var(--line-2)}
-.post-author img{width:32px;height:32px;border-radius:50%;object-fit:cover}
-.post-author b{font-size:12px;font-weight:700}
-.post-author time{font-size:10px;color:var(--muted);margin-right:auto}
-.post-menu-btn{position:absolute;top:12px;right:12px;width:32px;height:32px;background:rgba(0,0,0,0.5);color:#fff;border-radius:50%;display:grid;place-items:center;font-size:16px;z-index:2;backdrop-filter:blur(4px)}
-
-.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+/* Mini Grid */
+.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
 .mini-card{border-radius:var(--radius);overflow:hidden;background:var(--paper);border:1px solid var(--line-2);box-shadow:var(--shadow);transition:var(--transition);cursor:pointer;position:relative}
 .mini-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg)}
-.mini-card img{width:100%;height:135px;object-fit:cover}
-.mini-card .mini-text{padding:12px 14px}
-.mini-card h3{font-size:12.5px;font-weight:700;line-height:1.6;margin-bottom:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.mini-card img{width:100%;height:140px;object-fit:cover}
+.mini-card .mini-text{padding:10px 12px}
+.mini-card h3{font-size:12px;font-weight:700;line-height:1.5;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .mini-card p{font-size:10px;color:var(--muted);font-weight:500}
+.card-menu-btn{position:absolute;top:8px;right:8px;width:26px;height:26px;background:rgba(0,0,0,0.5);color:#fff;border-radius:50%;display:grid;place-items:center;font-size:13px;z-index:2}
 
-.list-article{display:flex;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line-2);cursor:pointer;transition:var(--transition)}
-.list-article:hover{background:var(--line-2);margin:0 -16px;padding:14px 16px}
-.list-article:last-child{border-bottom:none}
-.list-article img{width:82px;height:82px;border-radius:12px;object-fit:cover;flex-shrink:0}
-.list-copy{flex:1;min-width:0}
-.list-copy h3{font-size:13px;font-weight:700;line-height:1.6;margin-bottom:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
-.list-copy p{font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
-.list-copy small{font-size:10px;color:var(--pink);font-weight:700}
+/* Post Card (list item) */
+.post-card{border-radius:var(--radius);overflow:hidden;background:var(--paper);box-shadow:var(--shadow);margin-bottom:14px;border:1px solid var(--line-2);cursor:pointer;transition:var(--transition)}
+.post-card:hover{box-shadow:var(--shadow-lg)}
+.post-card-inner{display:flex;gap:12px;padding:12px}
+.post-card-inner img{width:100px;height:100px;border-radius:12px;object-fit:cover;flex-shrink:0}
+.post-card-info{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:space-between}
+.post-card-info h3{font-size:13px;font-weight:700;line-height:1.6;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.post-card-info .post-meta{font-size:10.5px;color:var(--pink);font-weight:700}
+.post-card-info .post-author{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--muted);margin-top:6px}
+.post-card-info .post-author img{width:20px;height:20px;border-radius:50%;object-fit:cover}
+.post-card-actions{display:flex;gap:14px;padding:8px 14px;border-top:1px solid var(--line-2);font-size:11px;color:var(--muted);font-weight:600}
+.post-card-actions span{display:flex;align-items:center;gap:4px}
+.post-card-actions svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2}
+.post-card-actions .liked{color:var(--pink)}
+.post-card-actions .liked svg{fill:var(--pink);stroke:var(--pink)}
+
+/* Text Post Card */
+.text-post{background:var(--paper);border:1px solid var(--line-2);border-radius:var(--radius);padding:16px;margin-bottom:14px;box-shadow:var(--shadow);cursor:pointer;transition:var(--transition)}
+.text-post:hover{box-shadow:var(--shadow-lg)}
+.text-post .post-category{display:inline-block;background:var(--pink-light);color:var(--pink);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700;margin-bottom:10px}
+.text-post h3{font-size:15px;font-weight:800;line-height:1.6;margin-bottom:8px}
+.text-post p{font-size:12.5px;color:var(--muted);line-height:1.9;margin-bottom:12px;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.text-post .post-author{display:flex;align-items:center;gap:8px;font-size:10.5px;color:var(--muted);border-top:1px solid var(--line-2);padding-top:12px}
+.text-post .post-author img{width:24px;height:24px;border-radius:50%;object-fit:cover}
+.text-post .post-author b{color:var(--ink);font-weight:700;font-size:11px}
+.text-post .post-author .spacer{flex:1}
 
 .section-heading{font-size:24px;font-weight:900;margin:20px 0 8px;letter-spacing:-0.5px}
 .section-sub{font-size:12.5px;color:var(--muted);line-height:1.9;margin-bottom:22px;font-weight:500}
 
+/* Categories */
 .category-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .category{position:relative;border-radius:var(--radius);overflow:hidden;aspect-ratio:1;cursor:pointer;transition:var(--transition);border:1px solid var(--line-2)}
 .category:hover{transform:scale(1.02)}
@@ -155,6 +167,7 @@ main{flex:1;padding:0 16px 90px;overflow-y:auto}
 .category::after{content:'';position:absolute;inset:30% 0 0;background:linear-gradient(transparent,rgba(10,5,25,0.75))}
 .category span{position:absolute;bottom:14px;left:14px;right:14px;color:#fff;font-size:14px;font-weight:800;z-index:1}
 
+/* Search */
 .searchbox{display:flex;align-items:center;gap:10px;background:var(--line-2);border-radius:14px;padding:14px 18px;margin-bottom:18px;border:1.5px solid transparent;transition:var(--transition)}
 .searchbox:focus-within{border-color:var(--pink);background:var(--paper)}
 .searchbox svg{width:20px;height:20px;stroke:var(--muted);fill:none;stroke-width:2;flex-shrink:0}
@@ -164,6 +177,7 @@ main{flex:1;padding:0 16px 90px;overflow-y:auto}
 .search-filter{padding:7px 14px;border-radius:20px;font-size:11px;font-weight:600;background:var(--line-2);color:var(--muted);transition:var(--transition);white-space:nowrap}
 .search-filter.active{background:var(--ink);color:var(--paper)}
 
+/* Article Detail */
 .article-cover{height:280px;border-radius:var(--radius-lg);overflow:hidden;position:relative;margin-bottom:20px;border:1px solid var(--line-2)}
 .article-cover img{width:100%;height:100%;object-fit:cover}
 .article-cover::after{content:'';position:absolute;inset:35% 0 0;background:linear-gradient(transparent,rgba(10,5,25,0.8))}
@@ -175,10 +189,9 @@ main{flex:1;padding:0 16px 90px;overflow-y:auto}
 .article-body p{margin-bottom:18px}
 .quote{border-right:3px solid var(--pink);background:var(--pink-light);padding:18px;border-radius:10px;color:var(--pink);margin:24px 0;font-style:italic;font-weight:500;line-height:2}
 
+/* Profile */
 .profile-cover{height:150px;border-radius:var(--radius);overflow:hidden;margin-bottom:0;border:1px solid var(--line-2);background:linear-gradient(135deg,var(--pink),#ff8ab8);position:relative;cursor:pointer}
 .profile-cover img{width:100%;height:100%;object-fit:cover}
-.profile-cover::after{content:'📷 تغییر کاور';position:absolute;inset:0;display:grid;place-items:center;background:rgba(0,0,0,0.4);color:#fff;font-size:14px;font-weight:700;opacity:0;transition:var(--transition)}
-.profile-cover:hover::after{opacity:1}
 .profile-info{text-align:center;padding:0 16px 16px;margin-top:-45px;position:relative}
 .profile-avatar{width:90px;height:90px;border-radius:50%;border:5px solid var(--paper);object-fit:cover;margin:0 auto 10px;position:relative;z-index:1;background:var(--paper);box-shadow:0 4px 20px rgba(20,15,40,0.08)}
 .profile-info h2{font-size:19px;font-weight:800;margin:0 0 6px}
@@ -188,58 +201,70 @@ main{flex:1;padding:0 16px 90px;overflow-y:auto}
 .stats b{font-size:17px;font-weight:800;color:var(--ink)}
 .profile-buttons{display:flex;gap:10px;justify-content:center;margin:16px 0}
 .pill-btn{border:1.5px solid var(--line);background:var(--paper);color:var(--ink);border-radius:25px;padding:11px 24px;font-size:12.5px;font-weight:700;transition:var(--transition)}
-.pill-btn:hover{background:var(--line-2)}
 .pill-btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .profile-tabs{display:flex;gap:4px;border-bottom:1px solid var(--line-2);margin-bottom:18px}
 .profile-tab{flex:1;padding:14px 0;font-size:12px;font-weight:700;color:var(--muted);border-bottom:2.5px solid transparent;transition:var(--transition)}
 .profile-tab.active{color:var(--ink);border-bottom-color:var(--ink)}
 .profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.profile-grid .mini-card img{height:150px}
 
-.create-box{background:var(--paper);border:1px solid var(--line-2);border-radius:var(--radius-lg);padding:20px;box-shadow:var(--shadow)}
-.upload-area{border:2px dashed var(--line);background:var(--line-2);border-radius:14px;padding:26px 16px;text-align:center;color:var(--muted);font-size:12.5px;margin-bottom:18px;cursor:pointer;transition:var(--transition);display:block;font-weight:600}
+/* Create Post */
+.create-box{background:var(--paper);border:1px solid var(--line-2);border-radius:var(--radius-lg);padding:18px;box-shadow:var(--shadow);max-width:420px;margin:0 auto}
+.create-box-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+.create-box-header h2{font-size:17px;font-weight:800}
+.create-close{font-size:24px;color:var(--muted);width:36px;height:36px;display:grid;place-items:center;border-radius:50%}
+.upload-area{border:2px dashed var(--line);background:var(--line-2);border-radius:16px;padding:36px 16px;text-align:center;color:var(--muted);font-size:13px;margin-bottom:16px;cursor:pointer;transition:var(--transition);display:block;font-weight:600}
 .upload-area:hover{border-color:var(--pink);background:var(--pink-light);color:var(--pink)}
-.upload-area svg{width:32px;height:32px;margin:0 auto 10px;stroke:currentColor;fill:none;stroke-width:1.8}
+.upload-area .icon-box{width:56px;height:56px;border-radius:16px;background:var(--paper);display:grid;place-items:center;margin:0 auto 12px;color:var(--pink);border:1.5px solid var(--pink)}
+.upload-area .icon-box svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:2}
 .upload-area input{display:none}
 .upload-preview{position:relative;margin-bottom:16px;border-radius:12px;overflow:hidden;display:none}
 .upload-preview.show{display:block}
-.upload-preview img{width:100%;max-height:220px;object-fit:cover}
-.upload-preview button{position:absolute;top:8px;right:8px;width:32px;height:32px;background:rgba(0,0,0,0.6);color:#fff;border-radius:50%;display:grid;place-items:center;font-size:16px}
-.field{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--paper);margin-bottom:14px;font-size:13.5px;outline:none;transition:var(--transition);font-weight:500}
+.upload-preview img{width:100%;max-height:280px;object-fit:cover}
+.upload-preview button{position:absolute;top:10px;right:10px;width:34px;height:34px;background:rgba(0,0,0,0.6);color:#fff;border-radius:50%;display:grid;place-items:center;font-size:18px}
+.field{width:100%;border:1.5px solid var(--line);border-radius:14px;padding:16px;background:var(--paper);margin-bottom:14px;font-size:14px;outline:none;transition:var(--transition);font-weight:500;font-family:inherit}
 .field:focus{border-color:var(--pink)}
 .field.error{border-color:#ef4444}
-.field-error{color:#ef4444;font-size:11px;margin:-10px 0 12px 4px;font-weight:600;display:none}
-.field-error.show{display:block}
-textarea.field{min-height:120px;resize:vertical;line-height:1.9}
-select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%238b8798' stroke-width='2.5'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 16px center;padding-left:42px}
+textarea.field{min-height:100px;resize:vertical;line-height:1.9}
 .char-count{text-align:left;font-size:10px;color:var(--muted);margin:-10px 0 12px 4px;font-weight:600}
-.primary-btn{width:100%;border:none;border-radius:14px;background:var(--ink);color:var(--paper);font-weight:800;padding:16px;font-size:14px;transition:var(--transition)}
-.primary-btn:hover{background:#000}
+.tag-selector{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.tag-btn{padding:8px 16px;border-radius:20px;font-size:12px;font-weight:600;background:var(--line-2);color:var(--muted);transition:var(--transition);border:1.5px solid transparent}
+.tag-btn.active{background:var(--pink);color:#fff;border-color:var(--pink)}
+.magazine-toggle{display:flex;align-items:center;justify-content:space-between;padding:16px;background:var(--line-2);border-radius:14px;margin-bottom:18px;cursor:pointer;transition:var(--transition)}
+.magazine-toggle.active{background:var(--pink-light);border:1.5px solid var(--pink)}
+.magazine-toggle-info{display:flex;align-items:center;gap:12px}
+.magazine-toggle-info svg{width:24px;height:24px;stroke:var(--pink);fill:none;stroke-width:2}
+.magazine-toggle-info h4{font-size:13px;font-weight:700;margin-bottom:2px}
+.magazine-toggle-info p{font-size:11px;color:var(--muted)}
+.switch{position:relative;width:48px;height:28px;background:#cbd5e1;border-radius:14px;transition:var(--transition);flex-shrink:0}
+.switch::after{content:'';position:absolute;top:3px;left:3px;width:22px;height:22px;background:#fff;border-radius:50%;transition:var(--transition);box-shadow:0 2px 4px rgba(0,0,0,0.1)}
+.switch.on{background:var(--pink)}
+.switch.on::after{left:23px}
+.primary-btn{width:100%;border:none;border-radius:14px;background:var(--pink);color:#fff;font-weight:800;padding:16px;font-size:15px;transition:var(--transition)}
+.primary-btn:hover{background:var(--pink-hover)}
 
-.notice{display:flex;align-items:flex-start;gap:14px;padding:16px 0;border-bottom:1px solid var(--line-2);font-size:12.5px;line-height:1.8;transition:var(--transition);position:relative}
-.notice:hover{background:var(--line-2);margin:0 -16px;padding:16px}
-.notice:last-child{border-bottom:none}
-.notice img{width:48px;height:48px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--line-2)}
-.notice div{flex:1}
-.notice b{font-weight:800;color:var(--ink)}
-.notice time{display:block;font-size:10.5px;color:var(--muted);margin-top:3px;font-weight:500}
-
+/* Notifications & Messages */
 .tabs-notif{display:flex;gap:8px;margin-bottom:20px;border-bottom:1px solid var(--line-2)}
 .tab-notif{flex:1;padding:12px 0;font-size:13px;font-weight:700;color:var(--muted);border-bottom:2.5px solid transparent;transition:var(--transition);text-align:center}
 .tab-notif.active{color:var(--ink);border-bottom-color:var(--ink)}
 
+.notice{display:flex;align-items:flex-start;gap:14px;padding:14px 0;border-bottom:1px solid var(--line-2);font-size:12.5px;line-height:1.8}
+.notice:last-child{border-bottom:none}
+.notice img{width:46px;height:46px;border-radius:50%;object-fit:cover;flex-shrink:0}
+.notice div{flex:1}
+.notice b{font-weight:800;color:var(--ink)}
+.notice time{display:block;font-size:10.5px;color:var(--muted);margin-top:3px;font-weight:500}
+
 .messages-list{display:flex;flex-direction:column}
 .message-row{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line-2);cursor:pointer;transition:var(--transition)}
-.message-row:hover{background:var(--line-2);margin:0 -16px;padding:14px 16px}
 .message-row:last-child{border-bottom:none}
 .message-avatar{position:relative;flex-shrink:0}
-.message-avatar img{width:52px;height:52px;border-radius:50%;object-fit:cover}
+.message-avatar img{width:50px;height:50px;border-radius:50%;object-fit:cover}
 .message-info{flex:1;min-width:0}
 .message-info h4{font-size:13.5px;font-weight:800;margin-bottom:3px}
 .message-info p{font-size:11.5px;color:var(--muted);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.message-meta{text-align:left;flex-shrink:0}
 .message-meta time{font-size:10px;color:var(--muted);font-weight:600}
 
+/* Chat */
 .chat-header{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line-2);margin-bottom:16px}
 .chat-header img{width:44px;height:44px;border-radius:50%;object-fit:cover}
 .chat-header div{flex:1}
@@ -250,23 +275,21 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 .chat-bubble.other{align-self:flex-start;background:var(--line-2);color:var(--ink);border-bottom-left-radius:4px}
 .chat-bubble time{font-size:9px;opacity:0.7;display:block;margin-top:4px;text-align:left}
 .chat-input{position:sticky;bottom:0;background:var(--paper);padding:12px 0;display:flex;gap:8px;border-top:1px solid var(--line-2)}
-.chat-input input{flex:1;border:1.5px solid var(--line);border-radius:22px;padding:12px 18px;font-size:13px;outline:none;background:var(--line-2);transition:var(--transition)}
+.chat-input input{flex:1;border:1.5px solid var(--line);border-radius:22px;padding:12px 18px;font-size:13px;outline:none;background:var(--line-2)}
 .chat-input input:focus{border-color:var(--pink);background:var(--paper)}
-.chat-input button{width:44px;height:44px;border-radius:50%;background:var(--pink);color:#fff;display:grid;place-items:center;transition:var(--transition);flex-shrink:0}
+.chat-input button{width:44px;height:44px;border-radius:50%;background:var(--pink);color:#fff;display:grid;place-items:center;flex-shrink:0}
 .chat-input button svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.2}
 
+/* Bottom Nav */
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;height:74px;padding:0 8px;display:flex;align-items:center;justify-content:space-around;background:var(--paper);border-top:1px solid var(--line-2);z-index:100}
 .navbtn{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:9.5px;color:var(--muted);padding:8px 12px;border-radius:12px;transition:var(--transition);min-width:52px;position:relative;font-weight:600}
-.navbtn:hover{color:var(--ink)}
-.navbtn:active{transform:scale(0.94)}
 .navbtn.active{color:var(--pink)}
 .navbtn svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 .navbtn.active svg{stroke-width:2.3}
 .navbtn .badge{position:absolute;top:6px;right:10px;min-width:9px;height:9px;background:var(--pink);border-radius:50%;border:2px solid var(--paper);display:none}
 .navbtn .badge.show{display:block}
-.navbtn .badge.with-count{height:16px;border-radius:8px;font-size:9px;padding:0 4px;display:grid;place-items:center;color:#fff;top:2px;right:6px}
 
-.toast{position:fixed;bottom:95px;left:50%;transform:translate(-50%,20px);background:var(--ink);color:var(--paper);padding:14px 24px;border-radius:14px;font-size:12.5px;font-weight:600;opacity:0;transition:var(--transition);pointer-events:none;z-index:200;max-width:90%;text-align:center;box-shadow:0 8px 32px rgba(20,15,40,0.2)}
+.toast{position:fixed;bottom:95px;left:50%;transform:translate(-50%,20px);background:var(--ink);color:var(--paper);padding:14px 24px;border-radius:14px;font-size:12.5px;font-weight:600;opacity:0;transition:var(--transition);pointer-events:none;z-index:200;max-width:90%;text-align:center}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 .toast.error{background:#ef4444}
 
@@ -276,13 +299,11 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 .modal-header{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--line-2)}
 .modal-header h3{font-size:16px;font-weight:800}
-.modal-close{font-size:22px;color:var(--muted);width:36px;height:36px;display:grid;place-items:center;border-radius:50%;transition:var(--transition)}
-.modal-close:hover{background:var(--line-2);color:var(--ink)}
+.modal-close{font-size:22px;color:var(--muted);width:36px;height:36px;display:grid;place-items:center;border-radius:50%}
 .modal-body{flex:1;overflow-y:auto;padding:16px 20px}
 .modal-footer{padding:14px 20px;border-top:1px solid var(--line-2);display:flex;gap:10px;background:var(--paper)}
-.modal-footer input{flex:1;border:1.5px solid var(--line);border-radius:22px;padding:12px 18px;font-size:13px;outline:none;background:var(--line-2);transition:var(--transition);font-weight:500}
-.modal-footer input:focus{border-color:var(--pink);background:var(--paper)}
-.modal-footer button{background:var(--ink);color:var(--paper);border-radius:22px;padding:12px 22px;font-size:13px;font-weight:700;transition:var(--transition)}
+.modal-footer input{flex:1;border:1.5px solid var(--line);border-radius:22px;padding:12px 18px;font-size:13px;outline:none;background:var(--line-2)}
+.modal-footer button{background:var(--ink);color:var(--paper);border-radius:22px;padding:12px 22px;font-size:13px;font-weight:700}
 
 .comment{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line-2);position:relative}
 .comment:last-child{border-bottom:none}
@@ -291,7 +312,6 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 .comment b{font-size:13px;font-weight:800;color:var(--ink)}
 .comment>div>p{font-size:13px;color:var(--ink-2);line-height:1.8;margin:4px 0 6px}
 .comment .comment-actions{display:flex;gap:16px;font-size:11px;color:var(--muted);font-weight:600;align-items:center;flex-wrap:wrap}
-.comment .comment-actions button{transition:var(--transition)}
 .comment .comment-actions button:hover{color:var(--pink)}
 .comment .comment-actions button.liked{color:var(--pink)}
 .comment time{font-size:10px;color:var(--muted);font-weight:500}
@@ -305,11 +325,11 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 .reply-input input{flex:1;border:1.5px solid var(--line);border-radius:20px;padding:8px 14px;font-size:11.5px;outline:none;background:var(--line-2)}
 .reply-input button{background:var(--ink);color:var(--paper);border-radius:20px;padding:8px 14px;font-size:11px;font-weight:700}
 
-.empty-state{text-align:center;padding:60px 20px;color:var(--muted)}
-.empty-state svg{width:64px;height:64px;stroke:var(--muted-light);fill:none;stroke-width:1.5;margin:0 auto 20px;opacity:0.5}
+.empty-state{text-align:center;padding:50px 20px;color:var(--muted)}
+.empty-state svg{width:56px;height:56px;stroke:var(--muted-light);fill:none;stroke-width:1.5;margin:0 auto 16px;opacity:0.5}
 .empty-state h3{font-size:15px;font-weight:800;color:var(--ink);margin-bottom:6px}
-.empty-state p{font-size:12.5px;line-height:1.8;margin-bottom:18px}
-.empty-state button{background:var(--ink);color:var(--paper);border-radius:12px;padding:12px 24px;font-size:12.5px;font-weight:700;transition:var(--transition)}
+.empty-state p{font-size:12.5px;line-height:1.8;margin-bottom:16px}
+.empty-state button{background:var(--pink);color:#fff;border-radius:12px;padding:12px 24px;font-size:12.5px;font-weight:700}
 
 .settings-list{display:flex;flex-direction:column;gap:2px}
 .settings-item{display:flex;align-items:center;gap:14px;padding:16px;background:var(--paper);border:1px solid var(--line-2);border-radius:14px;margin-bottom:8px;cursor:pointer;transition:var(--transition)}
@@ -323,8 +343,6 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 .doc-content{font-size:13.5px;line-height:2.1;color:var(--ink-2)}
 .doc-content h2{font-size:16px;font-weight:800;color:var(--ink);margin:22px 0 10px}
 .doc-content p{margin-bottom:14px}
-.doc-content ul{padding-right:22px;margin-bottom:14px}
-.doc-content li{margin-bottom:6px}
 
 .confirm-dialog{position:fixed;inset:0;background:rgba(10,5,25,0.6);z-index:400;display:none;align-items:center;justify-content:center;padding:20px}
 .confirm-dialog.show{display:flex}
@@ -332,7 +350,7 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 .confirm-content h3{font-size:16px;font-weight:800;margin-bottom:8px}
 .confirm-content p{font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:20px}
 .confirm-actions{display:flex;gap:10px}
-.confirm-actions button{flex:1;padding:12px;border-radius:12px;font-size:13px;font-weight:700;transition:var(--transition)}
+.confirm-actions button{flex:1;padding:12px;border-radius:12px;font-size:13px;font-weight:700}
 .confirm-actions button.cancel{background:var(--line-2);color:var(--ink)}
 .confirm-actions button.danger{background:#ef4444;color:#fff}
 
@@ -340,12 +358,10 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
 .offline-banner.show{transform:translateY(0)}
 
 .fab{position:fixed;bottom:95px;right:20px;width:56px;height:56px;border-radius:50%;background:var(--pink);color:#fff;display:grid;place-items:center;box-shadow:0 8px 24px rgba(244,91,155,0.4);z-index:90;transition:var(--transition);display:none}
-.fab:hover{background:var(--pink-hover);transform:scale(1.05)}
 .fab.show{display:grid}
 .fab svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2.4}
 
 @media(min-width:600px){body{padding:24px 0}.app{border-radius:28px;min-height:calc(100dvh - 48px);max-height:920px}header{border-radius:28px 28px 0 0}.bottom-nav{border-radius:0 0 28px 28px;bottom:24px}.modal-overlay{align-items:center}.modal-content{border-radius:22px;max-height:80vh}}
-@media(max-width:380px){.mini-card img{height:115px}.article-cover{height:220px}.post-image{height:220px}}
 </style>
 </head>
 <body>
@@ -374,17 +390,17 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
     <form id="authForm" novalidate>
       <div class="auth-field" id="nameField" style="display:none">
         <label>نام و نام خانوادگی</label>
-        <input type="text" id="authName" placeholder="مثلاً: مهسا رضایی" autocomplete="name">
+        <input type="text" id="authName" placeholder="مثلاً: مهسا رضایی">
         <div class="auth-error" id="nameError">نام خود را وارد کنید (حداقل ۳ کاراکتر)</div>
       </div>
       <div class="auth-field">
         <label>شماره موبایل</label>
-        <input type="tel" id="authPhone" placeholder="09123456789" autocomplete="tel" inputmode="numeric" maxlength="11">
-        <div class="auth-error" id="phoneError">شماره موبایل معتبر وارد کنید (۱۱ رقم با ۰۹ شروع شود)</div>
+        <input type="tel" id="authPhone" placeholder="09123456789" inputmode="numeric" maxlength="11">
+        <div class="auth-error" id="phoneError">شماره موبایل معتبر وارد کنید</div>
       </div>
       <div class="auth-field">
         <label>رمز عبور</label>
-        <input type="password" id="authPassword" placeholder="حداقل ۶ کاراکتر" autocomplete="current-password">
+        <input type="password" id="authPassword" placeholder="حداقل ۶ کاراکتر">
         <div class="auth-error" id="passwordError">رمز عبور باید حداقل ۶ کاراکتر باشد</div>
       </div>
       <button class="auth-btn" type="submit" id="authSubmitBtn">ورود</button>
@@ -400,15 +416,9 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
   <header>
     <div class="logo" id="logoBtn">Luno<span>.</span></div>
     <div class="head-actions">
-      <button class="icon-btn" id="themeToggle" aria-label="تغییر تم">
-        <svg id="themeIcon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
-      </button>
-      <button class="icon-btn" data-go="search" aria-label="جستجو">
-        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7.5"/><path d="m16.5 16.5 4.5 4.5"/></svg>
-      </button>
-      <button class="icon-btn add-btn" data-go="create" aria-label="ساخت پست">
-        <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-      </button>
+      <button class="icon-btn" id="themeToggle"><svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg></button>
+      <button class="icon-btn" data-go="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7.5"/><path d="m16.5 16.5 4.5 4.5"/></svg></button>
+      <button class="icon-btn add-btn" data-go="create"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
     </div>
   </header>
 
@@ -418,17 +428,18 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
       <div class="top-tabs">
         <button class="top-tab active" data-feed="all">همه</button>
         <button class="top-tab" data-feed="popular">محبوب</button>
+        <button class="top-tab" data-feed="following">دنبال‌شده‌ها</button>
         <button class="top-tab" data-feed="articles">مقاله‌ها</button>
         <button class="top-tab" data-go="categories">دسته‌بندی‌ها</button>
       </div>
-      <div id="adminHeroArea"></div>
+      <div class="stories" id="stories"></div>
       <div id="homeContent"></div>
     </section>
 
-    <!-- Articles -->
-    <section class="screen" id="articles">
-      <h1 class="section-heading">مقاله‌ها</h1>
-      <p class="section-sub">مطالب و مقالات مجله لونو.</p>
+    <!-- Categories -->
+    <section class="screen" id="categories">
+      <h1 class="section-heading">دسته‌بندی‌ها</h1>
+      <p class="section-sub">دنیای موردعلاقه‌ات را پیدا کن.</p>
       <div class="category-grid" id="categoryGrid"></div>
     </section>
 
@@ -438,13 +449,12 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
       <p class="section-sub">موضوع یا پست موردنظرت را پیدا کن.</p>
       <label class="searchbox">
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7.5"/><path d="m16.5 16.5 4.5 4.5"/></svg>
-        <input id="searchInput" placeholder="جست‌وجو..." autocomplete="off">
+        <input id="searchInput" placeholder="جست‌وجو...">
       </label>
       <div class="search-filters">
         <button class="search-filter active" data-search-type="newest">جدیدترین</button>
         <button class="search-filter" data-search-type="popular">محبوب‌ترین</button>
       </div>
-      <div class="section-title"><h2 id="searchResultsTitle">نتایج</h2></div>
       <div id="searchResults"></div>
     </section>
 
@@ -483,14 +493,18 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
       <div class="article-body" id="articleBody"></div>
     </section>
 
-    <!-- Create -->
+    <!-- Create Post (طبق تصویر ۹) -->
     <section class="screen" id="create">
-      <h1 class="section-heading">ساخت پست</h1>
-      <p class="section-sub">ایده یا تجربه‌ات را با دیگران به اشتراک بگذار.</p>
-      <form class="create-box" id="createForm">
-        <label class="upload-area">
-          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-          <span id="uploadLabel">افزودن تصویر (اختیاری)</span>
+      <div class="create-box">
+        <div class="create-box-header">
+          <h2>ایجاد پست</h2>
+          <button class="create-close" data-back>×</button>
+        </div>
+        <label class="upload-area" id="uploadArea">
+          <div class="icon-box">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
+          </div>
+          <span id="uploadLabel">افزودن تصویر به مطلب</span>
           <input type="file" id="imageFile" accept="image/*">
         </label>
         <div class="upload-preview" id="uploadPreview">
@@ -498,16 +512,29 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
           <button type="button" id="removeImage">×</button>
         </div>
         <input class="field" id="postTitle" maxlength="100" placeholder="عنوان مطلب">
-        <div class="field-error" id="titleError">عنوان را وارد کن (حداقل ۳ کاراکتر)</div>
+        <div class="field-error" id="titleError">عنوان را وارد کن</div>
         <textarea class="field" id="postText" maxlength="2000" placeholder="متن خود را اینجا بنویسید..."></textarea>
         <div class="char-count"><span id="charCount">0</span> / 2000</div>
         <div class="field-error" id="textError">متن را وارد کن (حداقل ۱۰ کاراکتر)</div>
-        <select class="field" id="postCategory">
-          <option>سبک زندگی</option><option>انیمه و فیلم</option><option>هنر و خلاقیت</option>
-          <option>علم و دانستنی</option><option>سفر و گردشگری</option><option>موسیقی</option><option>کتاب و ادبیات</option>
-        </select>
-        <button class="primary-btn" type="submit">انتشار</button>
-      </form>
+        <div class="tag-selector" id="tagSelector">
+          <button type="button" class="tag-btn" data-tag="سبک زندگی">سبک زندگی</button>
+          <button type="button" class="tag-btn" data-tag="سرگرمی">سرگرمی</button>
+          <button type="button" class="tag-btn" data-tag="فناوری">فناوری</button>
+          <button type="button" class="tag-btn" data-tag="هنر">هنر</button>
+          <button type="button" class="tag-btn" data-tag="سفر">سفر</button>
+        </div>
+        <div class="magazine-toggle" id="magazineToggle">
+          <div class="magazine-toggle-info">
+            <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+            <div>
+              <h4>انتشار در مجله</h4>
+              <p>پست شما در بخش مجله هم نمایش داده می‌شود</p>
+            </div>
+          </div>
+          <div class="switch" id="magazineSwitch"></div>
+        </div>
+        <button class="primary-btn" type="button" id="publishBtn">انتشار</button>
+      </div>
     </section>
 
     <!-- Notifications + Messages -->
@@ -570,7 +597,6 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
     <!-- Settings -->
     <section class="screen" id="settings">
       <h1 class="section-heading">تنظیمات</h1>
-      <p class="section-sub">مدیریت حساب و برنامه.</p>
       <div class="settings-list">
         <div class="settings-item" id="settingsEditProfile">
           <svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
@@ -609,13 +635,7 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
         <h2>۱. محتوای کاربران</h2>
         <p>کاربران مسئول محتوایی هستند که منتشر می‌کنند. انتشار محتوای توهین‌آمیز، غیرقانونی یا نقض حق نشر ممنوع است.</p>
         <h2>۲. حریم خصوصی</h2>
-        <p>اطلاعات شما نزد ما محفوظ است و بدون اجازه شما در اختیار دیگران قرار نمی‌گیرد.</p>
-        <h2>۳. رفتار کاربران</h2>
-        <ul>
-          <li>احترام به دیگران الزامی است.</li>
-          <li>اسپم و تبلیغات ناخواسته ممنوع است.</li>
-          <li>ایجاد چند حساب برای دور زدن قوانین ممنوع است.</li>
-        </ul>
+        <p>اطلاعات شما نزد ما محفوظ است.</p>
       </div>
     </section>
 
@@ -625,24 +645,15 @@ select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xml
       <h1 class="section-heading">درباره ما</h1>
       <div class="doc-content">
         <p><strong>Luno</strong> یک مجله اجتماعی است که برای به اشتراک گذاشتن ایده‌ها، تجربه‌ها و لحظه‌های کوچک زندگی ساخته شده.</p>
-        <h2>هدف ما</h2>
-        <p>می‌خواهیم فضایی آرام و الهام‌بخش بسازیم که در آن هر کسی بتواند داستان خودش را با دیگران به اشتراک بگذارد.</p>
-        <p style="text-align:center;margin-top:30px;color:var(--muted);font-size:12px">نسخه ۱.۰.۰ - ساخته شده با ❤️</p>
+        <p style="text-align:center;margin-top:30px;color:var(--muted);font-size:12px">نسخه ۱.۰.۰</p>
       </div>
-    </section>
-
-    <!-- Admin -->
-    <section class="screen" id="admin">
-      <h1 class="section-heading">پنل مدیریت <span style="background:var(--pink);color:#fff;font-size:9px;padding:3px 10px;border-radius:10px;font-weight:800;margin-right:8px">ADMIN</span></h1>
-      <p class="section-sub">مدیریت پست‌ها و نظرات.</p>
-      <div id="adminContent"></div>
     </section>
   </main>
 
   <nav class="bottom-nav">
     <button class="navbtn active" data-go="home"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg><span>خانه</span></button>
     <button class="navbtn" data-go="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7.5"/><path d="m16.5 16.5 4.5 4.5"/></svg><span>جستجو</span></button>
-    <button class="navbtn" data-go="articles"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>مقاله</span></button>
+    <button class="navbtn" data-go="categories"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>مجله</span></button>
     <button class="navbtn" data-go="notifications"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg><span>اعلان</span><span class="badge" id="notifBadge"></span></button>
     <button class="navbtn" data-go="profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span>پروفایل</span></button>
   </nav>
@@ -735,9 +746,9 @@ const ADMIN_POST={
   id:'admin1',title:'چطور یک عادت خوب بسازیم؟',category:'سبک زندگی',
   image:'https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1000&q=85',
   desc:'عادت‌های کوچک، قدم‌های آرام و راه‌هایی برای ساختن روزهای بهتر.',
-  body:'<p>گاهی برای تغییر زندگی به تصمیم‌های بزرگ نیاز نداریم. یک قدم کوچک که هر روز تکرار شود، می‌تواند شروع یک مسیر تازه باشد.</p><h2>از قدم‌های کوچک شروع کن</h2><p>به‌جای اینکه همه چیز را یک‌باره تغییر بدهی، یک کار ساده انتخاب کن.</p><div class="quote">قرار نیست هر روز عالی باشی؛ کافی است دوباره شروع کنی.</div><h2>به خودت فرصت بده</h2><p>ساختن عادت زمان می‌برد. پیشرفت آرام هم پیشرفت است.</p>',
+  body:'<p>گاهی برای تغییر زندگی به تصمیم‌های بزرگ نیاز نداریم. یک قدم کوچک که هر روز تکرار شود، می‌تواند شروع یک مسیر تازه باشد.</p><h2>از قدم‌های کوچک شروع کن</h2><p>به‌جای اینکه همه چیز را یک‌باره تغییر بدهی، یک کار ساده انتخاب کن.</p><div class="quote">قرار نیست هر روز عالی باشی؛ کافی است دوباره شروع کنی.</div>',
   author:'مدیر لونو',authorAvatar:DEFAULT_AVATAR,
-  createdAt:Date.now()-86400000,likes:842,isAdmin:true
+  createdAt:Date.now()-86400000,likes:842,isAdmin:true,inMagazine:true
 };
 
 let state={
@@ -759,12 +770,14 @@ let state={
   searchType:'newest',
   onboardingSeen:storage.get('onboardingSeen',false),
   notifTab:'notifs',
-  showAdminHero:storage.get('showAdminHero',true)
+  postTags:[],
+  postInMagazine:false
 };
 
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const allArticles=()=>state.customPosts;
 const myArticles=()=>state.customPosts.filter(a=>a.authorId===state.user?.phone);
+const magazinePosts=()=>[ADMIN_POST,...state.customPosts.filter(a=>a.inMagazine)];
 
 function toast(t,type=''){const el=$('#toast');el.textContent=t;el.className='toast show '+type;clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),2200)}
 
@@ -786,14 +799,13 @@ function toggleSave(id){if(isSaved(id))state.savedPosts=state.savedPosts.filter(
 
 function formatTime(ts){
   if(!ts)return '';
-  const d=new Date(ts);
-  const now=new Date();
+  const d=new Date(ts);const now=new Date();
   const diff=Math.floor((now-d)/1000);
   if(diff<60)return 'همین حالا';
   if(diff<3600)return Math.floor(diff/60)+' دقیقه پیش';
   if(diff<86400)return Math.floor(diff/3600)+' ساعت پیش';
   if(diff<604800)return Math.floor(diff/86400)+' روز پیش';
-  return d.toLocaleDateString('fa-IR',{year:'numeric',month:'long',day:'numeric'});
+  return d.toLocaleDateString('fa-IR');
 }
 
 function updateBadges(){
@@ -802,29 +814,95 @@ function updateBadges(){
 }
 
 // Renders
-function renderPostCard(a){
-  const isMine=a.authorId===state.user?.phone;
-  return `<div class="post-card" data-article="${a.id}">
-    ${a.image?`<div class="post-image" data-article-open="${a.id}"><img src="${a.image}" alt="${esc(a.title)}" loading="lazy" onerror="this.src='${PLACEHOLDER_IMG}'"><button class="post-menu-btn" data-post-menu="${a.id}">⋯</button></div>`:''}
-    <div class="post-content">
-      <span class="post-category">${esc(a.category)}</span>
-      <h2 data-article-open="${a.id}">${esc(a.title)}</h2>
-      <p>${esc((a.desc||'').slice(0,140))}${a.desc&&a.desc.length>140?'...':''}</p>
-      <div class="post-author">
-        <img src="${a.authorAvatar||DEFAULT_AVATAR}" alt="">
-        <b>${esc(a.author||'کاربر')}</b>
-        <time>${formatTime(a.createdAt)}</time>
+function renderStory(i,s){
+  return `<button class="story ${i===0?'plus':''}" data-story="${i}">${i===0?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>':`<img src="${s.img}" alt="">`}<span>${s.name}</span></button>`;
+}
+
+function renderAdminHero(){
+  return `<article class="hero-card" data-article-open="${ADMIN_POST.id}">
+    <div class="hero-image">
+      <img src="${ADMIN_POST.image}" alt="${esc(ADMIN_POST.title)}">
+      <div class="hero-label">
+        <span class="tag">مدیر برنامه</span>
+        <h1>${esc(ADMIN_POST.title)}</h1>
+        <p>${esc(ADMIN_POST.desc)}</p>
       </div>
+    </div>
+    <div class="article-meta">
+      <img src="${ADMIN_POST.authorAvatar}" alt="">
+      <b>${esc(ADMIN_POST.author)}</b>
+      <span class="meta-spacer"></span>
+      <span>${formatTime(ADMIN_POST.createdAt)}</span>
+    </div>
+    <div class="action-row">
+      <button class="action ${isLiked(ADMIN_POST.id)?'liked':''}" data-like="${ADMIN_POST.id}"><svg viewBox="0 0 24 24"><path d="M20.8 8.6c0 5.5-8.8 11-8.8 11s-8.8-5.5-8.8-11A4.6 4.6 0 0 1 12 6.1a4.6 4.6 0 0 1 8.8 2.5Z"/></svg><span>${ADMIN_POST.likes+(isLiked(ADMIN_POST.id)?1:0)}</span></button>
+      <button class="action" data-comment="${ADMIN_POST.id}"><svg viewBox="0 0 24 24"><path d="M20 11.5a7.5 7.5 0 0 1-8 7.5 9 9 0 0 1-4-.9L3 20l1.5-4.2A7.2 7.2 0 0 1 4 11.5 7.5 7.5 0 0 1 12 4a7.5 7.5 0 0 1 8 7.5Z"/></svg>${(state.comments[ADMIN_POST.id]||[]).length}</button>
+      <button class="action" data-share="${ADMIN_POST.id}"><svg viewBox="0 0 24 24"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13"/></svg>اشتراک</button>
+    </div>
+  </article>`;
+}
+
+function renderMiniCard(a){
+  return `<article class="mini-card" data-article="${a.id}">
+    <img src="${a.image||PLACEHOLDER_IMG}" alt="${esc(a.title)}" onerror="this.src='${PLACEHOLDER_IMG}'">
+    <button class="card-menu-btn" data-post-menu="${a.id}">⋯</button>
+    <div class="mini-text"><h3>${esc(a.title)}</h3><p>${esc(a.category)}</p></div>
+  </article>`;
+}
+
+function renderPostCard(a){
+  return `<div class="post-card" data-article-open="${a.id}">
+    <div class="post-card-inner">
+      <img src="${a.image||PLACEHOLDER_IMG}" alt="" onerror="this.src='${PLACEHOLDER_IMG}'">
+      <div class="post-card-info">
+        <div>
+          <h3>${esc(a.title)}</h3>
+          <div class="post-meta">${esc(a.category)}</div>
+        </div>
+        <div class="post-author">
+          <img src="${a.authorAvatar||DEFAULT_AVATAR}" alt="">
+          <span>${esc(a.author||'کاربر')}</span>
+        </div>
+      </div>
+    </div>
+    <div class="post-card-actions">
+      <span class="${isLiked(a.id)?'liked':''}" data-like="${a.id}"><svg viewBox="0 0 24 24"><path d="M20.8 8.6c0 5.5-8.8 11-8.8 11s-8.8-5.5-8.8-11A4.6 4.6 0 0 1 12 6.1a4.6 4.6 0 0 1 8.8 2.5Z"/></svg>${(a.likes||0)+(isLiked(a.id)?1:0)}</span>
+      <span data-comment="${a.id}"><svg viewBox="0 0 24 24"><path d="M20 11.5a7.5 7.5 0 0 1-8 7.5 9 9 0 0 1-4-.9L3 20l1.5-4.2A7.2 7.2 0 0 1 4 11.5 7.5 7.5 0 0 1 12 4a7.5 7.5 0 0 1 8 7.5Z"/></svg>${(state.comments[a.id]||[]).length}</span>
+      <span data-save="${a.id}" class="${isSaved(a.id)?'liked':''}"><svg viewBox="0 0 24 24"><path d="M6 4h12a1 1 0 0 1 1 1v16l-7-4-7 4V5a1 1 0 0 1 1-1Z"/></svg></span>
     </div>
   </div>`;
 }
 
-function renderMiniCard(a){
-  return `<article class="mini-card" data-article="${a.id}"><img src="${a.image||PLACEHOLDER_IMG}" alt="${esc(a.title)}" loading="lazy" onerror="this.src='${PLACEHOLDER_IMG}'"><div class="mini-text"><h3>${esc(a.title)}</h3><p>${esc(a.category)}</p></div></article>`;
+function renderTextPost(a){
+  return `<div class="text-post" data-article-open="${a.id}">
+    <span class="post-category">${esc(a.category)}</span>
+    <h3>${esc(a.title)}</h3>
+    <p>${esc(a.desc||'')}</p>
+    <div class="post-author">
+      <img src="${a.authorAvatar||DEFAULT_AVATAR}" alt="">
+      <b>${esc(a.author||'کاربر')}</b>
+      <span class="spacer"></span>
+      <span>${formatTime(a.createdAt)}</span>
+    </div>
+  </div>`;
 }
 
 function listItem(a){
-  return `<div class="list-article" data-article="${a.id}"><img src="${a.image||PLACEHOLDER_IMG}" alt="" loading="lazy" onerror="this.src='${PLACEHOLDER_IMG}'"><div class="list-copy"><h3>${esc(a.title)}</h3><p>${esc((a.desc||'').slice(0,80))}</p><small>${esc(a.category)} · ${formatTime(a.createdAt)}</small></div></div>`;
+  return `<div class="post-card" data-article-open="${a.id}" style="margin-bottom:12px">
+    <div class="post-card-inner">
+      <img src="${a.image||PLACEHOLDER_IMG}" alt="" onerror="this.src='${PLACEHOLDER_IMG}'">
+      <div class="post-card-info">
+        <div>
+          <h3>${esc(a.title)}</h3>
+          <div class="post-meta">${esc(a.category)}</div>
+        </div>
+        <div class="post-author">
+          <img src="${a.authorAvatar||DEFAULT_AVATAR}" alt="">
+          <span>${esc(a.author||'کاربر')} · ${formatTime(a.createdAt)}</span>
+        </div>
+      </div>
+    </div>
+  </div>`;
 }
 
 function emptyState(msg,icon='alert',btnText='',btnAction=''){
@@ -832,47 +910,54 @@ function emptyState(msg,icon='alert',btnText='',btnAction=''){
   return `<div class="empty-state"><svg viewBox="0 0 24 24">${icons[icon]||icons.alert}</svg><h3>خالیه</h3><p>${esc(msg)}</p>${btnText?`<button data-empty-action="${btnAction}">${esc(btnText)}</button>`:''}</div>`;
 }
 
-function renderAdminHero(){
-  if(!state.showAdminHero){$('#adminHeroArea').innerHTML='';return}
-  $('#adminHeroArea').innerHTML=`
-    <article class="hero-card">
-      <div class="hero-image" data-article-open="${ADMIN_POST.id}">
-        <img src="${ADMIN_POST.image}" alt="${esc(ADMIN_POST.title)}">
-        <div class="hero-label">
-          <span class="tag">مدیر برنامه</span>
-          <h1>${esc(ADMIN_POST.title)}</h1>
-          <p>${esc(ADMIN_POST.desc)}</p>
-        </div>
-      </div>
-      <div class="article-meta">
-        <img src="${ADMIN_POST.authorAvatar}" alt="">
-        <b>${esc(ADMIN_POST.author)}</b>
-        <span class="meta-spacer"></span>
-        <span>${formatTime(ADMIN_POST.createdAt)}</span>
-      </div>
-      <div class="action-row">
-        <button class="action" data-like="${ADMIN_POST.id}"><svg viewBox="0 0 24 24"><path d="M20.8 8.6c0 5.5-8.8 11-8.8 11s-8.8-5.5-8.8-11A4.6 4.6 0 0 1 12 6.1a4.6 4.6 0 0 1 8.8 2.5Z"/></svg><span>${ADMIN_POST.likes}</span></button>
-        <button class="action" data-comment="${ADMIN_POST.id}"><svg viewBox="0 0 24 24"><path d="M20 11.5a7.5 7.5 0 0 1-8 7.5 9 9 0 0 1-4-.9L3 20l1.5-4.2A7.2 7.2 0 0 1 4 11.5 7.5 7.5 0 0 1 12 4a7.5 7.5 0 0 1 8 7.5Z"/></svg>کامنت</button>
-        <button class="action" data-share="${ADMIN_POST.id}"><svg viewBox="0 0 24 24"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13"/></svg>اشتراک</button>
-      </div>
-    </article>
-  `;
-}
-
 function renderHome(){
-  renderAdminHero();
+  const stories=[
+    {name:'تو',img:state.profile.avatar},
+    {name:'مهسا',img:'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=100&q=80'},
+    {name:'آرین',img:'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80'},
+    {name:'سارا',img:'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=100&q=80'},
+    {name:'علی',img:'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80'}
+  ];
+  $('#stories').innerHTML=stories.map((s,i)=>renderStory(i,s)).join('');
+  
   let filtered=[...state.customPosts];
   if(state.feedFilter==='popular')filtered=[...filtered].sort((a,b)=>(b.likes||0)-(a.likes||0));
+  else if(state.feedFilter==='articles')filtered=filtered.filter(a=>a.inMagazine);
+  else if(state.feedFilter==='following')filtered=filtered.slice(0,3);
   else filtered=[...filtered].sort((a,b)=>b.createdAt-a.createdAt);
+  
   const content=$('#homeContent');
-  if(filtered.length===0){
-    content.innerHTML=emptyState('هنوز هیچ پستی منتشر نشده. اولین نفری باش که پست میذاره!','edit','ساخت اولین پست','go-create');
-    return;
+  
+  // Admin hero
+  let html='';
+  if(state.feedFilter==='all'||state.feedFilter==='popular'){html+=renderAdminHero()}
+  
+  // Text posts section
+  const textPosts=filtered.filter(a=>a.hasImage===false);
+  const imagePosts=filtered.filter(a=>a.hasImage!==false);
+  
+  if(imagePosts.length){
+    html+=`<div class="section-title"><h2>تازه‌های مجله</h2><button class="link-btn" data-go="categories">همه مطالب ←</button></div>`;
+    html+=`<div class="mini-grid">${imagePosts.slice(0,4).map(renderMiniCard).join('')}</div>`;
+    if(imagePosts.length>4){
+      html+=`<div class="section-title"><h2>مطالب بیشتر</h2></div>`;
+      html+=imagePosts.slice(4).map(renderPostCard).join('');
+    }
   }
-  content.innerHTML=filtered.map(renderPostCard).join('');
+  
+  if(textPosts.length){
+    html+=`<div class="section-title"><h2>از زبان کاربران</h2></div>`;
+    html+=textPosts.map(renderTextPost).join('');
+  }
+  
+  if(!imagePosts.length&&!textPosts.length){
+    html+=emptyState('هنوز هیچ پستی منتشر نشده. اولین نفری باش که پست میذاره!','edit','ساخت اولین پست','go-create');
+  }
+  
+  content.innerHTML=html;
 }
 
-function renderArticles(){
+function renderCategories(){
   $('#categoryGrid').innerHTML=categories.map(([n,img])=>`<button class="category" data-category-detail="${esc(n)}"><img src="${img}" alt="" loading="lazy"><span>${esc(n)}</span></button>`).join('');
 }
 
@@ -886,7 +971,6 @@ function renderSearch(q=''){
   let r=[...state.customPosts].filter(a=>(a.title+' '+a.category+' '+(a.desc||'')).includes(q));
   if(state.searchType==='popular')r=[...r].sort((a,b)=>(b.likes||0)-(a.likes||0));
   else r=[...r].sort((a,b)=>b.createdAt-a.createdAt);
-  $('#searchResultsTitle').textContent=q?'نتایج جست‌وجو':'همه مطالب';
   $('#searchResults').innerHTML=r.length?r.map(listItem).join(''):emptyState(q?'مطلبی با این عبارت پیدا نشد':'هنوز پستی منتشر نشده','search');
 }
 
@@ -903,7 +987,7 @@ function renderProfile(){
   if(state.profile.cover){coverImg.src=state.profile.cover;coverImg.style.display='block'}else{coverImg.style.display='none'}
   const myPosts=myArticles();
   $('#profilePostsCount').textContent=myPosts.length;
-  $('#profileGrid').innerHTML=myPosts.length?myPosts.map(renderMiniCard).join(''):emptyState('هنوز پستی نساختی','edit','ساخت اولین پست','go-create');
+  $('#profileGrid').innerHTML=myPosts.length?myPosts.map(a=>a.hasImage===false?`<div class="mini-card" data-article="${a.id}" style="padding:14px;height:140px;display:flex;flex-direction:column;justify-content:center"><h3 style="font-size:12px">${esc(a.title)}</h3><p style="font-size:10px;margin-top:6px">${esc((a.desc||'').slice(0,60))}...</p></div>`:renderMiniCard(a)).join(''):emptyState('هنوز پستی نساختی','edit','ساخت اولین پست','go-create');
   const saved=state.customPosts.filter(a=>isSaved(a.id));
   $('#profileSavedList').innerHTML=saved.length?saved.map(listItem).join(''):emptyState('چیزی ذخیره نکرده‌ای','heart');
 }
@@ -915,12 +999,11 @@ function renderNotifTab(){
   } else {
     const chatUsers=Object.keys(state.chats);
     if(chatUsers.length===0){
-      content.innerHTML=emptyState('هنوز پیامی نداری. وقتی با کسی گفتگو کنی اینجا نشون داده میشه','chat');
+      content.innerHTML=emptyState('هنوز پیامی نداری','chat');
       return;
     }
     content.innerHTML=chatUsers.map(uid=>{
-      const msgs=state.chats[uid]||[];
-      const last=msgs[msgs.length-1];
+      const msgs=state.chats[uid]||[];const last=msgs[msgs.length-1];
       const user=state.userDirectory?.[uid]||{name:'کاربر',avatar:DEFAULT_AVATAR};
       return `<div class="message-row" data-chat-user="${uid}"><div class="message-avatar"><img src="${user.avatar||DEFAULT_AVATAR}" alt=""></div><div class="message-info"><h4>${esc(user.name)}</h4><p>${last?esc(last.text):'گفتگویی شروع نشده'}</p></div><div class="message-meta"><time>${last?esc(last.time):''}</time></div></div>`;
     }).join('');
@@ -936,33 +1019,27 @@ function renderChat(userId){
   setTimeout(()=>$('#chatMessages').scrollTop=$('#chatMessages').scrollHeight,100);
 }
 
-function renderAdmin(){
-  const content=$('#adminContent');
-  content.innerHTML=`
-    <div class="section-title"><h2>پست‌ها (${state.customPosts.length})</h2></div>
-    ${state.customPosts.length?state.customPosts.map(p=>`<div class="post-card" style="margin-bottom:12px"><div class="post-content"><h2 style="font-size:14px">${esc(p.title)}</h2><p style="font-size:11px">${esc(p.category)} · ${esc(p.author||'کاربر')}</p><button class="primary-btn" style="margin-top:12px;background:#ef4444;padding:10px;font-size:12px" data-admin-delete-post="${p.id}">حذف پست</button></div></div>`).join(''):emptyState('پستی موجود نیست')}
-  `;
-}
-
 function showScreen(id,push=true){
   if(!$('#'+id))id='home';
   $$('.screen').forEach(s=>s.classList.toggle('active',s.id===id));
-  $$('.navbtn[data-go]').forEach(b=>b.classList.toggle('active',b.dataset.go===id||(id==='chat'&&b.dataset.go==='notifications')||(id==='categoryDetail'&&b.dataset.go==='articles')));
+  $$('.navbtn[data-go]').forEach(b=>b.classList.toggle('active',b.dataset.go===id||(id==='chat'&&b.dataset.go==='notifications')||(id==='categoryDetail'&&b.dataset.go==='categories')));
   if(id==='home')renderHome();
-  if(id==='articles')renderArticles();
+  if(id==='categories')renderCategories();
   if(id==='search')renderSearch($('#searchInput').value);
   if(id==='saved')renderSaved();
   if(id==='profile')renderProfile();
   if(id==='notifications')renderNotifTab();
-  if(id==='admin')renderAdmin();
+  if(id==='create')resetCreateForm();
   if(push&&state.history[state.history.length-1]!==id)state.history.push(id);
   window.scrollTo({top:0,behavior:'smooth'});
   $('#fabCreate').classList.toggle('show',id==='home');
 }
+
 function goBack(){
   if(state.history.length>1){state.history.pop();showScreen(state.history[state.history.length-1],false);}
   else showScreen('home',false);
 }
+
 function openArticle(id){
   let a;
   if(id==='admin1'){a=ADMIN_POST}
@@ -1005,6 +1082,17 @@ function renderComments(postId){
       </div>
     </div>`).join(''):emptyState('هنوز نظری نیست. اولین نظر رو بنویس!','chat');
   state.currentCommentsPostId=postId;
+}
+
+function resetCreateForm(){
+  $('#postTitle').value='';$('#postText').value='';$('#charCount').textContent='0';
+  $('#uploadPreview').classList.remove('show');$('#uploadLabel').textContent='افزودن تصویر به مطلب';
+  $('#imageFile').value='';state.postTags=[];state.postInMagazine=false;
+  $$('.tag-btn').forEach(b=>b.classList.remove('active'));
+  $('#magazineSwitch').classList.remove('on');
+  $('#magazineToggle').classList.remove('active');
+  $('#titleError').classList.remove('show');$('#textError').classList.remove('show');
+  $('#postTitle').classList.remove('error');$('#postText').classList.remove('error');
 }
 
 // Theme
@@ -1050,8 +1138,7 @@ $('#logoutBtn').addEventListener('click',()=>{
 let confirmCallback=null;
 function showConfirm(title,msg,cb,okText='تأیید'){
   $('#confirmTitle').textContent=title;$('#confirmMessage').textContent=msg;
-  $('#confirmOk').textContent=okText;
-  confirmCallback=cb;$('#confirmDialog').classList.add('show');
+  $('#confirmOk').textContent=okText;confirmCallback=cb;$('#confirmDialog').classList.add('show');
 }
 $('#confirmCancel').addEventListener('click',()=>{$('#confirmDialog').classList.remove('show');confirmCallback=null});
 $('#confirmOk').addEventListener('click',()=>{$('#confirmDialog').classList.remove('show');if(confirmCallback)confirmCallback();confirmCallback=null});
@@ -1059,7 +1146,6 @@ $('#confirmOk').addEventListener('click',()=>{$('#confirmDialog').classList.remo
 function showAuth(){$('#authScreen').classList.remove('hide');$('#mainApp').classList.add('hidden')}
 function showApp(){$('#authScreen').classList.add('hide');$('#mainApp').classList.remove('hidden');renderProfile();renderHome();updateBadges()}
 
-// Loader + Onboarding
 setTimeout(()=>{
   $('#loader').classList.add('hide');setTimeout(()=>$('#loader').remove(),500);
   if(!state.onboardingSeen){$('#onboarding').classList.remove('hide')}
@@ -1070,7 +1156,7 @@ setTimeout(()=>{
 let onboardingStep=0;
 const onboardingData=[
   {title:'به Luno خوش آمدی',text:'اینجا جاییه که می‌تونی ایده‌ها، تجربه‌ها و لحظه‌های کوچک زندگیت رو با دیگران به اشتراک بذاری.',icon:'<path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>'},
-  {title:'پست بساز',text:'می‌تونی پست تصویری یا متنی بسازی. هر چیزی که دوست داری با دیگران به اشتراک بذار.',icon:'<path d="M12 5v14M5 12h14"/>'},
+  {title:'پست بساز',text:'می‌تونی پست تصویری یا متنی بسازی. با فعال کردن «انتشار در مجله»، پستت در بخش مقاله هم نمایش داده میشه.',icon:'<path d="M12 5v14M5 12h14"/>'},
   {title:'با دیگران ارتباط بگیر',text:'پست‌ها رو لایک کن، کامنت بذار و با کاربران دیگه چت کن.',icon:'<path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.4 9 9 0 0 1-4.3-1L3 20l1.2-4.5A8.3 8.3 0 0 1 3.5 11.5 8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5Z"/>'}
 ];
 $('#onboardingBtn').addEventListener('click',()=>{
@@ -1094,18 +1180,26 @@ document.addEventListener('click',e=>{
   if(go){showScreen(go.dataset.go);return}
   const emptyAct=e.target.closest('[data-empty-action]');
   if(emptyAct){if(emptyAct.dataset.emptyAction==='go-create')showScreen('create');return}
+  // Handle like/save/comment buttons BEFORE article open
+  const likeBtn=e.target.closest('[data-like]');
+  if(likeBtn){e.stopPropagation();const id=likeBtn.dataset.like;toggleLike(id);toast(isLiked(id)?'پسندیده شد':'لغو شد');if($('#home').classList.contains('active'))renderHome();else openArticle(state.currentArticle);return}
+  const saveBtn=e.target.closest('[data-save]');
+  if(saveBtn){e.stopPropagation();const id=saveBtn.dataset.save;toggleSave(id);toast(isSaved(id)?'ذخیره شد':'حذف شد');if($('#home').classList.contains('active'))renderHome();return}
+  const commentBtn=e.target.closest('[data-comment]');
+  if(commentBtn){e.stopPropagation();renderComments(commentBtn.dataset.comment);$('#commentsModal').classList.add('show');return}
+  const shareBtn=e.target.closest('[data-share]');
+  if(shareBtn){e.stopPropagation();const url=location.href;if(navigator.share){navigator.share({title:'Luno',url})}else{navigator.clipboard?.writeText(url);toast('لینک کپی شد')}return}
   const articleOpen=e.target.closest('[data-article-open]');
-  if(articleOpen&&!e.target.closest('[data-post-menu]')){openArticle(articleOpen.dataset.articleOpen);return}
+  if(articleOpen&&!e.target.closest('[data-post-menu]')&&!e.target.closest('[data-like]')&&!e.target.closest('[data-comment]')&&!e.target.closest('[data-share]')&&!e.target.closest('[data-save]')){openArticle(articleOpen.dataset.articleOpen);return}
   const a=e.target.closest('[data-article]');
   if(a&&!e.target.closest('[data-post-menu]')){openArticle(a.dataset.article);return}
   const postMenu=e.target.closest('[data-post-menu]');
-  if(postMenu){e.stopPropagation();e.preventDefault();state.currentEditPostId=postMenu.dataset.postMenu;$('#postMenuModal').classList.add('show');return}
+  if(postMenu){e.stopPropagation();state.currentEditPostId=postMenu.dataset.postMenu;$('#postMenuModal').classList.add('show');return}
   const catD=e.target.closest('[data-category-detail]');
   if(catD){renderCategoryDetail(catD.dataset.categoryDetail);showScreen('categoryDetail');return}
   if(e.target.closest('[data-back]')){goBack();return}
   const chatRow=e.target.closest('[data-chat-user]');if(chatRow){renderChat(chatRow.dataset.chatUser);showScreen('chat');return}
   const closeBtn=e.target.closest('[data-close-modal]');if(closeBtn){closeBtn.closest('.modal-overlay').classList.remove('show');return}
-  const commentBtn=e.target.closest('[data-comment]');if(commentBtn){renderComments(commentBtn.dataset.comment);$('#commentsModal').classList.add('show');return}
   const likeComment=e.target.closest('[data-like-comment]');
   if(likeComment){const cid=+likeComment.dataset.likeComment;const pid=likeComment.dataset.postId;const c=(state.comments[pid]||[]).find(x=>x.id===cid);if(c){c.liked=!c.liked;c.likes=(c.likes||0)+(c.liked?1:-1);saveAll();renderComments(pid)}return}
   const replyBtn=e.target.closest('[data-reply-comment]');
@@ -1114,14 +1208,10 @@ document.addEventListener('click',e=>{
   if(sendReply){const cid=+sendReply.dataset.sendReply;const pid=sendReply.dataset.postId;const input=$(`[data-reply-input="${cid}"]`);const text=input.value.trim();if(!text)return;const c=(state.comments[pid]||[]).find(x=>x.id===cid);if(c){if(!c.replies)c.replies=[];c.replies.push({user:state.profile.name,avatar:state.profile.avatar,text,time:'همین حالا'});saveAll();renderComments(pid);toast('پاسخ ثبت شد')}return}
   const delComment=e.target.closest('[data-delete-comment]');
   if(delComment){const cid=+delComment.dataset.deleteComment;const pid=delComment.dataset.postId;showConfirm('حذف نظر','این نظر حذف بشه؟',()=>{if(state.comments[pid])state.comments[pid]=state.comments[pid].filter(c=>c.id!==cid);saveAll();renderComments(pid);toast('حذف شد')});return}
-  const likeBtn=e.target.closest('[data-like]');
-  if(likeBtn){const id=likeBtn.dataset.like;toggleLike(id);toast(isLiked(id)?'پسندیده شد':'لغو شد');renderHome();return}
-  const shareBtn=e.target.closest('[data-share]');
-  if(shareBtn){const url=location.href;if(navigator.share){navigator.share({title:'Luno',url})}else{navigator.clipboard?.writeText(url);toast('لینک کپی شد')}return}
   const notifTab=e.target.closest('[data-notif-tab]');
   if(notifTab){$$('.tab-notif').forEach(t=>t.classList.toggle('active',t===notifTab));state.notifTab=notifTab.dataset.notifTab;renderNotifTab();return}
-  const adminDelPost=e.target.closest('[data-admin-delete-post]');
-  if(adminDelPost){const pid=adminDelPost.dataset.adminDeletePost;showConfirm('حذف پست','این پست حذف بشه؟',()=>{state.customPosts=state.customPosts.filter(p=>p.id!==pid);saveAll();renderAdmin();renderHome();toast('پست حذف شد')});return}
+  const tagBtn=e.target.closest('[data-tag]');
+  if(tagBtn){const tag=tagBtn.dataset.tag;if(state.postTags.includes(tag)){state.postTags=state.postTags.filter(t=>t!==tag);tagBtn.classList.remove('active')}else{state.postTags.push(tag);tagBtn.classList.add('active')}return}
   const profileTab=e.target.closest('[data-profile-tab]');
   if(profileTab&&profileTab.classList.contains('profile-tab')){
     $$('.profile-tab').forEach(t=>t.classList.toggle('active',t===profileTab));
@@ -1137,12 +1227,19 @@ document.addEventListener('click',e=>{
 $$('[data-feed]').forEach(b=>b.addEventListener('click',()=>{$$('[data-feed]').forEach(x=>x.classList.toggle('active',x===b));state.feedFilter=b.dataset.feed;renderHome()}));
 $('#searchInput').addEventListener('input',e=>renderSearch(e.target.value.trim()));
 
+// Magazine toggle
+$('#magazineToggle').addEventListener('click',()=>{
+  state.postInMagazine=!state.postInMagazine;
+  $('#magazineSwitch').classList.toggle('on',state.postInMagazine);
+  $('#magazineToggle').classList.toggle('active',state.postInMagazine);
+});
+
 // Post menu modal
 $('#menuEditPost').addEventListener('click',()=>{
   const pid=state.currentEditPostId;if(!pid)return;
   const a=state.customPosts.find(x=>x.id===pid);if(!a)return;
   $('#editPostTitle').value=a.title;
-  $('#editPostText').value=(a.desc||'');
+  $('#editPostText').value=a.desc||'';
   $('#editPostCategory').value=a.category;
   $('#postMenuModal').classList.remove('show');
   $('#editPostModal').classList.add('show');
@@ -1189,26 +1286,34 @@ $('#submitCommentBtn').addEventListener('click',()=>{
   $('#newCommentInput').value='';saveAll();renderComments(pid);toast('نظر ثبت شد');
 });
 
-$('#postTitle').addEventListener('input',()=>{});
 $('#postText').addEventListener('input',e=>{$('#charCount').textContent=e.target.value.length});
 $('#imageFile').addEventListener('change',function(){const f=this.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{$('#previewImg').src=e.target.result;$('#uploadPreview').classList.add('show');$('#uploadLabel').textContent='تصویر انتخاب شد'};r.readAsDataURL(f)});
-$('#removeImage').addEventListener('click',()=>{$('#imageFile').value='';$('#uploadPreview').classList.remove('show');$('#uploadLabel').textContent='افزودن تصویر (اختیاری)'});
-$('#createForm').addEventListener('submit',e=>{
-  e.preventDefault();
-  const title=$('#postTitle').value.trim();const body=$('#postText').value.trim();const file=$('#imageFile').files[0];const category=$('#postCategory').value;
-  $('#titleError').classList.remove('show');$('#textError').classList.remove('show');$('#postTitle').classList.remove('error');$('#postText').classList.remove('error');
+$('#removeImage').addEventListener('click',()=>{$('#imageFile').value='';$('#uploadPreview').classList.remove('show');$('#uploadLabel').textContent='افزودن تصویر به مطلب'});
+
+$('#publishBtn').addEventListener('click',()=>{
+  const title=$('#postTitle').value.trim();const body=$('#postText').value.trim();const file=$('#imageFile').files[0];
+  $('#titleError').classList.remove('show');$('#textError').classList.remove('show');
+  $('#postTitle').classList.remove('error');$('#postText').classList.remove('error');
   let hasError=false;
   if(title.length<3){$('#titleError').classList.add('show');$('#postTitle').classList.add('error');hasError=true}
   if(body.length<10){$('#textError').classList.add('show');$('#postText').classList.add('error');hasError=true}
   if(hasError)return;
+  const category=state.postTags[0]||'سبک زندگی';
   const add=(img,hasImage)=>{
-    state.customPosts.unshift({id:'u'+Date.now(),title,category,image:img,hasImage,desc:body.slice(0,140),body:`<p>${esc(body).replace(/\n/g,'<br>')}</p>`,createdAt:Date.now(),likes:0,author:state.profile.name,authorId:state.user.phone,authorAvatar:state.profile.avatar});
-    saveAll();$('#createForm').reset();$('#uploadPreview').classList.remove('show');$('#uploadLabel').textContent='افزودن تصویر (اختیاری)';$('#charCount').textContent='0';
-    renderHome();renderProfile();showScreen('home');toast(hasImage?'پست تصویری منتشر شد':'پست متنی منتشر شد');
+    state.customPosts.unshift({
+      id:'u'+Date.now(),title,category,image:img,hasImage,
+      desc:body.slice(0,140),body:`<p>${esc(body).replace(/\n/g,'<br>')}</p>`,
+      createdAt:Date.now(),likes:0,
+      author:state.profile.name,authorId:state.user.phone,authorAvatar:state.profile.avatar,
+      inMagazine:state.postInMagazine
+    });
+    saveAll();resetCreateForm();
+    renderHome();renderProfile();showScreen('home');
+    toast(hasImage?'پست تصویری منتشر شد':'پست متنی منتشر شد');
   };
   if(file){
     if(!file.type.startsWith('image/')){toast('تصویر انتخاب کن','error');return}
-    if(file.size>4*1024*1024){toast('حجم کمتر از ۴ مگابایت','error');return}
+    if(file.size>10*1024*1024){toast('حجم کمتر از ۱۰ مگابایت','error');return}
     const r=new FileReader();r.onload=()=>add(r.result,true);r.readAsDataURL(file);
   } else add(null,false);
 });
@@ -1246,7 +1351,7 @@ $('#fabCreate').addEventListener('click',()=>showScreen('create'));
 
 let clickTimer=null;
 $('#logoBtn').addEventListener('click',()=>{
-  if(clickTimer){clearTimeout(clickTimer);clickTimer=null;showScreen('admin');toast('ورود به پنل مدیریت')}
+  if(clickTimer){clearTimeout(clickTimer);clickTimer=null;showScreen('home')}
   else clickTimer=setTimeout(()=>{clickTimer=null;showScreen('home')},280);
 });
 
@@ -1258,4 +1363,4 @@ window.addEventListener('popstate',()=>goBack());
 })();
 </script>
 </body>
-                                                          </html>
+  </html>
