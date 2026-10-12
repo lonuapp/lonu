@@ -9,194 +9,96 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
 <style>
-:root{
-  --pink:#f45b9b;
-  --pink-light:#fff5f9;
-  --pink-hover:#e04a8a;
-  --ink:#1a1a2e;
-  --ink-2:#2d2a3a;
-  --muted:#8b8798;
-  --muted-light:#b5b0c0;
-  --line:#eeeaf0;
-  --line-2:#f5f3f7;
-  --paper:#ffffff;
-  --bg:#fafafb;
-  --shadow:0 2px 12px rgba(20,15,40,0.04);
-  --shadow-lg:0 8px 32px rgba(20,15,40,0.08);
-  --radius:16px;
-  --radius-sm:12px;
-  --radius-lg:22px;
-}
+:root{--pink:#f45b9b;--pink-light:#fff5f9;--pink-hover:#e04a8a;--ink:#1a1a2e;--ink-2:#2d2a3a;--muted:#8b8798;--muted-light:#b5b0c0;--line:#eeeaf0;--line-2:#f5f3f7;--paper:#ffffff;--bg:#fafafb;--shadow:0 2px 12px rgba(20,15,40,0.04);--shadow-lg:0 8px 32px rgba(20,15,40,0.08);--radius:16px;--radius-sm:12px;--radius-lg:22px;--transition:all 0.25s cubic-bezier(0.4,0,0.2,1)}
+[data-theme="dark"]{--pink:#f45b9b;--pink-light:#2a1f28;--pink-hover:#e04a8a;--ink:#f0eef5;--ink-2:#e0dde8;--muted:#8b8798;--muted-light:#5a5668;--line:#2a2734;--line-2:#1f1d28;--paper:#16141f;--bg:#0f0d16;--shadow:0 2px 12px rgba(0,0,0,0.2);--shadow-lg:0 8px 32px rgba(0,0,0,0.4)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
-body{
-  background:var(--bg);
-  color:var(--ink);
-  font-family:'Vazirmatn', Tahoma, sans-serif;
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:flex-start;
-}
+body{background:var(--bg);color:var(--ink);font-family:'Vazirmatn',Tahoma,sans-serif;min-height:100vh;display:flex;justify-content:center;align-items:flex-start;transition:background 0.3s,color 0.3s}
 button,input,textarea,select{font:inherit;color:inherit}
 button{cursor:pointer;border:none;background:none}
 button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--pink);outline-offset:2px;border-radius:6px}
 img{display:block;max-width:100%}
-
-/* App Container */
-.app{
-  width:100%;max-width:480px;min-height:100dvh;
-  background:var(--paper);position:relative;
-  box-shadow:0 0 80px rgba(20,15,40,0.06);
-  display:flex;flex-direction:column;overflow:hidden;
-}
-
-/* Header */
-header{
-  position:sticky;top:0;z-index:50;background:#fff;
-  padding:16px 18px 12px;
-  display:flex;align-items:center;justify-content:space-between;
-  border-bottom:1px solid var(--line-2);
-}
-.logo{
-  font-family:'Vazirmatn',sans-serif;font-size:26px;font-weight:900;
-  letter-spacing:-0.8px;color:var(--ink);direction:ltr;
-}
+.loader-screen{position:fixed;inset:0;background:var(--paper);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity 0.4s}
+.loader-screen.hide{opacity:0;pointer-events:none}
+.loader-logo{font-family:'Vazirmatn',sans-serif;font-size:42px;font-weight:900;color:var(--ink);direction:ltr;margin-bottom:24px;letter-spacing:-1px}
+.loader-logo span{color:var(--pink)}
+.loader-bar{width:120px;height:3px;background:var(--line);border-radius:2px;overflow:hidden}
+.loader-bar::after{content:'';display:block;height:100%;width:40%;background:var(--pink);border-radius:2px;animation:loading 1.2s infinite}
+@keyframes loading{0%{transform:translateX(-100%)}100%{transform:translateX(300%)}}
+.app{width:100%;max-width:480px;min-height:100dvh;background:var(--paper);position:relative;box-shadow:0 0 80px rgba(20,15,40,0.06);display:flex;flex-direction:column;overflow:hidden}
+header{position:sticky;top:0;z-index:50;background:var(--paper);padding:16px 18px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line-2)}
+.logo{font-family:'Vazirmatn',sans-serif;font-size:26px;font-weight:900;letter-spacing:-0.8px;color:var(--ink);direction:ltr;cursor:pointer;user-select:none}
 .logo span{color:var(--pink)}
-.head-actions{display:flex;gap:6px;align-items:center}
-.icon-btn{
-  width:40px;height:40px;border-radius:12px;
-  display:grid;place-items:center;color:var(--ink);
-  transition:all .2s;position:relative;
-}
+.head-actions{display:flex;gap:4px;align-items:center}
+.icon-btn{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;color:var(--ink);transition:var(--transition);position:relative}
 .icon-btn:hover{background:var(--line-2)}
-.icon-btn:active{transform:scale(0.94)}
+.icon-btn:active{transform:scale(0.92)}
 .icon-btn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.add-btn{
-  background:var(--pink);color:#fff;
-  width:40px;height:40px;border-radius:12px;
-  display:grid;place-items:center;
-  transition:all .2s;
-  box-shadow:0 4px 12px rgba(244,91,155,0.3);
-}
+.icon-btn .dot{position:absolute;top:8px;right:8px;width:8px;height:8px;background:var(--pink);border-radius:50%;border:2px solid var(--paper);display:none}
+.icon-btn .dot.show{display:block;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
+.add-btn{background:var(--pink);color:#fff;width:40px;height:40px;border-radius:12px;display:grid;place-items:center;transition:var(--transition);box-shadow:0 4px 12px rgba(244,91,155,0.3)}
 .add-btn:hover{background:var(--pink-hover)}
-.add-btn:active{transform:scale(0.94)}
+.add-btn:active{transform:scale(0.92)}
 .add-btn svg{width:22px;height:22px;stroke-width:2.4}
-
-/* Main Content */
 main{flex:1;padding:0 16px 90px;overflow-y:auto;scroll-behavior:smooth}
 .screen{display:none}
 .screen.active{display:block;animation:fadeIn .25s ease}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-
-/* Top Tabs */
 .top-tabs{display:flex;gap:8px;padding:16px 0 12px;overflow-x:auto;scrollbar-width:none}
 .top-tabs::-webkit-scrollbar{display:none}
-.top-tab{
-  padding:9px 18px;border-radius:22px;font-size:13px;font-weight:600;
-  color:var(--muted);white-space:nowrap;transition:all .2s;
-  background:var(--line-2);border:1px solid transparent;
-}
+.top-tab{padding:9px 18px;border-radius:22px;font-size:13px;font-weight:600;color:var(--muted);white-space:nowrap;transition:var(--transition);background:var(--line-2);border:1px solid transparent}
 .top-tab:hover{color:var(--ink)}
-.top-tab.active{
-  background:var(--ink);color:#fff;
-  box-shadow:0 4px 12px rgba(26,26,46,0.15);
-}
-
-/* Stories */
+.top-tab.active{background:var(--ink);color:var(--paper);box-shadow:0 4px 12px rgba(26,26,46,0.15)}
 .stories{display:flex;gap:10px;padding:8px 0 20px;overflow-x:auto;scrollbar-width:none}
 .stories::-webkit-scrollbar{display:none}
-.story{
-  flex:0 0 68px;height:105px;border-radius:14px;overflow:hidden;
-  position:relative;background:var(--line-2);transition:transform .2s;
-  border:2px solid transparent;cursor:pointer;
-}
+.story{flex:0 0 68px;height:105px;border-radius:14px;overflow:hidden;position:relative;background:var(--line-2);transition:var(--transition);border:2px solid transparent;cursor:pointer}
 .story:hover{transform:scale(1.03)}
 .story img{width:100%;height:100%;object-fit:cover}
-.story.plus{
-  border:2px dashed var(--pink);
-  display:grid;place-items:center;
-  color:var(--pink);background:var(--pink-light);
-}
+.story.plus{border:2px dashed var(--pink);display:grid;place-items:center;color:var(--pink);background:var(--pink-light)}
 .story.plus svg{width:26px;height:26px;stroke-width:2.5}
-.story span:last-child{
-  position:absolute;bottom:5px;left:0;right:0;text-align:center;
-  font-size:9px;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,0.7);
-  font-weight:600;padding:0 4px;
-}
+.story span:last-child{position:absolute;bottom:5px;left:0;right:0;text-align:center;font-size:9px;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,0.7);font-weight:600;padding:0 4px}
 .story.plus span:last-child{color:var(--pink);text-shadow:none;font-weight:700;bottom:6px;font-size:10px}
-
-/* Hero Card */
-.hero-card{
-  border-radius:var(--radius-lg);overflow:hidden;background:var(--paper);
-  box-shadow:var(--shadow);margin-bottom:24px;border:1px solid var(--line-2);
-  transition:transform .2s;
-}
+.hero-card{border-radius:var(--radius-lg);overflow:hidden;background:var(--paper);box-shadow:var(--shadow);margin-bottom:24px;border:1px solid var(--line-2);transition:var(--transition)}
 .hero-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
 .hero-image{position:relative;height:230px;background:var(--line-2);cursor:pointer}
 .hero-image img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
 .hero-card:hover .hero-image img{transform:scale(1.03)}
 .hero-image::after{content:'';position:absolute;inset:30% 0 0;background:linear-gradient(transparent,rgba(10,5,25,0.85))}
 .hero-label{position:absolute;bottom:18px;left:18px;right:18px;color:#fff;z-index:1}
-.hero-label .tag{
-  display:inline-block;background:var(--pink);color:#fff;
-  border-radius:20px;padding:5px 12px;font-size:10px;font-weight:700;
-  margin-bottom:10px;letter-spacing:0.3px;
-}
+.hero-label .tag{display:inline-block;background:var(--pink);color:#fff;border-radius:20px;padding:5px 12px;font-size:10px;font-weight:700;margin-bottom:10px;letter-spacing:0.3px}
 .hero-label h1{font-size:20px;font-weight:800;line-height:1.5;margin-bottom:6px}
 .hero-label p{font-size:12px;opacity:.92;line-height:1.6}
 .article-meta{display:flex;align-items:center;gap:10px;padding:14px 18px;font-size:11px;color:var(--muted)}
 .article-meta img{width:32px;height:32px;border-radius:50%;object-fit:cover;border:2px solid var(--line-2)}
 .article-meta b{color:var(--ink);font-weight:700;font-size:12px}
 .meta-spacer{flex:1}
-.action-row{
-  display:flex;align-items:center;gap:18px;
-  padding:10px 18px 16px;border-top:1px solid var(--line-2);
-}
-.action{
-  display:flex;align-items:center;gap:6px;font-size:12px;
-  color:var(--muted);padding:4px;transition:all .2s;
-  font-weight:600;border-radius:8px;
-}
+.action-row{display:flex;align-items:center;gap:18px;padding:10px 18px 16px;border-top:1px solid var(--line-2)}
+.action{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);padding:4px;transition:var(--transition);font-weight:600;border-radius:8px}
 .action:hover{color:var(--ink)}
 .action:active{transform:scale(0.95)}
-.action svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:all .2s}
+.action svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:var(--transition)}
 .action.liked{color:var(--pink)}
 .action.liked svg{fill:var(--pink);stroke:var(--pink);animation:pop .3s}
-@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.3)}100%{transform:scale(1)}}
+@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.35)}100%{transform:scale(1)}}
 .action.saved{color:var(--pink)}
 .action.saved svg{fill:var(--pink);stroke:var(--pink)}
-.link-btn{
-  color:var(--pink);font-size:12px;font-weight:700;padding:6px;
-  transition:opacity .2s;border-radius:6px;
-}
+.link-btn{color:var(--pink);font-size:12px;font-weight:700;padding:6px;transition:var(--transition);border-radius:6px}
 .link-btn:hover{opacity:.7}
-
-/* Section Title */
 .section-title{display:flex;align-items:center;justify-content:space-between;margin:28px 0 16px}
 .section-title h2{font-size:17px;font-weight:800;letter-spacing:-0.3px}
 .section-title .link-btn{font-size:12px}
-
-/* Mini Grid */
 .mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.mini-card{
-  border-radius:var(--radius);overflow:hidden;background:var(--paper);
-  border:1px solid var(--line-2);box-shadow:var(--shadow);
-  transition:all .25s;cursor:pointer;
-}
+.mini-card{border-radius:var(--radius);overflow:hidden;background:var(--paper);border:1px solid var(--line-2);box-shadow:var(--shadow);transition:var(--transition);cursor:pointer;position:relative}
 .mini-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--line)}
 .mini-card:active{transform:translateY(-1px)}
 .mini-card img{width:100%;height:135px;object-fit:cover}
 .mini-card .mini-text{padding:12px 14px}
 .mini-card h3{font-size:12.5px;font-weight:700;line-height:1.6;margin-bottom:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .mini-card p{font-size:10px;color:var(--muted);font-weight:500}
-
-/* Text-only card */
-.text-card{
-  background:var(--paper);border:1px solid var(--line-2);
-  border-radius:var(--radius);padding:18px;margin-bottom:12px;
-  box-shadow:var(--shadow);cursor:pointer;transition:all .25s;
-}
+.card-menu-btn{position:absolute;top:8px;right:8px;width:28px;height:28px;background:rgba(0,0,0,0.5);color:#fff;border-radius:50%;display:grid;place-items:center;font-size:14px;z-index:2;backdrop-filter:blur(4px)}
+.card-menu-btn:hover{background:rgba(0,0,0,0.7)}
+.text-card{background:var(--paper);border:1px solid var(--line-2);border-radius:var(--radius);padding:18px;margin-bottom:12px;box-shadow:var(--shadow);cursor:pointer;transition:var(--transition);position:relative}
 .text-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
 .text-card h3{font-size:14px;font-weight:800;line-height:1.7;margin-bottom:8px}
 .text-card p{font-size:12px;color:var(--muted);line-height:1.9;margin-bottom:14px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
@@ -204,13 +106,7 @@ main{flex:1;padding:0 16px 90px;overflow-y:auto;scroll-behavior:smooth}
 .text-card .text-meta img{width:26px;height:26px;border-radius:50%;object-fit:cover}
 .text-card .text-meta b{color:var(--ink);font-weight:700;font-size:11px}
 .text-card .text-meta .spacer{flex:1}
-
-/* List Article */
-.list-article{
-  display:flex;gap:14px;align-items:center;padding:14px 0;
-  border-bottom:1px solid var(--line-2);cursor:pointer;
-  transition:all .2s;
-}
+.list-article{display:flex;gap:14px;align-items:center;padding:14px 0;border-bottom:1px solid var(--line-2);cursor:pointer;transition:var(--transition)}
 .list-article:hover{background:var(--line-2);margin:0 -16px;padding:14px 16px}
 .list-article:last-child{border-bottom:none}
 .list-article img{width:82px;height:82px;border-radius:12px;object-fit:cover;flex-shrink:0}
@@ -218,104 +114,52 @@ main{flex:1;padding:0 16px 90px;overflow-y:auto;scroll-behavior:smooth}
 .list-copy h3{font-size:13px;font-weight:700;line-height:1.6;margin-bottom:5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .list-copy p{font-size:11px;color:var(--muted);line-height:1.6;margin-bottom:6px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
 .list-copy small{font-size:10px;color:var(--pink);font-weight:700}
-
-/* Categories */
 .section-heading{font-size:24px;font-weight:900;margin:20px 0 8px;letter-spacing:-0.5px}
 .section-sub{font-size:12.5px;color:var(--muted);line-height:1.9;margin-bottom:22px;font-weight:500}
 .category-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.category{
-  position:relative;border-radius:var(--radius);overflow:hidden;
-  aspect-ratio:1;cursor:pointer;transition:transform .25s;
-  border:1px solid var(--line-2);
-}
+.category{position:relative;border-radius:var(--radius);overflow:hidden;aspect-ratio:1;cursor:pointer;transition:var(--transition);border:1px solid var(--line-2)}
 .category:hover{transform:scale(1.02)}
 .category img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
 .category:hover img{transform:scale(1.08)}
 .category::after{content:'';position:absolute;inset:30% 0 0;background:linear-gradient(transparent,rgba(10,5,25,0.75))}
-.category span{
-  position:absolute;bottom:14px;left:14px;right:14px;
-  color:#fff;font-size:14px;font-weight:800;z-index:1;
-}
-
-/* Search */
-.searchbox{
-  display:flex;align-items:center;gap:10px;background:var(--line-2);
-  border-radius:14px;padding:14px 18px;margin-bottom:22px;
-  border:1.5px solid transparent;transition:all .2s;
-}
-.searchbox:focus-within{border-color:var(--pink);background:#fff}
+.category span{position:absolute;bottom:14px;left:14px;right:14px;color:#fff;font-size:14px;font-weight:800;z-index:1}
+.searchbox{display:flex;align-items:center;gap:10px;background:var(--line-2);border-radius:14px;padding:14px 18px;margin-bottom:22px;border:1.5px solid transparent;transition:var(--transition)}
+.searchbox:focus-within{border-color:var(--pink);background:var(--paper)}
 .searchbox svg{width:20px;height:20px;stroke:var(--muted);fill:none;stroke-width:2;flex-shrink:0}
-.searchbox input{
-  border:none;background:transparent;outline:none;
-  width:100%;font-size:13px;font-weight:500;
-}
+.searchbox input{border:none;background:transparent;outline:none;width:100%;font-size:13px;font-weight:500}
 .searchbox input::placeholder{color:var(--muted-light);font-weight:500}
 .chips{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 22px}
-.chip{
-  background:#fff;color:var(--ink);border:1.5px solid var(--line);
-  border-radius:20px;padding:9px 16px;font-size:12px;font-weight:600;
-  transition:all .2s;
-}
+.chip{background:var(--paper);color:var(--ink);border:1.5px solid var(--line);border-radius:20px;padding:9px 16px;font-size:12px;font-weight:600;transition:var(--transition)}
 .chip:hover{border-color:var(--pink);color:var(--pink)}
 .chip.active{background:var(--pink);color:#fff;border-color:var(--pink)}
-
-/* Article */
-.article-cover{
-  height:280px;border-radius:var(--radius-lg);overflow:hidden;
-  position:relative;margin-bottom:20px;border:1px solid var(--line-2);
-}
+.article-cover{height:280px;border-radius:var(--radius-lg);overflow:hidden;position:relative;margin-bottom:20px;border:1px solid var(--line-2)}
 .article-cover img{width:100%;height:100%;object-fit:cover}
 .article-cover::after{content:'';position:absolute;inset:35% 0 0;background:linear-gradient(transparent,rgba(10,5,25,0.8))}
 .cover-title{position:absolute;bottom:20px;left:20px;right:20px;color:#fff;z-index:1}
-.cover-title .tag{
-  display:inline-block;background:var(--pink);color:#fff;
-  border-radius:20px;padding:5px 12px;font-size:10px;font-weight:700;
-  margin-bottom:10px;
-}
+.cover-title .tag{display:inline-block;background:var(--pink);color:#fff;border-radius:20px;padding:5px 12px;font-size:10px;font-weight:700;margin-bottom:10px}
 .cover-title h1{font-size:24px;font-weight:900;line-height:1.5;letter-spacing:-0.5px}
-.article-body{font-size:14.5px;line-height:2.3;color:#3d3a4a;font-weight:400}
+.article-body{font-size:14.5px;line-height:2.3;color:var(--ink-2);font-weight:400}
 .article-body h2{font-size:19px;font-weight:800;color:var(--ink);margin:28px 0 12px;letter-spacing:-0.3px}
 .article-body p{margin-bottom:18px}
-.quote{
-  border-right:3px solid var(--pink);background:var(--pink-light);
-  padding:18px;border-radius:10px;color:#9d5c7d;
-  margin:24px 0;font-style:italic;font-weight:500;line-height:2;
-}
-
-/* Profile */
+.quote{border-right:3px solid var(--pink);background:var(--pink-light);padding:18px;border-radius:10px;color:var(--pink);margin:24px 0;font-style:italic;font-weight:500;line-height:2}
 .profile-cover{height:150px;border-radius:var(--radius);overflow:hidden;margin-bottom:0;border:1px solid var(--line-2)}
 .profile-cover img{width:100%;height:100%;object-fit:cover}
 .profile-info{text-align:center;padding:0 16px 16px;margin-top:-45px;position:relative}
-.profile-avatar{
-  width:90px;height:90px;border-radius:50%;
-  border:5px solid #fff;object-fit:cover;margin:0 auto 10px;
-  position:relative;z-index:1;background:#fff;
-  box-shadow:0 4px 20px rgba(20,15,40,0.08);
-}
+.profile-avatar{width:90px;height:90px;border-radius:50%;border:5px solid var(--paper);object-fit:cover;margin:0 auto 10px;position:relative;z-index:1;background:var(--paper);box-shadow:0 4px 20px rgba(20,15,40,0.08);cursor:pointer}
 .profile-info h2{font-size:19px;font-weight:800;margin:0 0 6px;letter-spacing:-0.3px}
-.profile-info > p{font-size:12.5px;color:var(--muted);line-height:1.9;margin-bottom:18px;max-width:320px;margin-left:auto;margin-right:auto;font-weight:500}
+.profile-info>p{font-size:12.5px;color:var(--muted);line-height:1.9;margin-bottom:18px;max-width:320px;margin-left:auto;margin-right:auto;font-weight:500}
 .stats{display:flex;justify-content:center;gap:36px;padding:16px 0;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);font-size:11px;color:var(--muted);font-weight:600}
-.stats div{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;transition:all .2s}
+.stats div{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;transition:var(--transition)}
 .stats div:hover{color:var(--ink)}
 .stats b{font-size:17px;font-weight:800;color:var(--ink);letter-spacing:-0.3px}
 .profile-buttons{display:flex;gap:10px;justify-content:center;margin:16px 0}
-.pill-btn{
-  border:1.5px solid var(--line);background:#fff;color:var(--ink);
-  border-radius:25px;padding:11px 24px;font-size:12.5px;font-weight:700;
-  transition:all .2s;
-}
+.pill-btn{border:1.5px solid var(--line);background:var(--paper);color:var(--ink);border-radius:25px;padding:11px 24px;font-size:12.5px;font-weight:700;transition:var(--transition)}
 .pill-btn:hover{background:var(--line-2)}
 .pill-btn:active{transform:scale(0.97)}
-.pill-btn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+.pill-btn.primary{background:var(--ink);color:var(--paper);border-color:var(--ink)}
 .pill-btn.primary:hover{background:#000}
-
-/* Profile Tabs */
 .profile-tabs{display:flex;gap:4px;border-bottom:1px solid var(--line-2);margin-bottom:18px}
-.profile-tab{
-  flex:1;padding:14px 0;font-size:13px;font-weight:700;
-  color:var(--muted);border-bottom:2.5px solid transparent;
-  transition:all .2s;position:relative;
-}
+.profile-tab{flex:1;padding:14px 0;font-size:12px;font-weight:700;color:var(--muted);border-bottom:2.5px solid transparent;transition:var(--transition);position:relative}
 .profile-tab:hover{color:var(--ink)}
 .profile-tab.active{color:var(--ink);border-bottom-color:var(--ink)}
 .profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -323,226 +167,170 @@ main{flex:1;padding:0 16px 90px;overflow-y:auto;scroll-behavior:smooth}
 .profile-grid .text-card{padding:14px;margin-bottom:0}
 .profile-grid .text-card h3{font-size:12px}
 .profile-grid .text-card p{font-size:10px;-webkit-line-clamp:2}
-
-/* Create Post */
-.create-box{
-  background:#fff;border:1px solid var(--line-2);
-  border-radius:var(--radius-lg);padding:20px;box-shadow:var(--shadow);
-}
-.upload-area{
-  border:2px dashed var(--line);background:var(--line-2);
-  border-radius:14px;padding:26px 16px;text-align:center;
-  color:var(--muted);font-size:12.5px;margin-bottom:18px;
-  cursor:pointer;transition:all .2s;display:block;font-weight:600;
-}
+.create-box{background:var(--paper);border:1px solid var(--line-2);border-radius:var(--radius-lg);padding:20px;box-shadow:var(--shadow)}
+.upload-area{border:2px dashed var(--line);background:var(--line-2);border-radius:14px;padding:26px 16px;text-align:center;color:var(--muted);font-size:12.5px;margin-bottom:18px;cursor:pointer;transition:var(--transition);display:block;font-weight:600}
 .upload-area:hover{border-color:var(--pink);background:var(--pink-light);color:var(--pink)}
 .upload-area svg{width:32px;height:32px;margin:0 auto 10px;stroke:currentColor;fill:none;stroke-width:1.8}
 .upload-area input{display:none}
-.field{
-  width:100%;border:1.5px solid var(--line);border-radius:12px;
-  padding:14px 16px;background:#fff;margin-bottom:14px;
-  font-size:13.5px;outline:none;transition:all .2s;font-weight:500;
-}
-.field:focus{border-color:var(--pink);background:#fff}
+.upload-preview{position:relative;margin-bottom:16px;border-radius:12px;overflow:hidden;display:none}
+.upload-preview.show{display:block}
+.upload-preview img{width:100%;max-height:220px;object-fit:cover}
+.upload-preview button{position:absolute;top:8px;right:8px;width:32px;height:32px;background:rgba(0,0,0,0.6);color:#fff;border-radius:50%;display:grid;place-items:center;font-size:16px}
+.field{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--paper);margin-bottom:14px;font-size:13.5px;outline:none;transition:var(--transition);font-weight:500}
+.field:focus{border-color:var(--pink);background:var(--paper)}
+.field.error{border-color:#ef4444}
+.field-error{color:#ef4444;font-size:11px;margin:-10px 0 12px 4px;font-weight:600;display:none}
+.field-error.show{display:block}
 textarea.field{min-height:120px;resize:vertical;line-height:1.9}
-select.field{
-  appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%238b8798' stroke-width='2.5'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:left 16px center;padding-left:42px;
-}
-.primary-btn{
-  width:100%;border:none;border-radius:14px;background:var(--ink);
-  color:#fff;font-weight:800;padding:16px;font-size:14px;
-  transition:all .2s;letter-spacing:-0.2px;
-}
+select.field{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%238b8798' stroke-width='2.5'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:left 16px center;padding-left:42px}
+.char-count{text-align:left;font-size:10px;color:var(--muted);margin:-10px 0 12px 4px;font-weight:600}
+.primary-btn{width:100%;border:none;border-radius:14px;background:var(--ink);color:var(--paper);font-weight:800;padding:16px;font-size:14px;transition:var(--transition);letter-spacing:-0.2px}
 .primary-btn:hover{background:#000}
 .primary-btn:active{transform:scale(0.98)}
-
-/* Notifications */
-.notice{
-  display:flex;align-items:center;gap:14px;padding:16px 0;
-  border-bottom:1px solid var(--line-2);font-size:12.5px;line-height:1.8;
-  transition:all .2s;cursor:pointer;
-}
+.notice{display:flex;align-items:center;gap:14px;padding:16px 0;border-bottom:1px solid var(--line-2);font-size:12.5px;line-height:1.8;transition:var(--transition);cursor:pointer}
 .notice:hover{background:var(--line-2);margin:0 -16px;padding:16px}
 .notice:last-child{border-bottom:none}
 .notice img{width:48px;height:48px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--line-2)}
 .notice div{flex:1}
 .notice b{font-weight:800;color:var(--ink)}
 .notice time{display:block;font-size:10.5px;color:var(--muted);margin-top:3px;font-weight:500}
-
-/* Saved */
-.saved-card{
-  display:flex;gap:14px;padding:14px;background:#fff;
-  border-radius:var(--radius);margin-bottom:12px;
-  border:1px solid var(--line-2);box-shadow:var(--shadow);
-  cursor:pointer;transition:all .2s;
-}
+.saved-card{display:flex;gap:14px;padding:14px;background:var(--paper);border-radius:var(--radius);margin-bottom:12px;border:1px solid var(--line-2);box-shadow:var(--shadow);cursor:pointer;transition:var(--transition)}
 .saved-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
 .saved-card img{width:82px;height:82px;border-radius:12px;object-fit:cover;flex-shrink:0}
 .saved-card h3{font-size:13px;font-weight:700;line-height:1.6;margin-bottom:5px}
 .saved-card p{font-size:11px;color:var(--muted);font-weight:500}
-
-/* Bottom Nav */
-.bottom-nav{
-  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
-  width:100%;max-width:480px;height:74px;padding:0 8px;
-  display:flex;align-items:center;justify-content:space-around;
-  background:#fff;border-top:1px solid var(--line-2);z-index:100;
-}
-.navbtn{
-  display:flex;flex-direction:column;align-items:center;gap:4px;
-  font-size:9.5px;color:var(--muted);padding:8px 14px;
-  border-radius:12px;transition:all .2s;min-width:54px;
-  position:relative;font-weight:600;
-}
+.messages-list{display:flex;flex-direction:column}
+.message-row{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line-2);cursor:pointer;transition:var(--transition)}
+.message-row:hover{background:var(--line-2);margin:0 -16px;padding:14px 16px}
+.message-row:last-child{border-bottom:none}
+.message-avatar{position:relative;flex-shrink:0}
+.message-avatar img{width:52px;height:52px;border-radius:50%;object-fit:cover}
+.message-avatar .online{position:absolute;bottom:2px;right:2px;width:12px;height:12px;background:#10b981;border-radius:50%;border:2px solid var(--paper)}
+.message-avatar .unread-count{position:absolute;top:-2px;right:-2px;min-width:18px;height:18px;background:var(--pink);color:#fff;border-radius:9px;font-size:10px;font-weight:700;display:grid;place-items:center;padding:0 4px;border:2px solid var(--paper)}
+.message-info{flex:1;min-width:0}
+.message-info h4{font-size:13.5px;font-weight:800;margin-bottom:3px}
+.message-info p{font-size:11.5px;color:var(--muted);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.message-meta{text-align:left;flex-shrink:0}
+.message-meta time{font-size:10px;color:var(--muted);font-weight:600}
+.message-meta .unread-dot{width:8px;height:8px;background:var(--pink);border-radius:50%;margin-top:4px;display:inline-block}
+.chat-header{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line-2);margin-bottom:16px}
+.chat-header img{width:44px;height:44px;border-radius:50%;object-fit:cover}
+.chat-header div{flex:1}
+.chat-header h4{font-size:14px;font-weight:800}
+.chat-header p{font-size:11px;color:#10b981;font-weight:600}
+.chat-messages{display:flex;flex-direction:column;gap:10px;padding-bottom:16px;min-height:400px}
+.chat-bubble{max-width:75%;padding:10px 14px;border-radius:16px;font-size:13px;line-height:1.7;word-wrap:break-word;position:relative}
+.chat-bubble.me{align-self:flex-end;background:var(--pink);color:#fff;border-bottom-right-radius:4px}
+.chat-bubble.other{align-self:flex-start;background:var(--line-2);color:var(--ink);border-bottom-left-radius:4px}
+.chat-bubble time{font-size:9px;opacity:0.7;display:block;margin-top:4px;text-align:left}
+.chat-input{position:sticky;bottom:0;background:var(--paper);padding:12px 0;display:flex;gap:8px;border-top:1px solid var(--line-2)}
+.chat-input input{flex:1;border:1.5px solid var(--line);border-radius:22px;padding:12px 18px;font-size:13px;outline:none;background:var(--line-2);transition:var(--transition)}
+.chat-input input:focus{border-color:var(--pink);background:var(--paper)}
+.chat-input button{width:44px;height:44px;border-radius:50%;background:var(--pink);color:#fff;display:grid;place-items:center;transition:var(--transition);flex-shrink:0}
+.chat-input button:hover{background:var(--pink-hover)}
+.chat-input button:active{transform:scale(0.92)}
+.chat-input button svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;height:74px;padding:0 8px;display:flex;align-items:center;justify-content:space-around;background:var(--paper);border-top:1px solid var(--line-2);z-index:100}
+.navbtn{display:flex;flex-direction:column;align-items:center;gap:4px;font-size:9.5px;color:var(--muted);padding:8px 12px;border-radius:12px;transition:var(--transition);min-width:52px;position:relative;font-weight:600}
 .navbtn:hover{color:var(--ink)}
 .navbtn:active{transform:scale(0.94)}
 .navbtn.active{color:var(--pink)}
-.navbtn svg{
-  width:24px;height:24px;fill:none;stroke:currentColor;
-  stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;
-  transition:all .2s;
-}
+.navbtn svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;transition:var(--transition)}
 .navbtn.active svg{stroke-width:2.3;transform:translateY(-1px)}
-.navbtn .badge{
-  position:absolute;top:6px;right:14px;
-  width:9px;height:9px;background:var(--pink);
-  border-radius:50%;border:2px solid #fff;
-  display:none;animation:pulse 2s infinite;
-}
-@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+.navbtn .badge{position:absolute;top:6px;right:10px;min-width:9px;height:9px;background:var(--pink);border-radius:50%;border:2px solid var(--paper);display:none;animation:pulse 2s infinite}
 .navbtn .badge.show{display:block}
-
-/* Toast */
-.toast{
-  position:fixed;bottom:95px;left:50%;
-  transform:translate(-50%,20px);background:var(--ink);color:#fff;
-  padding:14px 24px;border-radius:14px;font-size:12.5px;font-weight:600;
-  opacity:0;transition:all .3s;pointer-events:none;z-index:200;
-  max-width:90%;text-align:center;box-shadow:0 8px 32px rgba(20,15,40,0.2);
-}
+.navbtn .badge.with-count{height:16px;border-radius:8px;font-size:9px;padding:0 4px;display:grid;place-items:center;color:#fff;top:2px;right:6px}
+.toast{position:fixed;bottom:95px;left:50%;transform:translate(-50%,20px);background:var(--ink);color:var(--paper);padding:14px 24px;border-radius:14px;font-size:12.5px;font-weight:600;opacity:0;transition:var(--transition);pointer-events:none;z-index:200;max-width:90%;text-align:center;box-shadow:0 8px 32px rgba(20,15,40,0.2)}
 .toast.show{opacity:1;transform:translate(-50%,0)}
-
-/* Modal */
-.modal-overlay{
-  position:fixed;inset:0;background:rgba(10,5,25,0.6);
-  z-index:300;display:none;align-items:flex-end;justify-content:center;
-  animation:fadeIn .2s;
-}
+.toast.error{background:#ef4444}
+.modal-overlay{position:fixed;inset:0;background:rgba(10,5,25,0.6);z-index:300;display:none;align-items:flex-end;justify-content:center;animation:fadeIn .2s}
 .modal-overlay.show{display:flex}
-.modal-content{
-  background:#fff;width:100%;max-width:480px;
-  border-radius:22px 22px 0 0;max-height:88vh;
-  display:flex;flex-direction:column;animation:slideUp .3s cubic-bezier(0.16,1,0.3,1);
-}
+.modal-content{background:var(--paper);width:100%;max-width:480px;border-radius:22px 22px 0 0;max-height:88vh;display:flex;flex-direction:column;animation:slideUp .3s cubic-bezier(0.16,1,0.3,1)}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.modal-header{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:18px 20px;border-bottom:1px solid var(--line-2);
-}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--line-2)}
 .modal-header h3{font-size:16px;font-weight:800;letter-spacing:-0.3px}
-.modal-close{
-  font-size:22px;color:var(--muted);width:36px;height:36px;
-  display:grid;place-items:center;border-radius:50%;transition:all .2s;
-}
+.modal-close{font-size:22px;color:var(--muted);width:36px;height:36px;display:grid;place-items:center;border-radius:50%;transition:var(--transition)}
 .modal-close:hover{background:var(--line-2);color:var(--ink)}
 .modal-body{flex:1;overflow-y:auto;padding:16px 20px}
-.modal-footer{padding:14px 20px;border-top:1px solid var(--line-2);display:flex;gap:10px;background:#fff}
-.modal-footer input{
-  flex:1;border:1.5px solid var(--line);border-radius:22px;
-  padding:12px 18px;font-size:13px;outline:none;background:var(--line-2);
-  transition:all .2s;font-weight:500;
-}
-.modal-footer input:focus{border-color:var(--pink);background:#fff}
-.modal-footer button{
-  background:var(--ink);color:#fff;border-radius:22px;
-  padding:12px 22px;font-size:13px;font-weight:700;transition:all .2s;
-}
+.modal-footer{padding:14px 20px;border-top:1px solid var(--line-2);display:flex;gap:10px;background:var(--paper)}
+.modal-footer input{flex:1;border:1.5px solid var(--line);border-radius:22px;padding:12px 18px;font-size:13px;outline:none;background:var(--line-2);transition:var(--transition);font-weight:500}
+.modal-footer input:focus{border-color:var(--pink);background:var(--paper)}
+.modal-footer button{background:var(--ink);color:var(--paper);border-radius:22px;padding:12px 22px;font-size:13px;font-weight:700;transition:var(--transition)}
 .modal-footer button:hover{background:#000}
-
-/* Comment Item */
-.comment{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line-2);transition:all .2s}
+.comment{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line-2);transition:var(--transition)}
 .comment:last-child{border-bottom:none}
-.comment:hover{background:var(--line-2);margin:0 -20px;padding:12px 20px}
 .comment img{width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--line-2)}
 .comment div{flex:1}
-.comment b{font-size:13px;font-weight:800;color:var(--ink)}
-.comment p{font-size:13px;color:#3d3a4a;line-height:1.8;margin:4px 0 6px;font-weight:400}
+.comment b{font-size:13px;font-weight:800;color:var(--ink);cursor:pointer}
+.comment b:hover{color:var(--pink)}
+.comment p{font-size:13px;color:var(--ink-2);line-height:1.8;margin:4px 0 6px;font-weight:400}
 .comment .comment-actions{display:flex;gap:16px;font-size:11px;color:var(--muted);font-weight:600}
+.comment .comment-actions button{transition:var(--transition)}
 .comment .comment-actions button:hover{color:var(--pink)}
+.comment .comment-actions button.liked{color:var(--pink)}
 .comment time{font-size:10px;color:var(--muted);font-weight:500}
-
-/* Admin Panel */
-.admin-badge{
-  background:var(--pink);color:#fff;font-size:9px;padding:3px 10px;
-  border-radius:10px;font-weight:800;letter-spacing:0.5px;vertical-align:middle;
-  margin-right:8px;
-}
+.admin-badge{background:var(--pink);color:#fff;font-size:9px;padding:3px 10px;border-radius:10px;font-weight:800;letter-spacing:0.5px;vertical-align:middle;margin-right:8px}
 .admin-tabs{display:flex;gap:6px;margin-bottom:20px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
 .admin-tabs::-webkit-scrollbar{display:none}
-.admin-tab{
-  padding:10px 18px;border-radius:12px;font-size:12px;font-weight:700;
-  color:var(--muted);background:var(--line-2);white-space:nowrap;transition:all .2s;
-}
-.admin-tab.active{background:var(--ink);color:#fff}
-.admin-card{
-  background:#fff;border:1px solid var(--line-2);border-radius:var(--radius);
-  padding:16px;margin-bottom:10px;box-shadow:var(--shadow);
-  display:flex;align-items:center;gap:14px;transition:all .2s;
-}
+.admin-tab{padding:10px 18px;border-radius:12px;font-size:12px;font-weight:700;color:var(--muted);background:var(--line-2);white-space:nowrap;transition:var(--transition)}
+.admin-tab.active{background:var(--ink);color:var(--paper)}
+.admin-card{background:var(--paper);border:1px solid var(--line-2);border-radius:var(--radius);padding:16px;margin-bottom:10px;box-shadow:var(--shadow);display:flex;align-items:center;gap:14px;transition:var(--transition)}
 .admin-card:hover{box-shadow:var(--shadow-lg)}
 .admin-card img{width:44px;height:44px;border-radius:50%;object-fit:cover;flex-shrink:0}
 .admin-card div{flex:1;min-width:0}
 .admin-card h4{font-size:13.5px;font-weight:800;margin-bottom:3px}
 .admin-card p{font-size:11px;color:var(--muted);font-weight:500}
 .admin-card .admin-actions{display:flex;gap:6px}
-.admin-card button{
-  padding:7px 14px;border-radius:10px;font-size:10.5px;
-  font-weight:700;background:var(--line-2);color:var(--ink);transition:all .2s;
-}
+.admin-card button{padding:7px 14px;border-radius:10px;font-size:10.5px;font-weight:700;background:var(--line-2);color:var(--ink);transition:var(--transition)}
 .admin-card button:hover{opacity:0.8}
 .admin-card button.danger{background:#ffebee;color:#d32f2f}
 .admin-card button.success{background:#e8f5e9;color:#2e7d32}
-
-/* Followers List */
-.user-row{
-  display:flex;align-items:center;gap:14px;padding:14px 0;
-  border-bottom:1px solid var(--line-2);transition:all .2s;cursor:pointer;
-}
+.admin-stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.admin-stat{background:var(--paper);border:1px solid var(--line-2);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.admin-stat h4{font-size:11px;color:var(--muted);font-weight:600;margin-bottom:6px}
+.admin-stat b{font-size:22px;font-weight:900;color:var(--ink)}
+.user-row{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line-2);transition:var(--transition);cursor:pointer}
 .user-row:hover{background:var(--line-2);margin:0 -16px;padding:14px 16px}
 .user-row:last-child{border-bottom:none}
 .user-row img{width:48px;height:48px;border-radius:50%;object-fit:cover;flex-shrink:0;border:2px solid var(--line-2)}
 .user-row div{flex:1}
 .user-row h4{font-size:13.5px;font-weight:800;margin-bottom:3px}
 .user-row p{font-size:11px;color:var(--muted);font-weight:500}
-.user-row button{
-  padding:8px 18px;border-radius:20px;font-size:11.5px;font-weight:700;
-  background:var(--ink);color:#fff;transition:all .2s;
-}
+.user-row button{padding:8px 18px;border-radius:20px;font-size:11.5px;font-weight:700;background:var(--ink);color:var(--paper);transition:var(--transition)}
 .user-row button:hover{background:#000}
-
-/* Responsive */
-@media(min-width:600px){
-  body{padding:24px 0;background:#f0edf2}
-  .app{border-radius:28px;min-height:calc(100dvh - 48px);max-height:920px}
-  header{border-radius:28px 28px 0 0}
-  .bottom-nav{border-radius:0 0 28px 28px;bottom:24px}
-  .modal-overlay{align-items:center}
-  .modal-content{border-radius:22px;max-height:80vh}
-}
-@media(max-width:380px){
-  .mini-card img{height:115px}
-  .hero-image{height:200px}
-  .hero-label h1{font-size:17px}
-  .profile-grid .mini-card img{height:130px}
-}
+.user-row button.following{background:var(--line-2);color:var(--ink)}
+.confirm-dialog{position:fixed;inset:0;background:rgba(10,5,25,0.6);z-index:400;display:none;align-items:center;justify-content:center;padding:20px}
+.confirm-dialog.show{display:flex;animation:fadeIn .2s}
+.confirm-content{background:var(--paper);border-radius:var(--radius-lg);padding:24px;max-width:340px;width:100%;animation:scaleIn .2s}
+@keyframes scaleIn{from{transform:scale(0.9);opacity:0}to{transform:scale(1);opacity:1}}
+.confirm-content h3{font-size:16px;font-weight:800;margin-bottom:8px}
+.confirm-content p{font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:20px}
+.confirm-actions{display:flex;gap:10px}
+.confirm-actions button{flex:1;padding:12px;border-radius:12px;font-size:13px;font-weight:700;transition:var(--transition)}
+.confirm-actions button.cancel{background:var(--line-2);color:var(--ink)}
+.confirm-actions button.danger{background:#ef4444;color:#fff}
+.confirm-actions button.danger:hover{background:#dc2626}
+.empty-state{text-align:center;padding:60px 20px;color:var(--muted)}
+.empty-state svg{width:64px;height:64px;stroke:var(--muted-light);fill:none;stroke-width:1.5;margin:0 auto 20px;opacity:0.5}
+.empty-state h3{font-size:15px;font-weight:800;color:var(--ink);margin-bottom:6px}
+.empty-state p{font-size:12.5px;line-height:1.8}
+@media(min-width:600px){body{padding:24px 0;background:var(--bg)}.app{border-radius:28px;min-height:calc(100dvh - 48px);max-height:920px}header{border-radius:28px 28px 0 0}.bottom-nav{border-radius:0 0 28px 28px;bottom:24px}.modal-overlay{align-items:center}.modal-content{border-radius:22px;max-height:80vh}}
+@media(max-width:380px){.mini-card img{height:115px}.hero-image{height:200px}.hero-label h1{font-size:17px}.profile-grid .mini-card img{height:130px}}
 </style>
 </head>
 <body>
+<div class="loader-screen" id="loader">
+  <div class="loader-logo">Luno<span>.</span></div>
+  <div class="loader-bar"></div>
+</div>
+
 <div class="app">
   <header>
-    <div class="logo">Luno<span>.</span></div>
+    <div class="logo" id="logoBtn">Luno<span>.</span></div>
     <div class="head-actions">
+      <button class="icon-btn" id="themeToggle" aria-label="تغییر تم">
+        <svg id="themeIcon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+      </button>
       <button class="icon-btn" data-go="search" aria-label="جستجو">
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7.5"/><path d="m16.5 16.5 4.5 4.5"/></svg>
       </button>
@@ -555,7 +343,7 @@ select.field{
   <main>
     <!-- Home -->
     <section class="screen active" id="home">
-      <div class="top-tabs" id="homeTabs">
+      <div class="top-tabs">
         <button class="top-tab active" data-feed="all">همه</button>
         <button class="top-tab" data-feed="popular">محبوب</button>
         <button class="top-tab" data-feed="following">دنبال‌شده‌ها</button>
@@ -563,13 +351,13 @@ select.field{
         <button class="top-tab" data-go="categories">دسته‌بندی‌ها</button>
       </div>
       <div class="stories" id="stories"></div>
-      <article class="hero-card" id="adminHeroCard">
-        <div class="hero-image" data-open-article>
-          <img id="adminHeroImage" src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1000&q=85" alt="پست مدیر">
+      <article class="hero-card">
+        <div class="hero-image" data-open-article="admin1">
+          <img src="https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?auto=format&fit=crop&w=1000&q=85" alt="پست مدیر">
           <div class="hero-label">
             <span class="tag">مدیر برنامه</span>
-            <h1 id="adminHeroTitle">چطور یک عادت خوب بسازیم؟</h1>
-            <p id="adminHeroDesc">عادت‌های کوچک، قدم‌های آرام و راه‌هایی برای ساختن روزهای بهتر.</p>
+            <h1>چطور یک عادت خوب بسازیم؟</h1>
+            <p>عادت‌های کوچک، قدم‌های آرام و راه‌هایی برای ساختن روزهای بهتر.</p>
           </div>
         </div>
         <div class="article-meta">
@@ -579,15 +367,19 @@ select.field{
           <span>۵ دقیقه پیش</span>
         </div>
         <div class="action-row">
-          <button class="action" data-like="hero">
+          <button class="action" id="heroLike">
             <svg viewBox="0 0 24 24"><path d="M20.8 8.6c0 5.5-8.8 11-8.8 11s-8.8-5.5-8.8-11A4.6 4.6 0 0 1 12 6.1a4.6 4.6 0 0 1 8.8 2.5Z"/></svg>
             <span id="heroLikes">842</span>
           </button>
-          <button class="action" data-comment="hero">
+          <button class="action" data-comment="admin1">
             <svg viewBox="0 0 24 24"><path d="M20 11.5a7.5 7.5 0 0 1-8 7.5 9 9 0 0 1-4-.9L3 20l1.5-4.2A7.2 7.2 0 0 1 4 11.5 7.5 7.5 0 0 1 12 4a7.5 7.5 0 0 1 8 7.5Z"/></svg>
-            <span id="heroComments">56</span>
+            <span>56</span>
           </button>
-          <button class="action" data-save="hero">
+          <button class="action" id="heroShare">
+            <svg viewBox="0 0 24 24"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13"/></svg>
+            اشتراک
+          </button>
+          <button class="action" id="heroSave">
             <svg viewBox="0 0 24 24"><path d="M6 4h12a1 1 0 0 1 1 1v16l-7-4-7 4V5a1 1 0 0 1 1-1Z"/></svg>
             <span>ذخیره</span>
           </button>
@@ -595,12 +387,11 @@ select.field{
       </article>
       <div class="section-title">
         <h2>تازه‌های مجله</h2>
-        <button class="link-btn" data-go="categories">همه مطالب ←</button>
+        <button class="link-btn" data-go="categories">همه ←</button>
       </div>
       <div class="mini-grid" id="miniGrid"></div>
       <div class="section-title">
         <h2>از زبان کاربران</h2>
-        <button class="link-btn" data-go="search">بیشتر</button>
       </div>
       <div id="editorPicks"></div>
     </section>
@@ -618,9 +409,8 @@ select.field{
       <p class="section-sub">موضوع، عنوان یا مطلب موردنظرت را پیدا کن.</p>
       <label class="searchbox">
         <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7.5"/><path d="m16.5 16.5 4.5 4.5"/></svg>
-        <input id="searchInput" placeholder="جست‌وجو در مجله..." autocomplete="off">
+        <input id="searchInput" placeholder="جست‌وجو..." autocomplete="off">
       </label>
-      <div class="section-title"><h2>جست‌وجوهای پرطرفدار</h2></div>
       <div class="chips" id="searchChips"></div>
       <div class="section-title"><h2 id="searchResultsTitle">مطالب پیشنهادی</h2></div>
       <div id="searchResults"></div>
@@ -628,14 +418,14 @@ select.field{
 
     <!-- Category Detail -->
     <section class="screen" id="categoryDetail">
-      <button class="link-btn" data-back-to-categories style="margin:14px 0">← بازگشت به دسته‌بندی‌ها</button>
+      <button class="link-btn" data-back>← بازگشت</button>
       <h1 class="section-heading" id="catDetailTitle">دسته‌بندی</h1>
       <div id="catDetailList"></div>
     </section>
 
     <!-- Article -->
     <section class="screen" id="article">
-      <button class="link-btn" id="articleBackBtn" style="margin:14px 0">← بازگشت</button>
+      <button class="link-btn" data-back style="margin:14px 0">← بازگشت</button>
       <div class="article-cover">
         <img id="articleImage" src="" alt="">
         <div class="cover-title">
@@ -647,16 +437,20 @@ select.field{
         <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="">
         <b>تحریریه لونو</b>
         <span class="meta-spacer"></span>
-        <span>۵ دقیقه مطالعه</span>
+        <span id="articleTime">۵ دقیقه مطالعه</span>
       </div>
       <div class="action-row">
         <button class="action" id="articleLike">
           <svg viewBox="0 0 24 24"><path d="M20.8 8.6c0 5.5-8.8 11-8.8 11s-8.8-5.5-8.8-11A4.6 4.6 0 0 1 12 6.1a4.6 4.6 0 0 1 8.8 2.5Z"/></svg>
-          پسندیدن
+          <span id="articleLikes">0</span>
         </button>
         <button class="action" id="articleCommentBtn">
           <svg viewBox="0 0 24 24"><path d="M20 11.5a7.5 7.5 0 0 1-8 7.5 9 9 0 0 1-4-.9L3 20l1.5-4.2A7.2 7.2 0 0 1 4 11.5 7.5 7.5 0 0 1 12 4a7.5 7.5 0 0 1 8 7.5Z"/></svg>
           کامنت
+        </button>
+        <button class="action" id="articleShare">
+          <svg viewBox="0 0 24 24"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13"/></svg>
+          اشتراک
         </button>
         <button class="action" id="articleSave">
           <svg viewBox="0 0 24 24"><path d="M6 4h12a1 1 0 0 1 1 1v16l-7-4-7 4V5a1 1 0 0 1 1-1Z"/></svg>
@@ -669,32 +463,54 @@ select.field{
     <!-- Create -->
     <section class="screen" id="create">
       <h1 class="section-heading">ساخت پست</h1>
-      <p class="section-sub">ایده، تجربه یا مطلبی که دوست داری با دیگران به اشتراک بگذاری بنویس.</p>
+      <p class="section-sub">ایده یا تجربه‌ات را با دیگران به اشتراک بگذار.</p>
       <form class="create-box" id="createForm">
         <label class="upload-area">
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-          <span id="uploadLabel">افزودن تصویر به مطلب (اختیاری)</span>
+          <span id="uploadLabel">افزودن تصویر (اختیاری)</span>
           <input type="file" id="imageFile" accept="image/*">
         </label>
+        <div class="upload-preview" id="uploadPreview">
+          <img id="previewImg" src="" alt="">
+          <button type="button" id="removeImage">×</button>
+        </div>
         <input class="field" id="postTitle" maxlength="100" placeholder="عنوان مطلب">
+        <div class="field-error" id="titleError">عنوان را وارد کن (حداقل ۳ کاراکتر)</div>
         <textarea class="field" id="postText" maxlength="2000" placeholder="متن خود را اینجا بنویسید..."></textarea>
+        <div class="char-count"><span id="charCount">0</span> / 2000</div>
+        <div class="field-error" id="textError">متن را وارد کن (حداقل ۱۰ کاراکتر)</div>
         <select class="field" id="postCategory">
-          <option>سبک زندگی</option>
-          <option>انیمه و فیلم</option>
-          <option>هنر و خلاقیت</option>
-          <option>علم و دانستنی</option>
-          <option>سفر و گردشگری</option>
-          <option>موسیقی</option>
-          <option>کتاب و ادبیات</option>
+          <option>سبک زندگی</option><option>انیمه و فیلم</option><option>هنر و خلاقیت</option>
+          <option>علم و دانستنی</option><option>سفر و گردشگری</option><option>موسیقی</option><option>کتاب و ادبیات</option>
         </select>
-        <button class="primary-btn" type="submit">انتشار در مجله</button>
+        <button class="primary-btn" type="submit">انتشار</button>
       </form>
+    </section>
+
+    <!-- Messages -->
+    <section class="screen" id="messages">
+      <h1 class="section-heading">پیام‌ها</h1>
+      <p class="section-sub">گفتگوهای اخیر تو.</p>
+      <div class="messages-list" id="messagesList"></div>
+    </section>
+
+    <!-- Chat -->
+    <section class="screen" id="chat">
+      <button class="link-btn" data-back style="margin:14px 0">← بازگشت</button>
+      <div class="chat-header" id="chatHeader"></div>
+      <div class="chat-messages" id="chatMessages"></div>
+      <div class="chat-input">
+        <input type="text" id="chatInput" placeholder="پیام بنویس...">
+        <button id="sendChatBtn">
+          <svg viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7Z"/></svg>
+        </button>
+      </div>
     </section>
 
     <!-- Notifications -->
     <section class="screen" id="notifications">
       <h1 class="section-heading">اعلان‌ها</h1>
-      <p class="section-sub">خبرهای تازه از فعالیت‌های مجله.</p>
+      <p class="section-sub">خبرهای تازه.</p>
       <div id="noticeList"></div>
     </section>
 
@@ -709,12 +525,11 @@ select.field{
         <p id="profileBio">علاقه‌مند به کتاب، انیمه، هنر و لحظه‌های کوچک زندگی.</p>
         <div class="stats">
           <div data-profile-tab="posts"><b id="profilePostsCount">12</b>پست</div>
-          <div data-profile-tab="followers"><b id="profileFollowersCount">1.2K</b>دنبال‌کننده</div>
-          <div data-profile-tab="following"><b id="profileFollowingCount">34</b>دنبال‌شونده</div>
+          <div data-profile-tab="followers"><b>1.2K</b>دنبال‌کننده</div>
+          <div data-profile-tab="following"><b>34</b>دنبال‌شونده</div>
         </div>
         <div class="profile-buttons">
           <button class="pill-btn primary" id="editProfileBtn">ویرایش پروفایل</button>
-          <button class="pill-btn" data-go="saved">ذخیره‌شده‌ها</button>
         </div>
       </div>
       <div class="profile-tabs">
@@ -731,10 +546,32 @@ select.field{
       </div>
     </section>
 
+    <!-- Other User Profile -->
+    <section class="screen" id="userProfile">
+      <button class="link-btn" data-back style="margin:14px 0">← بازگشت</button>
+      <div class="profile-cover">
+        <img id="userCover" src="" alt="">
+      </div>
+      <div class="profile-info">
+        <img class="profile-avatar" id="userAvatar" src="" alt="">
+        <h2 id="userName"></h2>
+        <p id="userBio"></p>
+        <div class="stats">
+          <div><b id="userPostsCount">0</b>پست</div>
+          <div><b id="userFollowersCount">0</b>دنبال‌کننده</div>
+          <div><b id="userFollowingCount">0</b>دنبال‌شونده</div>
+        </div>
+        <div class="profile-buttons">
+          <button class="pill-btn primary" id="followBtn">دنبال کردن</button>
+          <button class="pill-btn" id="messageBtn">پیام</button>
+        </div>
+      </div>
+    </section>
+
     <!-- Saved -->
     <section class="screen" id="saved">
-      <h1 class="section-heading">مطالب ذخیره‌شده</h1>
-      <p class="section-sub">مقاله‌هایی که می‌خواهی بعداً دوباره بخوانی.</p>
+      <h1 class="section-heading">ذخیره‌شده‌ها</h1>
+      <p class="section-sub">مطالبی که می‌خواهی بعداً بخوانی.</p>
       <div id="savedList"></div>
     </section>
 
@@ -743,16 +580,15 @@ select.field{
       <h1 class="section-heading">پنل مدیریت <span class="admin-badge">ADMIN</span></h1>
       <p class="section-sub">مدیریت کاربران، پست‌ها و نظرات.</p>
       <div class="admin-tabs">
-        <button class="admin-tab active" data-admin-tab="users">کاربران</button>
+        <button class="admin-tab active" data-admin-tab="overview">نمای کلی</button>
+        <button class="admin-tab" data-admin-tab="users">کاربران</button>
         <button class="admin-tab" data-admin-tab="posts">پست‌ها</button>
         <button class="admin-tab" data-admin-tab="comments">نظرات</button>
-        <button class="admin-tab" data-admin-tab="reports">گزارش‌ها</button>
       </div>
       <div id="adminContent"></div>
     </section>
   </main>
 
-  <!-- Bottom Nav -->
   <nav class="bottom-nav">
     <button class="navbtn active" data-go="home">
       <svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1z"/></svg>
@@ -760,16 +596,17 @@ select.field{
     </button>
     <button class="navbtn" data-go="search">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7.5"/><path d="m16.5 16.5 4.5 4.5"/></svg>
-      <span>جست‌وجو</span>
+      <span>جستجو</span>
     </button>
-    <button class="navbtn" data-go="categories">
-      <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
-      <span>دسته</span>
+    <button class="navbtn" data-go="messages">
+      <svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.4 9 9 0 0 1-4.3-1L3 20l1.2-4.5A8.3 8.3 0 0 1 3.5 11.5 8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5Z"/></svg>
+      <span>پیام</span>
+      <span class="badge show" id="msgBadge">3</span>
     </button>
-    <button class="navbtn" data-go="notifications" id="navNotifications">
+    <button class="navbtn" data-go="notifications">
       <svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>
       <span>اعلان</span>
-      <span class="badge" id="notifBadge"></span>
+      <span class="badge show" id="notifBadge"></span>
     </button>
     <button class="navbtn" data-go="profile">
       <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
@@ -782,7 +619,7 @@ select.field{
     <div class="modal-content">
       <div class="modal-header">
         <h3>نظرات</h3>
-        <button class="modal-close" id="closeCommentsModal">×</button>
+        <button class="modal-close" data-close-modal>×</button>
       </div>
       <div class="modal-body" id="commentsList"></div>
       <div class="modal-footer">
@@ -797,18 +634,30 @@ select.field{
     <div class="modal-content">
       <div class="modal-header">
         <h3>ویرایش پروفایل</h3>
-        <button class="modal-close" id="closeEditProfileModal">×</button>
+        <button class="modal-close" data-close-modal>×</button>
       </div>
       <div class="modal-body">
         <label class="section-sub" style="margin-bottom:8px;display:block">نام</label>
-        <input class="field" id="editNameInput" value="مهسا رضایی">
+        <input class="field" id="editNameInput">
         <label class="section-sub" style="margin-bottom:8px;display:block">بیوگرافی</label>
-        <textarea class="field" id="editBioInput" rows="3">علاقه‌مند به کتاب، انیمه، هنر و لحظه‌های کوچک زندگی.</textarea>
+        <textarea class="field" id="editBioInput" rows="3"></textarea>
         <label class="section-sub" style="margin-bottom:8px;display:block">تصویر پروفایل</label>
         <input type="file" id="editAvatarInput" accept="image/*" class="field">
       </div>
       <div class="modal-footer">
-        <button class="primary-btn" id="saveProfileBtn" style="flex:1;background:var(--ink)">ذخیره تغییرات</button>
+        <button class="primary-btn" id="saveProfileBtn" style="flex:1">ذخیره</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirm Dialog -->
+  <div class="confirm-dialog" id="confirmDialog">
+    <div class="confirm-content">
+      <h3 id="confirmTitle">آیا مطمئنی؟</h3>
+      <p id="confirmMessage"></p>
+      <div class="confirm-actions">
+        <button class="cancel" id="confirmCancel">انصراف</button>
+        <button class="danger" id="confirmOk">حذف</button>
       </div>
     </div>
   </div>
@@ -820,8 +669,12 @@ select.field{
 (()=>{
 const $=(s,r=document)=>r.querySelector(s);
 const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const storage={
+  get(k,d){try{const v=localStorage.getItem('luno_'+k);return v?JSON.parse(v):d}catch(e){return d}},
+  set(k,v){try{localStorage.setItem('luno_'+k,JSON.stringify(v))}catch(e){}}
+};
 
-const images={
+const IMG={
 anime:'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=700&q=85',
 life:'https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=700&q=85',
 travel:'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=700&q=85',
@@ -831,204 +684,282 @@ space:'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&
 food:'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=700&q=85',
 music:'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&w=700&q=85',
 garden:'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=700&q=85',
-city:'https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=700&q=85'
+city:'https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=700&q=85',
+avatar1:'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80',
+avatar2:'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=100&q=80',
+avatar3:'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80',
+avatar4:'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=100&q=80',
+avatar5:'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80'
 };
 
-const adminPost = {
-  id:'admin1',
-  title:'چطور یک عادت خوب بسازیم؟',
-  category:'سبک زندگی',
-  image:images.life,
-  desc:'عادت‌های کوچک، قدم‌های آرام و راه‌هایی برای ساختن روزهای بهتر.',
-  time:'۵ دقیقه مطالعه',
-  likes:842,
-  saved:false, liked:false,
-  body:'گاهی برای تغییر زندگی به تصمیم‌های بزرگ نیاز نداریم. یک قدم کوچک که هر روز تکرار شود، می‌تواند شروع یک مسیر تازه باشد.<h2>از قدم‌های کوچک شروع کن</h2><p>به‌جای اینکه همه چیز را یک‌باره تغییر بدهی، یک کار ساده انتخاب کن. چند صفحه کتاب، کمی قدم‌زدن یا چند دقیقه دوری از صفحه‌نمایش می‌تواند شروع خوبی باشد.</p><div class="quote">قرار نیست هر روز عالی باشی؛ کافی است دوباره شروع کنی.</div><h2>به خودت فرصت بده</h2><p>ساختن عادت زمان می‌برد. روزهایی که انگیزه کمتری داری، هدف را کوچک‌تر کن اما مسیر را کاملاً رها نکن. پیشرفت آرام هم پیشرفت است.</p>',
-  comments:[
-    {id:1,user:'سارا محمدی',avatar:'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=100&q=80',text:'عالی بود! ممنون از این مطلب.',time:'۲ دقیقه پیش',likes:12},
-    {id:2,user:'آرین کاظمی',avatar:'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80',text:'من همیشه با عادت‌سازی مشکل داشتم، این خیلی کمکم کرد.',time:'۱۵ دقیقه پیش',likes:5},
-  ]
+const adminPost={
+  id:'admin1',title:'چطور یک عادت خوب بسازیم؟',category:'سبک زندگی',
+  image:IMG.life,desc:'عادت‌های کوچک، قدم‌های آرام و راه‌هایی برای ساختن روزهای بهتر.',
+  time:'۵ دقیقه مطالعه',likes:842,saved:false,liked:false,
+  body:'گاهی برای تغییر زندگی به تصمیم‌های بزرگ نیاز نداریم. یک قدم کوچک که هر روز تکرار شود، می‌تواند شروع یک مسیر تازه باشد.<h2>از قدم‌های کوچک شروع کن</h2><p>به‌جای اینکه همه چیز را یک‌باره تغییر بدهی، یک کار ساده انتخاب کن. چند صفحه کتاب، کمی قدم‌زدن یا چند دقیقه دوری از صفحه‌نمایش می‌تواند شروع خوبی باشد.</p><div class="quote">قرار نیست هر روز عالی باشی؛ کافی است دوباره شروع کنی.</div><h2>به خودت فرصت بده</h2><p>ساختن عادت زمان می‌برد. روزهایی که انگیزه کمتری داری، هدف را کوچک‌تر کن اما مسیر را کاملاً رها نکن. پیشرفت آرام هم پیشرفت است.</p>'
 };
 
-const articles=[
-{id:'a2',title:'چرا بعضی داستان‌ها فراموش نمی‌شوند؟',category:'انیمه و فیلم',image:images.anime,desc:'از شخصیت‌های ماندگار تا دنیاهایی که در ذهن ما زندگی می‌کنند.',time:'۴ دقیقه مطالعه',likes:1250,saved:false,body:'بعضی داستان‌ها پس از پایان هم در ذهن ما ادامه پیدا می‌کنند. شاید به‌خاطر شخصیت‌هایی باشند که باورشان می‌کنیم یا انتخاب‌هایی که ما را به فکر می‌برند.<h2>شخصیت‌هایی با احساس واقعی</h2><p>وقتی شخصیت داستان ترس، امید و تردید را تجربه می‌کند، ارتباط ما با او عمیق‌تر می‌شود. حتی در جهانی کاملاً خیالی، احساسات می‌توانند آشنا باشند.</p><h2>جهانی که دلمان می‌خواهد کشف کنیم</h2><p>جزئیات جهان داستان، موسیقی و لحظه‌های کوچک به آن هویت می‌دهند. همین جزئیات هستند که ما را به بازگشت دوباره به یک اثر دعوت می‌کنند.</p>'},
-{id:'a3',title:'سفر به جاهایی که آرامت می‌کنند',category:'سفر و گردشگری',image:images.travel,desc:'گاهی یک مسیر تازه، نگاه ما را به زندگی عوض می‌کند.',time:'۶ دقیقه مطالعه',likes:639,saved:false,body:'لازم نیست همیشه دور سفر کنیم تا چیز تازه‌ای ببینیم. گاهی خیابانی ناآشنا، یک مسیر سبز یا چند ساعت کنار دریا کافی است.<h2>آهسته‌تر سفر کن</h2><p>به‌جای اینکه همه جا را در یک روز ببینی، برای تماشای جزئیات وقت بگذار. با مردم محلی حرف بزن، غذاهای تازه را امتحان کن و لحظه‌ها را ثبت کن.</p><h2>خاطره‌ها را جمع کن</h2><p>چند عکس، یک یادداشت کوتاه یا بلیت کوچکی از مسیر می‌تواند بعدها تو را به همان حس‌وحال برگرداند.</p>'},
-{id:'a4',title:'چند دقیقه برای خودت؛ بدون عجله',category:'سبک زندگی',image:images.coffee,desc:'یک فنجان نوشیدنی گرم و فرصتی برای نفس کشیدن.',time:'۳ دقیقه مطالعه',likes:520,saved:false,body:'در روزهای شلوغ، لحظه‌های آرام را به برنامه‌ات اضافه کن. نوشیدنی دلخواهت را آماده کن، صدای اطراف را بشنو و چند دقیقه به خودت فرصت بده.<h2>یک مکث کوچک</h2><p>همه کارها لازم نیست همین حالا انجام شوند. چند دقیقه مکث می‌تواند کمک کند با تمرکز بیشتری به ادامه روز برگردی.</p>'},
-{id:'a5',title:'خلاقیت از کجا شروع می‌شود؟',category:'هنر و خلاقیت',image:images.art,desc:'برای خلق کردن لازم نیست از همان ابتدا ایده‌ای بی‌نقص داشته باشی.',time:'۴ دقیقه مطالعه',likes:743,saved:false,body:'خلاقیت اغلب با کنجکاوی شروع می‌شود، نه با یک ایده کامل. چیزی را امتحان کن، اشتباه کن و از نتیجه غیرمنتظره یاد بگیر.<h2>به خودت اجازه تجربه بده</h2><p>یک طرح ساده بکش، چند جمله بنویس یا رنگ‌ها را کنار هم بگذار. هدف اول کشف کردن است، نه رسیدن به نتیجه‌ای بی‌نقص.</p>'},
-{id:'a6',title:'چیزهایی که درباره فضا شگفت‌زده‌مان می‌کنند',category:'علم و دانستنی',image:images.space,desc:'نگاهی کوتاه به جهان بزرگ بیرون از زمین.',time:'۵ دقیقه مطالعه',likes:981,saved:false,body:'آسمان شب پنجره‌ای به گذشته است؛ نوری که از ستاره‌های دور می‌بینیم، سفر خود را مدت‌ها پیش آغاز کرده است.<h2>فاصله‌های باورنکردنی</h2><p>در فضا فاصله‌ها آن‌قدر بزرگ‌اند که دانشمندان برای توصیف آن‌ها از سال نوری استفاده می‌کنند؛ مسافتی که نور در یک سال می‌پیماید.</p><h2>هنوز چیزهای زیادی برای کشف هست</h2><p>هر رصد تازه می‌تواند پرسش‌های تازه‌ای بسازد. همین ناشناخته‌ها علم را زنده و هیجان‌انگیز نگه می‌دارند.</p>'},
-{id:'a7',title:'یک بشقاب رنگی، یک روز بهتر',category:'غذا و آشپزی',image:images.food,desc:'ایده‌هایی ساده برای رنگ و تنوع بیشتر در وعده‌های روزانه.',time:'۳ دقیقه مطالعه',likes:410,saved:false,body:'غذا می‌تواند فرصتی برای تجربه رنگ‌ها و مزه‌های تازه باشد. ترکیب مواد گوناگون و انتخاب چیزهایی که دوست داری، آشپزی را جذاب‌تر می‌کند.<h2>با چیزهای ساده شروع کن</h2><p>از مواد در دسترس استفاده کن و یک ترکیب تازه امتحان کن. لازم نیست هر بار دستور پیچیده‌ای انتخاب کنی.</p>'},
-{id:'a8',title:'موسیقی و خاطره؛ پیوندی عجیب',category:'موسیقی',image:images.music,desc:'چرا یک آهنگ می‌تواند ما را به روزی دور برگرداند؟',time:'۴ دقیقه مطالعه',likes:875,saved:false,body:'گاهی چند نت کافی است تا تصویر یک مکان یا احساس قدیمی در ذهنمان زنده شود. موسیقی به تجربه‌های ما گره می‌خورد و هر بار معنای تازه‌ای پیدا می‌کند.<h2>موسیقی شخصی است</h2><p>آهنگی که برای یک نفر آرامش‌بخش است، ممکن است دیگری را به یاد روزی پرهیجان بیندازد. همین تفاوت‌ها بخشی از زیبایی موسیقی‌اند.</p>'}
+const baseArticles=[
+{id:'a2',title:'چرا بعضی داستان‌ها فراموش نمی‌شوند؟',category:'انیمه و فیلم',image:IMG.anime,desc:'از شخصیت‌های ماندگار تا دنیاهایی که در ذهن ما زندگی می‌کنند.',time:'۴ دقیقه مطالعه',likes:1250,saved:false,liked:false,body:'بعضی داستان‌ها پس از پایان هم در ذهن ما ادامه پیدا می‌کنند. شاید به‌خاطر شخصیت‌هایی باشند که باورشان می‌کنیم یا انتخاب‌هایی که ما را به فکر می‌برند.<h2>شخصیت‌هایی با احساس واقعی</h2><p>وقتی شخصیت داستان ترس، امید و تردید را تجربه می‌کند، ارتباط ما با او عمیق‌تر می‌شود.</p><h2>جهانی که دلمان می‌خواهد کشف کنیم</h2><p>جزئیات جهان داستان، موسیقی و لحظه‌های کوچک به آن هویت می‌دهند.</p>'},
+{id:'a3',title:'سفر به جاهایی که آرامت می‌کنند',category:'سفر و گردشگری',image:IMG.travel,desc:'گاهی یک مسیر تازه، نگاه ما را به زندگی عوض می‌کند.',time:'۶ دقیقه مطالعه',likes:639,saved:false,liked:false,body:'لازم نیست همیشه دور سفر کنیم تا چیز تازه‌ای ببینیم.<h2>آهسته‌تر سفر کن</h2><p>به‌جای اینکه همه جا را در یک روز ببینی، برای تماشای جزئیات وقت بگذار.</p><h2>خاطره‌ها را جمع کن</h2><p>چند عکس، یک یادداشت کوتاه یا بلیت کوچکی از مسیر می‌تواند بعدها تو را به همان حس‌وحال برگرداند.</p>'},
+{id:'a4',title:'چند دقیقه برای خودت؛ بدون عجله',category:'سبک زندگی',image:IMG.coffee,desc:'یک فنجان نوشیدنی گرم و فرصتی برای نفس کشیدن.',time:'۳ دقیقه مطالعه',likes:520,saved:false,liked:false,body:'در روزهای شلوغ، لحظه‌های آرام را به برنامه‌ات اضافه کن.<h2>یک مکث کوچک</h2><p>همه کارها لازم نیست همین حالا انجام شوند.</p>'},
+{id:'a5',title:'خلاقیت از کجا شروع می‌شود؟',category:'هنر و خلاقیت',image:IMG.art,desc:'برای خلق کردن لازم نیست از همان ابتدا ایده‌ای بی‌نقص داشته باشی.',time:'۴ دقیقه مطالعه',likes:743,saved:false,liked:false,body:'خلاقیت اغلب با کنجکاوی شروع می‌شود.<h2>به خودت اجازه تجربه بده</h2><p>یک طرح ساده بکش، چند جمله بنویس یا رنگ‌ها را کنار هم بگذار.</p>'},
+{id:'a6',title:'چیزهایی که درباره فضا شگفت‌زده‌مان می‌کنند',category:'علم و دانستنی',image:IMG.space,desc:'نگاهی کوتاه به جهان بزرگ بیرون از زمین.',time:'۵ دقیقه مطالعه',likes:981,saved:false,liked:false,body:'آسمان شب پنجره‌ای به گذشته است.<h2>فاصله‌های باورنکردنی</h2><p>در فضا فاصله‌ها آن‌قدر بزرگ‌اند که دانشمندان از سال نوری استفاده می‌کنند.</p>'},
+{id:'a7',title:'یک بشقاب رنگی، یک روز بهتر',category:'غذا و آشپزی',image:IMG.food,desc:'ایده‌هایی ساده برای رنگ و تنوع بیشتر در وعده‌های روزانه.',time:'۳ دقیقه مطالعه',likes:410,saved:false,liked:false,body:'غذا می‌تواند فرصتی برای تجربه رنگ‌ها و مزه‌های تازه باشد.<h2>با چیزهای ساده شروع کن</h2><p>از مواد در دسترس استفاده کن و یک ترکیب تازه امتحان کن.</p>'},
+{id:'a8',title:'موسیقی و خاطره؛ پیوندی عجیب',category:'موسیقی',image:IMG.music,desc:'چرا یک آهنگ می‌تواند ما را به روزی دور برگرداند؟',time:'۴ دقیقه مطالعه',likes:875,saved:false,liked:false,body:'گاهی چند نت کافی است تا تصویر یک مکان یا احساس قدیمی زنده شود.<h2>موسیقی شخصی است</h2><p>آهنگی که برای یک نفر آرامش‌بخش است، ممکن است دیگری را به یاد روزی پرهیجان بیندازد.</p>'}
 ];
 
-const categories=[
-['سبک زندگی',images.coffee],['انیمه و فیلم',images.anime],
-['سفر و گردشگری',images.travel],['هنر و خلاقیت',images.art],
-['علم و دانستنی',images.space],['غذا و آشپزی',images.food],
-['موسیقی',images.music],['طبیعت',images.garden]
-];
-
-const stories=[
-['تو','https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80'],
-['مهسا','https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=100&q=80'],
-['آرین','https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80'],
-['سارا','https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=100&q=80'],
-['علی','https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80']
-];
-
+const categories=[['سبک زندگی',IMG.coffee],['انیمه و فیلم',IMG.anime],['سفر و گردشگری',IMG.travel],['هنر و خلاقیت',IMG.art],['علم و دانستنی',IMG.space],['غذا و آشپزی',IMG.food],['موسیقی',IMG.music],['طبیعت',IMG.garden]];
+const stories=[['تو',IMG.avatar1],['مهسا',IMG.avatar2],['آرین',IMG.avatar3],['سارا',IMG.avatar4],['علی',IMG.avatar5]];
 const mockUsers=[
-{id:1,name:'سارا محمدی',avatar:'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=100&q=80',followers:1200,following:340,posts:24},
-{id:2,name:'آرین کاظمی',avatar:'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80',followers:850,following:210,posts:12},
-{id:3,name:'مهسا رضایی',avatar:'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80',followers:1200,following:34,posts:12},
-{id:4,name:'علی کریمی',avatar:'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80',followers:2300,following:450,posts:38},
+{id:1,name:'سارا محمدی',avatar:IMG.avatar2,followers:1200,following:340,posts:24,bio:'عاشق عکاسی و سفر',online:true},
+{id:2,name:'آرین کاظمی',avatar:IMG.avatar3,followers:850,following:210,posts:12,bio:'برنامه‌نویس و گیمر',online:true},
+{id:3,name:'مهسا رضایی',avatar:IMG.avatar1,followers:1200,following:34,posts:12,bio:'علاقه‌مند به کتاب و هنر',online:false},
+{id:4,name:'علی کریمی',avatar:IMG.avatar5,followers:2300,following:450,posts:38,bio:'موسیقی و فیلم',online:false}
 ];
 
-let currentArticle='admin1';
-let likedHero=false,heroSaved=false,feedFilter='all';
-let customPosts=[],hasNewNotif=true,activeProfileTab='posts';
-let currentCommentsPostId='admin1';
-let commentsData={admin1:[...adminPost.comments]};
-let historyStack=['home'];
+// State
+let state={
+  currentArticle:'admin1',likedHero:false,heroSaved:false,feedFilter:'all',
+  customPosts:storage.get('posts',[]),likedPosts:storage.get('liked',[]),
+  savedPosts:storage.get('saved',[]),followed:storage.get('followed',[]),
+  profile:storage.get('profile',{name:'مهسا رضایی',bio:'علاقه‌مند به کتاب، انیمه، هنر و لحظه‌های کوچک زندگی.',avatar:IMG.avatar1}),
+  comments:storage.get('comments',{admin1:[{id:1,user:'سارا محمدی',avatar:IMG.avatar2,text:'عالی بود!',time:'۲ دقیقه پیش',likes:12,liked:false},{id:2,user:'آرین کاظمی',avatar:IMG.avatar3,text:'خیلی کمکم کرد.',time:'۱۵ دقیقه پیش',likes:5,liked:false}]}),
+  chats:storage.get('chats',{
+    1:[{from:'them',text:'سلام! چطوری؟',time:'۱۰:۳۰'},{from:'me',text:'سلام، خوبم ممنون!',time:'۱۰:۳۲'}],
+    2:[{from:'them',text:'پست جدیدت رو دیدم، عالی بود',time:'دیروز'}],
+    4:[{from:'them',text:'یه سوال داشتم',time:'دیروز'}]
+  }),
+  currentChat:null,
+  theme:storage.get('theme','light'),
+  history:['home']
+};
 
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const allArticles=()=>[...state.customPosts,...baseArticles];
 
-function toast(t){
-  const el=$('#toast');el.textContent=t;el.classList.add('show');
-  setTimeout(()=>el.classList.remove('show'),2200);
+function toast(t,type=''){
+  const el=$('#toast');el.textContent=t;el.className='toast show '+type;
+  clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),2200);
 }
-function allArticles(){return [...customPosts,...articles]}
+function saveAll(){
+  storage.set('posts',state.customPosts);storage.set('liked',state.likedPosts);
+  storage.set('saved',state.savedPosts);storage.set('followed',state.followed);
+  storage.set('profile',state.profile);storage.set('comments',state.comments);
+  storage.set('chats',state.chats);
+}
+function isLiked(id){return state.likedPosts.includes(id)}
+function isSaved(id){return state.savedPosts.includes(id)}
+function toggleLike(id){
+  if(isLiked(id))state.likedPosts=state.likedPosts.filter(x=>x!==id);
+  else state.likedPosts.push(id);
+  saveAll();
+}
+function toggleSave(id){
+  if(isSaved(id))state.savedPosts=state.savedPosts.filter(x=>x!==id);
+  else state.savedPosts.push(id);
+  saveAll();
+}
+
+// Renders
 function card(a){
+  const liked=isLiked(a.id);
   return `<article class="mini-card" data-article="${a.id}"><img src="${a.image}" alt="${esc(a.title)}" loading="lazy"><div class="mini-text"><h3>${esc(a.title)}</h3><p>${esc(a.category)} · ${a.time||'۳ دقیقه'}</p></div></article>`;
 }
 function listItem(a){
   return `<div class="list-article" data-article="${a.id}"><img src="${a.image}" alt="" loading="lazy"><div class="list-copy"><h3>${esc(a.title)}</h3><p>${esc(a.desc||'')}</p><small>${esc(a.category)} · ${a.time||'۳ دقیقه'}</small></div></div>`;
 }
 function textCard(a){
-  return `<div class="text-card" data-article="${a.id}"><h3>${esc(a.title)}</h3><p>${esc(a.desc||'')}</p><div class="text-meta"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt=""><b>کاربر لونو</b><span class="spacer"></span><span>${a.time||'همین حالا'}</span></div></div>`;
+  return `<div class="text-card" data-article="${a.id}"><h3>${esc(a.title)}</h3><p>${esc(a.desc||'')}</p><div class="text-meta"><img src="${state.profile.avatar}" alt=""><b>${esc(state.profile.name)}</b><span class="spacer"></span><span>${a.time||'همین حالا'}</span></div></div>`;
 }
 
 function renderHome(){
-  const list=allArticles();
-  let filtered=list;
-  if(feedFilter==='popular')filtered=[...list].sort((a,b)=>b.likes-a.likes);
-  if(feedFilter==='following')filtered=list.filter(a=>articles.slice(0,4).some(x=>x.id===a.id));
-  const imagePosts=filtered.filter(a=>a.image&&a.hasImage!==false);
-  $('#miniGrid').innerHTML=imagePosts.slice(0,4).map(card).join('');
-  const textPosts=customPosts.filter(p=>!p.hasImage);
-  $('#editorPicks').innerHTML=textPosts.length?textPosts.map(textCard).join(''):'<p class="section-sub" style="padding:12px 0">هنوز پست متنی توسط کاربران منتشر نشده است.</p>';
+  const list=allArticles();let filtered=list;
+  if(state.feedFilter==='popular')filtered=[...list].sort((a,b)=>b.likes-a.likes);
+  if(state.feedFilter==='following')filtered=list.filter(a=>state.followed.length>0);
+  $('#miniGrid').innerHTML=filtered.filter(a=>a.image).slice(0,4).map(card).join('')||emptyState('پستی موجود نیست');
+  const textPosts=state.customPosts.filter(p=>!p.hasImage);
+  $('#editorPicks').innerHTML=textPosts.length?textPosts.map(textCard).join(''):emptyState('هنوز پست متنی منتشر نشده');
 }
-
 function renderCategories(){
-  $('#categoryGrid').innerHTML=categories.map(([name,img])=>
-    `<button class="category" data-category-detail="${esc(name)}"><img src="${img}" alt="" loading="lazy"><span>${esc(name)}</span></button>`
-  ).join('');
+  $('#categoryGrid').innerHTML=categories.map(([n,img])=>
+    `<button class="category" data-category-detail="${esc(n)}"><img src="${img}" alt="" loading="lazy"><span>${esc(n)}</span></button>`).join('');
 }
 function renderCategoryDetail(catName){
   $('#catDetailTitle').textContent=catName;
-  const filtered=allArticles().filter(a=>a.category===catName);
-  $('#catDetailList').innerHTML=filtered.length?filtered.map(listItem).join(''):'<p class="section-sub">هنوز مطلبی در این دسته‌بندی منتشر نشده است.</p>';
+  const f=allArticles().filter(a=>a.category===catName);
+  $('#catDetailList').innerHTML=f.length?f.map(listItem).join(''):emptyState('مطلبی در این دسته نیست');
 }
 function renderSearch(q=''){
-  let results=articles.filter(a=>(a.title+' '+a.category+' '+a.desc).includes(q));
+  let r=baseArticles.filter(a=>(a.title+' '+a.category+' '+a.desc).includes(q));
   $('#searchResultsTitle').textContent=q?'نتایج جست‌وجو':'مطالب پیشنهادی';
-  $('#searchResults').innerHTML=results.length?results.map(listItem).join(''):'<p class="section-sub">مطلبی با این عبارت پیدا نشد.</p>';
+  $('#searchResults').innerHTML=r.length?r.map(listItem).join(''):emptyState('مطلبی پیدا نشد');
 }
 function renderSaved(){
-  let list=allArticles().filter(a=>a.saved||(a.id==='admin1'&&heroSaved));
-  $('#savedList').innerHTML=list.length?list.map(listItem).join(''):'<p class="section-sub">هنوز مطلبی ذخیره نکرده‌ای.</p>';
+  const list=allArticles().filter(a=>isSaved(a.id)||(a.id==='admin1'&&state.heroSaved));
+  $('#savedList').innerHTML=list.length?list.map(listItem).join(''):emptyState('هنوز مطلبی ذخیره نکرده‌ای');
 }
 function renderProfile(){
-  const myPosts=[...customPosts,...articles.slice(0,3)];
-  $('#profileGrid').innerHTML=myPosts.map(a=>{
-    if(a.hasImage===false){
-      return `<div class="text-card" data-article="${a.id}" style="padding:14px"><h3 style="font-size:12px">${esc(a.title)}</h3><p style="font-size:10px;-webkit-line-clamp:2">${esc(a.desc||'').slice(0,60)}...</p></div>`;
-    }
-    return card(a);
-  }).join('');
+  const myPosts=state.customPosts.length?state.customPosts:baseArticles.slice(0,3);
+  $('#profileGrid').innerHTML=myPosts.map(a=>a.hasImage===false?`<div class="text-card" data-article="${a.id}" style="padding:14px"><h3 style="font-size:12px">${esc(a.title)}</h3><p style="font-size:10px;-webkit-line-clamp:2">${esc(a.desc||'').slice(0,60)}...</p></div>`:card(a)).join('');
   $('#profilePostsCount').textContent=myPosts.length;
-  const savedList=allArticles().filter(a=>a.saved||(a.id==='admin1'&&heroSaved));
-  $('#profileSavedList').innerHTML=savedList.length?savedList.map(listItem).join(''):'<p class="section-sub">هنوز مطلبی ذخیره نکرده‌ای.</p>';
-  $('#profileFollowersList').innerHTML=mockUsers.map(u=>`<div class="user-row" data-user-id="${u.id}"><img src="${u.avatar}" alt=""><div><h4>${esc(u.name)}</h4><p>${u.posts} پست · ${u.followers} دنبال‌کننده</p></div><button>دنبال کردن</button></div>`).join('');
-  $('#profileFollowingList').innerHTML=mockUsers.slice(0,2).map(u=>`<div class="user-row" data-user-id="${u.id}"><img src="${u.avatar}" alt=""><div><h4>${esc(u.name)}</h4><p>${u.posts} پست · ${u.followers} دنبال‌کننده</p></div><button style="background:var(--line-2);color:var(--ink)">لغو</button></div>`).join('');
+  $('#profileName').textContent=state.profile.name;
+  $('#profileBio').textContent=state.profile.bio;
+  $('#profileAvatar').src=state.profile.avatar;
+  const saved=allArticles().filter(a=>isSaved(a.id)||(a.id==='admin1'&&state.heroSaved));
+  $('#profileSavedList').innerHTML=saved.length?saved.map(listItem).join(''):emptyState('چیزی ذخیره نکرده‌ای');
+  $('#profileFollowersList').innerHTML=mockUsers.map(u=>userRow(u,false)).join('');
+  $('#profileFollowingList').innerHTML=mockUsers.slice(0,2).map(u=>userRow(u,true)).join('');
 }
-function renderAdmin(tab='users'){
+function userRow(u,isFollowing){
+  const followed=state.followed.includes(u.id)||isFollowing;
+  return `<div class="user-row" data-user-id="${u.id}"><img src="${u.avatar}" alt=""><div><h4>${esc(u.name)}</h4><p>${u.posts} پست · ${u.followers} دنبال‌کننده</p></div><button class="${followed?'following':''}" data-follow-btn="${u.id}">${followed?'لغو':'دنبال'}</button></div>`;
+}
+function renderMessages(){
+  $('#messagesList').innerHTML=mockUsers.map(u=>{
+    const msgs=state.chats[u.id]||[];
+    const last=msgs[msgs.length-1];
+    const unread=u.id===1?2:0;
+    return `<div class="message-row" data-chat-user="${u.id}"><div class="message-avatar"><img src="${u.avatar}" alt="">${u.online?'<span class="online"></span>':''}${unread?`<span class="unread-count">${unread}</span>`:''}</div><div class="message-info"><h4>${esc(u.name)}</h4><p>${last?esc(last.text):'گفتگویی شروع نشده'}</p></div><div class="message-meta"><time>${last?last.time:''}</time></div></div>`;
+  }).join('');
+}
+function renderChat(userId){
+  const u=mockUsers.find(x=>x.id===userId);if(!u)return;
+  state.currentChat=userId;
+  $('#chatHeader').innerHTML=`<img src="${u.avatar}" alt=""><div><h4>${esc(u.name)}</h4><p>${u.online?'آنلاین':'آفلاین'}</p></div>`;
+  const msgs=state.chats[userId]||[];
+  $('#chatMessages').innerHTML=msgs.map(m=>`<div class="chat-bubble ${m.from==='me'?'me':'other'}">${esc(m.text)}<time>${m.time}</time></div>`).join('')||emptyState('گفتگو را شروع کن');
+  setTimeout(()=>$('#chatMessages').scrollTop=$('#chatMessages').scrollHeight,100);
+}
+function renderAdmin(tab='overview'){
   $$('.admin-tab').forEach(t=>t.classList.toggle('active',t.dataset.adminTab===tab));
-  if(tab==='users'){
-    $('#adminContent').innerHTML=mockUsers.map(u=>`<div class="admin-card"><img src="${u.avatar}" alt=""><div><h4>${esc(u.name)}</h4><p>${u.posts} پست · ${u.followers} فالوور</p></div><div class="admin-actions"><button class="danger" onclick="alert('کاربر مسدود شد')">مسدود</button><button class="success" onclick="alert('دسترسی داده شد')">دسترسی</button></div></div>`).join('');
+  const content=$('#adminContent');
+  if(tab==='overview'){
+    content.innerHTML=`<div class="admin-stats"><div class="admin-stat"><h4>کاربران</h4><b>1,248</b></div><div class="admin-stat"><h4>پست‌ها</h4><b>${allArticles().length}</b></div><div class="admin-stat"><h4>نظرات</h4><b>${Object.values(state.comments).flat().length}</b></div><div class="admin-stat"><h4>بازدید امروز</h4><b>3.2K</b></div></div>`;
+  } else if(tab==='users'){
+    content.innerHTML=mockUsers.map(u=>`<div class="admin-card"><img src="${u.avatar}" alt=""><div><h4>${esc(u.name)}</h4><p>${u.posts} پست · ${u.followers} فالوور</p></div><div class="admin-actions"><button class="danger" data-admin-action="block" data-uid="${u.id}">مسدود</button><button class="success" data-admin-action="verify" data-uid="${u.id}">تأیید</button></div></div>`).join('');
   } else if(tab==='posts'){
-    $('#adminContent').innerHTML=allArticles().slice(0,6).map(p=>`<div class="admin-card"><img src="${p.image}" alt="" style="border-radius:8px"><div><h4>${esc(p.title)}</h4><p>${esc(p.category)}</p></div><div class="admin-actions"><button class="danger" onclick="alert('پست حذف شد')">حذف</button></div></div>`).join('');
+    content.innerHTML=allArticles().slice(0,6).map(p=>`<div class="admin-card"><img src="${p.image}" alt="" style="border-radius:8px"><div><h4>${esc(p.title)}</h4><p>${esc(p.category)}</p></div><div class="admin-actions"><button class="danger" data-admin-action="delete-post" data-pid="${p.id}">حذف</button></div></div>`).join('');
   } else if(tab==='comments'){
-    $('#adminContent').innerHTML=(commentsData.admin1||[]).map(c=>`<div class="admin-card"><img src="${c.avatar}" alt=""><div><h4>${esc(c.user)}</h4><p>${esc(c.text)}</p></div><div class="admin-actions"><button class="danger" onclick="alert('نظر حذف شد')">حذف</button></div></div>`).join('');
-  } else {
-    $('#adminContent').innerHTML='<p class="section-sub">گزارشی وجود ندارد.</p>';
+    const allComments=Object.values(state.comments).flat();
+    content.innerHTML=allComments.map(c=>`<div class="admin-card"><img src="${c.avatar}" alt=""><div><h4>${esc(c.user)}</h4><p>${esc(c.text)}</p></div><div class="admin-actions"><button class="danger" data-admin-action="delete-comment" data-cid="${c.id}">حذف</button></div></div>`).join('');
   }
 }
-function renderComments(postId){
-  const comments=commentsData[postId]||[];
-  $('#commentsList').innerHTML=comments.length?comments.map(c=>`<div class="comment"><img src="${c.avatar}" alt=""><div><b>${esc(c.user)}</b><p>${esc(c.text)}</p><div class="comment-actions"><button>❤️ ${c.likes||0}</button><button>پاسخ</button><time>${c.time}</time></div></div></div>`).join(''):'<p class="section-sub">هنوز نظری ثبت نشده. اولین نفر باش!</p>';
-  currentCommentsPostId=postId;
+function emptyState(msg){
+  return `<div class="empty-state"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg><h3>خالیه</h3><p>${esc(msg)}</p></div>`;
 }
-function showScreen(id,pushHistory=true){
+function showScreen(id,push=true){
   if(!$('#'+id))id='home';
   $$('.screen').forEach(s=>s.classList.toggle('active',s.id===id));
-  $$('.navbtn[data-go]').forEach(b=>b.classList.toggle('active',b.dataset.go===id||(id==='article'&&b.dataset.go==='categories')||(id==='saved'&&b.dataset.go==='profile')||(id==='categoryDetail'&&b.dataset.go==='categories')||(id==='admin'&&b.dataset.go==='profile')));
+  $$('.navbtn[data-go]').forEach(b=>b.classList.toggle('active',b.dataset.go===id||(id==='chat'&&b.dataset.go==='messages')));
   if(id==='search')renderSearch($('#searchInput').value);
   if(id==='saved')renderSaved();
   if(id==='profile')renderProfile();
+  if(id==='messages')renderMessages();
   if(id==='admin')renderAdmin();
-  if(pushHistory&&id!==historyStack[historyStack.length-1])historyStack.push(id);
+  if(push&&state.history[state.history.length-1]!==id)state.history.push(id);
   window.scrollTo({top:0,behavior:'smooth'});
 }
 function goBack(){
-  if(historyStack.length>1){historyStack.pop();showScreen(historyStack[historyStack.length-1],false);}
+  if(state.history.length>1){state.history.pop();showScreen(state.history[state.history.length-1],false);}
   else showScreen('home',false);
 }
 function openArticle(id){
   const a=allArticles().find(x=>x.id===id)||(id==='admin1'?adminPost:null);
   if(!a)return;
-  currentArticle=id;
-  $('#articleImage').src=a.image||images.city;
+  state.currentArticle=id;
+  $('#articleImage').src=a.image||IMG.city;
   $('#articleTitle').textContent=a.title;
   $('#articleTag').textContent=a.category;
-  $('#articleBody').innerHTML=a.body||`<p>${esc(a.desc||'')}</p><h2>نگاهی نزدیک‌تر</h2><p>هر تجربه تازه می‌تواند راهی برای دیدن دنیا از زاویه‌ای متفاوت باشد.</p>`;
-  $('#articleLike').classList.toggle('liked',!!a.liked);
-  $('#articleSave').classList.toggle('saved',!!a.saved);
+  $('#articleTime').textContent=a.time||'۳ دقیقه مطالعه';
+  $('#articleLikes').textContent=a.likes+(isLiked(id)?1:0);
+  $('#articleBody').innerHTML=a.body||`<p>${esc(a.desc||'')}</p>`;
+  $('#articleLike').classList.toggle('liked',isLiked(id));
+  $('#articleSave').classList.toggle('saved',isSaved(id));
   showScreen('article');
+}
+function openUserProfile(uid){
+  const u=mockUsers.find(x=>x.id===uid);if(!u)return;
+  $('#userCover').src=IMG.city;
+  $('#userAvatar').src=u.avatar;
+  $('#userName').textContent=u.name;
+  $('#userBio').textContent=u.bio;
+  $('#userPostsCount').textContent=u.posts;
+  $('#userFollowersCount').textContent=u.followers;
+  $('#userFollowingCount').textContent=u.following;
+  const followed=state.followed.includes(uid);
+  $('#followBtn').textContent=followed?'لغو دنبال':'دنبال کردن';
+  $('#followBtn').onclick=()=>{
+    if(followed)state.followed=state.followed.filter(x=>x!==uid);
+    else state.followed.push(uid);
+    saveAll();openUserProfile(uid);toast(followed?'لغو شد':'دنبال شد');
+  };
+  $('#messageBtn').onclick=()=>{renderChat(uid);showScreen('chat')};
+  showScreen('userProfile');
+}
+function renderComments(postId){
+  const comments=state.comments[postId]||[];
+  $('#commentsList').innerHTML=comments.length?comments.map(c=>`<div class="comment"><img src="${c.avatar}" alt=""><div><b data-user-name="${esc(c.user)}">${esc(c.user)}</b><p>${esc(c.text)}</p><div class="comment-actions"><button class="${c.liked?'liked':''}" data-like-comment="${c.id}" data-post-id="${postId}">❤️ ${c.likes||0}</button><button>پاسخ</button><time>${c.time}</time></div></div></div>`).join(''):emptyState('هنوز نظری نیست');
+  state.currentCommentsPostId=postId;
 }
 
 // Init
 $('#stories').innerHTML=stories.map((s,i)=>`<button class="story ${i===0?'plus':''}" data-story="${i}">${i===0?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>':`<img src="${s[1]}" alt="">`}<span>${s[0]}</span></button>`).join('');
-$('#searchChips').innerHTML=['انیمه','موسیقی','سبک زندگی','دانستنی','سفر','هنر'].map(x=>`<button class="chip" data-query="${x}">${x}</button>`).join('');
+$('#searchChips').innerHTML=['انیمه','موسیقی','سبک زندگی','سفر','هنر','علم'].map(x=>`<button class="chip" data-query="${x}">${x}</button>`).join('');
 $('#noticeList').innerHTML=[
-['https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=100&q=80','سارا','مطلب تو را پسندید.','۲ دقیقه پیش'],
-['https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&q=80','آرین','مقاله تازه‌ای منتشر شد.','۱۵ دقیقه پیش'],
-['https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=100&q=80','مهسا','یک مطلب پیشنهادی داریم.','۱ ساعت پیش']
+[IMG.avatar2,'سارا','مطلب تو را پسندید.','۲ دقیقه پیش'],
+[IMG.avatar3,'آرین','مقاله تازه‌ای منتشر شد.','۱۵ دقیقه پیش'],
+[IMG.avatar4,'مهسا','یک مطلب پیشنهادی داریم.','۱ ساعت پیش']
 ].map(n=>`<div class="notice"><img src="${n[0]}" alt=""><div><b>${n[1]}</b> ${n[2]}<time>${n[3]}</time></div></div>`).join('');
 renderCategories();renderHome();renderSearch();
-if(hasNewNotif)$('#notifBadge').classList.add('show');
+
+// Theme
+if(state.theme==='dark'){document.documentElement.setAttribute('data-theme','dark');}
+$('#themeToggle').addEventListener('click',()=>{
+  const cur=document.documentElement.getAttribute('data-theme')==='dark';
+  if(cur){document.documentElement.removeAttribute('data-theme');state.theme='light';}
+  else{document.documentElement.setAttribute('data-theme','dark');state.theme='dark';}
+  storage.set('theme',state.theme);
+  toast(cur?'حالت روشن':'حالت تاریک');
+});
+
+// Loader
+setTimeout(()=>{$('#loader').classList.add('hide');setTimeout(()=>$('#loader').remove(),500)},800);
 
 // Events
 document.addEventListener('click',e=>{
   const go=e.target.closest('[data-go]');
-  if(go){
-    showScreen(go.dataset.go);
-    if(go.dataset.go==='notifications'){hasNewNotif=false;$('#notifBadge').classList.remove('show');}
-    return;
-  }
+  if(go){showScreen(go.dataset.go);return}
   const a=e.target.closest('[data-article]');
   if(a){openArticle(a.dataset.article);return}
-  const catDetail=e.target.closest('[data-category-detail]');
-  if(catDetail){renderCategoryDetail(catDetail.dataset.categoryDetail);showScreen('categoryDetail');return}
-  if(e.target.closest('[data-back-to-categories]')){goBack();return}
-  if(e.target.closest('#articleBackBtn')){goBack();return}
-  if(e.target.closest('[data-open-article]')){openArticle('admin1');return}
+  const catD=e.target.closest('[data-category-detail]');
+  if(catD){renderCategoryDetail(catD.dataset.categoryDetail);showScreen('categoryDetail');return}
+  if(e.target.closest('[data-back]')){goBack();return}
+  const openA=e.target.closest('[data-open-article]');
+  if(openA){openArticle(openA.dataset.openArticle);return}
   const q=e.target.closest('[data-query]');
   if(q){$('#searchInput').value=q.dataset.query;showScreen('search');renderSearch(q.dataset.query);return}
-  const like=e.target.closest('[data-like]');
-  if(like){likedHero=!likedHero;like.classList.toggle('liked',likedHero);$('#heroLikes').textContent=likedHero?'843':'842';return}
-  const save=e.target.closest('[data-save]');
-  if(save){heroSaved=!heroSaved;save.classList.toggle('saved',heroSaved);toast(heroSaved?'ذخیره شد':'حذف شد');return}
-  if(e.target.closest('[data-comment="hero"]')){renderComments('admin1');$('#commentsModal').classList.add('show');return}
-  if(e.target.closest('[data-story]'))toast('استوری به‌زودی فعال می‌شود.');
+  const follow=e.target.closest('[data-follow-btn]');
+  if(follow){e.stopPropagation();const uid=+follow.dataset.followBtn;if(state.followed.includes(uid))state.followed=state.followed.filter(x=>x!==uid);else state.followed.push(uid);saveAll();renderProfile();toast(state.followed.includes(uid)?'دنبال شد':'لغو شد');return}
+  const uRow=e.target.closest('[data-user-id]');
+  if(uRow){openUserProfile(+uRow.dataset.userId);return}
+  const chatRow=e.target.closest('[data-chat-user]');
+  if(chatRow){renderChat(+chatRow.dataset.chatUser);showScreen('chat');return}
+  const closeBtn=e.target.closest('[data-close-modal]');
+  if(closeBtn){closeBtn.closest('.modal-overlay').classList.remove('show');return}
+  const commentBtn=e.target.closest('[data-comment]');
+  if(commentBtn){renderComments(commentBtn.dataset.comment);$('#commentsModal').classList.add('show');return}
+  const likeComment=e.target.closest('[data-like-comment]');
+  if(likeComment){
+    const cid=+likeComment.dataset.likeComment;const pid=likeComment.dataset.postId;
+    const c=(state.comments[pid]||[]).find(x=>x.id===cid);
+    if(c){c.liked=!c.liked;c.likes=(c.likes||0)+(c.liked?1:-1);saveAll();renderComments(pid);}
+    return;
+  }
+  const adminTab=e.target.closest('[data-admin-tab]');
+  if(adminTab){renderAdmin(adminTab.dataset.adminTab);return}
+  const adminAction=e.target.closest('[data-admin-action]');
+  if(adminAction){toast('انجام شد (دمو)');return}
   const profileTab=e.target.closest('[data-profile-tab]');
   if(profileTab){
     $$('.profile-tab').forEach(t=>t.classList.toggle('active',t.dataset.profileTab===profileTab.dataset.profileTab));
@@ -1038,69 +969,131 @@ document.addEventListener('click',e=>{
     $('#profileFollowersList').style.display=tab==='followers'?'block':'none';
     $('#profileFollowingList').style.display=tab==='following'?'block':'none';
   }
-  const adminTab=e.target.closest('[data-admin-tab]');
-  if(adminTab){renderAdmin(adminTab.dataset.adminTab);return}
 });
 
+// Feed tabs
 $$('[data-feed]').forEach(b=>b.addEventListener('click',()=>{
   $$('[data-feed]').forEach(x=>x.classList.toggle('active',x===b));
-  feedFilter=b.dataset.feed;renderHome();
+  state.feedFilter=b.dataset.feed;renderHome();
 }));
+
+// Search
 $('#searchInput').addEventListener('input',e=>renderSearch(e.target.value.trim()));
+
+// Hero actions
+$('#heroLike').addEventListener('click',()=>{
+  state.likedHero=!state.likedHero;
+  $('#heroLike').classList.toggle('liked',state.likedHero);
+  $('#heroLikes').textContent=state.likedHero?'843':'842';
+  toast(state.likedHero?'پسندیده شد':'لغو شد');
+});
+$('#heroSave').addEventListener('click',()=>{
+  state.heroSaved=!state.heroSaved;
+  $('#heroSave').classList.toggle('saved',state.heroSaved);
+  saveAll();toast(state.heroSaved?'ذخیره شد':'حذف شد');
+});
+$('#heroShare').addEventListener('click',()=>{navigator.clipboard?.writeText(location.href);toast('لینک کپی شد')});
+
+// Article actions
 $('#articleLike').addEventListener('click',()=>{
-  const a=allArticles().find(x=>x.id===currentArticle)||(currentArticle==='admin1'?adminPost:null);
-  if(!a)return;a.liked=!a.liked;$('#articleLike').classList.toggle('liked',a.liked);
-  toast(a.liked?'پسندیده شد':'لغو شد');
+  toggleLike(state.currentArticle);
+  const a=allArticles().find(x=>x.id===state.currentArticle)||(state.currentArticle==='admin1'?adminPost:null);
+  if(a){
+    $('#articleLike').classList.toggle('liked',isLiked(state.currentArticle));
+    $('#articleLikes').textContent=a.likes+(isLiked(state.currentArticle)?1:0);
+    toast(isLiked(state.currentArticle)?'پسندیده شد':'لغو شد');
+  }
 });
-$('#articleCommentBtn').addEventListener('click',()=>{renderComments(currentArticle);$('#commentsModal').classList.add('show')});
 $('#articleSave').addEventListener('click',()=>{
-  const a=allArticles().find(x=>x.id===currentArticle)||(currentArticle==='admin1'?adminPost:null);
-  if(!a)return;a.saved=!a.saved;$('#articleSave').classList.toggle('saved',a.saved);
-  toast(a.saved?'ذخیره شد':'حذف شد');
+  toggleSave(state.currentArticle);
+  $('#articleSave').classList.toggle('saved',isSaved(state.currentArticle));
+  toast(isSaved(state.currentArticle)?'ذخیره شد':'حذف شد');
 });
-$('#closeCommentsModal').addEventListener('click',()=>$('#commentsModal').classList.remove('show'));
-$('#commentsModal').addEventListener('click',e=>{if(e.target===$('#commentsModal'))$('#commentsModal').classList.remove('show')});
+$('#articleCommentBtn').addEventListener('click',()=>{renderComments(state.currentArticle);$('#commentsModal').classList.add('show')});
+$('#articleShare').addEventListener('click',()=>{navigator.clipboard?.writeText(location.href);toast('لینک کپی شد')});
+
+// Comments
 $('#submitCommentBtn').addEventListener('click',()=>{
   const text=$('#newCommentInput').value.trim();if(!text)return;
-  if(!commentsData[currentCommentsPostId])commentsData[currentCommentsPostId]=[];
-  commentsData[currentCommentsPostId].unshift({id:Date.now(),user:'مهسا رضایی',avatar:'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80',text,time:'همین حالا',likes:0});
-  $('#newCommentInput').value='';renderComments(currentCommentsPostId);toast('نظر ثبت شد.');
+  const pid=state.currentCommentsPostId;
+  if(!state.comments[pid])state.comments[pid]=[];
+  state.comments[pid].unshift({id:Date.now(),user:state.profile.name,avatar:state.profile.avatar,text,time:'همین حالا',likes:0,liked:false});
+  $('#newCommentInput').value='';saveAll();renderComments(pid);toast('نظر ثبت شد');
+});
+
+// Create post
+$('#postText').addEventListener('input',e=>{$('#charCount').textContent=e.target.value.length});
+$('#imageFile').addEventListener('change',function(){
+  const f=this.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=e=>{$('#previewImg').src=e.target.result;$('#uploadPreview').classList.add('show');$('#uploadLabel').textContent='تصویر انتخاب شد';};
+  r.readAsDataURL(f);
+});
+$('#removeImage').addEventListener('click',()=>{
+  $('#imageFile').value='';$('#uploadPreview').classList.remove('show');$('#uploadLabel').textContent='افزودن تصویر (اختیاری)';
 });
 $('#createForm').addEventListener('submit',e=>{
   e.preventDefault();
-  const title=$('#postTitle').value.trim(),body=$('#postText').value.trim(),file=$('#imageFile').files[0],category=$('#postCategory').value;
-  if(!title||!body){toast('عنوان و متن را وارد کن.');return}
-  const add=(imageData,hasImage)=>{
-    customPosts.unshift({id:'u'+Date.now(),title,category,image:imageData||images.city,hasImage,desc:body.slice(0,95),body:`<p>${esc(body).replace(/\n/g,'<br>')}</p>`,time:'همین حالا',likes:0,saved:false});
-    $('#createForm').reset();$('#uploadLabel').textContent='افزودن تصویر (اختیاری)';
-    renderHome();renderProfile();showScreen('home');toast(hasImage?'پست تصویری منتشر شد.':'پست متنی منتشر شد.');
+  const title=$('#postTitle').value.trim();const body=$('#postText').value.trim();
+  const file=$('#imageFile').files[0];const category=$('#postCategory').value;
+  $('#titleError').classList.remove('show');$('#textError').classList.remove('show');
+  $('#postTitle').classList.remove('error');$('#postText').classList.remove('error');
+  let hasError=false;
+  if(title.length<3){$('#titleError').classList.add('show');$('#postTitle').classList.add('error');hasError=true}
+  if(body.length<10){$('#textError').classList.add('show');$('#postText').classList.add('error');hasError=true}
+  if(hasError)return;
+  const add=(img,hasImage)=>{
+    state.customPosts.unshift({id:'u'+Date.now(),title,category,image:img||IMG.city,hasImage,desc:body.slice(0,95),body:`<p>${esc(body).replace(/\n/g,'<br>')}</p>`,time:'همین حالا',likes:0});
+    saveAll();$('#createForm').reset();$('#uploadPreview').classList.remove('show');$('#uploadLabel').textContent='افزودن تصویر (اختیاری)';$('#charCount').textContent='0';
+    renderHome();renderProfile();showScreen('home');toast(hasImage?'پست تصویری منتشر شد':'پست متنی منتشر شد');
   };
   if(file){
-    if(!file.type.startsWith('image/')){toast('تصویر انتخاب کن.');return}
-    if(file.size>4*1024*1024){toast('حجم کمتر از ۴ مگابایت.');return}
+    if(!file.type.startsWith('image/')){toast('تصویر انتخاب کن','error');return}
+    if(file.size>4*1024*1024){toast('حجم کمتر از ۴ مگابایت','error');return}
     const r=new FileReader();r.onload=()=>add(r.result,true);r.readAsDataURL(file);
   } else add(null,false);
 });
-$('#imageFile').addEventListener('change',function(){
-  $('#uploadLabel').textContent=this.files&&this.files[0]?'تصویر: '+this.files[0].name:'افزودن تصویر (اختیاری)';
-});
-$('#editProfileBtn').addEventListener('click',()=>$('#editProfileModal').classList.add('show'));
-$('#closeEditProfileModal').addEventListener('click',()=>$('#editProfileModal').classList.remove('show'));
-$('#editProfileModal').addEventListener('click',e=>{if(e.target===$('#editProfileModal'))$('#editProfileModal').classList.remove('show')});
-$('#saveProfileBtn').addEventListener('click',()=>{
-  const name=$('#editNameInput').value.trim(),bio=$('#editBioInput').value.trim();
-  if(name)$('#profileName').textContent=name;
-  if(bio)$('#profileBio').textContent=bio;
-  const file=$('#editAvatarInput').files[0];
-  if(file){const r=new FileReader();r.onload=e=>{$('#profileAvatar').src=e.target.result;toast('پروفایل ویرایش شد.');$('#editProfileModal').classList.remove('show')};r.readAsDataURL(file);}
-  else{toast('پروفایل ویرایش شد.');$('#editProfileModal').classList.remove('show');}
-});
-// Admin access: double click logo
-$('.logo').addEventListener('dblclick',()=>{showScreen('admin');toast('ورود به پنل مدیریت')});
 
-// Handle browser back
+// Chat
+$('#sendChatBtn').addEventListener('click',()=>{
+  const text=$('#chatInput').value.trim();if(!text||!state.currentChat)return;
+  if(!state.chats[state.currentChat])state.chats[state.currentChat]=[];
+  const time=new Date().toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'});
+  state.chats[state.currentChat].push({from:'me',text,time});
+  $('#chatInput').value='';saveAll();renderChat(state.currentChat);
+  setTimeout(()=>{
+    const replies=['باشه','حتماً','ممنون','جالب بود','درسته'];
+    state.chats[state.currentChat].push({from:'them',text:replies[Math.floor(Math.random()*replies.length)],time});
+    saveAll();renderChat(state.currentChat);
+  },1500);
+});
+$('#chatInput').addEventListener('keypress',e=>{if(e.key==='Enter')$('#sendChatBtn').click()});
+
+// Edit profile
+$('#editProfileBtn').addEventListener('click',()=>{
+  $('#editNameInput').value=state.profile.name;
+  $('#editBioInput').value=state.profile.bio;
+  $('#editProfileModal').classList.add('show');
+});
+$('#saveProfileBtn').addEventListener('click',()=>{
+  const name=$('#editNameInput').value.trim();const bio=$('#editBioInput').value.trim();
+  if(name)state.profile.name=name;if(bio)state.profile.bio=bio;
+  const f=$('#editAvatarInput').files[0];
+  const done=()=>{saveAll();renderProfile();toast('پروفایل ذخیره شد');$('#editProfileModal').classList.remove('show')};
+  if(f){const r=new FileReader();r.onload=e=>{state.profile.avatar=e.target.result;done()};r.readAsDataURL(f)}
+  else done();
+});
+
+// Admin access (double click logo)
+let clickTimer=null;
+$('#logoBtn').addEventListener('click',()=>{
+  if(clickTimer){clearTimeout(clickTimer);clickTimer=null;showScreen('admin');toast('ورود به پنل مدیریت')}
+  else clickTimer=setTimeout(()=>{clickTimer=null;showScreen('home')},280);
+});
+
+// Browser back
 window.addEventListener('popstate',()=>goBack());
 })();
 </script>
 </body>
-</html>
+          </html>
