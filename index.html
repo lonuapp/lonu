@@ -143,10 +143,12 @@ main{flex:1;padding-bottom:80px;overflow-y:auto;position:relative}
 .post-heart{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);font-size:80px;color:#fff;opacity:0;pointer-events:none;z-index:3;text-shadow:0 4px 20px rgba(0,0,0,0.4)}
 .post-heart.show{animation:bigHeart .8s}
 @keyframes bigHeart{0%{transform:translate(-50%,-50%) scale(0);opacity:0}30%{transform:translate(-50%,-50%) scale(1.2);opacity:1}70%{transform:translate(-50%,-50%) scale(1);opacity:1}100%{transform:translate(-50%,-50%) scale(1.4);opacity:0}}
-.post-actions{display:flex;align-items:center;gap:14px;padding:10px 14px 4px}
-.post-action{width:34px;height:34px;display:grid;place-items:center;color:var(--ink);transition:var(--tr)}
-.post-action:active{transform:scale(.85)}
-.post-action svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:var(--tr)}
+
+/* ===== INSTAGRAM-LIKE POST ACTIONS ===== */
+.post-actions{display:flex;align-items:center;gap:16px;padding:12px 14px 6px}
+.post-action{width:34px;height:34px;display:flex;align-items:center;justify-content:center;color:var(--ink);transition:transform .15s ease}
+.post-action:active{transform:scale(.82)}
+.post-action svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;transition:fill .2s,stroke .2s}
 .post-action.liked svg{fill:#ed4956;stroke:#ed4956;animation:heartBeat .5s}
 @keyframes heartBeat{0%{transform:scale(1)}15%{transform:scale(1.3)}30%{transform:scale(.95)}45%{transform:scale(1.15)}60%{transform:scale(1)}}
 .post-action.saved svg{fill:var(--ink)}
@@ -193,21 +195,16 @@ main{flex:1;padding-bottom:80px;overflow-y:auto;position:relative}
 .stab{font-size:13.5px;font-weight:600;color:var(--muted);padding:8px 0;position:relative;background:none;transition:var(--tr)}
 .stab.active{color:var(--ink);font-weight:800}
 .stab.active::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2.5px;background:var(--ink);border-radius:2px}
-
-/* ===== SEARCH MODE TABS (Search / Explore) ===== */
 .search-mode-tabs{display:flex;justify-content:center;background:var(--paper);border-bottom:1px solid var(--line-2)}
 .smode{flex:1;max-width:150px;padding:14px 0;font-size:14px;font-weight:700;color:var(--muted);text-align:center;border-bottom:2.5px solid transparent;background:none;transition:var(--tr);position:relative}
 .smode.active{color:var(--ink);border-bottom-color:var(--ink);font-weight:800}
 .smode:active{color:var(--ink-2)}
-
-/* ===== EXPLORE GRID ===== */
 .explore-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:2px}
 .explore-item{aspect-ratio:1;overflow:hidden;background:var(--line-2);cursor:pointer;position:relative;animation:pageIn .3s}
 .explore-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
 .explore-item:active img{transform:scale(1.06)}
 .explore-item .ex-badge{position:absolute;bottom:6px;right:6px;background:rgba(0,0,0,.55);color:#fff;font-size:10px;font-weight:700;padding:3px 7px;border-radius:10px;display:flex;align-items:center;gap:3px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
 .explore-item .ex-badge svg{width:11px;height:11px;fill:#fff;stroke:none}
-
 .article-row{display:flex;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line-2);cursor:pointer;background:var(--paper);transition:var(--tr)}
 .article-row:active{background:var(--line-2)}
 .article-row img{width:88px;height:88px;border-radius:10px;object-fit:cover;flex-shrink:0}
@@ -251,6 +248,7 @@ main{flex:1;padding-bottom:80px;overflow-y:auto;position:relative}
 .chat-row-info h4{font-size:13.5px;font-weight:800;margin-bottom:2px}
 .chat-row-info p{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .chat-row-time{font-size:10.5px;color:var(--muted);flex-shrink:0;margin-left:4px}
+.chat-row .unread-dot{position:absolute;top:14px;right:14px;width:10px;height:10px;background:var(--accent);border-radius:50%;border:2px solid var(--paper)}
 .profile-cover{height:160px;background:var(--line);position:relative;overflow:hidden}
 .profile-cover img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
 .profile-head{text-align:center;padding:0 16px;margin-top:-46px;position:relative;z-index:2}
@@ -289,8 +287,6 @@ main{flex:1;padding-bottom:80px;overflow-y:auto;position:relative}
 .text-post-card p{font-size:12px;color:var(--muted);line-height:1.8;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
 .text-post-card-menu{width:28px;height:28px;color:var(--muted);font-size:18px;display:grid;place-items:center;border-radius:50%;flex-shrink:0}
 .section-label{padding:14px 16px 6px;font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.3px}
-
-/* ===== COLLECTIONS (enhanced) ===== */
 .collection-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px 16px}
 .collection-card{background:var(--paper);border:1px solid var(--line-2);border-radius:14px;padding:0;cursor:pointer;transition:var(--tr);position:relative;overflow:hidden}
 .collection-card:active{transform:scale(.98)}
@@ -307,7 +303,6 @@ main{flex:1;padding-bottom:80px;overflow-y:auto;position:relative}
 .add-collection{background:var(--paper);border:2px dashed var(--line);display:grid;place-items:center;text-align:center;padding:24px 16px;color:var(--muted);font-weight:700;min-height:160px}
 .add-collection svg{width:28px;height:28px;stroke:var(--accent);fill:none;stroke-width:2;margin:0 auto 8px}
 .add-collection span{font-size:12.5px}
-
 .article-progress{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;height:3px;background:transparent;z-index:100}
 .article-progress-bar{height:100%;background:var(--accent);width:0%;transition:width .1s}
 .article-cover{height:260px;position:relative;background:var(--line);cursor:pointer}
@@ -364,8 +359,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 .switch.on::after{left:23px}
 .btn-main{width:100%;background:var(--ink);color:var(--paper);border-radius:12px;padding:14px;font-size:14px;font-weight:800;transition:var(--tr)}
 .btn-main:active{transform:scale(.98)}
-
-/* ===== SETTINGS ===== */
 .settings-section{padding:0 16px 20px}
 .settings-section-title{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;padding:18px 4px 10px}
 .settings-list{display:flex;flex-direction:column;gap:6px}
@@ -386,10 +379,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 .setting-group-head .sg-text{flex:1;min-width:0}
 .setting-group-head h4{font-size:13px;font-weight:800;margin-bottom:2px;color:var(--ink)}
 .setting-group-head p{font-size:11px;color:var(--muted)}
-.setting-group .accent-grid{padding:0;grid-template-columns:repeat(6,1fr)}
-.setting-group .setting-options{padding:0}
-.setting-group .avatar-color-grid{padding:0;grid-template-columns:repeat(8,1fr)}
-.setting-group .chat-bg-grid{padding:0;grid-template-columns:repeat(4,1fr)}
 .setting-options{display:flex;gap:6px;flex-wrap:wrap}
 .setting-opt{padding:6px 12px;border-radius:14px;font-size:11px;font-weight:600;background:var(--line-2);color:var(--muted);transition:var(--tr)}
 .setting-opt.active{background:var(--ink);color:var(--paper)}
@@ -490,6 +479,13 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 .empty h3{font-size:15px;font-weight:800;color:var(--ink);margin-bottom:8px}
 .empty p{font-size:12.5px;line-height:1.9;margin-bottom:14px;max-width:280px;margin-left:auto;margin-right:auto;color:var(--muted)}
 .empty button{background:var(--ink);color:var(--paper);border-radius:10px;padding:10px 22px;font-size:12.5px;font-weight:700;transition:var(--tr)}
+
+/* ===== POST DETAIL PAGE (Explore click) ===== */
+.detail-comment-bar{display:flex;gap:8px;padding:10px 14px;border-top:1px solid var(--line-2);background:var(--paper);align-items:center;position:sticky;bottom:0}
+.detail-comment-bar input{flex:1;border:1.5px solid var(--line);border-radius:22px;padding:10px 16px;font-size:13px;outline:none;background:var(--line-2);transition:var(--tr)}
+.detail-comment-bar input:focus{border-color:var(--ink);background:var(--paper)}
+.detail-comment-bar button{background:var(--ink);color:var(--paper);border-radius:22px;padding:10px 18px;font-size:12.5px;font-weight:700;transition:var(--tr);flex-shrink:0}
+.detail-comment-bar button:active{transform:scale(.95)}
 
 /* ADMIN PANEL STYLES */
 .admin-badge{background:#dc2626;color:#fff;font-size:9px;padding:2px 8px;border-radius:8px;font-weight:800;letter-spacing:.3px;margin-right:6px}
@@ -648,6 +644,11 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
     <section class="page" id="page-collection">
       <div class="chat-top"><button class="back-btn" data-back><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button><h4 style="font-size:14px;font-weight:800;flex:1" id="collectionTitle">کالکشن</h4></div>
       <div id="collectionPosts" class="pin-grid"></div>
+    </section>
+
+    <section class="page" id="page-post-detail">
+      <div class="chat-top"><button class="back-btn" data-back><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button><h4 style="font-size:14px;font-weight:800;flex:1">پست</h4></div>
+      <div id="postDetailWrap"></div>
     </section>
 
     <section class="page" id="page-article">
@@ -1189,21 +1190,29 @@ function renderHome() {
 }
 function avatarClass(phone) { return getUserAvatarColor(phone) ? 'colored' : ''; }
 function avatarStyle(phone) { const c = getUserAvatarColor(phone); return c ? `style="--avatar-color:${c}"` : ''; }
+
+/* ===== SHARE ICON (paper plane like Instagram) ===== */
+const SHARE_SVG = '<svg viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>';
+const HEART_SVG = '<svg viewBox="0 0 24 24"><path d="M20.8 8.6c0 5.5-8.8 11-8.8 11s-8.8-5.5-8.8-11A4.6 4.6 0 0 1 12 6.1a4.6 4.6 0 0 1 8.8 2.5Z"/></svg>';
+const COMMENT_SVG = '<svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.4 9 9 0 0 1-4.3-1L3 20l1.2-4.5A8.3 8.3 0 0 1 3.5 11.5 8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5Z"/></svg>';
+const BOOKMARK_SVG = '<svg viewBox="0 0 24 24"><path d="M6 4h12a1 1 0 0 1 1 1v16l-7-4-7 4V5a1 1 0 0 1 1-1Z"/></svg>';
+
 function renderPost(p) {
   const canManage = isAdmin() || p.authorId === state.user?.phone;
   const imgClass = avatarClass(p.authorId); const imgStyle = avatarStyle(p.authorId);
   const isSavedInCollection = state.collections.some(c => c.posts.includes(p.id));
   if (p.hasImage === false) {
     const title = p.title && p.title.trim() ? `<h3>${esc(p.title)}</h3>` : '';
+    const commentCount = (state.comments[p.id] || []).length;
     return `<div class="text-post" data-post="${p.id}">
       <div class="text-post-head"><span class="text-post-cat">${esc(p.category)}</span>${canManage ? `<button class="text-post-menu" data-menu="${p.id}">⋯</button>` : ''}</div>
       ${title}
       <p>${processText(p.desc || '')}</p>
       <div class="text-post-author"><img src="${p.authorAvatar || DEFAULT_AVATAR}" class="${imgClass}" ${imgStyle} alt="" data-user="${p.authorId}"><b data-user="${p.authorId}">${esc(p.author)}</b><span class="sp"></span><span>${formatTime(p.createdAt)}</span></div>
       <div class="text-post-actions">
-        <button class="${isLiked(p.id) ? 'liked' : ''}" data-like="${p.id}"><svg viewBox="0 0 24 24"><path d="M20.8 8.6c0 5.5-8.8 11-8.8 11s-8.8-5.5-8.8-11A4.6 4.6 0 0 1 12 6.1a4.6 4.6 0 0 1 8.8 2.5Z"/></svg>${p.likes || 0}</button>
-        <button data-comment="${p.id}"><svg viewBox="0 0 24 24"><path d="M20 11.5a7.5 7.5 0 0 1-8 7.5 9 9 0 0 1-4-.9L3 20l1.5-4.2A7.2 7.2 0 0 1 4 11.5 7.5 7.5 0 0 1 12 4a7.5 7.5 0 0 1 8 7.5Z"/></svg>${(state.comments[p.id] || []).length}</button>
-        <button class="${isSavedInCollection ? 'saved' : ''}" data-save="${p.id}"><svg viewBox="0 0 24 24"><path d="M6 4h12a1 1 0 0 1 1 1v16l-7-4-7 4V5a1 1 0 0 1 1-1Z"/></svg>${isSavedInCollection?'ذخیره شده':'ذخیره'}</button>
+        <button class="${isLiked(p.id) ? 'liked' : ''}" data-like="${p.id}">${HEART_SVG}<span data-likes-count="${p.id}">${p.likes || 0}</span></button>
+        <button data-comment="${p.id}">${COMMENT_SVG}<span data-comment-count="${p.id}">${commentCount}</span></button>
+        <button class="${isSavedInCollection ? 'saved' : ''}" data-save="${p.id}">${BOOKMARK_SVG}${isSavedInCollection?'ذخیره شده':'ذخیره'}</button>
       </div>
     </div>`;
   }
@@ -1221,16 +1230,16 @@ function renderPost(p) {
       <div class="post-heart">❤️</div>
     </div>
     <div class="post-actions">
-      <button class="post-action ${isLiked(p.id) ? 'liked' : ''}" data-like="${p.id}"><svg viewBox="0 0 24 24"><path d="M20.8 8.6c0 5.5-8.8 11-8.8 11s-8.8-5.5-8.8-11A4.6 4.6 0 0 1 12 6.1a4.6 4.6 0 0 1 8.8 2.5Z"/></svg></button>
-      <button class="post-action" data-comment="${p.id}"><svg viewBox="0 0 24 24"><path d="M20 11.5a7.5 7.5 0 0 1-8 7.5 9 9 0 0 1-4-.9L3 20l1.5-4.2A7.2 7.2 0 0 1 4 11.5 7.5 7.5 0 0 1 12 4a7.5 7.5 0 0 1 8 7.5Z"/></svg></button>
-      <button class="post-action" data-share="${p.id}"><svg viewBox="0 0 24 24"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M16 6l-4-4-4 4M12 2v13"/></svg></button>
+      <button class="post-action ${isLiked(p.id) ? 'liked' : ''}" data-like="${p.id}">${HEART_SVG}</button>
+      <button class="post-action" data-comment="${p.id}">${COMMENT_SVG}</button>
+      <button class="post-action" data-share="${p.id}">${SHARE_SVG}</button>
       <span class="post-action-spacer"></span>
-      <button class="post-action ${isSavedInCollection ? 'saved' : ''}" data-save="${p.id}"><svg viewBox="0 0 24 24"><path d="M6 4h12a1 1 0 0 1 1 1v16l-7-4-7 4V5a1 1 0 0 1 1-1Z"/></svg></button>
+      <button class="post-action ${isSavedInCollection ? 'saved' : ''}" data-save="${p.id}">${BOOKMARK_SVG}</button>
     </div>
     <div class="post-info">
       <div class="post-likes" data-likes="${p.id}"><b>${(p.likes || 0).toLocaleString('fa-IR')}</b> پسند</div>
       ${captionSlice ? `<div class="post-caption"><b class="pi-author">${esc(p.author)}</b>${processText(captionSlice)}</div>` : ''}
-      ${commentsCount > 0 ? `<button class="post-comment-link" data-comment="${p.id}">مشاهده هر ${commentsCount} نظر</button>` : ''}
+      ${commentsCount > 0 ? `<button class="post-comment-link" data-comment="${p.id}">مشاهده هر <span data-comment-count="${p.id}">${commentsCount}</span> نظر</button>` : `<button class="post-comment-link" data-comment="${p.id}" data-comment-empty="${p.id}" style="display:none">مشاهده هر <span data-comment-count="${p.id}">0</span> نظر</button>`}
       <div class="post-time">${formatTime(p.createdAt)}</div>
     </div>
   </div>`;
@@ -1249,11 +1258,7 @@ document.addEventListener('click', e => {
       }
       const heart = dbl.querySelector('.post-heart');
       heart.classList.remove('show'); void heart.offsetWidth; heart.classList.add('show');
-      const post = dbl.closest('.post');
-      const likeBtn = post.querySelector(`[data-like="${id}"]`);
-      if (likeBtn) likeBtn.classList.add('liked');
-      const likesEl = post.querySelector(`[data-likes="${id}"]`);
-      if (likesEl) { const p = state.posts.find(x => x.id === id); likesEl.innerHTML = `<b>${(p?.likes || 0).toLocaleString('fa-IR')}</b> پسند`; }
+      updateLikeDOM(id, true);
       lastTap = 0; return;
     }
     lastTap = now; lastTapTarget = id;
@@ -1261,16 +1266,56 @@ document.addEventListener('click', e => {
   const iv = e.target.closest('[data-img-view]');
   if (iv && e.target.tagName === 'IMG') {
     const id = iv.dataset.imgView; const p = state.posts.find(x => x.id === id);
-    if (p) { $('#viewerImg').src = p.image; $('#imgViewer').classList.add('show'); document.body.style.overflow = 'hidden'; }
+    if (p) { openPostDetail(id); }
   }
 });
 $('#closeViewer').addEventListener('click', () => { $('#imgViewer').classList.remove('show'); document.body.style.overflow = ''; });
 $('#imgViewer').addEventListener('click', e => { if (e.target.id === 'imgViewer') { $('#imgViewer').classList.remove('show'); document.body.style.overflow = ''; } });
-// کلیک روی عکس داخل صفحه مقاله/پست
 $('#artCoverWrap').addEventListener('click', () => {
   const src = $('#artImg').src;
   if (src) { $('#viewerImg').src = src; $('#imgViewer').classList.add('show'); document.body.style.overflow = 'hidden'; }
 });
+
+/* ===== LIKE WITHOUT PAGE RELOAD (FIX #5) ===== */
+function updateLikeDOM(postId, liked) {
+  const p = state.posts.find(x => x.id === postId); if (!p) return;
+  document.querySelectorAll(`[data-like="${postId}"]`).forEach(btn => btn.classList.toggle('liked', liked));
+  document.querySelectorAll(`[data-likes-count="${postId}"]`).forEach(el => el.textContent = p.likes || 0);
+  document.querySelectorAll(`[data-likes="${postId}"]`).forEach(el => el.innerHTML = `<b>${(p.likes || 0).toLocaleString('fa-IR')}</b> پسند`);
+}
+
+/* ===== COMMENT COUNT UPDATE (FIX #4) ===== */
+function updateCommentCounts(postId) {
+  const count = (state.comments[postId] || []).length;
+  document.querySelectorAll(`[data-comment-count="${postId}"]`).forEach(el => el.textContent = count);
+  // Update "view N comments" link visibility
+  const post = document.querySelector(`.post[data-post="${postId}"]`);
+  if (post) {
+    const info = post.querySelector('.post-info');
+    if (!info) return;
+    let link = info.querySelector('.post-comment-link');
+    const timeEl = info.querySelector('.post-time');
+    if (count > 0) {
+      if (!link) {
+        link = document.createElement('button');
+        link.className = 'post-comment-link';
+        link.dataset.comment = postId;
+        link.innerHTML = `مشاهده هر <span data-comment-count="${postId}">${count}</span> نظر`;
+        info.insertBefore(link, timeEl);
+      } else {
+        link.style.display = '';
+      }
+    } else if (link) {
+      link.style.display = 'none';
+    }
+  }
+  // Update detail page comments list if open
+  const detailList = $('#detailCommentsList');
+  if (detailList && state.currentPostId === postId) {
+    const comments = state.comments[postId] || [];
+    detailList.innerHTML = comments.length ? comments.map((c,i) => renderInlineComment(c, i, postId)).join('') : '<p style="font-size:12px;color:var(--muted);text-align:center;padding:20px 0">هنوز نظری نیست. اولین نفر باش!</p>';
+  }
+}
 
 function renderSearchSuggestions() {
   const wrap = $('#searchSuggestions');
@@ -1308,7 +1353,6 @@ function renderSearch(q = '') {
 $('#searchInput').addEventListener('input', e => renderSearch(e.target.value));
 $('#searchInput').addEventListener('keypress', e => { if (e.key === 'Enter') { const q = e.target.value.trim(); if (q) addRecentSearch(q); } });
 
-// ===== SEARCH MODE (Search / Explore) =====
 function renderSearchMode() {
   $$('.smode').forEach(b => b.classList.toggle('active', b.dataset.smode === state.searchMode));
   const searchPanel = $('#searchModePanel');
@@ -1325,7 +1369,6 @@ function renderSearchMode() {
 
 function renderExplore() {
   const wrap = $('#explorePanel');
-  // فقط پست‌های تصویری که مقاله نیستند
   const imgPosts = state.posts
     .filter(p => p.hasImage !== false && p.image && p.asArticle !== true)
     .sort((a, b) => b.createdAt - a.createdAt);
@@ -1334,7 +1377,7 @@ function renderExplore() {
     return;
   }
   wrap.innerHTML = `<div class="explore-grid">${imgPosts.map(p => `
-    <div class="explore-item" data-article="${p.id}">
+    <div class="explore-item" data-post-detail="${p.id}">
       <img src="${p.image}" alt="" loading="lazy" onerror="this.src='${PLACEHOLDER}'">
       ${(p.likes || 0) > 0 ? `<span class="ex-badge"><svg viewBox="0 0 24 24"><path d="M20.8 8.6c0 5.5-8.8 11-8.8 11s-8.8-5.5-8.8-11A4.6 4.6 0 0 1 12 6.1a4.6 4.6 0 0 1 8.8 2.5Z"/></svg>${p.likes}</span>` : ''}
     </div>
@@ -1386,6 +1429,7 @@ function removeFriend(uid) {
   });
 }
 
+/* ===== MESSAGES / NOTIFS (FIX #2) ===== */
 function renderNotifs() {
   $$('.ntab').forEach(t => t.classList.toggle('active', t.dataset.ntab === state.notifTab));
   const wrap = $('#notifsList');
@@ -1396,11 +1440,16 @@ function renderNotifs() {
   } else {
     // فقط چت‌هایی که پیام دارن
     const ids = Object.keys(state.chats).filter(uid => (state.chats[uid] || []).length > 0);
+    const allUsers = extractRealUsers();
     if (!ids.length) {
-      wrap.innerHTML = emptyState('هنوز پیامی نداری. از بخش دوستان یه گفتگو رو شروع کن', 'chat', '', '', 'پیامی نداری');
+      // اگه دوستی وجود داره، لیستشون رو نشون بده
+      if (allUsers.length) {
+        wrap.innerHTML = `<div class="section-label" style="padding-top:14px">شروع گفتگوی جدید</div>` + allUsers.slice(0, 20).map(u => renderUserRow(u)).join('');
+      } else {
+        wrap.innerHTML = emptyState('هنوز پیامی نداری. از بخش دوستان یه گفتگو رو شروع کن', 'chat', 'رفتن به دوستان', 'go-friends', 'پیامی نداری');
+      }
       return;
     }
-    const allUsers = extractRealUsers();
     wrap.innerHTML = ids.map(uid => {
       const u = allUsers.find(x => x.id === uid); if (!u) return '';
       const msgs = state.chats[uid]; const last = msgs[msgs.length - 1];
@@ -1463,14 +1512,14 @@ function renderMyProfile() {
 
   if (state.profileTab === 'posts') {
     const imgPosts = myPosts.filter(p => p.hasImage !== false);
-    let html = imgPosts.length ? `<div class="pin-grid">${imgPosts.map(p => `<div class="pin" data-article="${p.id}"><img src="${p.image}" alt="" onerror="this.src='${PLACEHOLDER}'"></div>`).join('')}</div>` : emptyState('هنوز پست تصویری نساختی', 'edit', 'ساخت پست', 'go-create');
+    let html = imgPosts.length ? `<div class="pin-grid">${imgPosts.map(p => `<div class="pin" data-post-detail="${p.id}"><img src="${p.image}" alt="" onerror="this.src='${PLACEHOLDER}'"></div>`).join('')}</div>` : emptyState('هنوز پست تصویری نساختی', 'edit', 'ساخت پست', 'go-create');
     $('#myProfileContent').innerHTML = html;
   } else if (state.profileTab === 'text') {
     const textPosts = myPosts.filter(p => p.hasImage === false);
     if (!textPosts.length) { $('#myProfileContent').innerHTML = emptyState('هنوز پست متنی نساختی', 'edit', 'ساخت پست', 'go-create'); return; }
     $('#myProfileContent').innerHTML = `<div class="text-post-list">${textPosts.map(p => {
       const title = p.title && p.title.trim() ? esc(p.title) : 'بدون عنوان';
-      return `<div class="text-post-card"><div class="text-post-card-head"><div data-article="${p.id}" style="flex:1;cursor:pointer"><h4>${title}</h4></div><button class="text-post-card-menu" data-menu="${p.id}">⋯</button></div><p data-article="${p.id}" style="cursor:pointer">${processText(p.desc || '')}</p></div>`;
+      return `<div class="text-post-card"><div class="text-post-card-head"><div data-post-detail="${p.id}" style="flex:1;cursor:pointer"><h4>${title}</h4></div><button class="text-post-card-menu" data-menu="${p.id}">⋯</button></div><p data-post-detail="${p.id}" style="cursor:pointer">${processText(p.desc || '')}</p></div>`;
     }).join('')}</div>`;
   } else if (state.profileTab === 'collections') {
     let html = `<div class="collection-grid">`;
@@ -1556,11 +1605,11 @@ function openUserProfile(uid) {
   else btns = `<button class="pbtn primary" data-request="${uid}">درخواست چت</button>`;
   $('#userBtns').innerHTML = btns;
   const userPosts = state.posts.filter(p => p.authorId === uid);
-  $('#userPostsList').innerHTML = userPosts.length ? `<div class="pin-grid">${userPosts.filter(p => p.hasImage !== false).map(p => `<div class="pin" data-article="${p.id}"><img src="${p.image}" alt=""></div>`).join('')}</div>` : emptyState('هنوز پستی منتشر نکرده', 'edit');
+  $('#userPostsList').innerHTML = userPosts.length ? `<div class="pin-grid">${userPosts.filter(p => p.hasImage !== false).map(p => `<div class="pin" data-post-detail="${p.id}"><img src="${p.image}" alt=""></div>`).join('')}</div>` : emptyState('هنوز پستی منتشر نکرده', 'edit');
   showPage('user');
 }
 
-// ===== COLLECTIONS =====
+/* ===== COLLECTIONS ===== */
 function openSaveToCollection(postId) {
   state.savingPostId = postId;
   renderCollectionPicker();
@@ -1604,6 +1653,7 @@ function togglePostInCollection(idx) {
   else c.posts.push(pid);
   save();
   renderCollectionPicker();
+  renderMyProfile();
   toast(c.posts.includes(pid) ? 'به کالکشن اضافه شد' : 'از کالکشن حذف شد');
 }
 function deleteCollection(idx) {
@@ -1617,24 +1667,134 @@ function openCollection(idx) {
   state.currentCollection = idx;
   $('#collectionTitle').textContent = `${c.icon || '📁'} ${c.name}`;
   const posts = state.posts.filter(p => c.posts.includes(p.id));
-  $('#collectionPosts').innerHTML = posts.length ? posts.map(p => p.hasImage === false ? `<div class="pin pin-text" data-article="${p.id}"><h4>${esc(p.title || 'بدون عنوان')}</h4></div>` : `<div class="pin" data-article="${p.id}"><img src="${p.image || PLACEHOLDER}" alt=""></div>`).join('') : `<div style="grid-column:1/-1;padding:20px;text-align:center;color:var(--muted);font-size:13px">کالکشن خالیه</div>`;
+  $('#collectionPosts').innerHTML = posts.length ? posts.map(p => p.hasImage === false ? `<div class="pin pin-text" data-post-detail="${p.id}"><h4>${esc(p.title || 'بدون عنوان')}</h4></div>` : `<div class="pin" data-post-detail="${p.id}"><img src="${p.image || PLACEHOLDER}" alt=""></div>`).join('') : `<div style="grid-column:1/-1;padding:20px;text-align:center;color:var(--muted);font-size:13px">کالکشن خالیه</div>`;
   showPage('collection');
 }
 
-// ===== ARTICLE / POST DETAIL =====
+/* ===== POST DETAIL PAGE (FIX #1) ===== */
+function renderInlineComment(c, i, postId) {
+  const isMine = c.userId === state.user.phone;
+  const canEdit = isMine && (Date.now() - (c.createdAt || 0)) < COMMENT_EDIT_WINDOW;
+  const replies = c.replies || [];
+  return `<div class="comment-row">
+    <img class="avatar" src="${c.avatar || DEFAULT_AVATAR}" alt="" data-user="${c.userId||''}">
+    <div class="comment-row-body">
+      <b>${esc(c.user)}</b>
+      <p>${processText(c.text)}</p>
+      ${c.edited ? '<span class="edited-label">(ویرایش شده)</span>' : ''}
+      <div class="comment-actions">
+        <time>${esc(c.time)}</time>
+        <button class="comment-like-inline ${c.liked ? 'liked' : ''}" data-like-comment="${i}">❤️ ${c.likes || 0}</button>
+        <button class="comment-action-btn" data-reply-to="${i}">پاسخ</button>
+        ${canEdit ? `<button class="comment-action-btn" data-edit-comment="${i}">ویرایش</button>` : ''}
+        ${isMine ? `<button class="comment-del-inline" data-del-comment="${i}">حذف</button>` : ''}
+      </div>
+      ${replies.length ? `<div class="comment-replies">${replies.map(r => `
+        <div class="reply-row">
+          <img src="${r.avatar || DEFAULT_AVATAR}" alt="">
+          <div class="reply-row-body">
+            <b>${esc(r.user)}</b>
+            <p>${processText(r.text)}</p>
+            <time>${esc(r.time)}</time>
+          </div>
+        </div>
+      `).join('')}</div>` : ''}
+      <div class="reply-input" id="replyInput-${i}" style="display:none">
+        <input type="text" placeholder="پاسخ..." data-reply-input="${i}">
+        <button data-send-reply="${i}">ارسال</button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function openPostDetail(id) {
+  const p = state.posts.find(x => x.id === id); if (!p) return;
+  state.currentPostId = id;
+  const wrap = $('#postDetailWrap');
+  const comments = state.comments[id] || [];
+  const isSavedInCollection = state.collections.some(c => c.posts.includes(p.id));
+  const imgClass = avatarClass(p.authorId); const imgStyle = avatarStyle(p.authorId);
+  const isTextPost = p.hasImage === false;
+  const canManage = isAdmin() || p.authorId === state.user?.phone;
+
+  let html = `
+    <div class="post-header" style="padding:14px 16px;border-bottom:1px solid var(--line-2)">
+      <img class="post-avatar ${imgClass}" ${imgStyle} src="${p.authorAvatar || DEFAULT_AVATAR}" alt="" data-user="${p.authorId}">
+      <div class="post-user" data-user="${p.authorId}"><b>${esc(p.author)}</b><small>${esc(p.category)} · ${formatTime(p.createdAt)}</small></div>
+      ${canManage ? `<button class="post-menu" data-menu="${p.id}">⋯</button>` : ''}
+    </div>
+  `;
+
+  if (isTextPost) {
+    html += `<div style="padding:18px 16px">
+      ${p.title ? `<h2 style="font-size:18px;font-weight:800;margin-bottom:10px;line-height:1.5">${esc(p.title)}</h2>` : ''}
+      <div style="font-size:14px;line-height:2;color:var(--ink-2);white-space:pre-wrap;word-wrap:break-word">${processText(p.desc || '')}</div>
+    </div>`;
+  } else {
+    html += `<div class="post-image" data-dbltap="${p.id}" style="background:#000">
+      <img src="${p.image}" alt="" onerror="this.src='${PLACEHOLDER}'">
+      <div class="post-heart">❤️</div>
+    </div>`;
+  }
+
+  html += `
+    <div class="post-actions">
+      <button class="post-action ${isLiked(p.id) ? 'liked' : ''}" data-like="${p.id}">${HEART_SVG}</button>
+      <button class="post-action" data-detail-comment-focus>${COMMENT_SVG}</button>
+      <button class="post-action" data-share="${p.id}">${SHARE_SVG}</button>
+      <span class="post-action-spacer"></span>
+      <button class="post-action ${isSavedInCollection ? 'saved' : ''}" data-save="${p.id}">${BOOKMARK_SVG}</button>
+    </div>
+    <div class="post-info" style="padding-bottom:16px">
+      <div class="post-likes" data-likes="${p.id}"><b>${(p.likes || 0).toLocaleString('fa-IR')}</b> پسند</div>
+      ${p.desc && !isTextPost ? `<div class="post-caption"><b class="pi-author">${esc(p.author)}</b>${processText(p.desc)}</div>` : ''}
+      <div class="post-time">${formatTime(p.createdAt)}</div>
+    </div>
+    <div style="border-top:1px solid var(--line-2);padding:16px">
+      <h4 style="font-size:13px;font-weight:800;margin-bottom:12px">نظرات (<span data-comment-count="${p.id}">${comments.length}</span>)</h4>
+      <div id="detailCommentsList">${comments.length ? comments.map((c,i) => renderInlineComment(c, i, p.id)).join('') : '<p style="font-size:12px;color:var(--muted);text-align:center;padding:20px 0">هنوز نظری نیست. اولین نفر باش!</p>'}</div>
+    </div>
+    <div class="detail-comment-bar">
+      <input id="detailCommentInput" placeholder="نظر خود را بنویسید...">
+      <button id="detailCommentSend">ارسال</button>
+    </div>
+  `;
+
+  wrap.innerHTML = html;
+  showPage('post-detail');
+  setTimeout(() => {
+    const input = $('#detailCommentInput');
+    if (input) {
+      input.addEventListener('keypress', e => { if (e.key === 'Enter') sendDetailComment(); });
+    }
+    const sendBtn = $('#detailCommentSend');
+    if (sendBtn) sendBtn.addEventListener('click', sendDetailComment);
+  }, 50);
+}
+
+function sendDetailComment() {
+  const input = $('#detailCommentInput');
+  const text = input ? input.value.trim() : '';
+  if (!text || !state.currentPostId) return;
+  if (!state.comments[state.currentPostId]) state.comments[state.currentPostId] = [];
+  state.comments[state.currentPostId].unshift({
+    user: state.user.name, userId: state.user.phone, avatar: state.user.avatar,
+    text, time: 'همین حالا', createdAt: Date.now(), likes: 0, liked: false, replies: [], edited: false
+  });
+  save();
+  if (input) input.value = '';
+  updateCommentCounts(state.currentPostId);
+  haptic();
+  toast('نظر ثبت شد');
+}
+
+/* ===== ARTICLE / POST OPEN ===== */
 let currentArticleAuthorId = null;
 function openArticle(id) {
   const p = state.posts.find(x => x.id === id); if (!p) return;
-  // پست تصویری غیرمقاله: فقط عکس باز میشه
-  if (!p.asArticle && p.hasImage !== false && p.image) {
-    $('#viewerImg').src = p.image;
-    $('#imgViewer').classList.add('show');
-    document.body.style.overflow = 'hidden';
-    return;
-  }
+  if (!p.asArticle) { openPostDetail(id); return; }
   currentArticleAuthorId = p.authorId;
-  // تیتر داینامیک
-  $('#artPageTitle').textContent = p.asArticle ? 'مقاله' : 'پست';
+  $('#artPageTitle').textContent = 'مقاله';
   $('#artImg').src = p.image || PLACEHOLDER;
   $('#artTitle').textContent = p.title || '';
   $('#artTag').textContent = p.category;
@@ -1675,47 +1835,14 @@ $('#mainScroll').addEventListener('touchend', () => {
 });
 $('#backTop').addEventListener('click', () => { $('#mainScroll').scrollTo({top: 0, behavior: 'smooth'}); });
 
-// ===== COMMENTS =====
+/* ===== COMMENTS MODAL ===== */
 function openComments(postId) {
   state.currentPostId = postId;
   const comments = state.comments[postId] || [];
   const body = $('#commentsBody');
   if (!comments.length) { body.innerHTML = emptyState('هنوز نظری نیست. اولین نفر باش!', 'chat'); }
   else {
-    body.innerHTML = comments.map((c, i) => {
-      const isMine = c.userId === state.user.phone;
-      const canEdit = isMine && (Date.now() - (c.createdAt || 0)) < COMMENT_EDIT_WINDOW;
-      const replies = c.replies || [];
-      return `<div class="comment-row">
-        <img class="avatar" src="${c.avatar || DEFAULT_AVATAR}" alt="" data-user="${c.userId||''}">
-        <div class="comment-row-body">
-          <b>${esc(c.user)}</b>
-          <p id="comment-text-${i}">${processText(c.text)}</p>
-          ${c.edited ? '<span class="edited-label">(ویرایش شده)</span>' : ''}
-          <div class="comment-actions">
-            <time>${esc(c.time)}</time>
-            <button class="comment-like-inline ${c.liked ? 'liked' : ''}" data-like-comment="${i}">❤️ ${c.likes || 0}</button>
-            <button class="comment-action-btn" data-reply-to="${i}">پاسخ</button>
-            ${canEdit ? `<button class="comment-action-btn" data-edit-comment="${i}">ویرایش</button>` : ''}
-            ${isMine ? `<button class="comment-del-inline" data-del-comment="${i}">حذف</button>` : ''}
-          </div>
-          ${replies.length ? `<div class="comment-replies">${replies.map(r => `
-            <div class="reply-row">
-              <img src="${r.avatar || DEFAULT_AVATAR}" alt="">
-              <div class="reply-row-body">
-                <b>${esc(r.user)}</b>
-                <p>${processText(r.text)}</p>
-                <time>${esc(r.time)}</time>
-              </div>
-            </div>
-          `).join('')}</div>` : ''}
-          <div class="reply-input" id="replyInput-${i}" style="display:none">
-            <input type="text" placeholder="پاسخ..." data-reply-input="${i}">
-            <button data-send-reply="${i}">ارسال</button>
-          </div>
-        </div>
-      </div>`;
-    }).join('');
+    body.innerHTML = comments.map((c, i) => renderInlineComment(c, i, postId)).join('');
   }
   $('#commentModal').classList.add('show');
 }
@@ -1723,10 +1850,12 @@ $('#commentSend').addEventListener('click', () => {
   const text = $('#commentInput').value.trim(); if (!text || !state.currentPostId) return;
   if (!state.comments[state.currentPostId]) state.comments[state.currentPostId] = [];
   state.comments[state.currentPostId].unshift({ user: state.user.name, userId: state.user.phone, avatar: state.user.avatar, text, time: 'همین حالا', createdAt: Date.now(), likes: 0, liked: false, replies: [], edited: false });
-  save(); $('#commentInput').value = ''; openComments(state.currentPostId); toast('نظر ثبت شد');
+  save(); $('#commentInput').value = ''; openComments(state.currentPostId);
+  updateCommentCounts(state.currentPostId); // FIX #4: لحظه‌ای شدن شمارش
+  toast('نظر ثبت شد');
 });
 
-// ===== CREATE POST =====
+/* ===== CREATE POST ===== */
 const DRAFT_KEY = 'luno_draft';
 function compressImage(file, maxWidth = 1200, quality = 0.8) {
   return new Promise((resolve) => {
@@ -1789,9 +1918,7 @@ $('#publishBtn').addEventListener('click', () => {
 
   $('#titleErr').classList.remove('show'); $('#textErr').classList.remove('show');
   let err = false;
-  // عنوان فقط برای مقاله الزامیه
   if (asArticle && title.length < 3) { $('#titleErr').classList.add('show'); err = true; }
-  // متن هم حداقل داشته باشه
   const minChars = asArticle ? 40 : 10;
   if (body.length < minChars) {
     $('#textErr').textContent = asArticle ? 'متن مقاله حداقل ۴۰ کاراکتر' : 'متن حداقل ۱۰ کاراکتر';
@@ -1799,7 +1926,7 @@ $('#publishBtn').addEventListener('click', () => {
   }
   if (err) return;
 
-  const finalTitle = title || (asArticle ? '' : '');
+  const finalTitle = title || '';
   state.posts.unshift({ id: 'p' + Date.now(), title: finalTitle, category, desc: body.slice(0, 140), body: `<p>${processText(body).replace(/\n/g, '<br>')}</p>`, image, hasImage, asArticle, author: state.user.name, authorId: state.user.phone, authorAvatar: state.user.avatar, createdAt: Date.now(), likes: 0, isPopular: false });
   save(); clearDraft();
   $('#postTitle').value = ''; $('#postText').value = ''; $('#charCount').textContent = '0';
@@ -1816,7 +1943,7 @@ $('#publishBtn').addEventListener('click', () => {
   showPage('home'); setTimeout(() => renderHome(), 100);
 });
 
-// ===== POST MENU =====
+/* ===== POST MENU ===== */
 function openPostMenu(postId) {
   const p = state.posts.find(x => x.id === postId); if (!p) return;
   state.currentPostMenu = postId;
@@ -1830,7 +1957,7 @@ function openPostMenu(postId) {
   $('#postMenuModal').classList.add('show');
 }
 
-// ===== ADMIN PANEL =====
+/* ===== ADMIN PANEL ===== */
 function renderAdmin() {
   $$('.admin-tab').forEach(t => t.classList.toggle('active', t.dataset.atab === state.adminTab));
   const content = $('#adminContent');
@@ -1897,7 +2024,7 @@ function renderAdmin() {
   }
 }
 
-// ===== NAV =====
+/* ===== NAV ===== */
 function showPage(id, push = true) {
   const el = $('#page-' + id); if (!el) id = 'home';
   if (state.history.length) state.scrollPos[state.history[state.history.length - 1]] = $('#mainScroll').scrollTop;
@@ -1941,10 +2068,15 @@ function showConfirm(title, msg, cb) {
 $('#confirmCancel').addEventListener('click', () => { $('#confirmBox').classList.remove('show'); confirmCb = null; });
 $('#confirmOk').addEventListener('click', () => { $('#confirmBox').classList.remove('show'); if (confirmCb) confirmCb(); confirmCb = null; });
 
-// ===== GLOBAL CLICK =====
+/* ===== GLOBAL CLICK ===== */
 document.addEventListener('click', e => {
   const go = e.target.closest('[data-go]'); if (go) { showPage(go.dataset.go); return; }
-  const em = e.target.closest('[data-empty]'); if (em && em.dataset.empty === 'go-create') { showPage('create'); return; }
+  const em = e.target.closest('[data-empty]');
+  if (em) {
+    if (em.dataset.empty === 'go-create') { showPage('create'); return; }
+    if (em.dataset.empty === 'go-friends') { showPage('friends'); return; }
+    return;
+  }
   if (e.target.closest('#addStory')) { addStory(); return; }
   if (e.target.closest('[data-view-story="me"]')) { viewMyStory(); return; }
 
@@ -1956,17 +2088,28 @@ document.addEventListener('click', e => {
   const rc = e.target.closest('[data-recent]');
   if (rc) { $('#searchInput').value = rc.dataset.recent; renderSearch(rc.dataset.recent); addRecentSearch(rc.dataset.recent); return; }
 
+  /* ===== LIKE (FIX #5: بدون رفرش صفحه) ===== */
   const like = e.target.closest('[data-like]');
   if (like) {
     e.stopPropagation();
     const id = like.dataset.like; const p = state.posts.find(x => x.id === id);
-    if (isLiked(id)) { state.liked = state.liked.filter(x => x !== id); if (p) p.likes = Math.max(0, (p.likes || 0) - 1); }
-    else { state.liked.push(id); if (p) p.likes = (p.likes || 0) + 1; haptic(); playSound('like'); }
-    save(); renderHome(); return;
+    if (!p) return;
+    const wasLiked = isLiked(id);
+    if (wasLiked) { state.liked = state.liked.filter(x => x !== id); p.likes = Math.max(0, (p.likes || 0) - 1); }
+    else { state.liked.push(id); p.likes = (p.likes || 0) + 1; haptic(); playSound('like'); }
+    save();
+    updateLikeDOM(id, !wasLiked);
+    return;
   }
   const sv = e.target.closest('[data-save]');
   if (sv) { e.stopPropagation(); openSaveToCollection(sv.dataset.save); return; }
   const cm = e.target.closest('[data-comment]'); if (cm) { e.stopPropagation(); openComments(cm.dataset.comment); return; }
+  const dcf = e.target.closest('[data-detail-comment-focus]');
+  if (dcf) {
+    const input = $('#detailCommentInput');
+    if (input) { input.focus(); input.scrollIntoView({behavior:'smooth', block:'center'}); }
+    return;
+  }
   const sh = e.target.closest('[data-share]');
   if (sh) {
     e.stopPropagation();
@@ -2016,7 +2159,10 @@ document.addEventListener('click', e => {
     e.stopPropagation();
     const idx = parseInt(dcm.dataset.delComment);
     showConfirm('حذف نظر', 'مطمئنی این نظر حذف بشه؟', () => {
-      state.comments[state.currentPostId].splice(idx, 1); save(); openComments(state.currentPostId); toast('نظر حذف شد');
+      state.comments[state.currentPostId].splice(idx, 1); save();
+      if ($('#commentModal').classList.contains('show')) openComments(state.currentPostId);
+      updateCommentCounts(state.currentPostId);
+      toast('نظر حذف شد');
     });
     return;
   }
@@ -2025,7 +2171,7 @@ document.addEventListener('click', e => {
     e.stopPropagation();
     const idx = parseInt(lcm.dataset.likeComment);
     const c = state.comments[state.currentPostId]?.[idx];
-    if (c) { c.liked = !c.liked; c.likes = (c.likes || 0) + (c.liked ? 1 : -1); save(); openComments(state.currentPostId); haptic(); }
+    if (c) { c.liked = !c.liked; c.likes = (c.likes || 0) + (c.liked ? 1 : -1); save(); if ($('#commentModal').classList.contains('show')) openComments(state.currentPostId); updateCommentCounts(state.currentPostId); haptic(); }
     return;
   }
   const replyBtn = e.target.closest('[data-reply-to]');
@@ -2046,7 +2192,7 @@ document.addEventListener('click', e => {
     if (c) {
       if (!c.replies) c.replies = [];
       c.replies.push({ user: state.user.name, userId: state.user.phone, avatar: state.user.avatar, text, time: 'همین حالا' });
-      save(); inp.value = ''; openComments(state.currentPostId); toast('پاسخ ثبت شد');
+      save(); inp.value = ''; if ($('#commentModal').classList.contains('show')) openComments(state.currentPostId); updateCommentCounts(state.currentPostId); toast('پاسخ ثبت شد');
     }
     return;
   }
@@ -2059,7 +2205,9 @@ document.addEventListener('click', e => {
     if (Date.now() - (c.createdAt || 0) > COMMENT_EDIT_WINDOW) { toast('زمان ویرایش گذشته', 'error'); return; }
     const newText = prompt('متن جدید:', c.text);
     if (newText !== null && newText.trim() && newText.trim() !== c.text) {
-      c.text = newText.trim(); c.edited = true; save(); openComments(state.currentPostId); toast('ویرایش شد');
+      c.text = newText.trim(); c.edited = true; save();
+      if ($('#commentModal').classList.contains('show')) openComments(state.currentPostId);
+      updateCommentCounts(state.currentPostId); toast('ویرایش شد');
     }
     return;
   }
@@ -2069,6 +2217,7 @@ document.addEventListener('click', e => {
   const rq = e.target.closest('[data-request]'); if (rq) { e.stopPropagation(); sendChatRequest(rq.dataset.request); return; }
   const uf = e.target.closest('[data-unfriend]'); if (uf) { e.stopPropagation(); removeFriend(uf.dataset.unfriend); return; }
   const ch = e.target.closest('[data-chat]'); if (ch) { e.stopPropagation(); openChat(ch.dataset.chat); return; }
+  const pd = e.target.closest('[data-post-detail]'); if (pd) { openPostDetail(pd.dataset.postDetail); return; }
   const ar = e.target.closest('[data-article]'); if (ar) { openArticle(ar.dataset.article); return; }
   const ft = e.target.closest('[data-ftab]'); if (ft) { state.friendTab = ft.dataset.ftab; renderFriends(); return; }
   const nt = e.target.closest('[data-ntab]'); if (nt) { state.notifTab = nt.dataset.ntab; renderNotifs(); return; }
@@ -2203,4 +2352,4 @@ setTimeout(() => {
 }, 700);
 </script>
 </body>
-          </html>
+                                                                 </html>
