@@ -337,10 +337,13 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 .switch.on::after{left:23px}
 .btn-main{width:100%;background:var(--ink);color:var(--paper);border-radius:12px;padding:14px;font-size:14px;font-weight:800;transition:var(--tr)}
 .btn-main:active{transform:scale(.98)}
-.settings-section{padding:0 16px 16px}
-.settings-section-title{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;padding:16px 4px 8px}
+
+/* ===== SETTINGS (reorganized) ===== */
+.settings-section{padding:0 16px 20px}
+.settings-section-title{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;padding:18px 4px 10px}
 .settings-list{display:flex;flex-direction:column;gap:6px}
 .s-item{display:flex;align-items:center;gap:12px;padding:14px;background:var(--paper);border:1px solid var(--line-2);border-radius:12px;cursor:pointer;transition:var(--tr)}
+.s-item:active{transform:scale(.99)}
 .s-item svg{width:20px;height:20px;stroke:var(--ink);fill:none;stroke-width:1.8;flex-shrink:0}
 .s-item>div{flex:1}
 .s-item h4{font-size:13px;font-weight:700;margin-bottom:2px}
@@ -348,6 +351,20 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 .s-item .arrow{color:var(--muted);font-size:17px}
 .s-item.danger svg{stroke:#ef4444}
 .s-item.danger h4{color:#ef4444}
+
+.settings-groups{display:flex;flex-direction:column;gap:10px}
+.setting-group{background:var(--paper);border:1px solid var(--line-2);border-radius:14px;padding:14px;transition:var(--tr)}
+.setting-group-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.setting-group-head .sg-icon{width:38px;height:38px;border-radius:10px;background:var(--accent-soft);display:grid;place-items:center;flex-shrink:0}
+.setting-group-head .sg-icon svg{width:19px;height:19px;stroke:var(--accent);fill:none;stroke-width:1.9}
+.setting-group-head .sg-text{flex:1;min-width:0}
+.setting-group-head h4{font-size:13px;font-weight:800;margin-bottom:2px;color:var(--ink)}
+.setting-group-head p{font-size:11px;color:var(--muted)}
+.setting-group .accent-grid{padding:0;grid-template-columns:repeat(6,1fr)}
+.setting-group .setting-options{padding:0}
+.setting-group .avatar-color-grid{padding:0;grid-template-columns:repeat(8,1fr)}
+.setting-group .chat-bg-grid{padding:0;grid-template-columns:repeat(4,1fr)}
+
 .setting-options{display:flex;gap:6px;flex-wrap:wrap}
 .setting-opt{padding:6px 12px;border-radius:14px;font-size:11px;font-weight:600;background:var(--line-2);color:var(--muted);transition:var(--tr)}
 .setting-opt.active{background:var(--ink);color:var(--paper)}
@@ -360,6 +377,7 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 .chat-bg-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:12px 0}
 .chat-bg{aspect-ratio:1;border-radius:10px;background-size:cover;background-position:center;border:2px solid transparent;cursor:pointer;transition:var(--tr)}
 .chat-bg.active{border-color:var(--accent);transform:scale(1.05)}
+
 .about-hero{padding:32px 16px 20px;text-align:center;background:linear-gradient(180deg,var(--accent-soft) 0%,transparent 100%)}
 .about-icon{width:88px;height:88px;border-radius:24px;background:linear-gradient(135deg,var(--accent),#ff8ab8);display:grid;place-items:center;margin:0 auto 14px;box-shadow:0 12px 32px rgba(224,66,126,.3);animation:avatarIn .5s}
 .about-icon svg{width:44px;height:44px;stroke:#fff;fill:none;stroke-width:2.2}
@@ -638,6 +656,7 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
       </div>
     </section>
 
+    <!-- ============ SETTINGS (REORGANIZED) ============ -->
     <section class="page" id="page-settings">
       <div class="chat-top"><button class="back-btn" data-back><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button><h4 style="font-size:14px;font-weight:800">تنظیمات</h4></div>
       <div class="settings-section">
@@ -647,36 +666,66 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
         </div>
 
         <div class="settings-section-title">ظاهر برنامه</div>
-        <div class="settings-list">
-          <div class="s-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2v20"/></svg><div><h4>رنگ اصلی</h4></div></div>
-          <div class="accent-grid" id="accentGrid"></div>
-
-          <div class="s-item"><svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg><div><h4>حالت نمایش</h4></div></div>
-          <div class="setting-options" id="themeOptions" style="padding:0 14px 12px">
-            <button class="setting-opt active" data-theme-opt="light">روشن</button>
-            <button class="setting-opt" data-theme-opt="dark">تاریک</button>
-            <button class="setting-opt" data-theme-opt="auto">خودکار</button>
-            <button class="setting-opt" data-theme-opt="scheduled">زمان‌بندی</button>
+        <div class="settings-groups">
+          <div class="setting-group">
+            <div class="setting-group-head">
+              <div class="sg-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2v20"/></svg></div>
+              <div class="sg-text"><h4>رنگ اصلی</h4><p>رنگ لهجه سراسر برنامه</p></div>
+            </div>
+            <div class="accent-grid" id="accentGrid"></div>
           </div>
 
-          <div class="s-item"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg><div><h4>فونت</h4></div></div>
-          <div class="setting-options" id="fontFamilyOptions" style="padding:0 14px 8px">
-            <button class="setting-opt active" data-font-family="Vazirmatn">وزیرمتن</button>
-            <button class="setting-opt" data-font-family="Shabnam">شبنم</button>
+          <div class="setting-group">
+            <div class="setting-group-head">
+              <div class="sg-icon"><svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg></div>
+              <div class="sg-text"><h4>حالت نمایش</h4><p>روشن، تاریک، خودکار یا زمان‌بندی شده</p></div>
+            </div>
+            <div class="setting-options" id="themeOptions">
+              <button class="setting-opt active" data-theme-opt="light">روشن</button>
+              <button class="setting-opt" data-theme-opt="dark">تاریک</button>
+              <button class="setting-opt" data-theme-opt="auto">خودکار</button>
+              <button class="setting-opt" data-theme-opt="scheduled">زمان‌بندی</button>
+            </div>
           </div>
 
-          <div class="s-item"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg><div><h4>اندازه فونت</h4></div></div>
-          <div class="setting-options" id="fontOptions" style="padding:0 14px 12px">
-            <button class="setting-opt" data-font="13">کوچک</button>
-            <button class="setting-opt active" data-font="14">متوسط</button>
-            <button class="setting-opt" data-font="16">بزرگ</button>
+          <div class="setting-group">
+            <div class="setting-group-head">
+              <div class="sg-icon"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div>
+              <div class="sg-text"><h4>فونت</h4><p>نوع فونت برنامه</p></div>
+            </div>
+            <div class="setting-options" id="fontFamilyOptions">
+              <button class="setting-opt active" data-font-family="Vazirmatn">وزیرمتن</button>
+              <button class="setting-opt" data-font-family="Shabnam">شبنم</button>
+            </div>
           </div>
 
-          <div class="s-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2v20"/></svg><div><h4>حاشیه رنگی آواتار</h4><p id="avatarColorStatus">مخصوص کاربران ویژه</p></div></div>
-          <div class="avatar-color-grid" id="avatarColorGrid" style="display:none"></div>
+          <div class="setting-group">
+            <div class="setting-group-head">
+              <div class="sg-icon"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div>
+              <div class="sg-text"><h4>اندازه فونت</h4><p>سایز متن برنامه</p></div>
+            </div>
+            <div class="setting-options" id="fontOptions">
+              <button class="setting-opt" data-font="13">کوچک</button>
+              <button class="setting-opt active" data-font="14">متوسط</button>
+              <button class="setting-opt" data-font="16">بزرگ</button>
+            </div>
+          </div>
 
-          <div class="s-item"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/></svg><div><h4>پس‌زمینه چت</h4></div></div>
-          <div class="chat-bg-grid" id="chatBgGrid"></div>
+          <div class="setting-group">
+            <div class="setting-group-head">
+              <div class="sg-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2v20"/></svg></div>
+              <div class="sg-text"><h4>حاشیه رنگی آواتار</h4><p id="avatarColorStatus">مخصوص کاربران ویژه</p></div>
+            </div>
+            <div class="avatar-color-grid" id="avatarColorGrid" style="display:none"></div>
+          </div>
+
+          <div class="setting-group">
+            <div class="setting-group-head">
+              <div class="sg-icon"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/></svg></div>
+              <div class="sg-text"><h4>پس‌زمینه چت</h4><p>طرح پس‌زمینه صفحه گفتگو</p></div>
+            </div>
+            <div class="chat-bg-grid" id="chatBgGrid"></div>
+          </div>
         </div>
 
         <div class="settings-section-title">اطلاعات</div>
@@ -1053,11 +1102,10 @@ function renderStories() {
   let html = '';
   if (myStory) {
     html += `<button class="story mine" data-view-story="me"><div class="story-ring"><img src="${myStory.image}" alt=""></div><span class="story-name">استوری من</span></button>`;
+  } else {
+    // فقط وقتی استوری وجود نداره دکمه افزودن نمایش داده میشه
+    html += `<button class="story plus" id="addStory"><div class="story-ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg></div><span class="story-name">استوری</span></button>`;
   }
-  html += `<button class="story plus" id="addStory"><div class="story-ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg></div><span class="story-name">${myStory?'':'استوری'}</span></button>`;
-  // Show other stories (if any user has story)
-  const allUsers = JSON.parse(localStorage.getItem('luno_users') || '[]');
-  // In this local version, no other stories exist
   wrap.innerHTML = html;
 }
 
@@ -1065,7 +1113,6 @@ function getMyStory() {
   const stories = JSON.parse(localStorage.getItem('luno_stories') || '{}');
   const myStory = stories[state.user?.phone];
   if (!myStory) return null;
-  // Check 24h expiry
   if (Date.now() - myStory.createdAt > 24 * 60 * 60 * 1000) {
     delete stories[state.user.phone];
     localStorage.setItem('luno_stories', JSON.stringify(stories));
@@ -1805,6 +1852,12 @@ document.addEventListener('click', e => {
   if (e.target.closest('#addStory')) { addStory(); return; }
   if (e.target.closest('[data-view-story="me"]')) { viewMyStory(); return; }
 
+  // ⚠️ حذف سابقه جستجو باید قبل از data-recent بررسی بشه چون دکمه × داخل همون div هست
+  const dr = e.target.closest('[data-del-recent]');
+  if (dr) { e.stopPropagation(); state.recentSearches = state.recentSearches.filter(s => s !== dr.dataset.delRecent); save(); renderSearchSuggestions(); return; }
+  const rc = e.target.closest('[data-recent]');
+  if (rc) { $('#searchInput').value = rc.dataset.recent; renderSearch(rc.dataset.recent); addRecentSearch(rc.dataset.recent); return; }
+
   const like = e.target.closest('[data-like]');
   if (like) {
     e.stopPropagation();
@@ -1941,10 +1994,6 @@ document.addEventListener('click', e => {
     return;
   }
   const cb = e.target.closest('[data-bg]'); if (cb) { applyChatBg(cb.dataset.bg); return; }
-  const rc = e.target.closest('[data-recent]');
-  if (rc) { $('#searchInput').value = rc.dataset.recent; renderSearch(rc.dataset.recent); addRecentSearch(rc.dataset.recent); return; }
-  const dr = e.target.closest('[data-del-recent]');
-  if (dr) { e.stopPropagation(); state.recentSearches = state.recentSearches.filter(s => s !== dr.dataset.delRecent); save(); renderSearchSuggestions(); return; }
   const mention = e.target.closest('[data-mention]');
   if (mention) { e.preventDefault(); const name = mention.dataset.mention.slice(1); $('#searchInput').value = name; showPage('search'); renderSearch(name); return; }
   const hashtag = e.target.closest('[data-hashtag]');
