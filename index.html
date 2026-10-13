@@ -7,25 +7,10 @@
 <title>Luno</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800;900&family=Shabnam:wght@300;400;500;700&family=IRANSansX:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800;900&family=Shabnam:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --accent:#e0427e;--accent-soft:#fff0f6;--ink:#111827;--ink-2:#374151;--muted:#9ca3af;
-  --line:#f1f1f4;--line-2:#f8f8fa;--paper:#fff;--bg:#fafafa;
-  --radius:12px;--tr:all .25s cubic-bezier(.4,0,.2,1);
-  --font-size:14px;--font-family:'Vazirmatn',Tahoma,sans-serif;
-  --chat-bg:none;
-  --shadow-sm:0 1px 3px rgba(0,0,0,0.04);
-  --shadow:0 4px 16px rgba(0,0,0,0.06);
-  --shadow-lg:0 12px 32px rgba(0,0,0,0.1);
-}
-[data-theme="dark"]{
-  --accent-soft:#2a1a22;--ink:#f3f3f5;--ink-2:#d1d5db;--muted:#8b8b93;
-  --line:#1f222d;--line-2:#16181f;--paper:#0e0f14;--bg:#08090d;
-  --shadow-sm:0 1px 3px rgba(0,0,0,0.3);
-  --shadow:0 4px 16px rgba(0,0,0,0.4);
-  --shadow-lg:0 12px 32px rgba(0,0,0,0.5);
-}
+:root{--accent:#e0427e;--accent-soft:#fff0f6;--ink:#111827;--ink-2:#374151;--muted:#9ca3af;--line:#f1f1f4;--line-2:#f8f8fa;--paper:#fff;--bg:#fafafa;--radius:12px;--tr:all .25s cubic-bezier(.4,0,.2,1);--font-size:14px;--font-family:'Vazirmatn',Tahoma,sans-serif;--chat-bg:none;--shadow-sm:0 1px 3px rgba(0,0,0,0.04);--shadow:0 4px 16px rgba(0,0,0,0.06);--shadow-lg:0 12px 32px rgba(0,0,0,0.1)}
+[data-theme="dark"]{--accent-soft:#2a1a22;--ink:#f3f3f5;--ink-2:#d1d5db;--muted:#8b8b93;--line:#1f222d;--line-2:#16181f;--paper:#0e0f14;--bg:#08090d;--shadow-sm:0 1px 3px rgba(0,0,0,0.3);--shadow:0 4px 16px rgba(0,0,0,0.4);--shadow-lg:0 12px 32px rgba(0,0,0,0.5)}
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-tap-highlight-color:transparent}
 body{background:var(--bg);color:var(--ink);font-family:var(--font-family);display:flex;justify-content:center;min-height:100vh;transition:background .3s,color .3s;font-size:var(--font-size);overflow-x:hidden}
@@ -33,8 +18,6 @@ button,input,textarea,select{font:inherit;color:inherit}
 button{cursor:pointer;border:none;background:none}
 img{display:block;max-width:100%}
 .hidden{display:none!important}
-
-/* Loader */
 .loader{position:fixed;inset:0;background:var(--paper);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .4s}
 .loader.hide{opacity:0;pointer-events:none}
 .loader-logo{font-size:38px;font-weight:900;letter-spacing:-1px;margin-bottom:20px;direction:ltr;animation:pulseIn .6s}
@@ -43,12 +26,8 @@ img{display:block;max-width:100%}
 .loader-bar{width:100px;height:3px;background:var(--line);border-radius:2px;overflow:hidden}
 .loader-bar::after{content:'';display:block;height:100%;width:40%;background:var(--accent);border-radius:2px;animation:load 1.2s infinite}
 @keyframes load{0%{transform:translateX(-100%)}100%{transform:translateX(300%)}}
-
-/* Offline Banner */
 .offline-banner{position:fixed;top:0;left:0;right:0;background:#ef4444;color:#fff;text-align:center;padding:8px;font-size:12px;font-weight:700;z-index:9998;transform:translateY(-100%);transition:transform .3s}
 .offline-banner.show{transform:translateY(0)}
-
-/* Skeleton */
 .skeleton{background:linear-gradient(90deg,var(--line-2) 25%,var(--line) 50%,var(--line-2) 75%);background-size:200% 100%;animation:shimmer 1.4s infinite;border-radius:8px}
 @keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
 .skel-post{padding:14px;border-bottom:8px solid var(--line-2)}
@@ -56,15 +35,12 @@ img{display:block;max-width:100%}
 .skel-avatar{width:38px;height:38px;border-radius:50%}
 .skel-line{height:12px;border-radius:6px;margin-bottom:6px}
 .skel-img{width:100%;height:280px;margin:14px 0;border-radius:0}
-
-/* Pull to Refresh */
-.ptr{position:absolute;top:0;left:50%;transform:translate(-50%,-50px);width:36px;height:36px;border-radius:50%;background:var(--paper);display:grid;place-items:center;box-shadow:var(--shadow);transition:transform .2s;z-index:5}
+.ptr{position:absolute;top:0;left:50%;transform:translate(-50%,-60px);width:36px;height:36px;border-radius:50%;background:var(--paper);display:grid;place-items:center;box-shadow:var(--shadow);transition:transform .2s,opacity .2s;z-index:5;opacity:0;pointer-events:none;border:1px solid var(--line-2)}
+.ptr.visible{opacity:1}
 .ptr svg{width:18px;height:18px;stroke:var(--accent);fill:none;stroke-width:2.2;transition:transform .3s}
 .ptr.active svg{transform:rotate(180deg)}
 .ptr.loading svg{animation:spin 1s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* Auth */
 .auth{position:fixed;inset:0;background:var(--paper);z-index:8000;display:flex;align-items:center;justify-content:center;padding:24px;overflow-y:auto}
 .auth.hide{display:none}
 .auth-box{width:100%;max-width:380px;animation:slideUp .35s}
@@ -83,8 +59,6 @@ img{display:block;max-width:100%}
 .auth-btn:active{transform:scale(.98)}
 .auth-switch{text-align:center;margin-top:20px;font-size:12.5px;color:var(--muted)}
 .auth-switch button{color:var(--accent);font-weight:700}
-
-/* App */
 .app{width:100%;max-width:480px;min-height:100dvh;background:var(--paper);position:relative;display:flex;flex-direction:column;box-shadow:0 0 60px rgba(0,0,0,0.05)}
 .app.hide{display:none}
 .app-header{position:sticky;top:0;z-index:50;background:var(--paper);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line-2)}
@@ -99,13 +73,10 @@ img{display:block;max-width:100%}
 .hbtn.primary{background:var(--ink);color:var(--paper);width:38px;height:38px}
 .hbtn.primary svg{width:20px;height:20px;stroke-width:2.4}
 .hbtn.primary:active{transform:scale(.92) rotate(90deg)}
-
 main{flex:1;padding-bottom:80px;overflow-y:auto;position:relative}
 .page{display:none}
 .page.active{display:block;animation:pageIn .3s}
 @keyframes pageIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
-
-/* Chat Full Screen */
 #page-chat{display:none}
 #page-chat.active{display:flex;flex-direction:column;position:fixed;top:0;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:var(--paper);z-index:200;background-image:var(--chat-bg);background-size:cover;background-position:center;animation:slideFromRight .3s}
 @keyframes slideFromRight{from{transform:translate(calc(-50% + 20px),0);opacity:0}to{transform:translate(-50%,0);opacity:1}}
@@ -130,26 +101,19 @@ main{flex:1;padding-bottom:80px;overflow-y:auto;position:relative}
 .chat-inputbar button{width:40px;height:40px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;flex-shrink:0;transition:var(--tr)}
 .chat-inputbar button:active{transform:scale(.9)}
 .chat-inputbar button.emoji-btn{background:transparent;color:var(--ink);width:36px;height:36px}
-.chat-inputbar button.emoji-btn:active{background:var(--line-2)}
 .chat-inputbar button svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2.2}
-
-/* Emoji Picker */
 .emoji-picker{position:fixed;bottom:130px;left:50%;transform:translateX(-50%);background:var(--paper);border-radius:16px;box-shadow:var(--shadow-lg);padding:12px;display:none;z-index:250;width:min(90vw,360px);border:1px solid var(--line-2)}
 .emoji-picker.show{display:block;animation:popIn .2s}
 .emoji-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;max-height:180px;overflow-y:auto}
 .emoji-grid button{font-size:22px;padding:6px;border-radius:8px;transition:var(--tr);background:none;border:none}
 .emoji-grid button:active{background:var(--line-2);transform:scale(1.2)}
 @keyframes popIn{from{transform:translateX(-50%) scale(.9);opacity:0}to{transform:translateX(-50%) scale(1);opacity:1}}
-
-/* Tabs */
 .tabs-scroll{display:flex;gap:22px;padding:12px 16px 10px;overflow-x:auto;scrollbar-width:none;background:var(--paper);border-bottom:1px solid var(--line-2)}
 .tabs-scroll::-webkit-scrollbar{display:none}
 .tab{font-size:14px;font-weight:600;color:var(--muted);white-space:nowrap;padding:4px 0;position:relative;background:none;transition:var(--tr)}
 .tab.active{color:var(--ink);font-weight:800}
 .tab.active::after{content:'';position:absolute;bottom:-11px;left:0;right:0;height:2px;background:var(--ink);border-radius:2px;animation:tabIn .3s}
 @keyframes tabIn{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-
-/* Stories */
 .stories{display:flex;gap:14px;padding:14px 16px;overflow-x:auto;scrollbar-width:none;background:var(--paper);border-bottom:8px solid var(--line-2)}
 .stories::-webkit-scrollbar{display:none}
 .story{flex:0 0 64px;background:none;padding:0}
@@ -160,8 +124,6 @@ main{flex:1;padding-bottom:80px;overflow-y:auto;position:relative}
 @keyframes pulseSoft{0%,100%{box-shadow:0 0 0 0 rgba(224,66,126,0.3)}50%{box-shadow:0 0 0 8px rgba(224,66,126,0)}}
 .story.plus .story-ring svg{width:24px;height:24px;stroke:var(--accent);fill:none;stroke-width:2.2}
 .story-name{font-size:10.5px;color:var(--ink);text-align:center;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-
-/* Post */
 .post{background:var(--paper);border-bottom:8px solid var(--line-2);animation:postIn .35s;position:relative}
 @keyframes postIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 .post-header{display:flex;align-items:center;gap:10px;padding:10px 14px}
@@ -192,12 +154,9 @@ main{flex:1;padding-bottom:80px;overflow-y:auto;position:relative}
 .post-info{padding:0 14px 14px}
 .post-likes{font-size:13px;font-weight:800;margin-bottom:5px}
 .post-caption{font-size:13px;line-height:1.6;margin-bottom:5px}
-.post-caption b{font-weight:800;margin-left:4px}
 .post-caption a{color:var(--accent);font-weight:700;text-decoration:none}
 .post-comment-link{font-size:12.5px;color:var(--muted);font-weight:500;transition:var(--tr)}
 .post-time{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;margin-top:6px}
-
-/* Text post */
 .text-post{background:var(--paper);border-bottom:8px solid var(--line-2);padding:16px 14px;position:relative;animation:postIn .35s}
 .text-post-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:10px}
 .text-post-cat{display:inline-block;background:var(--line-2);color:var(--ink-2);border-radius:20px;padding:3px 10px;font-size:10px;font-weight:700}
@@ -215,8 +174,6 @@ main{flex:1;padding-bottom:80px;overflow-y:auto;position:relative}
 .text-post-actions svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8}
 .text-post-actions button.liked{color:#ed4956}
 .text-post-actions button.liked svg{fill:#ed4956;stroke:#ed4956}
-
-/* Search */
 .search-wrap{padding:16px 16px 0}
 .page-title{font-size:22px;font-weight:900;margin-bottom:14px}
 .search-box{display:flex;align-items:center;gap:10px;background:var(--line-2);border-radius:10px;padding:11px 14px;margin-bottom:14px;border:1.5px solid transparent;transition:var(--tr)}
@@ -242,8 +199,6 @@ main{flex:1;padding-bottom:80px;overflow-y:auto;position:relative}
 .article-row-info p{font-size:11.5px;color:var(--muted);line-height:1.6;margin-bottom:6px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical}
 .article-row-meta{display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--muted);font-weight:600}
 .article-row-meta img{width:18px;height:18px;border-radius:50%;object-fit:cover;flex-shrink:0}
-
-/* Friends */
 .friends-tabs{display:flex;gap:8px;padding:12px 16px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid var(--line-2)}
 .friends-tabs::-webkit-scrollbar{display:none}
 .ftab{padding:8px 14px;border-radius:18px;font-size:12.5px;font-weight:600;color:var(--muted);white-space:nowrap;background:var(--line-2);border:1.5px solid transparent;transition:var(--tr)}
@@ -264,8 +219,6 @@ main{flex:1;padding-bottom:80px;overflow-y:auto;position:relative}
 .btn-sm.pending{background:var(--line-2);color:var(--muted)}
 .btn-sm.chat{padding:8px 10px;background:var(--line-2);color:var(--ink)}
 .btn-sm.chat svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2}
-
-/* Notifications */
 .notif-tabs{display:flex;padding:0 16px;border-bottom:1px solid var(--line-2);background:var(--paper)}
 .ntab{flex:1;padding:14px 0;font-size:13.5px;font-weight:700;color:var(--muted);border-bottom:2.5px solid transparent;text-align:center;background:none;transition:var(--tr)}
 .ntab.active{color:var(--ink);border-bottom-color:var(--ink)}
@@ -276,16 +229,12 @@ main{flex:1;padding-bottom:80px;overflow-y:auto;position:relative}
 .notif-info p b{font-weight:800}
 .notif-info time{font-size:10.5px;color:var(--muted)}
 .notif-del{position:absolute;top:10px;left:10px;width:26px;height:26px;display:grid;place-items:center;color:var(--muted);border-radius:50%;font-size:16px;transition:var(--tr)}
-.notif-del:active{background:var(--line-2);transform:scale(.9)}
-
 .chat-row{display:flex;align-items:center;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line-2);background:var(--paper);position:relative;transition:var(--tr)}
 .chat-row>img{width:50px;height:50px;border-radius:50%;object-fit:cover;flex-shrink:0;cursor:pointer}
 .chat-row-info{flex:1;min-width:0;cursor:pointer}
 .chat-row-info h4{font-size:13.5px;font-weight:800;margin-bottom:2px}
 .chat-row-info p{font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .chat-row-time{font-size:10.5px;color:var(--muted);flex-shrink:0;margin-left:4px}
-
-/* Profile */
 .profile-cover{height:160px;background:var(--line);position:relative;overflow:hidden}
 .profile-cover img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
 .profile-head{text-align:center;padding:0 16px;margin-top:-46px;position:relative;z-index:2}
@@ -296,7 +245,6 @@ main{flex:1;padding-bottom:80px;overflow-y:auto;position:relative}
 .profile-bio{font-size:12.5px;color:var(--muted);line-height:1.8;margin-bottom:14px;max-width:320px;margin-left:auto;margin-right:auto}
 .profile-stats{display:flex;justify-content:center;gap:30px;padding:12px 0;border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);margin-bottom:14px;font-size:11px;color:var(--muted);font-weight:600}
 .profile-stats>div{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;transition:var(--tr);padding:4px 8px;border-radius:8px}
-.profile-stats>div:active{background:var(--line-2)}
 .profile-stats b{font-size:16px;font-weight:800;color:var(--ink)}
 .profile-btns{display:flex;gap:8px;justify-content:center;margin-bottom:14px;flex-wrap:wrap}
 .pbtn{padding:9px 20px;border-radius:20px;font-size:12.5px;font-weight:700;transition:var(--tr)}
@@ -305,7 +253,7 @@ main{flex:1;padding-bottom:80px;overflow-y:auto;position:relative}
 .pbtn.secondary{background:var(--line-2);color:var(--ink)}
 .pbtn.danger{background:#fee2e2;color:#dc2626}
 .profile-tabs{display:flex;border-bottom:1px solid var(--line-2);padding:0 16px}
-.ptab{flex:1;padding:12px 0;font-size:12.5px;font-weight:700;color:var(--muted);border-bottom:2.5px solid transparent;text-align:center;background:none;transition:var(--tr)}
+.ptab{flex:1;padding:12px 0;font-size:12px;font-weight:700;color:var(--muted);border-bottom:2.5px solid transparent;text-align:center;background:none;transition:var(--tr)}
 .ptab.active{color:var(--ink);border-bottom-color:var(--ink)}
 .pin-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;padding:3px}
 .pin{position:relative;aspect-ratio:1;overflow:hidden;background:var(--line-2);cursor:pointer;transition:var(--tr)}
@@ -320,8 +268,6 @@ main{flex:1;padding-bottom:80px;overflow-y:auto;position:relative}
 .text-post-card p{font-size:12px;color:var(--muted);line-height:1.8;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
 .text-post-card-menu{width:28px;height:28px;color:var(--muted);font-size:18px;display:grid;place-items:center;border-radius:50%;flex-shrink:0}
 .section-label{padding:14px 16px 6px;font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.3px}
-
-/* Article */
 .article-progress{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;height:3px;background:transparent;z-index:100}
 .article-progress-bar{height:100%;background:var(--accent);width:0%;transition:width .1s}
 .article-cover{height:260px;position:relative;background:var(--line)}
@@ -338,8 +284,6 @@ main{flex:1;padding-bottom:80px;overflow-y:auto;position:relative}
 .article-body a{color:var(--accent);font-weight:700;text-decoration:none}
 .reading-time{display:inline-flex;align-items:center;gap:4px;font-size:10.5px;color:var(--muted);font-weight:600}
 .reading-time svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2}
-
-/* Create */
 .create-wrap{padding:16px}
 .create-box{background:var(--paper);border:1px solid var(--line-2);border-radius:16px;padding:16px}
 .create-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
@@ -380,8 +324,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 .switch.on::after{left:23px}
 .btn-main{width:100%;background:var(--ink);color:var(--paper);border-radius:12px;padding:14px;font-size:14px;font-weight:800;transition:var(--tr)}
 .btn-main:active{transform:scale(.98)}
-
-/* Settings */
 .settings-section{padding:0 16px 16px}
 .settings-section-title{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;padding:16px 4px 8px}
 .settings-list{display:flex;flex-direction:column;gap:6px}
@@ -399,15 +341,12 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 .accent-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px;padding:12px 0}
 .accent-color{aspect-ratio:1;border-radius:50%;border:3px solid transparent;transition:var(--tr);cursor:pointer}
 .accent-color.active{border-color:var(--ink);transform:scale(1.1)}
-.font-preview{font-size:14px;color:var(--ink);padding:8px 0;text-align:center}
 .avatar-color-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:6px;padding:12px 0}
 .avatar-color{aspect-ratio:1;border-radius:50%;border:2px solid transparent;transition:var(--tr);cursor:pointer}
 .avatar-color.active{border-color:var(--ink);transform:scale(1.15);border-width:3px}
 .chat-bg-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:12px 0}
 .chat-bg{aspect-ratio:1;border-radius:10px;background-size:cover;background-position:center;border:2px solid transparent;cursor:pointer;transition:var(--tr)}
 .chat-bg.active{border-color:var(--accent);transform:scale(1.05)}
-
-/* About */
 .about-hero{padding:32px 16px 20px;text-align:center;background:linear-gradient(180deg,var(--accent-soft) 0%,transparent 100%)}
 .about-icon{width:88px;height:88px;border-radius:24px;background:linear-gradient(135deg,var(--accent),#ff8ab8);display:grid;place-items:center;margin:0 auto 14px;box-shadow:0 12px 32px rgba(224,66,126,.3);animation:avatarIn .5s}
 .about-icon svg{width:44px;height:44px;stroke:#fff;fill:none;stroke-width:2.2}
@@ -420,8 +359,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 .about-feature p{font-size:10.5px;color:var(--muted);line-height:1.6}
 .doc{padding:16px;font-size:13.5px;line-height:2;color:var(--ink-2)}
 .doc h2{font-size:15px;font-weight:800;color:var(--ink);margin:18px 0 8px}
-
-/* Modals */
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:300;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(2px)}
 .modal.show{display:flex;animation:fadeIn .2s}
 .modal-box{background:var(--paper);width:100%;max-width:480px;border-radius:20px 20px 0 0;max-height:85vh;display:flex;flex-direction:column;animation:up .3s}
@@ -429,7 +366,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 .modal-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--line-2)}
 .modal-head h3{font-size:15px;font-weight:800}
 .modal-close{width:32px;height:32px;display:grid;place-items:center;font-size:20px;color:var(--muted);transition:var(--tr);border-radius:50%}
-.modal-close:active{background:var(--line-2)}
 .modal-body{flex:1;overflow-y:auto;padding:14px 18px}
 .modal-foot{padding:10px 18px;border-top:1px solid var(--line-2);display:flex;gap:8px}
 .modal-foot input{flex:1;border:1.5px solid var(--line);border-radius:22px;padding:10px 16px;font-size:13px;outline:none;background:var(--line-2);transition:var(--tr)}
@@ -440,8 +376,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 .menu-item:active{background:var(--line-2)}
 .menu-item svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;flex-shrink:0}
 .menu-item.danger{color:#ef4444}
-
-/* Comments */
 .comment-row{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line-2);transition:var(--tr);position:relative}
 .comment-row:last-child{border-bottom:none}
 .comment-row img{width:38px;height:38px;border-radius:50%;object-fit:cover;flex-shrink:0;cursor:pointer;box-shadow:var(--shadow-sm)}
@@ -450,80 +384,50 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 .comment-row-body p{font-size:12.5px;line-height:1.7;margin:4px 0 5px;color:var(--ink-2);word-wrap:break-word}
 .comment-row-body p a{color:var(--accent);font-weight:700;text-decoration:none}
 .comment-row-body time{font-size:10px;color:var(--muted);font-weight:500}
-.comment-like-btn{position:absolute;top:12px;left:0;font-size:14px;color:var(--muted);transition:var(--tr);padding:4px}
-.comment-like-btn.liked{color:#ed4956}
-
-/* Confirm */
+.comment-like-inline{font-size:11px;color:var(--muted);font-weight:600;padding:2px 8px;border-radius:8px;transition:var(--tr);background:var(--line-2)}
+.comment-like-inline.liked{color:#ed4956}
+.comment-del-inline{font-size:11px;color:#ef4444;font-weight:600;padding:2px 8px;border-radius:8px;transition:var(--tr);background:transparent}
 .confirm{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:400;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(2px)}
 .confirm.show{display:flex;animation:fadeIn .2s}
 .confirm-box{background:var(--paper);border-radius:14px;padding:22px;max-width:320px;width:100%;animation:popIn .25s}
-@keyframes popIn{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
 .confirm-box h3{font-size:15px;font-weight:800;margin-bottom:6px}
 .confirm-box p{font-size:12.5px;color:var(--muted);line-height:1.7;margin-bottom:18px}
 .confirm-actions{display:flex;gap:8px}
 .confirm-actions button{flex:1;padding:11px;border-radius:10px;font-size:13px;font-weight:700;transition:var(--tr)}
 .confirm-actions .cancel{background:var(--line-2);color:var(--ink)}
 .confirm-actions .danger{background:#ef4444;color:#fff}
-
-/* Image Viewer Fullscreen */
 .img-viewer{position:fixed;inset:0;background:#000;z-index:9000;display:none;align-items:center;justify-content:center;touch-action:pinch-zoom}
 .img-viewer.show{display:flex;animation:fadeIn .2s}
-.img-viewer img{max-width:100%;max-height:100%;object-fit:contain;transition:transform .2s}
+.img-viewer img{max-width:100%;max-height:100%;object-fit:contain}
 .img-viewer .close-viewer{position:absolute;top:16px;right:16px;width:44px;height:44px;background:rgba(255,255,255,.15);color:#fff;border-radius:50%;display:grid;place-items:center;font-size:22px;backdrop-filter:blur(10px)}
-.img-viewer .close-viewer:active{transform:scale(.9)}
-
-/* Back to Top */
 .back-top{position:fixed;bottom:90px;right:16px;width:44px;height:44px;border-radius:50%;background:var(--paper);color:var(--ink);display:grid;place-items:center;box-shadow:var(--shadow-lg);z-index:80;opacity:0;pointer-events:none;transition:var(--tr);border:1px solid var(--line-2)}
 .back-top.show{opacity:1;pointer-events:auto}
-.back-top:active{transform:scale(.92)}
 .back-top svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.2}
-
-/* Confetti Canvas */
 #confettiCanvas{position:fixed;inset:0;pointer-events:none;z-index:9500;display:none}
 #confettiCanvas.show{display:block}
-
-/* Particles */
 .particle{position:fixed;pointer-events:none;z-index:9500;font-size:20px;animation:particleFly 1s ease-out forwards}
 @keyframes particleFly{0%{transform:translate(0,0) scale(1);opacity:1}100%{transform:translate(var(--px),var(--py)) scale(0);opacity:0}}
-
-/* Toast */
 .toast{position:fixed;bottom:90px;left:50%;transform:translate(-50%,20px);background:var(--ink);color:var(--paper);padding:12px 18px;border-radius:12px;font-size:12.5px;font-weight:600;opacity:0;transition:var(--tr);pointer-events:none;z-index:500;max-width:90%;display:flex;align-items:center;gap:8px;box-shadow:var(--shadow-lg)}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 .toast svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;flex-shrink:0}
-
-/* Bottom Nav */
 .bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;height:68px;display:flex;align-items:center;justify-content:space-around;background:var(--paper);border-top:1px solid var(--line-2);z-index:100}
 .nav{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:9.5px;color:var(--muted);padding:8px 10px;font-weight:600;position:relative;min-width:50px;transition:var(--tr)}
 .nav.active{color:var(--ink)}
 .nav svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:var(--tr)}
 .nav.active svg{stroke-width:2.2;transform:translateY(-2px)}
 .nav .badge{position:absolute;top:4px;right:8px;min-width:16px;height:16px;background:var(--accent);color:#fff;border-radius:8px;font-size:9px;font-weight:700;display:grid;place-items:center;padding:0 4px;border:2px solid var(--paper)}
-
-/* Empty State */
 .empty{text-align:center;padding:50px 24px;color:var(--muted);animation:pageIn .4s}
 .empty svg{width:56px;height:56px;stroke:var(--line);fill:none;stroke-width:1.5;margin:0 auto 14px}
 .empty h3{font-size:14px;font-weight:800;color:var(--ink);margin-bottom:6px}
 .empty p{font-size:12.5px;line-height:1.7;margin-bottom:14px;max-width:260px;margin-left:auto;margin-right:auto}
 .empty button{background:var(--ink);color:var(--paper);border-radius:10px;padding:10px 22px;font-size:12.5px;font-weight:700;transition:var(--tr)}
-.empty button:active{transform:scale(.97)}
-
-@media(min-width:600px){
-  body{padding:20px 0;background:#e8e8ec}
-  .app{border-radius:20px;max-height:900px;min-height:calc(100dvh - 40px)}
-  .bottom-nav{border-radius:0 0 20px 20px}
-  #page-chat.active{border-radius:20px;height:calc(100dvh - 40px);top:50%;transform:translate(-50%,-50%);bottom:auto}
-  .article-progress{top:calc(20px);max-width:480px;border-radius:20px 20px 0 0;overflow:hidden}
-}
+@media(min-width:600px){body{padding:20px 0;background:#e8e8ec}.app{border-radius:20px;max-height:900px;min-height:calc(100dvh - 40px)}.bottom-nav{border-radius:0 0 20px 20px}#page-chat.active{border-radius:20px;height:calc(100dvh - 40px);top:50%;transform:translate(-50%,-50%);bottom:auto}.article-progress{top:20px;max-width:480px;border-radius:20px 20px 0 0;overflow:hidden}}
 </style>
 </head>
 <body>
 
 <div class="offline-banner" id="offlineBanner">📡 اتصال اینترنت قطع است</div>
-
-<div class="loader" id="loader">
-  <div class="loader-logo">Luno<span>.</span></div>
-  <div class="loader-bar"></div>
-</div>
+<div class="loader" id="loader"><div class="loader-logo">Luno<span>.</span></div><div class="loader-bar"></div></div>
 
 <div class="auth hide" id="authScreen">
   <div class="auth-box">
@@ -535,31 +439,17 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
         <input type="text" id="authName" placeholder="نام و نام خانوادگی">
         <div class="auth-err" id="nameErr">نام باید حداقل ۳ کاراکتر باشد</div>
       </div>
-      <div class="auth-field">
-        <label>شماره موبایل</label>
-        <input type="tel" id="authPhone" placeholder="09xxxxxxxxx" inputmode="numeric" maxlength="11">
-        <div class="auth-err" id="phoneErr">شماره معتبر ۱۱ رقمی وارد کنید</div>
-      </div>
-      <div class="auth-field">
-        <label>رمز عبور</label>
-        <input type="password" id="authPass" placeholder="حداقل ۶ کاراکتر">
-        <div class="auth-err" id="passErr">رمز باید حداقل ۶ کاراکتر باشد</div>
-      </div>
+      <div class="auth-field"><label>شماره موبایل</label><input type="tel" id="authPhone" placeholder="09xxxxxxxxx" inputmode="numeric" maxlength="11"><div class="auth-err" id="phoneErr">شماره معتبر ۱۱ رقمی وارد کنید</div></div>
+      <div class="auth-field"><label>رمز عبور</label><input type="password" id="authPass" placeholder="حداقل ۶ کاراکتر"><div class="auth-err" id="passErr">رمز باید حداقل ۶ کاراکتر باشد</div></div>
       <button class="auth-btn" type="submit" id="authBtn">ورود</button>
     </form>
-    <div class="auth-switch">
-      <span id="authSwitchText">حساب نداری؟</span>
-      <button type="button" id="authSwitchBtn">ثبت‌نام</button>
-    </div>
+    <div class="auth-switch"><span id="authSwitchText">حساب نداری؟</span> <button type="button" id="authSwitchBtn">ثبت‌نام</button></div>
   </div>
 </div>
 
 <div class="app hide" id="app">
   <header class="app-header">
-    <div class="header-left">
-      <div class="logo">Luno<span>.</span></div>
-      <span class="admin-tag hidden" id="adminTag">مدیر</span>
-    </div>
+    <div class="header-left"><div class="logo">Luno<span>.</span></div><span class="admin-tag hidden" id="adminTag">مدیر</span></div>
     <div class="header-right">
       <button class="hbtn" id="themeBtn"><svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg></button>
       <button class="hbtn primary" data-go="create"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
@@ -567,9 +457,7 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
   </header>
 
   <main id="mainScroll">
-    <div class="ptr" id="ptr">
-      <svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg>
-    </div>
+    <div class="ptr" id="ptr"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></div>
 
     <section class="page active" id="page-home">
       <div class="tabs-scroll">
@@ -583,12 +471,9 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
     <section class="page" id="page-search">
       <div class="search-wrap">
         <h1 class="page-title">جستجو</h1>
-        <div class="search-box">
-          <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7.5"/><path d="m16.5 16.5 4.5 4.5"/></svg>
-          <input id="searchInput" placeholder="جستجو در مقاله‌ها و کاربران...">
-        </div>
+        <div class="search-box"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7.5"/><path d="m16.5 16.5 4.5 4.5"/></svg><input id="searchInput" placeholder="جستجو در مقاله‌ها و کاربران..."></div>
         <div id="searchSuggestions"></div>
-        <div class="search-tabs" id="searchTabs" style="display:none">
+        <div class="search-tabs" id="searchTabs">
           <button class="stab active" data-search="articles">مقاله‌ها</button>
           <button class="stab" data-search="users">کاربران</button>
         </div>
@@ -609,10 +494,7 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 
     <section class="page" id="page-notifs">
       <h1 class="page-title" style="padding:16px 16px 0">اعلان‌ها</h1>
-      <div class="notif-tabs">
-        <button class="ntab active" data-ntab="notifs">اعلان‌ها</button>
-        <button class="ntab" data-ntab="chats">پیام‌ها</button>
-      </div>
+      <div class="notif-tabs"><button class="ntab active" data-ntab="notifs">اعلان‌ها</button><button class="ntab" data-ntab="chats">پیام‌ها</button></div>
       <div id="notifsList"></div>
     </section>
 
@@ -620,10 +502,7 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
       <div class="chat-top">
         <button class="back-btn" data-back><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
         <img id="chatAvatar" src="" alt="">
-        <div class="chat-top-info">
-          <h4 id="chatName"></h4>
-          <small id="chatStatus"></small>
-        </div>
+        <div class="chat-top-info"><h4 id="chatName"></h4><small id="chatStatus"></small></div>
       </div>
       <div class="chat-body" id="chatBody"></div>
       <div class="chat-inputbar">
@@ -634,24 +513,17 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
     </section>
 
     <section class="page" id="page-profile">
-      <div class="profile-cover" id="myCover">
-        <img id="myCoverImg" src="" alt="" style="display:none">
-      </div>
+      <div class="profile-cover" id="myCover"><img id="myCoverImg" src="" alt="" style="display:none"></div>
       <div class="profile-head">
         <img class="profile-avatar" id="myAvatar" src="" alt="">
         <div class="profile-name" id="myName"></div>
         <div class="profile-bio" id="myBio"></div>
-        <div class="profile-stats">
-          <div><b id="myPostsCount">0</b>پست</div>
-          <div id="myFriendsBtn"><b id="myFriendsCount">0</b>دوست</div>
-        </div>
-        <div class="profile-btns">
-          <button class="pbtn primary" id="editProfileBtn">ویرایش پروفایل</button>
-          <button class="pbtn secondary" data-go="settings">تنظیمات</button>
-        </div>
+        <div class="profile-stats"><div><b id="myPostsCount">0</b>پست</div><div id="myFriendsBtn"><b id="myFriendsCount">0</b>دوست</div></div>
+        <div class="profile-btns"><button class="pbtn primary" id="editProfileBtn">ویرایش پروفایل</button><button class="pbtn secondary" data-go="settings">تنظیمات</button></div>
       </div>
       <div class="profile-tabs">
-        <button class="ptab active" data-ptab="posts">پست‌ها</button>
+        <button class="ptab active" data-ptab="posts">تصویری</button>
+        <button class="ptab" data-ptab="text">متنی</button>
         <button class="ptab" data-ptab="saved">ذخیره‌ها</button>
         <button class="ptab" data-ptab="friends">دوستان</button>
       </div>
@@ -664,58 +536,27 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
         <img class="profile-avatar" id="userAvatar" src="" alt="">
         <div class="profile-name" id="userName"></div>
         <div class="profile-bio" id="userBio"></div>
-        <div class="profile-stats">
-          <div><b id="userPostsCount">0</b>پست</div>
-          <div><b id="userFriendsCount">0</b>دوست</div>
-        </div>
+        <div class="profile-stats"><div><b id="userPostsCount">0</b>پست</div><div><b id="userFriendsCount">0</b>دوست</div></div>
         <div class="profile-btns" id="userBtns"></div>
       </div>
-      <div class="profile-tabs">
-        <button class="ptab active">پست‌ها</button>
-      </div>
+      <div class="profile-tabs"><button class="ptab active">پست‌ها</button></div>
       <div id="userPostsList"></div>
     </section>
 
     <section class="page" id="page-article">
       <div class="article-progress"><div class="article-progress-bar" id="artProgress"></div></div>
-      <div class="chat-top">
-        <button class="back-btn" data-back><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
-        <h4 style="font-size:14px;font-weight:800;flex:1">مقاله</h4>
-      </div>
-      <div class="article-cover">
-        <img id="artImg" src="" alt="">
-        <div class="article-cover-title">
-          <span class="tag" id="artTag"></span>
-          <h1 id="artTitle"></h1>
-        </div>
-      </div>
-      <div class="article-meta-row">
-        <img id="artAvatar" alt="" data-art-author>
-        <b id="artAuthor" data-art-author></b>
-        <span style="flex:1"></span>
-        <span class="reading-time" id="artReadingTime"></span>
-      </div>
+      <div class="chat-top"><button class="back-btn" data-back><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button><h4 style="font-size:14px;font-weight:800;flex:1">مقاله</h4></div>
+      <div class="article-cover"><img id="artImg" src="" alt=""><div class="article-cover-title"><span class="tag" id="artTag"></span><h1 id="artTitle"></h1></div></div>
+      <div class="article-meta-row"><img id="artAvatar" alt="" data-art-author><b id="artAuthor" data-art-author></b><span style="flex:1"></span><span class="reading-time" id="artReadingTime"></span></div>
       <div class="article-body" id="artBody"></div>
     </section>
 
     <section class="page" id="page-create">
       <div class="create-wrap">
         <div class="create-box">
-          <div class="create-head">
-            <h2>ایجاد پست</h2>
-            <div class="draft-badge" id="draftBadge"><span class="draft-dot"></span>پیش‌نویس ذخیره شد</div>
-          </div>
-          <label class="upload-area">
-            <div class="upload-icon">
-              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-            </div>
-            <span id="uploadLabel">افزودن تصویر</span>
-            <input type="file" id="imageInput" accept="image/*">
-          </label>
-          <div class="preview" id="preview">
-            <img id="previewImg" src="" alt="">
-            <button type="button" id="removeImg">×</button>
-          </div>
+          <div class="create-head"><h2>ایجاد پست</h2><div class="draft-badge" id="draftBadge"><span class="draft-dot"></span>پیش‌نویس ذخیره شد</div></div>
+          <label class="upload-area"><div class="upload-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div><span id="uploadLabel">افزودن تصویر</span><input type="file" id="imageInput" accept="image/*"></label>
+          <div class="preview" id="preview"><img id="previewImg" src="" alt=""><button type="button" id="removeImg">×</button></div>
           <input class="field" id="postTitle" maxlength="100" placeholder="عنوان مطلب">
           <div class="field-err" id="titleErr">عنوان حداقل ۳ کاراکتر</div>
           <textarea class="field" id="postText" maxlength="2000" placeholder="متن خود را بنویسید..."></textarea>
@@ -729,10 +570,7 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
             <button type="button" class="tag-chip" data-tag="سفر">سفر</button>
           </div>
           <div class="toggle-row" id="articleToggle">
-            <div class="toggle-info">
-              <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-              <div><h4>انتشار به عنوان مقاله</h4><p>در بخش جستجو نمایش داده می‌شود</p></div>
-            </div>
+            <div class="toggle-info"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><div><h4>انتشار به عنوان مقاله</h4><p>در بخش جستجو نمایش داده می‌شود</p></div></div>
             <div class="switch" id="articleSwitch"></div>
           </div>
           <button class="btn-main" id="publishBtn">انتشار</button>
@@ -741,32 +579,19 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
     </section>
 
     <section class="page" id="page-settings">
-      <div class="chat-top">
-        <button class="back-btn" data-back><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
-        <h4 style="font-size:14px;font-weight:800">تنظیمات</h4>
-      </div>
+      <div class="chat-top"><button class="back-btn" data-back><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button><h4 style="font-size:14px;font-weight:800">تنظیمات</h4></div>
       <div class="settings-section">
         <div class="settings-section-title">حساب کاربری</div>
         <div class="settings-list">
-          <div class="s-item" id="editProfileItem">
-            <svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-            <div><h4>ویرایش پروفایل</h4><p>نام، بیو و تصویر</p></div>
-            <span class="arrow">›</span>
-          </div>
+          <div class="s-item" id="editProfileItem"><svg viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg><div><h4>ویرایش پروفایل</h4><p>نام، بیو و تصویر</p></div><span class="arrow">›</span></div>
         </div>
 
         <div class="settings-section-title">ظاهر برنامه</div>
         <div class="settings-list">
-          <div class="s-item">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2v20"/></svg>
-            <div><h4>رنگ اصلی</h4></div>
-          </div>
+          <div class="s-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2v20"/></svg><div><h4>رنگ اصلی</h4></div></div>
           <div class="accent-grid" id="accentGrid"></div>
 
-          <div class="s-item">
-            <svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
-            <div><h4>حالت نمایش</h4></div>
-          </div>
+          <div class="s-item"><svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg><div><h4>حالت نمایش</h4></div></div>
           <div class="setting-options" id="themeOptions" style="padding:0 14px 12px">
             <button class="setting-opt active" data-theme-opt="light">روشن</button>
             <button class="setting-opt" data-theme-opt="dark">تاریک</button>
@@ -774,68 +599,41 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
             <button class="setting-opt" data-theme-opt="scheduled">زمان‌بندی</button>
           </div>
 
-          <div class="s-item">
-            <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
-            <div><h4>فونت</h4></div>
-          </div>
+          <div class="s-item"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg><div><h4>فونت</h4></div></div>
           <div class="setting-options" id="fontFamilyOptions" style="padding:0 14px 8px">
             <button class="setting-opt active" data-font-family="Vazirmatn">وزیرمتن</button>
             <button class="setting-opt" data-font-family="Shabnam">شبنم</button>
           </div>
 
-          <div class="s-item">
-            <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
-            <div><h4>اندازه فونت</h4></div>
-          </div>
+          <div class="s-item"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg><div><h4>اندازه فونت</h4></div></div>
           <div class="setting-options" id="fontOptions" style="padding:0 14px 12px">
             <button class="setting-opt" data-font="13">کوچک</button>
             <button class="setting-opt active" data-font="14">متوسط</button>
             <button class="setting-opt" data-font="16">بزرگ</button>
           </div>
 
-          <div class="s-item">
-            <svg viewBox="0 0 24 24"><path d="M12 2v20"/><circle cx="12" cy="12" r="10"/></svg>
-            <div><h4>حاشیه رنگی آواتار</h4><p id="avatarColorStatus">مخصوص کاربران ویژه</p></div>
-          </div>
+          <div class="s-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 2v20"/></svg><div><h4>حاشیه رنگی آواتار</h4><p id="avatarColorStatus">مخصوص کاربران ویژه</p></div></div>
           <div class="avatar-color-grid" id="avatarColorGrid" style="display:none"></div>
 
-          <div class="s-item">
-            <svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/></svg>
-            <div><h4>پس‌زمینه چت</h4></div>
-          </div>
+          <div class="s-item"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/></svg><div><h4>پس‌زمینه چت</h4></div></div>
           <div class="chat-bg-grid" id="chatBgGrid"></div>
         </div>
 
         <div class="settings-section-title">اطلاعات</div>
         <div class="settings-list">
-          <div class="s-item" data-go="terms">
-            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg>
-            <div><h4>قوانین و مقررات</h4><p>شرایط استفاده</p></div>
-            <span class="arrow">›</span>
-          </div>
-          <div class="s-item" data-go="about">
-            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-            <div><h4>درباره ما</h4><p>درباره لونو</p></div>
-            <span class="arrow">›</span>
-          </div>
+          <div class="s-item" data-go="terms"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/></svg><div><h4>قوانین و مقررات</h4><p>شرایط استفاده</p></div><span class="arrow">›</span></div>
+          <div class="s-item" data-go="about"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><div><h4>درباره ما</h4><p>درباره لونو</p></div><span class="arrow">›</span></div>
         </div>
 
         <div class="settings-section-title">خطر</div>
         <div class="settings-list">
-          <div class="s-item danger" id="logoutBtn">
-            <svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
-            <div><h4>خروج از حساب</h4><p>خروج از حساب کاربری</p></div>
-            <span class="arrow">›</span>
-          </div>
+          <div class="s-item danger" id="logoutBtn"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg><div><h4>خروج از حساب</h4><p>خروج از حساب کاربری</p></div><span class="arrow">›</span></div>
         </div>
       </div>
     </section>
 
     <section class="page" id="page-terms">
-      <div class="chat-top">
-        <button class="back-btn" data-back><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
-        <h4 style="font-size:14px;font-weight:800">قوانین و مقررات</h4>
-      </div>
+      <div class="chat-top"><button class="back-btn" data-back><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button><h4 style="font-size:14px;font-weight:800">قوانین و مقررات</h4></div>
       <div class="doc">
         <p>استفاده از برنامه لونو به معنی پذیرش قوانین زیر است:</p>
         <h2>۱. محتوای کاربران</h2>
@@ -848,10 +646,7 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
     </section>
 
     <section class="page" id="page-about">
-      <div class="chat-top">
-        <button class="back-btn" data-back><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
-        <h4 style="font-size:14px;font-weight:800">درباره ما</h4>
-      </div>
+      <div class="chat-top"><button class="back-btn" data-back><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button><h4 style="font-size:14px;font-weight:800">درباره ما</h4></div>
       <div class="about-hero">
         <div class="about-icon"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
         <div class="about-title">Luno</div>
@@ -875,62 +670,16 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
   </nav>
 
   <button class="back-top" id="backTop"><svg viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></svg></button>
+  <div class="emoji-picker" id="emojiPicker"><div class="emoji-grid" id="emojiGrid"></div></div>
 
-  <div class="emoji-picker" id="emojiPicker">
-    <div class="emoji-grid" id="emojiGrid"></div>
-  </div>
+  <div class="modal" id="commentModal"><div class="modal-box"><div class="modal-head"><h3>نظرات</h3><button class="modal-close" data-close>×</button></div><div class="modal-body" id="commentsBody"></div><div class="modal-foot"><input id="commentInput" placeholder="نظر خود را بنویسید..."><button id="commentSend">ارسال</button></div></div></div>
+  <div class="modal" id="postMenuModal"><div class="modal-box"><div class="modal-head"><h3>عملیات پست</h3><button class="modal-close" data-close>×</button></div><div class="menu-list" id="postMenuList"></div></div></div>
+  <div class="modal" id="editModal"><div class="modal-box"><div class="modal-head"><h3>ویرایش پروفایل</h3><button class="modal-close" data-close>×</button></div><div class="modal-body"><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">نام</label><input class="field" id="editName"><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">بیوگرافی</label><textarea class="field" id="editBio" rows="3"></textarea><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">تصویر پروفایل</label><input type="file" id="editAvatar" accept="image/*" class="field"></div><div class="modal-foot"><button id="saveProfileBtn" style="flex:1">ذخیره</button></div></div></div>
 
-  <div class="modal" id="commentModal">
-    <div class="modal-box">
-      <div class="modal-head"><h3>نظرات</h3><button class="modal-close" data-close>×</button></div>
-      <div class="modal-body" id="commentsBody"></div>
-      <div class="modal-foot">
-        <input id="commentInput" placeholder="نظر خود را بنویسید...">
-        <button id="commentSend">ارسال</button>
-      </div>
-    </div>
-  </div>
+  <div class="confirm" id="confirmBox"><div class="confirm-box"><h3 id="confirmTitle"></h3><p id="confirmMsg"></p><div class="confirm-actions"><button class="cancel" id="confirmCancel">انصراف</button><button class="danger" id="confirmOk">تأیید</button></div></div></div>
 
-  <div class="modal" id="postMenuModal">
-    <div class="modal-box">
-      <div class="modal-head"><h3>عملیات پست</h3><button class="modal-close" data-close>×</button></div>
-      <div class="menu-list" id="postMenuList"></div>
-    </div>
-  </div>
-
-  <div class="modal" id="editModal">
-    <div class="modal-box">
-      <div class="modal-head"><h3>ویرایش پروفایل</h3><button class="modal-close" data-close>×</button></div>
-      <div class="modal-body">
-        <label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">نام</label>
-        <input class="field" id="editName">
-        <label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">بیوگرافی</label>
-        <textarea class="field" id="editBio" rows="3"></textarea>
-        <label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">تصویر پروفایل</label>
-        <input type="file" id="editAvatar" accept="image/*" class="field">
-      </div>
-      <div class="modal-foot"><button id="saveProfileBtn" style="flex:1">ذخیره</button></div>
-    </div>
-  </div>
-
-  <div class="confirm" id="confirmBox">
-    <div class="confirm-box">
-      <h3 id="confirmTitle"></h3>
-      <p id="confirmMsg"></p>
-      <div class="confirm-actions">
-        <button class="cancel" id="confirmCancel">انصراف</button>
-        <button class="danger" id="confirmOk">تأیید</button>
-      </div>
-    </div>
-  </div>
-
-  <div class="img-viewer" id="imgViewer">
-    <button class="close-viewer" id="closeViewer">×</button>
-    <img id="viewerImg" src="" alt="">
-  </div>
-
+  <div class="img-viewer" id="imgViewer"><button class="close-viewer" id="closeViewer">×</button><img id="viewerImg" src="" alt=""></div>
   <canvas id="confettiCanvas"></canvas>
-
   <div class="toast" id="toast"></div>
 </div>
 
@@ -942,21 +691,17 @@ const ADMIN_PHONE = '09399289540';
 const POPULAR_LIKES = 20;
 const DEFAULT_AVATAR = 'data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#e5e7eb"/><circle cx="50" cy="40" r="15" fill="#9ca3af"/><path fill="#9ca3af" d="M20 85c0-16 13-30 30-30s30 14 30 30z"/></svg>');
 const PLACEHOLDER = DEFAULT_AVATAR;
-
-// Accent colors
 const ACCENT_COLORS = ['#e0427e','#3b82f6','#10b981','#f59e0b','#8b5cf6','#ef4444','#06b6d4','#ec4899','#22c55e','#6366f1','#f97316','#14b8a6'];
-// Avatar colors
 const AVATAR_COLORS = ['#e0427e','#3b82f6','#10b981','#f59e0b','#8b5cf6','#ef4444','#06b6d4','#ec4899','#22c55e','#6366f1','#f97316','#14b8a6','#d946ef','#84cc16','#0ea5e9','#fbbf24'];
-// Chat backgrounds
 const CHAT_BGS = [
-  {name:'none', value:'none', color:'var(--bg)'},
-  {name:'dots', value:'radial-gradient(circle, var(--line) 1px, transparent 1px)', size:'20px 20px', color:'var(--bg)'},
-  {name:'lines', value:'repeating-linear-gradient(45deg, var(--line-2) 0, var(--line-2) 1px, transparent 1px, transparent 20px)', color:'var(--bg)'},
-  {name:'grid', value:'linear-gradient(var(--line-2) 1px, transparent 1px), linear-gradient(90deg, var(--line-2) 1px, transparent 1px)', size:'20px 20px', color:'var(--bg)'},
-  {name:'aurora', value:'linear-gradient(135deg, rgba(224,66,126,0.1), rgba(59,130,246,0.1), rgba(16,185,129,0.1))', color:'var(--bg)'},
-  {name:'sunset', value:'linear-gradient(135deg, rgba(245,158,11,0.15), rgba(239,68,68,0.15))', color:'var(--bg)'},
-  {name:'ocean', value:'linear-gradient(135deg, rgba(6,182,212,0.15), rgba(59,130,246,0.15))', color:'var(--bg)'},
-  {name:'forest', value:'linear-gradient(135deg, rgba(34,197,94,0.15), rgba(20,184,166,0.15))', color:'var(--bg)'}
+  {name:'none', value:'none'},
+  {name:'dots', value:'radial-gradient(circle, var(--line) 1px, transparent 1px)', size:'20px 20px'},
+  {name:'lines', value:'repeating-linear-gradient(45deg, var(--line-2) 0, var(--line-2) 1px, transparent 1px, transparent 20px)'},
+  {name:'grid', value:'linear-gradient(var(--line-2) 1px, transparent 1px), linear-gradient(90deg, var(--line-2) 1px, transparent 1px)', size:'20px 20px'},
+  {name:'aurora', value:'linear-gradient(135deg, rgba(224,66,126,0.1), rgba(59,130,246,0.1), rgba(16,185,129,0.1))'},
+  {name:'sunset', value:'linear-gradient(135deg, rgba(245,158,11,0.15), rgba(239,68,68,0.15))'},
+  {name:'ocean', value:'linear-gradient(135deg, rgba(6,182,212,0.15), rgba(59,130,246,0.15))'},
+  {name:'forest', value:'linear-gradient(135deg, rgba(34,197,94,0.15), rgba(20,184,166,0.15))'}
 ];
 
 let state = {
@@ -1000,42 +745,31 @@ function save() {
 }
 
 const esc = s => String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-
-// Process text for mentions and hashtags
 function processText(text) {
   let out = esc(text);
   out = out.replace(/(@[\u0600-\u06FFa-zA-Z0-9_]+)/g, '<a href="#" data-mention="$1">$1</a>');
   out = out.replace(/(#[\u0600-\u06FFa-zA-Z0-9_]+)/g, '<a href="#" data-hashtag="$1">$1</a>');
   return out;
 }
-
 const isAdmin = () => state.user?.phone === ADMIN_PHONE;
 const isLiked = id => state.liked.includes(id);
 const isSaved = id => state.saved.includes(id);
 const isFriend = id => state.friends.includes(id);
 const isPending = id => state.pending.some(r => r.to === id);
 const isPopular = p => p.isPopular === true || (p.likes||0) >= POPULAR_LIKES;
-
-// Check if user can use avatar colors
 function canUseAvatarColor(phone) {
   if (phone === ADMIN_PHONE) return true;
   const approved = JSON.parse(localStorage.getItem('luno_approved_colors') || '[]');
   return approved.includes(phone);
 }
-
-function getUserAvatarColor(phone) {
-  return state.avatarColors[phone] || null;
-}
-
+function getUserAvatarColor(phone) { return state.avatarColors[phone] || null; }
 function haptic() { if (navigator.vibrate) navigator.vibrate(10); }
-
 function playSound(type) {
   const enabled = localStorage.getItem('luno_sounds') !== 'off';
   if (!enabled) return;
   try {
     const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
+    const osc = ctx.createOscillator(); const gain = ctx.createGain();
     osc.connect(gain); gain.connect(ctx.destination);
     const freqs = { like: 800, message: 600, success: 1000, error: 300 };
     osc.frequency.value = freqs[type] || 700;
@@ -1044,7 +778,6 @@ function playSound(type) {
     osc.start(); osc.stop(ctx.currentTime + 0.15);
   } catch(e) {}
 }
-
 function toast(msg, type='success') {
   const el = $('#toast');
   const icons = {
@@ -1057,7 +790,6 @@ function toast(msg, type='success') {
   clearTimeout(el._t);
   el._t = setTimeout(() => el.classList.remove('show'), 2200);
 }
-
 function formatTime(ts) {
   if (!ts) return 'همین حالا';
   const diff = Math.floor((Date.now() - ts) / 1000);
@@ -1068,13 +800,11 @@ function formatTime(ts) {
   if (diff < 2592000) return Math.floor(diff/604800) + ' هفته پیش';
   return Math.floor(diff/2592000) + ' ماه پیش';
 }
-
 function readingTime(text) {
   const words = (text || '').split(/\s+/).length;
   const mins = Math.max(1, Math.ceil(words / 200));
   return `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>${mins} دقیقه مطالعه`;
 }
-
 function emptyState(msg, icon, btnText, btnAction) {
   const icons = {
     edit: '<path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
@@ -1085,7 +815,6 @@ function emptyState(msg, icon, btnText, btnAction) {
   };
   return `<div class="empty"><svg viewBox="0 0 24 24">${icons[icon] || icons.edit}</svg><h3>خالیه</h3><p>${esc(msg)}</p>${btnText ? `<button data-empty="${btnAction}">${esc(btnText)}</button>` : ''}</div>`;
 }
-
 function renderSkeleton() {
   return Array(2).fill(0).map(() => `
     <div class="skel-post">
@@ -1096,8 +825,6 @@ function renderSkeleton() {
     </div>
   `).join('');
 }
-
-// ===== CONFETTI =====
 function showConfetti() {
   const canvas = $('#confettiCanvas');
   canvas.classList.add('show');
@@ -1105,39 +832,19 @@ function showConfetti() {
   canvas.width = window.innerWidth; canvas.height = window.innerHeight;
   const pieces = [];
   const colors = ['#e0427e','#3b82f6','#10b981','#f59e0b','#8b5cf6','#ef4444','#06b6d4'];
-  for (let i = 0; i < 80; i++) {
-    pieces.push({
-      x: Math.random() * canvas.width, y: -20,
-      w: 6 + Math.random() * 6, h: 8 + Math.random() * 8,
-      color: colors[Math.floor(Math.random() * colors.length)],
-      vx: -2 + Math.random() * 4, vy: 2 + Math.random() * 4,
-      rot: Math.random() * 360, vrot: -4 + Math.random() * 8
-    });
-  }
+  for (let i = 0; i < 80; i++) pieces.push({x: Math.random() * canvas.width, y: -20, w: 6 + Math.random() * 6, h: 8 + Math.random() * 8, color: colors[Math.floor(Math.random() * colors.length)], vx: -2 + Math.random() * 4, vy: 2 + Math.random() * 4, rot: Math.random() * 360, vrot: -4 + Math.random() * 8});
   let frames = 0;
   function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    pieces.forEach(p => {
-      p.x += p.vx; p.y += p.vy; p.rot += p.vrot;
-      ctx.save();
-      ctx.translate(p.x, p.y); ctx.rotate(p.rot * Math.PI / 180);
-      ctx.fillStyle = p.color;
-      ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
-      ctx.restore();
-    });
+    pieces.forEach(p => { p.x += p.vx; p.y += p.vy; p.rot += p.vrot; ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot * Math.PI / 180); ctx.fillStyle = p.color; ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h); ctx.restore(); });
     frames++;
-    if (frames < 200) requestAnimationFrame(draw);
-    else canvas.classList.remove('show');
+    if (frames < 200) requestAnimationFrame(draw); else canvas.classList.remove('show');
   }
   draw();
 }
-
-// ===== PARTICLES =====
 function showParticles(x, y, emoji='❤️') {
   for (let i = 0; i < 6; i++) {
-    const p = document.createElement('div');
-    p.className = 'particle';
-    p.textContent = emoji;
+    const p = document.createElement('div'); p.className = 'particle'; p.textContent = emoji;
     const angle = (Math.PI * 2 * i) / 6;
     p.style.left = x + 'px'; p.style.top = y + 'px';
     p.style.setProperty('--px', Math.cos(angle) * 80 + 'px');
@@ -1146,8 +853,6 @@ function showParticles(x, y, emoji='❤️') {
     setTimeout(() => p.remove(), 1000);
   }
 }
-
-// ===== THEME =====
 function applyAccent(color) {
   document.documentElement.style.setProperty('--accent', color);
   const r = parseInt(color.slice(1,3), 16), g = parseInt(color.slice(3,5), 16), b = parseInt(color.slice(5,7), 16);
@@ -1155,9 +860,7 @@ function applyAccent(color) {
   document.querySelector('meta[name="theme-color"]').setAttribute('content', color);
   localStorage.setItem('luno_accent', color);
   $$('.accent-color').forEach(c => c.classList.toggle('active', c.dataset.color === color));
-  $$('.accent-color').forEach(c => c.style.background = c.dataset.color);
 }
-
 function applyTheme(mode) {
   const now = new Date().getHours();
   let isDark = false;
@@ -1169,67 +872,48 @@ function applyTheme(mode) {
   $$('#themeOptions .setting-opt').forEach(b => b.classList.toggle('active', b.dataset.themeOpt === mode));
   localStorage.setItem('luno_theme', mode);
 }
-
 function applyFontSize(size) {
   document.documentElement.style.setProperty('--font-size', size + 'px');
   localStorage.setItem('luno_font', size);
   $$('#fontOptions .setting-opt').forEach(b => b.classList.toggle('active', b.dataset.font === String(size)));
 }
-
 function applyFontFamily(family) {
-  const fonts = {
-    'Vazirmatn': "'Vazirmatn',Tahoma,sans-serif",
-    'Shabnam': "'Shabnam','Vazirmatn',Tahoma,sans-serif"
-  };
+  const fonts = {'Vazirmatn': "'Vazirmatn',Tahoma,sans-serif", 'Shabnam': "'Shabnam','Vazirmatn',Tahoma,sans-serif"};
   document.documentElement.style.setProperty('--font-family', fonts[family] || fonts.Vazirmatn);
   localStorage.setItem('luno_font_family', family);
   $$('#fontFamilyOptions .setting-opt').forEach(b => b.classList.toggle('active', b.dataset.fontFamily === family));
 }
-
 function applyChatBg(bgName) {
   const bg = CHAT_BGS.find(b => b.name === bgName) || CHAT_BGS[0];
-  const pageChat = $('#page-chat');
-  if (bg.value === 'none') {
-    document.documentElement.style.setProperty('--chat-bg', 'none');
-  } else {
-    document.documentElement.style.setProperty('--chat-bg', bg.value);
-  }
+  document.documentElement.style.setProperty('--chat-bg', bg.value === 'none' ? 'none' : bg.value);
   localStorage.setItem('luno_chat_bg', bgName);
   $$('.chat-bg').forEach(b => b.classList.toggle('active', b.dataset.bg === bgName));
 }
-
 function renderAccentGrid() {
   const grid = $('#accentGrid');
   grid.innerHTML = ACCENT_COLORS.map(c => `<button class="accent-color" data-color="${c}" style="background:${c}"></button>`).join('');
   const saved = localStorage.getItem('luno_accent') || ACCENT_COLORS[0];
   $$('.accent-color').forEach(c => c.classList.toggle('active', c.dataset.color === saved));
 }
-
 function renderAvatarColorGrid() {
   const grid = $('#avatarColorGrid');
+  if (!grid) return;
   grid.innerHTML = AVATAR_COLORS.map(c => `<button class="avatar-color" data-avatar-color="${c}" style="background:${c}"></button>`).join('');
   const myColor = state.avatarColors[state.user?.phone];
   $$('.avatar-color').forEach(c => c.classList.toggle('active', c.dataset.avatarColor === myColor));
 }
-
 function renderChatBgGrid() {
   const grid = $('#chatBgGrid');
   grid.innerHTML = CHAT_BGS.map(b => {
-    const style = b.value === 'none' ? `background:${b.color}` : `background-image:${b.value};${b.size ? `background-size:${b.size};` : ''}background-color:${b.color}`;
+    const style = b.value === 'none' ? `background:var(--line-2)` : `background-image:${b.value};${b.size ? `background-size:${b.size};` : ''}background-color:var(--bg)`;
     return `<button class="chat-bg" data-bg="${b.name}" style="${style}"></button>`;
   }).join('');
   const saved = localStorage.getItem('luno_chat_bg') || 'none';
   $$('.chat-bg').forEach(b => b.classList.toggle('active', b.dataset.bg === saved));
 }
-
-// ===== EMOJI =====
 const EMOJIS = ['😀','😃','😄','😁','😆','😅','🤣','😂','🙂','🙃','😉','😊','😇','🥰','😍','🤩','😘','😗','😚','😙','🥲','😋','😛','😜','🤪','😝','🤗','🤭','🤫','🤔','🤐','🤨','😐','😑','😶','😏','😒','🙄','😬','🤥','😌','😔','😪','🤤','😴','😷','🤒','🤕','🤢','🤮','🥵','🥶','😵','🤯','🤠','🥳','😎','🤓','🧐','😕','😟','🙁','😮','😯','😲','😳','🥺','😦','😧','😨','😰','😥','😢','😭','😱','😖','😣','😞','😓','😩','😫','🥱','😤','😡','😠','🤬','😈','👿','💀','💩','🤡','👹','👺','👻','👽','👾','🤖','❤️','🧡','💛','💚','💙','💜','🖤','🤍','🤎','💔','❤️‍🔥','💕','💞','💓','💗','💖','💘','💝','👍','👎','👌','🤌','🤏','✌️','🤞','🤟','🤘','🤙','👈','👉','👆','👇','☝️','✋','🤚','🖐️','🖖','👋','🤝','🙏','✍️','💪','🦾','🦵','🦶','👂','🦻','👃','🧠','🫀','🫁','🦷','🦴','👀','👁️','👅','👄','🌹','🌸','🌺','🌻','🌷','🌼','🌿','🍀','🍁','🍂','🍃','⭐','🌟','✨','💫','⚡','🔥','💥','❄️','🌈','☀️','🌙','⛅','☁️','🌧️','⛈️','🌨️','🌩️'];
+function renderEmojiPicker() { $('#emojiGrid').innerHTML = EMOJIS.map(e => `<button data-emoji="${e}">${e}</button>`).join(''); }
 
-function renderEmojiPicker() {
-  $('#emojiGrid').innerHTML = EMOJIS.map(e => `<button data-emoji="${e}">${e}</button>`).join('');
-}
-
-// ===== AUTH =====
 let authMode = 'login';
 $('#authSwitchBtn').addEventListener('click', () => {
   authMode = authMode === 'login' ? 'signup' : 'login';
@@ -1238,19 +922,15 @@ $('#authSwitchBtn').addEventListener('click', () => {
   $('#authSwitchBtn').textContent = authMode === 'login' ? 'ثبت‌نام' : 'ورود';
   $('#authBtn').textContent = authMode === 'login' ? 'ورود' : 'ثبت‌نام';
 });
-
 $('#authForm').addEventListener('submit', e => {
   e.preventDefault();
-  const name = $('#authName').value.trim();
-  const phone = $('#authPhone').value.trim();
-  const pass = $('#authPass').value;
+  const name = $('#authName').value.trim(); const phone = $('#authPhone').value.trim(); const pass = $('#authPass').value;
   $$('.auth-err').forEach(el => el.classList.remove('show'));
   let err = false;
   if (authMode === 'signup' && name.length < 3) { $('#nameErr').classList.add('show'); err = true; }
   if (!/^09\d{9}$/.test(phone)) { $('#phoneErr').classList.add('show'); err = true; }
   if (pass.length < 6) { $('#passErr').classList.add('show'); err = true; }
   if (err) return;
-
   if (authMode === 'signup') {
     const users = JSON.parse(localStorage.getItem('luno_users') || '[]');
     if (users.find(u => u.phone === phone)) { toast('این شماره قبلاً ثبت شده', 'error'); return; }
@@ -1273,33 +953,23 @@ $('#authForm').addEventListener('submit', e => {
     enterApp();
   }
 });
-
 $('#logoutBtn').addEventListener('click', () => {
   showConfirm('خروج از حساب', 'مطمئنی می‌خوای خارج بشی؟', () => {
-    localStorage.removeItem('luno_user');
-    state.user = null;
-    $('#authScreen').classList.remove('hide');
-    $('#app').classList.add('hide');
+    localStorage.removeItem('luno_user'); state.user = null;
+    $('#authScreen').classList.remove('hide'); $('#app').classList.add('hide');
   });
 });
-
 function enterApp() {
-  $('#authScreen').classList.add('hide');
-  $('#app').classList.remove('hide');
+  $('#authScreen').classList.add('hide'); $('#app').classList.remove('hide');
   $('#adminTag').classList.toggle('hidden', !isAdmin());
   $('#feed').innerHTML = renderSkeleton();
   setTimeout(() => renderHome(), 300);
   updateBadge();
   renderAvatarColorGrid();
-  // Show avatar color grid only for admin/approved users
-  if (canUseAvatarColor(state.user.phone)) {
-    $('#avatarColorGrid').style.display = 'grid';
-    $('#avatarColorStatus').textContent = 'شما می‌توانید رنگ حاشیه انتخاب کنید';
-  }
+  if (canUseAvatarColor(state.user.phone)) { $('#avatarColorGrid').style.display = 'grid'; $('#avatarColorStatus').textContent = 'شما می‌توانید رنگ حاشیه انتخاب کنید'; }
   history.replaceState({ page: 'home' }, '');
   history.pushState({ page: 'home' }, '');
 }
-
 function updateBadge() {
   const unread = state.notifications.filter(n => !n.read).length;
   const badge = $('#navBadge');
@@ -1307,49 +977,28 @@ function updateBadge() {
   else badge.classList.add('hidden');
 }
 
-// ===== HOME =====
 function renderHome() {
   $('#stories').innerHTML = `<button class="story plus" id="addStory"><div class="story-ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg></div><span class="story-name">استوری</span></button>`;
-
   let posts = [...state.posts];
   if (state.feedFilter === 'popular') posts = posts.filter(p => isPopular(p)).sort((a,b) => (b.likes||0) - (a.likes||0));
   else posts = posts.sort((a,b) => b.createdAt - a.createdAt);
-
   if (!posts.length) {
-    $('#feed').innerHTML = emptyState(
-      state.feedFilter === 'popular' ? 'هنوز پستی محبوب نشده' : 'هنوز پستی منتشر نشده',
-      'edit', state.feedFilter === 'newest' ? 'ساخت اولین پست' : '', 'go-create'
-    );
+    $('#feed').innerHTML = emptyState(state.feedFilter === 'popular' ? 'هنوز پستی محبوب نشده' : 'هنوز پستی منتشر نشده', 'edit', state.feedFilter === 'newest' ? 'ساخت اولین پست' : '', 'go-create');
     return;
   }
   $('#feed').innerHTML = posts.map(renderPost).join('');
 }
-
-function avatarClass(phone) {
-  const c = getUserAvatarColor(phone);
-  return c ? 'colored' : '';
-}
-function avatarStyle(phone) {
-  const c = getUserAvatarColor(phone);
-  return c ? `style="--avatar-color:${c}"` : '';
-}
-
+function avatarClass(phone) { const c = getUserAvatarColor(phone); return c ? 'colored' : ''; }
+function avatarStyle(phone) { const c = getUserAvatarColor(phone); return c ? `style="--avatar-color:${c}"` : ''; }
 function renderPost(p) {
   const canManage = isAdmin() || p.authorId === state.user?.phone;
-  const imgClass = avatarClass(p.authorId);
-  const imgStyle = avatarStyle(p.authorId);
-
+  const imgClass = avatarClass(p.authorId); const imgStyle = avatarStyle(p.authorId);
   if (p.hasImage === false) {
     return `<div class="text-post" data-post="${p.id}">
       <div class="text-post-head"><span class="text-post-cat">${esc(p.category)}</span>${canManage ? `<button class="text-post-menu" data-menu="${p.id}">⋯</button>` : ''}</div>
       <h3>${esc(p.title)}</h3>
       <p>${processText(p.desc || '')}</p>
-      <div class="text-post-author">
-        <img src="${p.authorAvatar || DEFAULT_AVATAR}" class="${imgClass}" ${imgStyle} alt="" data-user="${p.authorId}">
-        <b data-user="${p.authorId}">${esc(p.author)}</b>
-        <span class="sp"></span>
-        <span>${formatTime(p.createdAt)}</span>
-      </div>
+      <div class="text-post-author"><img src="${p.authorAvatar || DEFAULT_AVATAR}" class="${imgClass}" ${imgStyle} alt="" data-user="${p.authorId}"><b data-user="${p.authorId}">${esc(p.author)}</b><span class="sp"></span><span>${formatTime(p.createdAt)}</span></div>
       <div class="text-post-actions">
         <button class="${isLiked(p.id) ? 'liked' : ''}" data-like="${p.id}"><svg viewBox="0 0 24 24"><path d="M20.8 8.6c0 5.5-8.8 11-8.8 11s-8.8-5.5-8.8-11A4.6 4.6 0 0 1 12 6.1a4.6 4.6 0 0 1 8.8 2.5Z"/></svg>${p.likes || 0}</button>
         <button data-comment="${p.id}"><svg viewBox="0 0 24 24"><path d="M20 11.5a7.5 7.5 0 0 1-8 7.5 9 9 0 0 1-4-.9L3 20l1.5-4.2A7.2 7.2 0 0 1 4 11.5 7.5 7.5 0 0 1 12 4a7.5 7.5 0 0 1 8 7.5Z"/></svg>${(state.comments[p.id] || []).length}</button>
@@ -1357,7 +1006,6 @@ function renderPost(p) {
       </div>
     </div>`;
   }
-
   const commentsCount = (state.comments[p.id] || []).length;
   return `<div class="post" data-post="${p.id}">
     <div class="post-header">
@@ -1379,52 +1027,38 @@ function renderPost(p) {
     </div>
     <div class="post-info">
       <div class="post-likes" data-likes="${p.id}">${(p.likes || 0).toLocaleString('fa-IR')} پسند</div>
-      <div class="post-caption"><b>${esc(p.author)}</b>${processText((p.desc || '').slice(0, 130))}</div>
+      <div class="post-caption">${processText((p.desc || '').slice(0, 130))}</div>
       ${commentsCount > 0 ? `<button class="post-comment-link" data-comment="${p.id}">مشاهده ${commentsCount} نظر</button>` : ''}
       <div class="post-time">${formatTime(p.createdAt)}</div>
     </div>
   </div>`;
 }
 
-// Double tap handler
 let lastTap = 0, lastTapTarget = null;
 document.addEventListener('click', e => {
   const dbl = e.target.closest('[data-dbltap]');
   if (dbl) {
-    const now = Date.now();
-    const id = dbl.dataset.dbltap;
+    const now = Date.now(); const id = dbl.dataset.dbltap;
     if (now - lastTap < 300 && lastTapTarget === id) {
-      // Double tap!
       if (!isLiked(id)) {
         state.liked.push(id);
         const p = state.posts.find(x => x.id === id);
         if (p) p.likes = (p.likes || 0) + 1;
-        save();
-        haptic();
-        playSound('like');
+        save(); haptic(); playSound('like');
       }
       const heart = dbl.querySelector('.post-heart');
-      heart.classList.remove('show');
-      void heart.offsetWidth;
-      heart.classList.add('show');
-      // Update like button
+      heart.classList.remove('show'); void heart.offsetWidth; heart.classList.add('show');
       const post = dbl.closest('.post');
       const likeBtn = post.querySelector(`[data-like="${id}"]`);
       if (likeBtn) likeBtn.classList.add('liked');
       const likesEl = post.querySelector(`[data-likes="${id}"]`);
-      if (likesEl) {
-        const p = state.posts.find(x => x.id === id);
-        likesEl.textContent = (p?.likes || 0).toLocaleString('fa-IR') + ' پسند';
-      }
-      lastTap = 0;
-      return;
+      if (likesEl) { const p = state.posts.find(x => x.id === id); likesEl.textContent = (p?.likes || 0).toLocaleString('fa-IR') + ' پسند'; }
+      lastTap = 0; return;
     }
-    lastTap = now;
-    lastTapTarget = id;
+    lastTap = now; lastTapTarget = id;
   }
 });
 
-// ===== IMAGE VIEWER =====
 document.addEventListener('click', e => {
   const iv = e.target.closest('[data-img-view]');
   if (iv && e.target.tagName === 'IMG') {
@@ -1436,13 +1070,11 @@ document.addEventListener('click', e => {
 $('#closeViewer').addEventListener('click', () => { $('#imgViewer').classList.remove('show'); document.body.style.overflow = ''; });
 $('#imgViewer').addEventListener('click', e => { if (e.target.id === 'imgViewer') { $('#imgViewer').classList.remove('show'); document.body.style.overflow = ''; } });
 
-// ===== SEARCH =====
 function renderSearchSuggestions() {
   const wrap = $('#searchSuggestions');
   if (state.recentSearches.length === 0) { wrap.innerHTML = ''; return; }
   wrap.innerHTML = `<div class="search-suggestions"><h4>جستجوهای اخیر</h4>${state.recentSearches.slice(0, 5).map(s => `<div class="search-suggest-item" data-recent="${esc(s)}"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg><span>${esc(s)}</span><button data-del-recent="${esc(s)}">×</button></div>`).join('')}</div>`;
 }
-
 function addRecentSearch(q) {
   if (!q) return;
   state.recentSearches = state.recentSearches.filter(s => s !== q);
@@ -1450,24 +1082,24 @@ function addRecentSearch(q) {
   state.recentSearches = state.recentSearches.slice(0, 10);
   save();
 }
-
 function renderSearch(q = '') {
   q = q.trim();
   const wrap = $('#searchResults');
   const suggestions = $('#searchSuggestions');
-  const tabs = $('#searchTabs');
-
+  // Always show tabs
   if (!q) {
     suggestions.style.display = 'block';
     renderSearchSuggestions();
-    tabs.style.display = 'none';
-    wrap.innerHTML = '';
+    if (state.searchTab === 'articles') {
+      const items = state.posts.filter(p => p.asArticle === true && p.hasImage !== false).sort((a,b) => b.createdAt - a.createdAt);
+      wrap.innerHTML = items.length ? items.map(p => `<div class="article-row" data-article="${p.id}"><img src="${p.image}" alt=""><div class="article-row-info"><h3>${esc(p.title)}</h3><p>${esc((p.desc || '').slice(0, 80))}</p><div class="article-row-meta"><img src="${p.authorAvatar || DEFAULT_AVATAR}" alt=""><span>${esc(p.author)} · ${formatTime(p.createdAt)}</span></div></div></div>`).join('') : emptyState('هنوز مقاله‌ای منتشر نشده', 'search');
+    } else {
+      const users = extractRealUsers();
+      wrap.innerHTML = users.length ? users.map(u => renderUserRow(u)).join('') : emptyState('هنوز کاربری ثبت‌نام نکرده', 'users');
+    }
     return;
   }
-
   suggestions.style.display = 'none';
-  tabs.style.display = 'flex';
-
   if (state.searchTab === 'articles') {
     let items = state.posts.filter(p => p.asArticle === true && p.hasImage !== false);
     if (q) items = items.filter(p => (p.title + ' ' + p.category + ' ' + (p.desc || '')).includes(q));
@@ -1481,7 +1113,6 @@ function renderSearch(q = '') {
     wrap.innerHTML = users.map(u => renderUserRow(u)).join('');
   }
 }
-
 $('#searchInput').addEventListener('input', e => renderSearch(e.target.value));
 $('#searchInput').addEventListener('keypress', e => { if (e.key === 'Enter') { const q = e.target.value.trim(); if (q) addRecentSearch(q); } });
 
@@ -1496,7 +1127,6 @@ function extractRealUsers() {
   return Array.from(map.values());
 }
 
-// ===== FRIENDS =====
 function renderFriends() {
   $$('.ftab').forEach(t => t.classList.toggle('active', t.dataset.ftab === state.friendTab));
   const wrap = $('#friendsList');
@@ -1505,7 +1135,6 @@ function renderFriends() {
   if (state.friendTab === 'suggest') users = allUsers.filter(u => !isFriend(u.id) && !isPending(u.id));
   else if (state.friendTab === 'pending') users = state.pending.map(r => allUsers.find(u => u.id === r.to)).filter(Boolean);
   else users = allUsers.filter(u => isFriend(u.id));
-
   if (!users.length) {
     const msgs = { suggest: 'هنوز کاربر دیگری ثبت‌نام نکرده', pending: 'درخواستی ارسال نکرده‌ای', friends: 'هنوز دوستی اضافه نکردی' };
     wrap.innerHTML = emptyState(msgs[state.friendTab], 'users');
@@ -1513,145 +1142,79 @@ function renderFriends() {
   }
   wrap.innerHTML = users.map(u => renderUserRow(u)).join('');
 }
-
 function renderUserRow(u) {
-  const friend = isFriend(u.id);
-  const pending = isPending(u.id);
-  const imgClass = avatarClass(u.id);
-  const imgStyle = avatarStyle(u.id);
+  const friend = isFriend(u.id); const pending = isPending(u.id);
+  const imgClass = avatarClass(u.id); const imgStyle = avatarStyle(u.id);
   let actions = '';
   if (friend) actions = `<button class="btn-sm chat" data-chat="${u.id}" title="پیام"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.4 9 9 0 0 1-4.3-1L3 20l1.2-4.5A8.3 8.3 0 0 1 3.5 11.5 8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5Z"/></svg></button>`;
   else if (pending) actions = `<button class="btn-sm pending">در انتظار تایید</button>`;
   else actions = `<button class="btn-sm primary" data-request="${u.id}">درخواست چت</button>`;
-
   return `<div class="user-row"><div class="user-row-avatar" data-user="${u.id}"><img src="${u.avatar || DEFAULT_AVATAR}" class="${imgClass}" ${imgStyle} alt="">${u.online ? '<span class="dot show"></span>' : ''}</div><div class="user-row-info" data-user="${u.id}"><h4>${esc(u.name)}</h4><p>${esc(u.bio || '')}</p></div><div class="user-row-actions">${actions}</div></div>`;
 }
-
 function sendChatRequest(uid) {
   if (isFriend(uid) || isPending(uid)) return;
   state.pending.push({ to: uid, at: Date.now() });
-  save();
-  renderFriends();
-  toast('درخواست چت ارسال شد');
+  save(); renderFriends(); toast('درخواست چت ارسال شد');
 }
-
 function removeFriend(uid) {
   showConfirm('حذف دوست', `مطمئنی می‌خوای از دوستانت حذف کنی؟`, () => {
-    state.friends = state.friends.filter(x => x !== uid);
-    save();
-    toast('از دوستان حذف شد');
+    state.friends = state.friends.filter(x => x !== uid); save(); toast('از دوستان حذف شد');
     if ($('#page-user').classList.contains('active')) openUserProfile(uid);
     if ($('#page-friends').classList.contains('active')) renderFriends();
     if ($('#page-profile').classList.contains('active')) renderMyProfile();
   });
 }
 
-// ===== NOTIFICATIONS =====
 function renderNotifs() {
   $$('.ntab').forEach(t => t.classList.toggle('active', t.dataset.ntab === state.notifTab));
   const wrap = $('#notifsList');
   if (state.notifTab === 'notifs') {
     if (!state.notifications.length) { wrap.innerHTML = emptyState('اعلان جدیدی نداری', 'bell'); return; }
     wrap.innerHTML = state.notifications.map(n => `<div class="notif"><img src="${n.avatar || DEFAULT_AVATAR}" alt=""><div class="notif-info"><p>${n.text}</p><time>${esc(n.time || 'همین حالا')}</time></div><button class="notif-del" data-del-notif="${n.id}">×</button></div>`).join('');
-    state.notifications.forEach(n => n.read = true);
-    save();
-    updateBadge();
+    state.notifications.forEach(n => n.read = true); save(); updateBadge();
   } else {
     const ids = Object.keys(state.chats);
     if (!ids.length) { wrap.innerHTML = emptyState('هنوز پیامی نداری', 'chat'); return; }
     const allUsers = extractRealUsers();
     wrap.innerHTML = ids.map(uid => {
-      const u = allUsers.find(x => x.id === uid);
-      if (!u) return '';
-      const msgs = state.chats[uid];
-      const last = msgs[msgs.length - 1];
+      const u = allUsers.find(x => x.id === uid); if (!u) return '';
+      const msgs = state.chats[uid]; const last = msgs[msgs.length - 1];
       return `<div class="chat-row"><img src="${u.avatar}" alt="" data-chat="${uid}"><div class="chat-row-info" data-chat="${uid}"><h4>${esc(u.name)}</h4><p>${esc(last?.text || '')}</p></div><span class="chat-row-time">${esc(last?.time || '')}</span><button class="notif-del" data-del-chat="${uid}">×</button></div>`;
     }).join('');
   }
 }
 
-// ===== CHAT =====
 function openChat(uid) {
   const allUsers = extractRealUsers();
-  const u = allUsers.find(x => x.id === uid);
-  if (!u) return;
+  const u = allUsers.find(x => x.id === uid); if (!u) return;
   state.currentChat = uid;
-  $('#chatAvatar').src = u.avatar;
-  $('#chatName').textContent = u.name;
+  $('#chatAvatar').src = u.avatar; $('#chatName').textContent = u.name;
   $('#chatStatus').textContent = u.online ? 'آنلاین' : 'آفلاین';
   if (!state.chats[uid]) state.chats[uid] = [];
-  renderChatBody();
-  showPage('chat');
+  renderChatBody(); showPage('chat');
   setTimeout(() => $('#chatInput').focus(), 300);
 }
-
 function renderChatBody() {
-  const uid = state.currentChat;
-  if (!uid) return;
-  const msgs = state.chats[uid] || [];
-  const body = $('#chatBody');
-  body.innerHTML = msgs.length
-    ? msgs.map((m, i) => `<div class="bubble ${m.from === 'me' ? 'me' : 'them'} ${m.react ? 'reacted' : ''}" data-del-bubble="${i}" data-react="${m.react || ''}" data-bubble-idx="${i}">${processText(m.text)}<time>${esc(m.time)}</time></div>`).join('')
-    : emptyState('شروع گفتگو', 'chat');
+  const uid = state.currentChat; if (!uid) return;
+  const msgs = state.chats[uid] || []; const body = $('#chatBody');
+  body.innerHTML = msgs.length ? msgs.map((m, i) => `<div class="bubble ${m.from === 'me' ? 'me' : 'them'} ${m.react ? 'reacted' : ''}" data-del-bubble="${i}" data-react="${m.react || ''}" data-bubble-idx="${i}">${processText(m.text)}<time>${esc(m.time)}</time></div>`).join('') : emptyState('شروع گفتگو', 'chat');
   setTimeout(() => body.scrollTop = body.scrollHeight, 60);
 }
-
 $('#chatSend').addEventListener('click', () => {
-  const text = $('#chatInput').value.trim();
-  if (!text || !state.currentChat) return;
+  const text = $('#chatInput').value.trim(); if (!text || !state.currentChat) return;
   const time = new Date().toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' });
   if (!state.chats[state.currentChat]) state.chats[state.currentChat] = [];
   state.chats[state.currentChat].push({ from: 'me', text, time });
-  $('#chatInput').value = '';
-  save();
-  renderChatBody();
-  haptic();
-  playSound('message');
+  $('#chatInput').value = ''; save(); renderChatBody(); haptic(); playSound('message');
 });
 $('#chatInput').addEventListener('keypress', e => { if (e.key === 'Enter') $('#chatSend').click(); });
-
-// Emoji picker
-$('#emojiBtn').addEventListener('click', e => {
-  e.stopPropagation();
-  $('#emojiPicker').classList.toggle('show');
-});
+$('#emojiBtn').addEventListener('click', e => { e.stopPropagation(); $('#emojiPicker').classList.toggle('show'); });
 document.addEventListener('click', e => {
-  if (!e.target.closest('#emojiPicker') && !e.target.closest('#emojiBtn')) {
-    $('#emojiPicker').classList.remove('show');
-  }
+  if (!e.target.closest('#emojiPicker') && !e.target.closest('#emojiBtn')) $('#emojiPicker').classList.remove('show');
   const em = e.target.closest('[data-emoji]');
-  if (em) {
-    const input = $('#chatInput');
-    input.value += em.dataset.emoji;
-    input.focus();
-  }
+  if (em) { const input = $('#chatInput'); input.value += em.dataset.emoji; input.focus(); }
 });
 
-// Long press on bubble = reaction
-let bubbleTimer = null;
-document.addEventListener('touchstart', e => {
-  const b = e.target.closest('[data-bubble-idx]');
-  if (b) {
-    bubbleTimer = setTimeout(() => {
-      const idx = parseInt(b.dataset.bubbleIdx);
-      const uid = state.currentChat;
-      if (!uid || !state.chats[uid] || !state.chats[uid][idx]) return;
-      const reactions = ['❤️','😂','😮','😢','👍'];
-      const r = prompt('ری‌اکشن (1:❤️ 2:😂 3:😮 4:😢 5:👍):', '1');
-      const idx2 = parseInt(r) - 1;
-      if (idx2 >= 0 && idx2 < reactions.length) {
-        state.chats[uid][idx].react = reactions[idx2];
-        save();
-        renderChatBody();
-        haptic();
-      }
-    }, 600);
-  }
-}, {passive: true});
-document.addEventListener('touchend', () => { clearTimeout(bubbleTimer); });
-document.addEventListener('touchmove', () => { clearTimeout(bubbleTimer); });
-
-// ===== MY PROFILE =====
 function renderMyProfile() {
   $('#myName').textContent = state.user.name;
   $('#myBio').textContent = state.user.bio || 'بیوگرافی خالی است';
@@ -1659,24 +1222,20 @@ function renderMyProfile() {
   const myColor = state.avatarColors[state.user.phone];
   $('#myAvatar').classList.toggle('colored', !!myColor);
   if (myColor) $('#myAvatar').style.setProperty('--avatar-color', myColor);
-  else $('#myAvatar').style.removeProperty('--avatar-color');
-
   const coverImg = $('#myCoverImg');
   if (state.user.cover) { coverImg.src = state.user.cover; coverImg.style.display = 'block'; }
   else coverImg.style.display = 'none';
-
   const myPosts = state.posts.filter(p => p.authorId === state.user.phone);
   $('#myPostsCount').textContent = myPosts.length;
   $('#myFriendsCount').textContent = state.friends.length;
-
   if (state.profileTab === 'posts') {
     const imgPosts = myPosts.filter(p => p.hasImage !== false);
-    const textPosts = myPosts.filter(p => p.hasImage === false);
-    let html = '';
-    if (imgPosts.length) html += `<div class="pin-grid">${imgPosts.map(p => `<div class="pin" data-article="${p.id}"><img src="${p.image}" alt="" onerror="this.src='${PLACEHOLDER}'"></div>`).join('')}</div>`;
-    if (textPosts.length) html += `<div class="section-label">پست‌های متنی</div><div class="text-post-list">${textPosts.map(p => `<div class="text-post-card"><div class="text-post-card-head"><div data-article="${p.id}" style="flex:1;cursor:pointer"><h4>${esc(p.title)}</h4></div><button class="text-post-card-menu" data-menu="${p.id}">⋯</button></div><p data-article="${p.id}" style="cursor:pointer">${processText(p.desc || '')}</p></div>`).join('')}</div>`;
-    if (!html) html = emptyState('هنوز پستی نساختی', 'edit', 'ساخت پست', 'go-create');
+    let html = imgPosts.length ? `<div class="pin-grid">${imgPosts.map(p => `<div class="pin" data-article="${p.id}"><img src="${p.image}" alt="" onerror="this.src='${PLACEHOLDER}'"></div>`).join('')}</div>` : emptyState('هنوز پست تصویری نساختی', 'edit', 'ساخت پست', 'go-create');
     $('#myProfileContent').innerHTML = html;
+  } else if (state.profileTab === 'text') {
+    const textPosts = myPosts.filter(p => p.hasImage === false);
+    if (!textPosts.length) { $('#myProfileContent').innerHTML = emptyState('هنوز پست متنی نساختی', 'edit', 'ساخت پست', 'go-create'); return; }
+    $('#myProfileContent').innerHTML = `<div class="text-post-list">${textPosts.map(p => `<div class="text-post-card"><div class="text-post-card-head"><div data-article="${p.id}" style="flex:1;cursor:pointer"><h4>${esc(p.title)}</h4></div><button class="text-post-card-menu" data-menu="${p.id}">⋯</button></div><p data-article="${p.id}" style="cursor:pointer">${processText(p.desc || '')}</p></div>`).join('')}</div>`;
   } else if (state.profileTab === 'saved') {
     const savedPosts = state.posts.filter(p => isSaved(p.id));
     if (!savedPosts.length) { $('#myProfileContent').innerHTML = emptyState('چیزی ذخیره نکرده‌ای', 'edit'); return; }
@@ -1688,42 +1247,29 @@ function renderMyProfile() {
     $('#myProfileContent').innerHTML = friendsList.map(u => renderUserRow(u)).join('');
   }
 }
-
 function openEditProfileModal() { $('#editName').value = state.user.name || ''; $('#editBio').value = state.user.bio || ''; $('#editModal').classList.add('show'); }
 $('#editProfileBtn').addEventListener('click', openEditProfileModal);
 $('#editProfileItem').addEventListener('click', openEditProfileModal);
-
 $('#saveProfileBtn').addEventListener('click', () => {
-  const name = $('#editName').value.trim();
-  const bio = $('#editBio').value.trim();
-  if (name) state.user.name = name;
-  state.user.bio = bio;
+  const name = $('#editName').value.trim(); const bio = $('#editBio').value.trim();
+  if (name) state.user.name = name; state.user.bio = bio;
   const f = $('#editAvatar').files[0];
   const done = () => {
     save();
     const allUsers = JSON.parse(localStorage.getItem('luno_users') || '[]');
     const idx = allUsers.findIndex(u => u.phone === state.user.phone);
     if (idx !== -1) { allUsers[idx].name = state.user.name; allUsers[idx].bio = state.user.bio; if (state.user.avatar) allUsers[idx].avatar = state.user.avatar; localStorage.setItem('luno_users', JSON.stringify(allUsers)); }
-    renderMyProfile();
-    $('#editModal').classList.remove('show');
-    toast('ذخیره شد');
+    renderMyProfile(); $('#editModal').classList.remove('show'); toast('ذخیره شد');
   };
   if (f) { const r = new FileReader(); r.onload = e => { state.user.avatar = e.target.result; done(); }; r.readAsDataURL(f); }
   else done();
 });
-
 $('#myCover').addEventListener('click', () => {
   const input = document.createElement('input'); input.type = 'file'; input.accept = 'image/*';
-  input.onchange = e => {
-    const f = e.target.files[0]; if (!f) return;
-    const r = new FileReader();
-    r.onload = ev => { state.user.cover = ev.target.result; save(); renderMyProfile(); toast('کاور تغییر کرد'); };
-    r.readAsDataURL(f);
-  };
+  input.onchange = e => { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = ev => { state.user.cover = ev.target.result; save(); renderMyProfile(); toast('کاور تغییر کرد'); }; r.readAsDataURL(f); };
   input.click();
 });
 
-// ===== USER PROFILE =====
 function openUserProfile(uid) {
   const allUsers = extractRealUsers();
   const u = allUsers.find(x => x.id === uid);
@@ -1732,139 +1278,92 @@ function openUserProfile(uid) {
   const uc = state.avatarColors[uid];
   $('#userAvatar').classList.toggle('colored', !!uc);
   if (uc) $('#userAvatar').style.setProperty('--avatar-color', uc);
-  $('#userName').textContent = u.name;
-  $('#userBio').textContent = u.bio || 'بیوگرافی خالی است';
-  $('#userPostsCount').textContent = u.posts || 0;
-  $('#userFriendsCount').textContent = u.friends || 0;
-
-  const friend = isFriend(uid);
-  const pending = isPending(uid);
+  $('#userName').textContent = u.name; $('#userBio').textContent = u.bio || 'بیوگرافی خالی است';
+  $('#userPostsCount').textContent = u.posts || 0; $('#userFriendsCount').textContent = u.friends || 0;
+  const friend = isFriend(uid); const pending = isPending(uid);
   let btns = '';
   if (friend) btns = `<button class="pbtn primary" data-chat="${uid}">پیام</button><button class="pbtn danger" data-unfriend="${uid}">حذف دوست</button>`;
   else if (pending) btns = `<button class="pbtn secondary">در انتظار تایید</button>`;
   else btns = `<button class="pbtn primary" data-request="${uid}">درخواست چت</button>`;
   $('#userBtns').innerHTML = btns;
-
   const userPosts = state.posts.filter(p => p.authorId === uid);
-  $('#userPostsList').innerHTML = userPosts.length
-    ? `<div class="pin-grid">${userPosts.filter(p => p.hasImage !== false).map(p => `<div class="pin" data-article="${p.id}"><img src="${p.image}" alt=""></div>`).join('')}</div>`
-    : emptyState('هنوز پستی منتشر نکرده', 'edit');
+  $('#userPostsList').innerHTML = userPosts.length ? `<div class="pin-grid">${userPosts.filter(p => p.hasImage !== false).map(p => `<div class="pin" data-article="${p.id}"><img src="${p.image}" alt=""></div>`).join('')}</div>` : emptyState('هنوز پستی منتشر نکرده', 'edit');
   showPage('user');
 }
 
-// ===== ARTICLE READER =====
 let currentArticleAuthorId = null;
 function openArticle(id) {
-  const p = state.posts.find(x => x.id === id);
-  if (!p) return;
+  const p = state.posts.find(x => x.id === id); if (!p) return;
   currentArticleAuthorId = p.authorId;
-  $('#artImg').src = p.image || PLACEHOLDER;
-  $('#artTitle').textContent = p.title;
-  $('#artTag').textContent = p.category;
-  $('#artAuthor').textContent = p.author;
-  $('#artAvatar').src = p.authorAvatar || DEFAULT_AVATAR;
+  $('#artImg').src = p.image || PLACEHOLDER; $('#artTitle').textContent = p.title; $('#artTag').textContent = p.category;
+  $('#artAuthor').textContent = p.author; $('#artAvatar').src = p.authorAvatar || DEFAULT_AVATAR;
   $('#artReadingTime').innerHTML = readingTime(p.body || p.desc || '');
   $('#artBody').innerHTML = (p.body || `<p>${processText(p.desc)}</p>`);
-  $('#artProgress').style.width = '0%';
-  showPage('article');
+  $('#artProgress').style.width = '0%'; showPage('article');
 }
-
-// Article progress bar
 $('#mainScroll').addEventListener('scroll', () => {
   if ($('#page-article').classList.contains('active')) {
-    const el = $('#mainScroll');
-    const scrollTop = el.scrollTop;
-    const scrollHeight = el.scrollHeight - el.clientHeight;
+    const el = $('#mainScroll'); const scrollTop = el.scrollTop; const scrollHeight = el.scrollHeight - el.clientHeight;
     const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
     $('#artProgress').style.width = progress + '%';
   }
-  // Back to top
   $('#backTop').classList.toggle('show', $('#mainScroll').scrollTop > 400);
-  // Pull to refresh
-  if ($('#mainScroll').scrollTop === 0) {
-    const ptr = $('#ptr');
-    ptr.style.transform = 'translate(-50%, 0)';
-  }
 });
 
-// ===== PULL TO REFRESH =====
 let pullStart = 0, pulling = false;
-$('#mainScroll').addEventListener('touchstart', e => {
-  if ($('#mainScroll').scrollTop === 0) {
-    pullStart = e.touches[0].clientY;
-    pulling = true;
-  }
-}, {passive: true});
+$('#mainScroll').addEventListener('touchstart', e => { if ($('#mainScroll').scrollTop === 0) { pullStart = e.touches[0].clientY; pulling = true; } }, {passive: true});
 $('#mainScroll').addEventListener('touchmove', e => {
   if (pulling) {
     const diff = e.touches[0].clientY - pullStart;
     if (diff > 0 && diff < 100) {
-      $('#ptr').style.transform = `translate(-50%, ${diff / 2}px)`;
-      if (diff > 60) $('#ptr').classList.add('active');
+      const ptr = $('#ptr'); ptr.classList.add('visible');
+      ptr.style.transform = `translate(-50%, ${diff / 2 - 10}px)`;
+      if (diff > 60) ptr.classList.add('active');
     }
   }
 }, {passive: true});
 $('#mainScroll').addEventListener('touchend', () => {
   const ptr = $('#ptr');
   if (ptr.classList.contains('active')) {
-    ptr.classList.add('loading');
-    ptr.style.transform = 'translate(-50%, 30px)';
-    setTimeout(() => {
-      renderHome();
-      ptr.classList.remove('active', 'loading');
-      ptr.style.transform = '';
-    }, 800);
-  } else {
-    ptr.style.transform = '';
-  }
+    ptr.classList.add('loading'); ptr.style.transform = 'translate(-50%, 30px)';
+    setTimeout(() => { renderHome(); ptr.classList.remove('active', 'loading', 'visible'); ptr.style.transform = ''; }, 800);
+  } else { ptr.classList.remove('visible'); ptr.style.transform = ''; }
   pulling = false;
 });
+$('#backTop').addEventListener('click', () => { $('#mainScroll').scrollTo({top: 0, behavior: 'smooth'}); });
 
-// ===== BACK TO TOP =====
-$('#backTop').addEventListener('click', () => {
-  $('#mainScroll').scrollTo({top: 0, behavior: 'smooth'});
-});
-
-// ===== COMMENTS =====
 function openComments(postId) {
   state.currentPostId = postId;
   const comments = state.comments[postId] || [];
   const body = $('#commentsBody');
-  if (!comments.length) body.innerHTML = emptyState('هنوز نظری نیست. اولین نفر باش!', 'chat');
-  else body.innerHTML = comments.map((c, i) => `<div class="comment-row"><img src="${c.avatar || DEFAULT_AVATAR}" alt=""><div class="comment-row-body"><b>${esc(c.user)}</b><p>${processText(c.text)}</p><time>${esc(c.time)}</time></div><button class="comment-like-btn ${c.liked ? 'liked' : ''}" data-like-comment="${i}">❤️ ${c.likes || 0}</button></div>`).join('');
+  if (!comments.length) { body.innerHTML = emptyState('هنوز نظری نیست. اولین نفر باش!', 'chat'); }
+  else {
+    body.innerHTML = comments.map((c, i) => {
+      const isMine = c.user === state.user.name;
+      return `<div class="comment-row">
+        <img src="${c.avatar || DEFAULT_AVATAR}" alt="">
+        <div class="comment-row-body">
+          <b>${esc(c.user)}</b>
+          <p>${processText(c.text)}</p>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
+            <time>${esc(c.time)}</time>
+            <button class="comment-like-inline ${c.liked ? 'liked' : ''}" data-like-comment="${i}">❤️ ${c.likes || 0}</button>
+            ${isMine ? `<button class="comment-del-inline" data-del-comment="${i}">حذف</button>` : ''}
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  }
   $('#commentModal').classList.add('show');
 }
-
 $('#commentSend').addEventListener('click', () => {
-  const text = $('#commentInput').value.trim();
-  if (!text || !state.currentPostId) return;
+  const text = $('#commentInput').value.trim(); if (!text || !state.currentPostId) return;
   if (!state.comments[state.currentPostId]) state.comments[state.currentPostId] = [];
   state.comments[state.currentPostId].unshift({ user: state.user.name, avatar: state.user.avatar, text, time: 'همین حالا', likes: 0, liked: false });
-  save();
-  $('#commentInput').value = '';
-  openComments(state.currentPostId);
-  toast('نظر ثبت شد');
+  save(); $('#commentInput').value = ''; openComments(state.currentPostId); toast('نظر ثبت شد');
 });
 
-// Comment like
-document.addEventListener('click', e => {
-  const cb = e.target.closest('[data-like-comment]');
-  if (cb && state.currentPostId) {
-    const idx = parseInt(cb.dataset.likeComment);
-    const c = state.comments[state.currentPostId]?.[idx];
-    if (c) {
-      c.liked = !c.liked;
-      c.likes = (c.likes || 0) + (c.liked ? 1 : -1);
-      save();
-      openComments(state.currentPostId);
-      haptic();
-    }
-  }
-});
-
-// ===== CREATE POST WITH IMAGE COMPRESSION =====
 const DRAFT_KEY = 'luno_draft';
-
 function compressImage(file, maxWidth = 1200, quality = 0.8) {
   return new Promise((resolve) => {
     const reader = new FileReader();
@@ -1875,8 +1374,7 @@ function compressImage(file, maxWidth = 1200, quality = 0.8) {
         let w = img.width, h = img.height;
         if (w > maxWidth) { h = (h * maxWidth) / w; w = maxWidth; }
         canvas.width = w; canvas.height = h;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, w, h);
+        const ctx = canvas.getContext('2d'); ctx.drawImage(img, 0, 0, w, h);
         resolve(canvas.toDataURL('image/jpeg', quality));
       };
       img.src = e.target.result;
@@ -1884,94 +1382,75 @@ function compressImage(file, maxWidth = 1200, quality = 0.8) {
     reader.readAsDataURL(file);
   });
 }
-
 function saveDraft() {
   const draft = { title: $('#postTitle').value, text: $('#postText').value, tags: state.selectedTags, asArticle: state.asArticle };
   if (draft.title || draft.text) {
     localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
-    const badge = $('#draftBadge');
-    badge.classList.add('show');
-    setTimeout(() => badge.classList.remove('show'), 1500);
+    const badge = $('#draftBadge'); badge.classList.add('show'); setTimeout(() => badge.classList.remove('show'), 1500);
   }
 }
 function loadDraft() {
-  const draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null');
-  if (!draft) return;
-  $('#postTitle').value = draft.title || '';
-  $('#postText').value = draft.text || '';
+  const draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null'); if (!draft) return;
+  $('#postTitle').value = draft.title || ''; $('#postText').value = draft.text || '';
   $('#charCount').textContent = (draft.text || '').length;
   state.selectedTags = draft.tags || [];
   $$('.tag-chip').forEach(c => c.classList.toggle('active', state.selectedTags.includes(c.dataset.tag)));
   state.asArticle = draft.asArticle || false;
-  $('#articleSwitch').classList.toggle('on', state.asArticle);
-  $('#articleToggle').classList.toggle('active', state.asArticle);
+  $('#articleSwitch').classList.toggle('on', state.asArticle); $('#articleToggle').classList.toggle('active', state.asArticle);
 }
 function clearDraft() { localStorage.removeItem(DRAFT_KEY); }
-
 $('#postText').addEventListener('input', e => {
-  const len = e.target.value.length;
-  $('#charCount').textContent = len;
+  const len = e.target.value.length; $('#charCount').textContent = len;
   $('#charCountWrap').classList.toggle('warn', len > 1500 && len < 1900);
   $('#charCountWrap').classList.toggle('danger', len >= 1900);
   clearTimeout(window._dt); window._dt = setTimeout(saveDraft, 800);
 });
 $('#postTitle').addEventListener('input', () => { clearTimeout(window._dt2); window._dt2 = setTimeout(saveDraft, 800); });
-
 $('#imageInput').addEventListener('change', async function() {
   const f = this.files[0]; if (!f) return;
   try {
     const compressed = await compressImage(f);
-    $('#previewImg').src = compressed;
-    $('#preview').classList.add('show');
-    $('#uploadLabel').textContent = 'تصویر فشرده شد ✓';
+    $('#previewImg').src = compressed; $('#preview').classList.add('show'); $('#uploadLabel').textContent = 'تصویر فشرده شد ✓';
   } catch(e) { toast('خطا در پردازش تصویر', 'error'); }
 });
-
 $('#removeImg').addEventListener('click', () => { $('#imageInput').value = ''; $('#preview').classList.remove('show'); $('#uploadLabel').textContent = 'افزودن تصویر'; });
 $$('.tag-chip').forEach(b => b.addEventListener('click', () => { $$('.tag-chip').forEach(x => x.classList.remove('active')); b.classList.add('active'); state.selectedTags = [b.dataset.tag]; saveDraft(); }));
 $('#articleToggle').addEventListener('click', () => { state.asArticle = !state.asArticle; $('#articleSwitch').classList.toggle('on', state.asArticle); $('#articleToggle').classList.toggle('active', state.asArticle); saveDraft(); });
-
 $('#publishBtn').addEventListener('click', () => {
-  const title = $('#postTitle').value.trim();
-  const body = $('#postText').value.trim();
+  const title = $('#postTitle').value.trim(); const body = $('#postText').value.trim();
   const image = $('#preview').classList.contains('show') ? $('#previewImg').src : null;
   const category = state.selectedTags[0] || 'سبک زندگی';
   $('#titleErr').classList.remove('show'); $('#textErr').classList.remove('show');
   let err = false;
   if (title.length < 3) { $('#titleErr').classList.add('show'); err = true; }
-  if (body.length < 10) { $('#textErr').classList.add('show'); err = true; }
+  const minChars = state.asArticle ? 40 : 10;
+  if (body.length < minChars) {
+    $('#textErr').textContent = state.asArticle ? 'متن مقاله حداقل ۴۰ کاراکتر' : 'متن حداقل ۱۰ کاراکتر';
+    $('#textErr').classList.add('show'); err = true;
+  }
   if (err) return;
   const hasImage = !!image;
   const asArticle = state.asArticle && hasImage;
-
   state.posts.unshift({ id: 'p' + Date.now(), title, category, desc: body.slice(0, 140), body: `<p>${processText(body).replace(/\n/g, '<br>')}</p>`, image, hasImage, asArticle, author: state.user.name, authorId: state.user.phone, authorAvatar: state.user.avatar, createdAt: Date.now(), likes: 0, isPopular: false });
-  save();
-  clearDraft();
+  save(); clearDraft();
   $('#postTitle').value = ''; $('#postText').value = ''; $('#charCount').textContent = '0';
   $('#charCountWrap').classList.remove('warn','danger');
   $('#preview').classList.remove('show'); $('#uploadLabel').textContent = 'افزودن تصویر';
   $$('.tag-chip').forEach(x => x.classList.remove('active'));
   state.selectedTags = []; state.asArticle = false;
   $('#articleSwitch').classList.remove('on'); $('#articleToggle').classList.remove('active');
-
-  // Confetti for first post!
   const myPosts = state.posts.filter(p => p.authorId === state.user.phone);
   if (myPosts.length === 1) setTimeout(() => showConfetti(), 300);
-
   toast(asArticle ? 'مقاله منتشر شد' : 'پست منتشر شد');
   state.feedFilter = 'newest';
   $$('.tab').forEach(t => t.classList.toggle('active', t.dataset.feed === 'newest'));
-  showPage('home');
-  setTimeout(() => renderHome(), 100);
+  showPage('home'); setTimeout(() => renderHome(), 100);
 });
 
-// ===== POST MENU =====
 function openPostMenu(postId) {
-  const p = state.posts.find(x => x.id === postId);
-  if (!p) return;
+  const p = state.posts.find(x => x.id === postId); if (!p) return;
   state.currentPostMenu = postId;
-  const isMine = p.authorId === state.user?.phone;
-  const adm = isAdmin();
+  const isMine = p.authorId === state.user?.phone; const adm = isAdmin();
   let html = '';
   if (adm) html += `<button class="menu-item" data-menu-action="popular"><svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20"/></svg>${p.isPopular ? 'حذف از محبوب‌ها' : 'افزودن به محبوب‌ها'}</button>`;
   if (isMine || adm) html += `<button class="menu-item danger" data-menu-action="delete"><svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>حذف پست</button>`;
@@ -1980,14 +1459,9 @@ function openPostMenu(postId) {
   $('#postMenuModal').classList.add('show');
 }
 
-// ===== NAV =====
 function showPage(id, push = true) {
-  const el = $('#page-' + id);
-  if (!el) id = 'home';
-  // Save scroll
-  if (state.history.length) {
-    state.scrollPos[state.history[state.history.length - 1]] = $('#mainScroll').scrollTop;
-  }
+  const el = $('#page-' + id); if (!el) id = 'home';
+  if (state.history.length) state.scrollPos[state.history[state.history.length - 1]] = $('#mainScroll').scrollTop;
   $$('.page').forEach(p => p.classList.toggle('active', p.id === 'page-' + id));
   $$('.nav[data-go]').forEach(b => b.classList.toggle('active', b.dataset.go === id));
   if (id === 'home') renderHome();
@@ -1996,16 +1470,9 @@ function showPage(id, push = true) {
   if (id === 'notifs') renderNotifs();
   if (id === 'profile') renderMyProfile();
   if (id === 'create') loadDraft();
-  if (push && state.history[state.history.length - 1] !== id) {
-    state.history.push(id);
-    history.pushState({ page: id }, '');
-  }
-  // Restore scroll
-  setTimeout(() => {
-    $('#mainScroll').scrollTop = state.scrollPos[id] || 0;
-  }, 10);
+  if (push && state.history[state.history.length - 1] !== id) { state.history.push(id); history.pushState({ page: id }, ''); }
+  setTimeout(() => { $('#mainScroll').scrollTop = state.scrollPos[id] || 0; }, 10);
 }
-
 function goBack() {
   if ($('#page-chat').classList.contains('active')) { $('#page-chat').classList.remove('active'); state.currentChat = null; if (state.history.length > 1) state.history.pop(); return; }
   const openModal = $('.modal.show') || $('.confirm.show');
@@ -2015,7 +1482,6 @@ function goBack() {
   const prev = state.history[state.history.length - 1] || 'home';
   showPage(prev, false);
 }
-
 window.addEventListener('popstate', () => {
   if ($('#page-chat').classList.contains('active')) { $('#page-chat').classList.remove('active'); state.currentChat = null; history.pushState({ page: state.history[state.history.length - 1] || 'home' }, ''); return; }
   const openModal = $('.modal.show') || $('.confirm.show');
@@ -2023,24 +1489,18 @@ window.addEventListener('popstate', () => {
   if (state.history.length > 1 && state.history[state.history.length - 1] !== 'home') {
     state.history.pop();
     const prev = state.history[state.history.length - 1] || 'home';
-    showPage(prev, false);
-    history.pushState({ page: prev }, '');
-    return;
+    showPage(prev, false); history.pushState({ page: prev }, ''); return;
   }
 });
 
-// ===== CONFIRM =====
 let confirmCb = null;
 function showConfirm(title, msg, cb) {
-  $('#confirmTitle').textContent = title;
-  $('#confirmMsg').textContent = msg;
-  confirmCb = cb;
-  $('#confirmBox').classList.add('show');
+  $('#confirmTitle').textContent = title; $('#confirmMsg').textContent = msg;
+  confirmCb = cb; $('#confirmBox').classList.add('show');
 }
 $('#confirmCancel').addEventListener('click', () => { $('#confirmBox').classList.remove('show'); confirmCb = null; });
 $('#confirmOk').addEventListener('click', () => { $('#confirmBox').classList.remove('show'); if (confirmCb) confirmCb(); confirmCb = null; });
 
-// ===== GLOBAL CLICK =====
 document.addEventListener('click', e => {
   const go = e.target.closest('[data-go]'); if (go) { showPage(go.dataset.go); return; }
   const em = e.target.closest('[data-empty]'); if (em && em.dataset.empty === 'go-create') { showPage('create'); return; }
@@ -2049,23 +1509,16 @@ document.addEventListener('click', e => {
   const like = e.target.closest('[data-like]');
   if (like) {
     e.stopPropagation();
-    const id = like.dataset.like;
-    const p = state.posts.find(x => x.id === id);
+    const id = like.dataset.like; const p = state.posts.find(x => x.id === id);
     if (isLiked(id)) { state.liked = state.liked.filter(x => x !== id); if (p) p.likes = Math.max(0, (p.likes || 0) - 1); }
     else { state.liked.push(id); if (p) p.likes = (p.likes || 0) + 1; haptic(); playSound('like'); }
-    save();
-    renderHome();
-    return;
+    save(); renderHome(); return;
   }
-
   const sv = e.target.closest('[data-save]');
   if (sv) { e.stopPropagation(); const id = sv.dataset.save; if (isSaved(id)) state.saved = state.saved.filter(x => x !== id); else state.saved.push(id); save(); renderHome(); toast(isSaved(id) ? 'ذخیره شد' : 'حذف شد'); return; }
-
   const cm = e.target.closest('[data-comment]'); if (cm) { e.stopPropagation(); openComments(cm.dataset.comment); return; }
-
   const sh = e.target.closest('[data-share]');
   if (sh) { e.stopPropagation(); const url = location.href; if (navigator.share) navigator.share({ url }); else { navigator.clipboard?.writeText(url); toast('لینک کپی شد'); } return; }
-
   const mn = e.target.closest('[data-menu]'); if (mn) { e.stopPropagation(); openPostMenu(mn.dataset.menu); return; }
 
   const ma = e.target.closest('[data-menu-action]');
@@ -2086,124 +1539,91 @@ document.addEventListener('click', e => {
   }
 
   const dn = e.target.closest('[data-del-notif]'); if (dn) { e.stopPropagation(); state.notifications = state.notifications.filter(n => n.id !== dn.dataset.delNotif); save(); renderNotifs(); updateBadge(); return; }
-
   const dc = e.target.closest('[data-del-chat]');
   if (dc) { e.stopPropagation(); const uid = dc.dataset.delChat; showConfirm('حذف گفتگو', 'مطمئنی؟', () => { delete state.chats[uid]; save(); renderNotifs(); toast('گفتگو حذف شد'); }); return; }
-
   const db = e.target.closest('[data-del-bubble]');
   if (db) { e.stopPropagation(); const idx = parseInt(db.dataset.delBubble); if (!isNaN(idx) && state.currentChat) { showConfirm('حذف پیام', 'این پیام حذف بشه؟', () => { state.chats[state.currentChat].splice(idx, 1); save(); renderChatBody(); toast('پیام حذف شد'); }); } return; }
+  const dcm = e.target.closest('[data-del-comment]');
+  if (dcm && state.currentPostId) {
+    e.stopPropagation();
+    const idx = parseInt(dcm.dataset.delComment);
+    showConfirm('حذف نظر', 'مطمئنی این نظر حذف بشه؟', () => {
+      state.comments[state.currentPostId].splice(idx, 1); save(); openComments(state.currentPostId); toast('نظر حذف شد');
+    });
+    return;
+  }
+  const lcm = e.target.closest('[data-like-comment]');
+  if (lcm && state.currentPostId) {
+    e.stopPropagation();
+    const idx = parseInt(lcm.dataset.likeComment);
+    const c = state.comments[state.currentPostId]?.[idx];
+    if (c) { c.liked = !c.liked; c.likes = (c.likes || 0) + (c.liked ? 1 : -1); save(); openComments(state.currentPostId); haptic(); }
+    return;
+  }
 
   const ur = e.target.closest('[data-user]'); if (ur) { e.stopPropagation(); openUserProfile(ur.dataset.user); return; }
   if (e.target.closest('[data-art-author]') && currentArticleAuthorId) { openUserProfile(currentArticleAuthorId); return; }
-
   const rq = e.target.closest('[data-request]'); if (rq) { e.stopPropagation(); sendChatRequest(rq.dataset.request); return; }
   const uf = e.target.closest('[data-unfriend]'); if (uf) { e.stopPropagation(); removeFriend(uf.dataset.unfriend); return; }
   const ch = e.target.closest('[data-chat]'); if (ch) { e.stopPropagation(); openChat(ch.dataset.chat); return; }
   const ar = e.target.closest('[data-article]'); if (ar) { openArticle(ar.dataset.article); return; }
-
   const ft = e.target.closest('[data-ftab]'); if (ft) { state.friendTab = ft.dataset.ftab; renderFriends(); return; }
   const nt = e.target.closest('[data-ntab]'); if (nt) { state.notifTab = nt.dataset.ntab; renderNotifs(); return; }
-
   const pt = e.target.closest('[data-ptab]');
   if (pt) { state.profileTab = pt.dataset.ptab; $$('.ptab').forEach(t => t.classList.toggle('active', t === pt)); renderMyProfile(); return; }
-
   const st = e.target.closest('[data-search]');
   if (st) { state.searchTab = st.dataset.search; $$('.stab').forEach(t => t.classList.toggle('active', t === st)); renderSearch($('#searchInput').value); return; }
-
   const fd = e.target.closest('[data-feed]');
   if (fd) { state.feedFilter = fd.dataset.feed; $$('.tab').forEach(t => t.classList.toggle('active', t === fd)); renderHome(); return; }
-
-  // Theme
   const to = e.target.closest('[data-theme-opt]'); if (to) { applyTheme(to.dataset.themeOpt); return; }
-  // Font size
   const fo = e.target.closest('[data-font]'); if (fo) { applyFontSize(fo.dataset.font); return; }
-  // Font family
   const ff = e.target.closest('[data-font-family]'); if (ff) { applyFontFamily(ff.dataset.fontFamily); return; }
-  // Accent color
   const ac = e.target.closest('[data-color]'); if (ac) { applyAccent(ac.dataset.color); return; }
-  // Avatar color
   const av = e.target.closest('[data-avatar-color]');
   if (av) {
     if (!canUseAvatarColor(state.user.phone)) { toast('این ویژگی مخصوص کاربران ویژه است', 'error'); return; }
-    state.avatarColors[state.user.phone] = av.dataset.avatarColor;
-    save();
-    renderAvatarColorGrid();
-    renderMyProfile();
-    toast('رنگ حاشیه تغییر کرد');
+    state.avatarColors[state.user.phone] = av.dataset.avatarColor; save(); renderAvatarColorGrid(); renderMyProfile(); toast('رنگ حاشیه تغییر کرد');
     return;
   }
-  // Chat bg
   const cb = e.target.closest('[data-bg]'); if (cb) { applyChatBg(cb.dataset.bg); return; }
-
-  // Recent search
   const rc = e.target.closest('[data-recent]');
   if (rc) { $('#searchInput').value = rc.dataset.recent; renderSearch(rc.dataset.recent); addRecentSearch(rc.dataset.recent); return; }
   const dr = e.target.closest('[data-del-recent]');
   if (dr) { e.stopPropagation(); state.recentSearches = state.recentSearches.filter(s => s !== dr.dataset.delRecent); save(); renderSearchSuggestions(); return; }
-
-  // Mention/Hashtag
   const mention = e.target.closest('[data-mention]');
   if (mention) { e.preventDefault(); const name = mention.dataset.mention.slice(1); $('#searchInput').value = name; showPage('search'); renderSearch(name); return; }
   const hashtag = e.target.closest('[data-hashtag]');
   if (hashtag) { e.preventDefault(); const tag = hashtag.dataset.hashtag.slice(1); $('#searchInput').value = tag; showPage('search'); renderSearch(tag); return; }
-
   const cl = e.target.closest('[data-close]'); if (cl) { cl.closest('.modal').classList.remove('show'); return; }
   if (e.target.closest('[data-back]')) { goBack(); return; }
 });
 
-$('#themeBtn').addEventListener('click', () => {
-  const cur = localStorage.getItem('luno_theme') || 'light';
-  applyTheme(cur === 'dark' ? 'light' : 'dark');
-});
-
+$('#themeBtn').addEventListener('click', () => { const cur = localStorage.getItem('luno_theme') || 'light'; applyTheme(cur === 'dark' ? 'light' : 'dark'); });
 $('#myFriendsBtn').addEventListener('click', () => { state.profileTab = 'friends'; $$('.ptab').forEach(t => t.classList.toggle('active', t.dataset.ptab === 'friends')); renderMyProfile(); });
 
-// ===== ONLINE/OFFLINE =====
 window.addEventListener('online', () => { $('#offlineBanner').classList.remove('show'); toast('اتصال برقرار شد', 'success'); });
 window.addEventListener('offline', () => { $('#offlineBanner').classList.add('show'); toast('اتصال اینترنت قطع است', 'error'); });
 if (!navigator.onLine) $('#offlineBanner').classList.add('show');
 
-// ===== WAKE LOCK =====
 let wakeLock = null;
-async function requestWakeLock() {
-  try { if ('wakeLock' in navigator) wakeLock = await navigator.wakeLock.request('screen'); } catch(e) {}
-}
+async function requestWakeLock() { try { if ('wakeLock' in navigator) wakeLock = await navigator.wakeLock.request('screen'); } catch(e) {} }
 function releaseWakeLock() { if (wakeLock) { wakeLock.release(); wakeLock = null; } }
-// Enable on article page, disable elsewhere
 const originalShowPage = showPage;
-window.showPage = function(id, push) {
-  originalShowPage(id, push);
-  if (id === 'article') requestWakeLock();
-  else releaseWakeLock();
-};
+window.showPage = function(id, push) { originalShowPage(id, push); if (id === 'article') requestWakeLock(); else releaseWakeLock(); };
 
-// ===== INIT =====
 function init() {
-  // Theme
   const themeMode = localStorage.getItem('luno_theme') || 'light';
   applyTheme(themeMode);
-  // Re-apply theme on schedule
   setInterval(() => { if (localStorage.getItem('luno_theme') === 'scheduled') applyTheme('scheduled'); }, 60000);
   if (window.matchMedia) window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if (localStorage.getItem('luno_theme') === 'auto') applyTheme('auto'); });
-
-  // Accent
-  const accent = localStorage.getItem('luno_accent') || ACCENT_COLORS[0];
-  applyAccent(accent);
-
-  // Font
+  applyAccent(localStorage.getItem('luno_accent') || ACCENT_COLORS[0]);
   applyFontSize(localStorage.getItem('luno_font') || '14');
   applyFontFamily(localStorage.getItem('luno_font_family') || 'Vazirmatn');
   applyChatBg(localStorage.getItem('luno_chat_bg') || 'none');
-
-  // Grids
-  renderAccentGrid();
-  renderChatBgGrid();
-  renderEmojiPicker();
+  renderAccentGrid(); renderChatBgGrid(); renderEmojiPicker();
 }
-
 init();
 
-// ===== LOADER =====
 setTimeout(() => {
   $('#loader').classList.add('hide');
   setTimeout(() => $('#loader').remove(), 500);
