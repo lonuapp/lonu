@@ -152,8 +152,10 @@ main{flex:1;padding-bottom:80px;overflow-y:auto;position:relative}
 .post-action.saved svg{fill:var(--ink)}
 .post-action-spacer{flex:1}
 .post-info{padding:0 14px 14px}
-.post-likes{font-size:13px;font-weight:800;margin-bottom:5px}
-.post-caption{font-size:13px;line-height:1.6;margin-bottom:5px}
+.post-likes{font-size:13px;font-weight:800;margin-bottom:5px;color:var(--ink)}
+.post-likes b{font-weight:800}
+.post-caption{font-size:13px;line-height:1.6;margin-bottom:5px;color:var(--ink-2)}
+.post-caption b.pi-author{font-weight:800;color:var(--ink);margin-left:4px}
 .post-caption a{color:var(--accent);font-weight:700;text-decoration:none}
 .post-comment-link{font-size:12.5px;color:var(--muted);font-weight:500;transition:var(--tr)}
 .post-time{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.3px;margin-top:6px}
@@ -198,7 +200,7 @@ main{flex:1;padding-bottom:80px;overflow-y:auto;position:relative}
 .smode.active{color:var(--ink);border-bottom-color:var(--ink);font-weight:800}
 .smode:active{color:var(--ink-2)}
 
-/* ===== EXPLORE GRID (Instagram-style) ===== */
+/* ===== EXPLORE GRID ===== */
 .explore-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:2px}
 .explore-item{aspect-ratio:1;overflow:hidden;background:var(--line-2);cursor:pointer;position:relative;animation:pageIn .3s}
 .explore-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
@@ -287,21 +289,31 @@ main{flex:1;padding-bottom:80px;overflow-y:auto;position:relative}
 .text-post-card p{font-size:12px;color:var(--muted);line-height:1.8;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}
 .text-post-card-menu{width:28px;height:28px;color:var(--muted);font-size:18px;display:grid;place-items:center;border-radius:50%;flex-shrink:0}
 .section-label{padding:14px 16px 6px;font-size:12px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.3px}
-.collection-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 16px}
-.collection-card{background:var(--paper);border:1px solid var(--line-2);border-radius:14px;padding:16px;cursor:pointer;transition:var(--tr);position:relative}
+
+/* ===== COLLECTIONS (enhanced) ===== */
+.collection-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px 16px}
+.collection-card{background:var(--paper);border:1px solid var(--line-2);border-radius:14px;padding:0;cursor:pointer;transition:var(--tr);position:relative;overflow:hidden}
 .collection-card:active{transform:scale(.98)}
-.collection-icon{width:46px;height:46px;border-radius:12px;background:var(--line-2);display:grid;place-items:center;font-size:22px;margin-bottom:10px}
-.collection-card h4{font-size:13px;font-weight:800;margin-bottom:4px}
-.collection-card p{font-size:10.5px;color:var(--muted)}
-.collection-card .delete-col{position:absolute;top:8px;left:8px;width:26px;height:26px;color:var(--muted);border-radius:50%;font-size:16px;display:grid;place-items:center}
-.add-collection{background:transparent;border:2px dashed var(--line);display:grid;place-items:center;text-align:center;padding:16px;color:var(--muted);font-weight:600}
-.add-collection svg{width:24px;height:24px;stroke:var(--accent);fill:none;stroke-width:2;margin:0 auto 6px}
+.collection-cover{aspect-ratio:1.4;background:var(--line-2);display:grid;place-items:center;overflow:hidden;position:relative}
+.collection-cover img{width:100%;height:100%;object-fit:cover}
+.collection-cover .collection-icon-lg{font-size:34px;opacity:.85}
+.collection-cover .collection-count{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.55);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:10px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);display:flex;align-items:center;gap:3px}
+.collection-cover .collection-count svg{width:11px;height:11px;stroke:#fff;fill:none;stroke-width:2}
+.collection-info{padding:10px 12px 12px}
+.collection-info h4{font-size:13px;font-weight:800;margin-bottom:3px;display:flex;align-items:center;gap:6px}
+.collection-info h4 .cico{font-size:15px}
+.collection-info p{font-size:10.5px;color:var(--muted)}
+.collection-card .delete-col{position:absolute;top:8px;left:8px;width:28px;height:28px;color:#fff;background:rgba(0,0,0,.5);border-radius:50%;font-size:16px;display:grid;place-items:center;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);z-index:2;opacity:.9}
+.add-collection{background:var(--paper);border:2px dashed var(--line);display:grid;place-items:center;text-align:center;padding:24px 16px;color:var(--muted);font-weight:700;min-height:160px}
+.add-collection svg{width:28px;height:28px;stroke:var(--accent);fill:none;stroke-width:2;margin:0 auto 8px}
+.add-collection span{font-size:12.5px}
+
 .article-progress{position:fixed;top:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;height:3px;background:transparent;z-index:100}
 .article-progress-bar{height:100%;background:var(--accent);width:0%;transition:width .1s}
-.article-cover{height:260px;position:relative;background:var(--line)}
+.article-cover{height:260px;position:relative;background:var(--line);cursor:pointer}
 .article-cover img{width:100%;height:100%;object-fit:cover}
-.article-cover::after{content:'';position:absolute;inset:30% 0 0;background:linear-gradient(transparent,rgba(0,0,0,.75))}
-.article-cover-title{position:absolute;bottom:16px;left:16px;right:16px;color:#fff;z-index:1}
+.article-cover::after{content:'';position:absolute;inset:30% 0 0;background:linear-gradient(transparent,rgba(0,0,0,.75));pointer-events:none}
+.article-cover-title{position:absolute;bottom:16px;left:16px;right:16px;color:#fff;z-index:1;pointer-events:none}
 .article-cover-title .tag{display:inline-block;background:var(--accent);color:#fff;border-radius:16px;padding:3px 10px;font-size:10px;font-weight:700;margin-bottom:8px}
 .article-cover-title h1{font-size:21px;font-weight:900;line-height:1.5}
 .article-meta-row{display:flex;align-items:center;gap:8px;padding:12px 16px;font-size:11px;color:var(--muted)}
@@ -353,7 +365,7 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 .btn-main{width:100%;background:var(--ink);color:var(--paper);border-radius:12px;padding:14px;font-size:14px;font-weight:800;transition:var(--tr)}
 .btn-main:active{transform:scale(.98)}
 
-/* ===== SETTINGS (reorganized) ===== */
+/* ===== SETTINGS ===== */
 .settings-section{padding:0 16px 20px}
 .settings-section-title{font-size:11px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;padding:18px 4px 10px}
 .settings-list{display:flex;flex-direction:column;gap:6px}
@@ -366,7 +378,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 .s-item .arrow{color:var(--muted);font-size:17px}
 .s-item.danger svg{stroke:#ef4444}
 .s-item.danger h4{color:#ef4444}
-
 .settings-groups{display:flex;flex-direction:column;gap:10px}
 .setting-group{background:var(--paper);border:1px solid var(--line-2);border-radius:14px;padding:14px;transition:var(--tr)}
 .setting-group-head{display:flex;align-items:center;gap:12px;margin-bottom:12px}
@@ -379,7 +390,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 .setting-group .setting-options{padding:0}
 .setting-group .avatar-color-grid{padding:0;grid-template-columns:repeat(8,1fr)}
 .setting-group .chat-bg-grid{padding:0;grid-template-columns:repeat(4,1fr)}
-
 .setting-options{display:flex;gap:6px;flex-wrap:wrap}
 .setting-opt{padding:6px 12px;border-radius:14px;font-size:11px;font-weight:600;background:var(--line-2);color:var(--muted);transition:var(--tr)}
 .setting-opt.active{background:var(--ink);color:var(--paper)}
@@ -392,7 +402,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 .chat-bg-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:12px 0}
 .chat-bg{aspect-ratio:1;border-radius:10px;background-size:cover;background-position:center;border:2px solid transparent;cursor:pointer;transition:var(--tr)}
 .chat-bg.active{border-color:var(--accent);transform:scale(1.05)}
-
 .about-hero{padding:32px 16px 20px;text-align:center;background:linear-gradient(180deg,var(--accent-soft) 0%,transparent 100%)}
 .about-icon{width:88px;height:88px;border-radius:24px;background:linear-gradient(135deg,var(--accent),#ff8ab8);display:grid;place-items:center;margin:0 auto 14px;box-shadow:0 12px 32px rgba(224,66,126,.3);animation:avatarIn .5s}
 .about-icon svg{width:44px;height:44px;stroke:#fff;fill:none;stroke-width:2.2}
@@ -476,10 +485,10 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 .nav svg{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:var(--tr)}
 .nav.active svg{stroke-width:2.2;transform:translateY(-2px)}
 .nav .badge{position:absolute;top:4px;right:8px;min-width:16px;height:16px;background:var(--accent);color:#fff;border-radius:8px;font-size:9px;font-weight:700;display:grid;place-items:center;padding:0 4px;border:2px solid var(--paper)}
-.empty{text-align:center;padding:50px 24px;color:var(--muted);animation:pageIn .4s}
-.empty svg{width:56px;height:56px;stroke:var(--line);fill:none;stroke-width:1.5;margin:0 auto 14px}
-.empty h3{font-size:14px;font-weight:800;color:var(--ink);margin-bottom:6px}
-.empty p{font-size:12.5px;line-height:1.7;margin-bottom:14px;max-width:260px;margin-left:auto;margin-right:auto}
+.empty{text-align:center;padding:60px 24px;color:var(--muted);animation:pageIn .4s}
+.empty svg{width:64px;height:64px;stroke:var(--muted);fill:none;stroke-width:1.5;margin:0 auto 16px;opacity:.35}
+.empty h3{font-size:15px;font-weight:800;color:var(--ink);margin-bottom:8px}
+.empty p{font-size:12.5px;line-height:1.9;margin-bottom:14px;max-width:280px;margin-left:auto;margin-right:auto;color:var(--muted)}
 .empty button{background:var(--ink);color:var(--paper);border-radius:10px;padding:10px 22px;font-size:12.5px;font-weight:700;transition:var(--tr)}
 
 /* ADMIN PANEL STYLES */
@@ -553,7 +562,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
       <div id="feed"></div>
     </section>
 
-    <!-- ============ SEARCH PAGE (with Search / Explore modes) ============ -->
     <section class="page" id="page-search">
       <div class="search-mode-tabs">
         <button class="smode active" data-smode="search">جستجو</button>
@@ -618,7 +626,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
         <button class="ptab active" data-ptab="posts">تصویری</button>
         <button class="ptab" data-ptab="text">متنی</button>
         <button class="ptab" data-ptab="collections">کالکشن</button>
-        <button class="ptab" data-ptab="saved">ذخیره‌ها</button>
         <button class="ptab" data-ptab="friends">دوستان</button>
       </div>
       <div id="myProfileContent"></div>
@@ -645,8 +652,8 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 
     <section class="page" id="page-article">
       <div class="article-progress"><div class="article-progress-bar" id="artProgress"></div></div>
-      <div class="chat-top"><button class="back-btn" data-back><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button><h4 style="font-size:14px;font-weight:800;flex:1">مقاله</h4></div>
-      <div class="article-cover"><img id="artImg" src="" alt=""><div class="article-cover-title"><span class="tag" id="artTag"></span><h1 id="artTitle"></h1></div></div>
+      <div class="chat-top"><button class="back-btn" data-back><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button><h4 id="artPageTitle" style="font-size:14px;font-weight:800;flex:1">مقاله</h4></div>
+      <div class="article-cover" id="artCoverWrap"><img id="artImg" src="" alt=""><div class="article-cover-title"><span class="tag" id="artTag"></span><h1 id="artTitle"></h1></div></div>
       <div class="article-meta-row"><img id="artAvatar" alt="" data-art-author><b id="artAuthor" data-art-author></b><span style="flex:1"></span><span class="reading-time" id="artReadingTime"></span></div>
       <div class="article-body" id="artBody"></div>
     </section>
@@ -657,8 +664,8 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
           <div class="create-head"><h2>ایجاد پست</h2><div class="draft-badge" id="draftBadge"><span class="draft-dot"></span>پیش‌نویس ذخیره شد</div></div>
           <label class="upload-area"><div class="upload-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div><span id="uploadLabel">افزودن تصویر</span><input type="file" id="imageInput" accept="image/*"></label>
           <div class="preview" id="preview"><img id="previewImg" src="" alt=""><button type="button" id="removeImg">×</button></div>
-          <input class="field" id="postTitle" maxlength="100" placeholder="عنوان مطلب">
-          <div class="field-err" id="titleErr">عنوان حداقل ۳ کاراکتر</div>
+          <input class="field" id="postTitle" maxlength="100" placeholder="عنوان مطلب (اختیاری برای پست)">
+          <div class="field-err" id="titleErr">عنوان مقاله حداقل ۳ کاراکتر باشد</div>
           <textarea class="field" id="postText" maxlength="2000" placeholder="متن خود را بنویسید..."></textarea>
           <div class="char-count" id="charCountWrap"><span id="charCount">0</span> / 2000</div>
           <div class="field-err" id="textErr">متن حداقل ۱۰ کاراکتر</div>
@@ -678,7 +685,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
       </div>
     </section>
 
-    <!-- ============ SETTINGS ============ -->
     <section class="page" id="page-settings">
       <div class="chat-top"><button class="back-btn" data-back><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button><h4 style="font-size:14px;font-weight:800">تنظیمات</h4></div>
       <div class="settings-section">
@@ -789,7 +795,6 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
       </div>
     </section>
 
-    <!-- ADMIN PANEL -->
     <section class="page" id="page-admin">
       <div class="chat-top">
         <button class="back-btn" data-back><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
@@ -958,7 +963,7 @@ function readingTime(text) {
   const mins = Math.max(1, Math.ceil(words / 200));
   return `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>${mins} دقیقه مطالعه`;
 }
-function emptyState(msg, icon, btnText, btnAction) {
+function emptyState(msg, icon, btnText, btnAction, title) {
   const icons = {
     edit: '<path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>',
     search: '<circle cx="11" cy="11" r="7.5"/><path d="m16.5 16.5 4.5 4.5"/>',
@@ -966,7 +971,7 @@ function emptyState(msg, icon, btnText, btnAction) {
     chat: '<path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.4 9 9 0 0 1-4.3-1L3 20l1.2-4.5A8.3 8.3 0 0 1 3.5 11.5 8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5Z"/>',
     users: '<circle cx="9" cy="7" r="4"/><path d="M2 21v-2a4 4 0 0 1 4-4h6a4 4 0 0 1 4 4v2"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>'
   };
-  return `<div class="empty"><svg viewBox="0 0 24 24">${icons[icon] || icons.edit}</svg><h3>خالیه</h3><p>${esc(msg)}</p>${btnText ? `<button data-empty="${btnAction}">${esc(btnText)}</button>` : ''}</div>`;
+  return `<div class="empty"><svg viewBox="0 0 24 24">${icons[icon] || icons.edit}</svg><h3>${title || 'خالیه'}</h3><p>${esc(msg)}</p>${btnText ? `<button data-empty="${btnAction}">${esc(btnText)}</button>` : ''}</div>`;
 }
 function renderSkeleton() {
   return Array(2).fill(0).map(() => `
@@ -1189,9 +1194,10 @@ function renderPost(p) {
   const imgClass = avatarClass(p.authorId); const imgStyle = avatarStyle(p.authorId);
   const isSavedInCollection = state.collections.some(c => c.posts.includes(p.id));
   if (p.hasImage === false) {
+    const title = p.title && p.title.trim() ? `<h3>${esc(p.title)}</h3>` : '';
     return `<div class="text-post" data-post="${p.id}">
       <div class="text-post-head"><span class="text-post-cat">${esc(p.category)}</span>${canManage ? `<button class="text-post-menu" data-menu="${p.id}">⋯</button>` : ''}</div>
-      <h3>${esc(p.title)}</h3>
+      ${title}
       <p>${processText(p.desc || '')}</p>
       <div class="text-post-author"><img src="${p.authorAvatar || DEFAULT_AVATAR}" class="${imgClass}" ${imgStyle} alt="" data-user="${p.authorId}"><b data-user="${p.authorId}">${esc(p.author)}</b><span class="sp"></span><span>${formatTime(p.createdAt)}</span></div>
       <div class="text-post-actions">
@@ -1202,6 +1208,7 @@ function renderPost(p) {
     </div>`;
   }
   const commentsCount = (state.comments[p.id] || []).length;
+  const captionSlice = (p.desc || '').slice(0, 130);
   return `<div class="post" data-post="${p.id}">
     <div class="post-header">
       <img class="post-avatar ${imgClass}" ${imgStyle} src="${p.authorAvatar || DEFAULT_AVATAR}" alt="" data-user="${p.authorId}">
@@ -1221,9 +1228,9 @@ function renderPost(p) {
       <button class="post-action ${isSavedInCollection ? 'saved' : ''}" data-save="${p.id}"><svg viewBox="0 0 24 24"><path d="M6 4h12a1 1 0 0 1 1 1v16l-7-4-7 4V5a1 1 0 0 1 1-1Z"/></svg></button>
     </div>
     <div class="post-info">
-      <div class="post-likes" data-likes="${p.id}">${(p.likes || 0).toLocaleString('fa-IR')} پسند</div>
-      <div class="post-caption">${processText((p.desc || '').slice(0, 130))}</div>
-      ${commentsCount > 0 ? `<button class="post-comment-link" data-comment="${p.id}">مشاهده ${commentsCount} نظر</button>` : ''}
+      <div class="post-likes" data-likes="${p.id}"><b>${(p.likes || 0).toLocaleString('fa-IR')}</b> پسند</div>
+      ${captionSlice ? `<div class="post-caption"><b class="pi-author">${esc(p.author)}</b>${processText(captionSlice)}</div>` : ''}
+      ${commentsCount > 0 ? `<button class="post-comment-link" data-comment="${p.id}">مشاهده هر ${commentsCount} نظر</button>` : ''}
       <div class="post-time">${formatTime(p.createdAt)}</div>
     </div>
   </div>`;
@@ -1246,7 +1253,7 @@ document.addEventListener('click', e => {
       const likeBtn = post.querySelector(`[data-like="${id}"]`);
       if (likeBtn) likeBtn.classList.add('liked');
       const likesEl = post.querySelector(`[data-likes="${id}"]`);
-      if (likesEl) { const p = state.posts.find(x => x.id === id); likesEl.textContent = (p?.likes || 0).toLocaleString('fa-IR') + ' پسند'; }
+      if (likesEl) { const p = state.posts.find(x => x.id === id); likesEl.innerHTML = `<b>${(p?.likes || 0).toLocaleString('fa-IR')}</b> پسند`; }
       lastTap = 0; return;
     }
     lastTap = now; lastTapTarget = id;
@@ -1259,6 +1266,11 @@ document.addEventListener('click', e => {
 });
 $('#closeViewer').addEventListener('click', () => { $('#imgViewer').classList.remove('show'); document.body.style.overflow = ''; });
 $('#imgViewer').addEventListener('click', e => { if (e.target.id === 'imgViewer') { $('#imgViewer').classList.remove('show'); document.body.style.overflow = ''; } });
+// کلیک روی عکس داخل صفحه مقاله/پست
+$('#artCoverWrap').addEventListener('click', () => {
+  const src = $('#artImg').src;
+  if (src) { $('#viewerImg').src = src; $('#imgViewer').classList.add('show'); document.body.style.overflow = 'hidden'; }
+});
 
 function renderSearchSuggestions() {
   const wrap = $('#searchSuggestions');
@@ -1282,7 +1294,7 @@ function renderSearch(q = '') {
   suggestions.style.display = 'none';
   if (state.searchTab === 'articles') {
     let items = state.posts.filter(p => p.asArticle === true && p.hasImage !== false);
-    if (q) items = items.filter(p => (p.title + ' ' + p.category + ' ' + (p.desc || '')).includes(q));
+    if (q) items = items.filter(p => ((p.title || '') + ' ' + p.category + ' ' + (p.desc || '')).includes(q));
     items.sort((a, b) => b.createdAt - a.createdAt);
     if (!items.length) { wrap.innerHTML = emptyState('مقاله‌ای پیدا نشد', 'search'); return; }
     wrap.innerHTML = items.map(p => `<div class="article-row" data-article="${p.id}"><img src="${p.image}" alt="" onerror="this.src='${PLACEHOLDER}'"><div class="article-row-info"><h3>${esc(p.title)}</h3><p>${esc((p.desc || '').slice(0, 80))}</p><div class="article-row-meta"><img src="${p.authorAvatar || DEFAULT_AVATAR}" alt=""><span>${esc(p.author)} · ${formatTime(p.createdAt)}</span></div></div></div>`).join('');
@@ -1313,8 +1325,9 @@ function renderSearchMode() {
 
 function renderExplore() {
   const wrap = $('#explorePanel');
+  // فقط پست‌های تصویری که مقاله نیستند
   const imgPosts = state.posts
-    .filter(p => p.hasImage !== false && p.image)
+    .filter(p => p.hasImage !== false && p.image && p.asArticle !== true)
     .sort((a, b) => b.createdAt - a.createdAt);
   if (!imgPosts.length) {
     wrap.innerHTML = emptyState('هنوز پستی برای کاوش منتشر نشده', 'edit', 'ساخت اولین پست', 'go-create');
@@ -1377,12 +1390,16 @@ function renderNotifs() {
   $$('.ntab').forEach(t => t.classList.toggle('active', t.dataset.ntab === state.notifTab));
   const wrap = $('#notifsList');
   if (state.notifTab === 'notifs') {
-    if (!state.notifications.length) { wrap.innerHTML = emptyState('اعلان جدیدی نداری', 'bell'); return; }
+    if (!state.notifications.length) { wrap.innerHTML = emptyState('اعلان جدیدی نداری', 'bell', '', '', 'اعلان خالیه'); return; }
     wrap.innerHTML = state.notifications.map(n => `<div class="notif"><img src="${n.avatar || DEFAULT_AVATAR}" alt=""><div class="notif-info"><p>${n.text}</p><time>${esc(n.time || 'همین حالا')}</time></div><button class="notif-del" data-del-notif="${n.id}">×</button></div>`).join('');
     state.notifications.forEach(n => n.read = true); save(); updateBadge();
   } else {
-    const ids = Object.keys(state.chats);
-    if (!ids.length) { wrap.innerHTML = emptyState('هنوز پیامی نداری', 'chat'); return; }
+    // فقط چت‌هایی که پیام دارن
+    const ids = Object.keys(state.chats).filter(uid => (state.chats[uid] || []).length > 0);
+    if (!ids.length) {
+      wrap.innerHTML = emptyState('هنوز پیامی نداری. از بخش دوستان یه گفتگو رو شروع کن', 'chat', '', '', 'پیامی نداری');
+      return;
+    }
     const allUsers = extractRealUsers();
     wrap.innerHTML = ids.map(uid => {
       const u = allUsers.find(x => x.id === uid); if (!u) return '';
@@ -1443,7 +1460,7 @@ function renderMyProfile() {
   const myPosts = state.posts.filter(p => p.authorId === state.user.phone);
   $('#myPostsCount').textContent = myPosts.length;
   $('#myFriendsCount').textContent = state.friends.length;
-  
+
   if (state.profileTab === 'posts') {
     const imgPosts = myPosts.filter(p => p.hasImage !== false);
     let html = imgPosts.length ? `<div class="pin-grid">${imgPosts.map(p => `<div class="pin" data-article="${p.id}"><img src="${p.image}" alt="" onerror="this.src='${PLACEHOLDER}'"></div>`).join('')}</div>` : emptyState('هنوز پست تصویری نساختی', 'edit', 'ساخت پست', 'go-create');
@@ -1451,22 +1468,30 @@ function renderMyProfile() {
   } else if (state.profileTab === 'text') {
     const textPosts = myPosts.filter(p => p.hasImage === false);
     if (!textPosts.length) { $('#myProfileContent').innerHTML = emptyState('هنوز پست متنی نساختی', 'edit', 'ساخت پست', 'go-create'); return; }
-    $('#myProfileContent').innerHTML = `<div class="text-post-list">${textPosts.map(p => `<div class="text-post-card"><div class="text-post-card-head"><div data-article="${p.id}" style="flex:1;cursor:pointer"><h4>${esc(p.title)}</h4></div><button class="text-post-card-menu" data-menu="${p.id}">⋯</button></div><p data-article="${p.id}" style="cursor:pointer">${processText(p.desc || '')}</p></div>`).join('')}</div>`;
+    $('#myProfileContent').innerHTML = `<div class="text-post-list">${textPosts.map(p => {
+      const title = p.title && p.title.trim() ? esc(p.title) : 'بدون عنوان';
+      return `<div class="text-post-card"><div class="text-post-card-head"><div data-article="${p.id}" style="flex:1;cursor:pointer"><h4>${title}</h4></div><button class="text-post-card-menu" data-menu="${p.id}">⋯</button></div><p data-article="${p.id}" style="cursor:pointer">${processText(p.desc || '')}</p></div>`;
+    }).join('')}</div>`;
   } else if (state.profileTab === 'collections') {
     let html = `<div class="collection-grid">`;
-    html += `<div class="collection-card add-collection" id="addCollectionBtn"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>کالکشن جدید</div>`;
+    html += `<div class="collection-card add-collection" id="addCollectionBtn"><div><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div><span>کالکشن جدید</span></div>`;
     state.collections.forEach((c, i) => {
-      html += `<div class="collection-card" data-collection="${i}"><button class="delete-col" data-del-collection="${i}">×</button><div class="collection-icon">${c.icon || '📁'}</div><h4>${esc(c.name)}</h4><p>${c.posts.length} پست</p></div>`;
+      const firstImg = c.posts.map(id => state.posts.find(p => p.id === id)).find(p => p && p.image);
+      const count = c.posts.length;
+      html += `<div class="collection-card" data-collection="${i}">
+        <button class="delete-col" data-del-collection="${i}">×</button>
+        <div class="collection-cover">
+          ${firstImg ? `<img src="${firstImg.image}" alt="">` : `<div class="collection-icon-lg">${c.icon || '📁'}</div>`}
+          ${count > 0 ? `<span class="collection-count"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>${count}</span>` : ''}
+        </div>
+        <div class="collection-info">
+          <h4><span class="cico">${c.icon || '📁'}</span>${esc(c.name)}</h4>
+          <p>${count} پست</p>
+        </div>
+      </div>`;
     });
     html += `</div>`;
-    if (state.collections.length === 0) html = `<div class="collection-grid"><div class="collection-card add-collection" id="addCollectionBtn"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>کالکشن جدید</div></div>`;
     $('#myProfileContent').innerHTML = html;
-  } else if (state.profileTab === 'saved') {
-    const allSavedIds = new Set();
-    state.collections.forEach(c => c.posts.forEach(id => allSavedIds.add(id)));
-    const savedPosts = state.posts.filter(p => allSavedIds.has(p.id));
-    if (!savedPosts.length) { $('#myProfileContent').innerHTML = emptyState('چیزی ذخیره نکرده‌ای', 'edit'); return; }
-    $('#myProfileContent').innerHTML = `<div class="pin-grid">${savedPosts.map(p => p.hasImage === false ? `<div class="pin pin-text" data-article="${p.id}"><h4>${esc(p.title)}</h4></div>` : `<div class="pin" data-article="${p.id}"><img src="${p.image || PLACEHOLDER}" alt=""></div>`).join('')}</div>`;
   } else {
     const allUsers = extractRealUsers();
     const friendsList = allUsers.filter(u => isFriend(u.id));
@@ -1590,19 +1615,31 @@ function deleteCollection(idx) {
 function openCollection(idx) {
   const c = state.collections[idx]; if (!c) return;
   state.currentCollection = idx;
-  $('#collectionTitle').textContent = c.name;
+  $('#collectionTitle').textContent = `${c.icon || '📁'} ${c.name}`;
   const posts = state.posts.filter(p => c.posts.includes(p.id));
-  $('#collectionPosts').innerHTML = posts.length ? posts.map(p => p.hasImage === false ? `<div class="pin pin-text" data-article="${p.id}"><h4>${esc(p.title)}</h4></div>` : `<div class="pin" data-article="${p.id}"><img src="${p.image || PLACEHOLDER}" alt=""></div>`).join('') : `<div style="grid-column:1/-1;padding:20px;text-align:center;color:var(--muted);font-size:13px">کالکشن خالیه</div>`;
+  $('#collectionPosts').innerHTML = posts.length ? posts.map(p => p.hasImage === false ? `<div class="pin pin-text" data-article="${p.id}"><h4>${esc(p.title || 'بدون عنوان')}</h4></div>` : `<div class="pin" data-article="${p.id}"><img src="${p.image || PLACEHOLDER}" alt=""></div>`).join('') : `<div style="grid-column:1/-1;padding:20px;text-align:center;color:var(--muted);font-size:13px">کالکشن خالیه</div>`;
   showPage('collection');
 }
 
-// ===== ARTICLE =====
+// ===== ARTICLE / POST DETAIL =====
 let currentArticleAuthorId = null;
 function openArticle(id) {
   const p = state.posts.find(x => x.id === id); if (!p) return;
+  // پست تصویری غیرمقاله: فقط عکس باز میشه
+  if (!p.asArticle && p.hasImage !== false && p.image) {
+    $('#viewerImg').src = p.image;
+    $('#imgViewer').classList.add('show');
+    document.body.style.overflow = 'hidden';
+    return;
+  }
   currentArticleAuthorId = p.authorId;
-  $('#artImg').src = p.image || PLACEHOLDER; $('#artTitle').textContent = p.title; $('#artTag').textContent = p.category;
-  $('#artAuthor').textContent = p.author; $('#artAvatar').src = p.authorAvatar || DEFAULT_AVATAR;
+  // تیتر داینامیک
+  $('#artPageTitle').textContent = p.asArticle ? 'مقاله' : 'پست';
+  $('#artImg').src = p.image || PLACEHOLDER;
+  $('#artTitle').textContent = p.title || '';
+  $('#artTag').textContent = p.category;
+  $('#artAuthor').textContent = p.author;
+  $('#artAvatar').src = p.authorAvatar || DEFAULT_AVATAR;
   $('#artReadingTime').innerHTML = readingTime(p.body || p.desc || '');
   $('#artBody').innerHTML = (p.body || `<p>${processText(p.desc)}</p>`);
   $('#artProgress').style.width = '0%'; showPage('article');
@@ -1638,7 +1675,7 @@ $('#mainScroll').addEventListener('touchend', () => {
 });
 $('#backTop').addEventListener('click', () => { $('#mainScroll').scrollTo({top: 0, behavior: 'smooth'}); });
 
-// ===== COMMENTS with Replies & Edit =====
+// ===== COMMENTS =====
 function openComments(postId) {
   state.currentPostId = postId;
   const comments = state.comments[postId] || [];
@@ -1747,18 +1784,23 @@ $('#publishBtn').addEventListener('click', () => {
   const title = $('#postTitle').value.trim(); const body = $('#postText').value.trim();
   const image = $('#preview').classList.contains('show') ? $('#previewImg').src : null;
   const category = state.selectedTags[0] || 'سبک زندگی';
+  const hasImage = !!image;
+  const asArticle = state.asArticle && hasImage;
+
   $('#titleErr').classList.remove('show'); $('#textErr').classList.remove('show');
   let err = false;
-  if (title.length < 3) { $('#titleErr').classList.add('show'); err = true; }
-  const minChars = state.asArticle ? 40 : 10;
+  // عنوان فقط برای مقاله الزامیه
+  if (asArticle && title.length < 3) { $('#titleErr').classList.add('show'); err = true; }
+  // متن هم حداقل داشته باشه
+  const minChars = asArticle ? 40 : 10;
   if (body.length < minChars) {
-    $('#textErr').textContent = state.asArticle ? 'متن مقاله حداقل ۴۰ کاراکتر' : 'متن حداقل ۱۰ کاراکتر';
+    $('#textErr').textContent = asArticle ? 'متن مقاله حداقل ۴۰ کاراکتر' : 'متن حداقل ۱۰ کاراکتر';
     $('#textErr').classList.add('show'); err = true;
   }
   if (err) return;
-  const hasImage = !!image;
-  const asArticle = state.asArticle && hasImage;
-  state.posts.unshift({ id: 'p' + Date.now(), title, category, desc: body.slice(0, 140), body: `<p>${processText(body).replace(/\n/g, '<br>')}</p>`, image, hasImage, asArticle, author: state.user.name, authorId: state.user.phone, authorAvatar: state.user.avatar, createdAt: Date.now(), likes: 0, isPopular: false });
+
+  const finalTitle = title || (asArticle ? '' : '');
+  state.posts.unshift({ id: 'p' + Date.now(), title: finalTitle, category, desc: body.slice(0, 140), body: `<p>${processText(body).replace(/\n/g, '<br>')}</p>`, image, hasImage, asArticle, author: state.user.name, authorId: state.user.phone, authorAvatar: state.user.avatar, createdAt: Date.now(), likes: 0, isPopular: false });
   save(); clearDraft();
   $('#postTitle').value = ''; $('#postText').value = ''; $('#charCount').textContent = '0';
   $('#charCountWrap').classList.remove('warn','danger');
@@ -1796,7 +1838,7 @@ function renderAdmin() {
   const totalPosts = state.posts.length;
   const totalComments = Object.values(state.comments).flat().length;
   const totalLikes = state.posts.reduce((sum, p) => sum + (p.likes || 0), 0);
-  
+
   if (state.adminTab === 'overview') {
     content.innerHTML = `
       <div class="admin-stats-grid">
@@ -1827,7 +1869,7 @@ function renderAdmin() {
       <div id="adminPostList">${state.posts.slice(0, 50).map(p => `
         <div class="admin-item">
           <img src="${p.image || DEFAULT_AVATAR}" alt="" style="border-radius:8px">
-          <div class="admin-item-info"><h4>${esc(p.title.slice(0, 40))}</h4><p>${esc(p.author)} · ${esc(p.category)}</p></div>
+          <div class="admin-item-info"><h4>${esc((p.title || 'بدون عنوان').slice(0, 40))}</h4><p>${esc(p.author)} · ${esc(p.category)}</p></div>
           <div class="admin-item-actions">
             <button class="admin-btn primary" data-admin-toggle-popular="${p.id}">${p.isPopular ? 'عادی' : 'محبوب'}</button>
             <button class="admin-btn danger" data-admin-del-post="${p.id}">حذف</button>
@@ -1906,11 +1948,9 @@ document.addEventListener('click', e => {
   if (e.target.closest('#addStory')) { addStory(); return; }
   if (e.target.closest('[data-view-story="me"]')) { viewMyStory(); return; }
 
-  // Search mode tabs (Search / Explore)
   const sm = e.target.closest('[data-smode]');
   if (sm) { state.searchMode = sm.dataset.smode; renderSearchMode(); return; }
 
-  // حذف سابقه جستجو باید قبل از data-recent بررسی بشه
   const dr = e.target.closest('[data-del-recent]');
   if (dr) { e.stopPropagation(); state.recentSearches = state.recentSearches.filter(s => s !== dr.dataset.delRecent); save(); renderSearchSuggestions(); return; }
   const rc = e.target.closest('[data-recent]');
@@ -1956,7 +1996,6 @@ document.addEventListener('click', e => {
     return;
   }
 
-  // Collection actions
   if (e.target.closest('#addCollectionBtn')) { openNewCollectionModal(); return; }
   if (e.target.closest('#createFirstCollection') || e.target.closest('#createNewCollectionFromPicker')) { $('#saveToCollectionModal').classList.remove('show'); openNewCollectionModal(); return; }
   if (e.target.closest('#createCollectionBtn')) { createCollection(); return; }
@@ -2056,8 +2095,7 @@ document.addEventListener('click', e => {
   if (mention) { e.preventDefault(); const name = mention.dataset.mention.slice(1); $('#searchInput').value = name; showPage('search'); renderSearch(name); return; }
   const hashtag = e.target.closest('[data-hashtag]');
   if (hashtag) { e.preventDefault(); const tag = hashtag.dataset.hashtag.slice(1); $('#searchInput').value = tag; showPage('search'); renderSearch(tag); return; }
-  
-  // ADMIN actions
+
   const adu = e.target.closest('[data-admin-del-user]');
   if (adu) {
     const phone = adu.dataset.adminDelUser;
@@ -2095,7 +2133,7 @@ document.addEventListener('click', e => {
     });
     return;
   }
-  
+
   const cl = e.target.closest('[data-close]'); if (cl) { cl.closest('.modal').classList.remove('show'); return; }
   if (e.target.closest('[data-back]')) { goBack(); return; }
 });
@@ -2103,7 +2141,6 @@ document.addEventListener('click', e => {
 $('#themeBtn').addEventListener('click', () => { const cur = localStorage.getItem('luno_theme') || 'light'; applyTheme(cur === 'dark' ? 'light' : 'dark'); });
 $('#myFriendsBtn').addEventListener('click', () => { state.profileTab = 'friends'; $$('.ptab').forEach(t => t.classList.toggle('active', t.dataset.ptab === 'friends')); renderMyProfile(); });
 
-// Logo double-click for admin panel
 let logoClickTimer = null;
 $('#logoBtn').addEventListener('click', () => {
   if (!isAdmin()) return;
@@ -2111,7 +2148,6 @@ $('#logoBtn').addEventListener('click', () => {
   else logoClickTimer = setTimeout(() => { logoClickTimer = null; }, 300);
 });
 
-// Admin search handlers
 document.addEventListener('input', e => {
   if (e.target.id === 'adminUserSearch') {
     const q = e.target.value.trim();
@@ -2124,8 +2160,8 @@ document.addEventListener('input', e => {
   }
   if (e.target.id === 'adminPostSearch') {
     const q = e.target.value.trim();
-    const filtered = state.posts.filter(p => p.title.includes(q) || p.author.includes(q));
-    $('#adminPostList').innerHTML = filtered.slice(0, 50).map(p => `<div class="admin-item"><img src="${p.image || DEFAULT_AVATAR}" alt="" style="border-radius:8px"><div class="admin-item-info"><h4>${esc(p.title.slice(0, 40))}</h4><p>${esc(p.author)} · ${esc(p.category)}</p></div><div class="admin-item-actions"><button class="admin-btn primary" data-admin-toggle-popular="${p.id}">${p.isPopular ? 'عادی' : 'محبوب'}</button><button class="admin-btn danger" data-admin-del-post="${p.id}">حذف</button></div></div>`).join('');
+    const filtered = state.posts.filter(p => (p.title || '').includes(q) || p.author.includes(q));
+    $('#adminPostList').innerHTML = filtered.slice(0, 50).map(p => `<div class="admin-item"><img src="${p.image || DEFAULT_AVATAR}" alt="" style="border-radius:8px"><div class="admin-item-info"><h4>${esc((p.title || 'بدون عنوان').slice(0, 40))}</h4><p>${esc(p.author)} · ${esc(p.category)}</p></div><div class="admin-item-actions"><button class="admin-btn primary" data-admin-toggle-popular="${p.id}">${p.isPopular ? 'عادی' : 'محبوب'}</button><button class="admin-btn danger" data-admin-del-post="${p.id}">حذف</button></div></div>`).join('');
   }
   if (e.target.id === 'adminCommentSearch') {
     const q = e.target.value.trim();
@@ -2167,4 +2203,4 @@ setTimeout(() => {
 }, 700);
 </script>
 </body>
-  </html>
+          </html>
