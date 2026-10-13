@@ -174,7 +174,7 @@ main{flex:1;padding-bottom:80px;overflow-y:auto;position:relative}
 .text-post-actions svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8}
 .text-post-actions button.liked{color:#ed4956}
 .text-post-actions button.liked svg{fill:#ed4956;stroke:#ed4956}
-.search-wrap{padding:16px 16px 0}
+.search-wrap{padding:14px 16px 0}
 .page-title{font-size:22px;font-weight:900;margin-bottom:14px}
 .search-box{display:flex;align-items:center;gap:10px;background:var(--line-2);border-radius:10px;padding:11px 14px;margin-bottom:14px;border:1.5px solid transparent;transition:var(--tr)}
 .search-box:focus-within{border-color:var(--ink);background:var(--paper);transform:translateY(-1px)}
@@ -191,6 +191,21 @@ main{flex:1;padding-bottom:80px;overflow-y:auto;position:relative}
 .stab{font-size:13.5px;font-weight:600;color:var(--muted);padding:8px 0;position:relative;background:none;transition:var(--tr)}
 .stab.active{color:var(--ink);font-weight:800}
 .stab.active::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2.5px;background:var(--ink);border-radius:2px}
+
+/* ===== SEARCH MODE TABS (Search / Explore) ===== */
+.search-mode-tabs{display:flex;justify-content:center;background:var(--paper);border-bottom:1px solid var(--line-2)}
+.smode{flex:1;max-width:150px;padding:14px 0;font-size:14px;font-weight:700;color:var(--muted);text-align:center;border-bottom:2.5px solid transparent;background:none;transition:var(--tr);position:relative}
+.smode.active{color:var(--ink);border-bottom-color:var(--ink);font-weight:800}
+.smode:active{color:var(--ink-2)}
+
+/* ===== EXPLORE GRID (Instagram-style) ===== */
+.explore-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:2px}
+.explore-item{aspect-ratio:1;overflow:hidden;background:var(--line-2);cursor:pointer;position:relative;animation:pageIn .3s}
+.explore-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
+.explore-item:active img{transform:scale(1.06)}
+.explore-item .ex-badge{position:absolute;bottom:6px;right:6px;background:rgba(0,0,0,.55);color:#fff;font-size:10px;font-weight:700;padding:3px 7px;border-radius:10px;display:flex;align-items:center;gap:3px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.explore-item .ex-badge svg{width:11px;height:11px;fill:#fff;stroke:none}
+
 .article-row{display:flex;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line-2);cursor:pointer;background:var(--paper);transition:var(--tr)}
 .article-row:active{background:var(--line-2)}
 .article-row img{width:88px;height:88px;border-radius:10px;object-fit:cover;flex-shrink:0}
@@ -538,17 +553,24 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
       <div id="feed"></div>
     </section>
 
+    <!-- ============ SEARCH PAGE (with Search / Explore modes) ============ -->
     <section class="page" id="page-search">
-      <div class="search-wrap">
-        <h1 class="page-title">جستجو</h1>
-        <div class="search-box"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7.5"/><path d="m16.5 16.5 4.5 4.5"/></svg><input id="searchInput" placeholder="جستجو در مقاله‌ها و کاربران..."></div>
-        <div id="searchSuggestions"></div>
-        <div class="search-tabs" id="searchTabs">
-          <button class="stab active" data-search="articles">مقاله‌ها</button>
-          <button class="stab" data-search="users">کاربران</button>
-        </div>
+      <div class="search-mode-tabs">
+        <button class="smode active" data-smode="search">جستجو</button>
+        <button class="smode" data-smode="explore">کاوش</button>
       </div>
-      <div id="searchResults"></div>
+      <div id="searchModePanel">
+        <div class="search-wrap">
+          <div class="search-box"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7.5"/><path d="m16.5 16.5 4.5 4.5"/></svg><input id="searchInput" placeholder="جستجو در مقاله‌ها و کاربران..."></div>
+          <div id="searchSuggestions"></div>
+          <div class="search-tabs" id="searchTabs">
+            <button class="stab active" data-search="articles">مقاله‌ها</button>
+            <button class="stab" data-search="users">کاربران</button>
+          </div>
+        </div>
+        <div id="searchResults"></div>
+      </div>
+      <div id="explorePanel" class="hidden"></div>
     </section>
 
     <section class="page" id="page-friends">
@@ -656,7 +678,7 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
       </div>
     </section>
 
-    <!-- ============ SETTINGS (REORGANIZED) ============ -->
+    <!-- ============ SETTINGS ============ -->
     <section class="page" id="page-settings">
       <div class="chat-top"><button class="back-btn" data-back><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button><h4 style="font-size:14px;font-weight:800">تنظیمات</h4></div>
       <div class="settings-section">
@@ -851,6 +873,7 @@ let state = {
   savingPostId: null,
   notifTab: 'notifs',
   friendTab: 'suggest',
+  searchMode: 'search',
   searchTab: 'articles',
   profileTab: 'posts',
   adminTab: 'overview',
@@ -1103,7 +1126,6 @@ function renderStories() {
   if (myStory) {
     html += `<button class="story mine" data-view-story="me"><div class="story-ring"><img src="${myStory.image}" alt=""></div><span class="story-name">استوری من</span></button>`;
   } else {
-    // فقط وقتی استوری وجود نداره دکمه افزودن نمایش داده میشه
     html += `<button class="story plus" id="addStory"><div class="story-ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg></div><span class="story-name">استوری</span></button>`;
   }
   wrap.innerHTML = html;
@@ -1273,6 +1295,38 @@ function renderSearch(q = '') {
 }
 $('#searchInput').addEventListener('input', e => renderSearch(e.target.value));
 $('#searchInput').addEventListener('keypress', e => { if (e.key === 'Enter') { const q = e.target.value.trim(); if (q) addRecentSearch(q); } });
+
+// ===== SEARCH MODE (Search / Explore) =====
+function renderSearchMode() {
+  $$('.smode').forEach(b => b.classList.toggle('active', b.dataset.smode === state.searchMode));
+  const searchPanel = $('#searchModePanel');
+  const explorePanel = $('#explorePanel');
+  searchPanel.classList.toggle('hidden', state.searchMode !== 'search');
+  explorePanel.classList.toggle('hidden', state.searchMode !== 'explore');
+  if (state.searchMode === 'search') {
+    renderSearch($('#searchInput').value);
+    renderSearchSuggestions();
+  } else {
+    renderExplore();
+  }
+}
+
+function renderExplore() {
+  const wrap = $('#explorePanel');
+  const imgPosts = state.posts
+    .filter(p => p.hasImage !== false && p.image)
+    .sort((a, b) => b.createdAt - a.createdAt);
+  if (!imgPosts.length) {
+    wrap.innerHTML = emptyState('هنوز پستی برای کاوش منتشر نشده', 'edit', 'ساخت اولین پست', 'go-create');
+    return;
+  }
+  wrap.innerHTML = `<div class="explore-grid">${imgPosts.map(p => `
+    <div class="explore-item" data-article="${p.id}">
+      <img src="${p.image}" alt="" loading="lazy" onerror="this.src='${PLACEHOLDER}'">
+      ${(p.likes || 0) > 0 ? `<span class="ex-badge"><svg viewBox="0 0 24 24"><path d="M20.8 8.6c0 5.5-8.8 11-8.8 11s-8.8-5.5-8.8-11A4.6 4.6 0 0 1 12 6.1a4.6 4.6 0 0 1 8.8 2.5Z"/></svg>${p.likes}</span>` : ''}
+    </div>
+  `).join('')}</div>`;
+}
 
 function extractRealUsers() {
   const map = new Map();
@@ -1808,7 +1862,7 @@ function showPage(id, push = true) {
   $$('.page').forEach(p => p.classList.toggle('active', p.id === 'page-' + id));
   $$('.nav[data-go]').forEach(b => b.classList.toggle('active', b.dataset.go === id));
   if (id === 'home') renderHome();
-  if (id === 'search') { renderSearch($('#searchInput').value); renderSearchSuggestions(); }
+  if (id === 'search') renderSearchMode();
   if (id === 'friends') renderFriends();
   if (id === 'notifs') renderNotifs();
   if (id === 'profile') renderMyProfile();
@@ -1852,7 +1906,11 @@ document.addEventListener('click', e => {
   if (e.target.closest('#addStory')) { addStory(); return; }
   if (e.target.closest('[data-view-story="me"]')) { viewMyStory(); return; }
 
-  // ⚠️ حذف سابقه جستجو باید قبل از data-recent بررسی بشه چون دکمه × داخل همون div هست
+  // Search mode tabs (Search / Explore)
+  const sm = e.target.closest('[data-smode]');
+  if (sm) { state.searchMode = sm.dataset.smode; renderSearchMode(); return; }
+
+  // حذف سابقه جستجو باید قبل از data-recent بررسی بشه
   const dr = e.target.closest('[data-del-recent]');
   if (dr) { e.stopPropagation(); state.recentSearches = state.recentSearches.filter(s => s !== dr.dataset.delRecent); save(); renderSearchSuggestions(); return; }
   const rc = e.target.closest('[data-recent]');
