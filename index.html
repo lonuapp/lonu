@@ -532,6 +532,7 @@ body.focus-read .app-header{display:none}
 .trend-chip.on{background:var(--accent);color:#fff}
 button:focus-visible,input:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .clamp{display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}.more-btn{color:var(--accent);font-weight:800;font-size:12.5px;padding:4px 0}.pin{position:relative}
+body.reduce-motion *{animation:none!important;transition:none!important}
 </style>
 </head>
 <body>
@@ -787,6 +788,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,[tabindex]:focus
 
         <div class="settings-section-title">حریم خصوصی</div>
         <div class="settings-list">
+          <div class="s-item" id="reduceItem"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9z"/></svg><div><h4 id="reduceTitle">حالت کم‌مصرف</h4><p>خاموش کردن انیمیشن‌ها برای گوشی‌های ضعیف</p></div><span class="arrow">›</span></div>
           <div class="s-item" id="statsItem"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><div><h4>آمار پست‌های من</h4><p>پسند و نظر هر پست</p></div><span class="arrow">›</span></div>
           <div class="s-item" id="blockedItem"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg><div><h4>کاربران مسدودشده</h4><p>مدیریت لیست مسدودی</p></div><span class="arrow">›</span></div>
         </div>
@@ -1029,7 +1031,7 @@ function renderSkeleton() {
     </div>
   `).join('');
 }
-function showConfetti() {
+function showConfetti() { if (document.body.classList.contains('reduce-motion')) return;
   const canvas = $('#confettiCanvas'); canvas.classList.add('show');
   const ctx = canvas.getContext('2d');
   canvas.width = window.innerWidth; canvas.height = window.innerHeight;
@@ -2017,6 +2019,7 @@ function openPostMenu(postId) {
   if (isMine || adm) html += `<button class="menu-item danger" data-menu-action="delete"><svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>حذف پست</button>`;
   if (isMine) html += `<button class="menu-item" data-menu-action="edit">✏️ ویرایش پست</button><button class="menu-item" data-menu-action="pin">📌 ${p.pinned ? 'برداشتن سنجاق' : 'سنجاق در پروفایل'}</button>`;
   else html += `<button class="menu-item" data-menu-action="report">🚩 گزارش پست</button><button class="menu-item" data-menu-action="block">🚫 مسدود کردن نویسنده</button>`;
+  html += `<button class="menu-item" data-menu-action="share-img">🖼️ ذخیره به‌صورت تصویر</button>`;
   $('#postMenuList').innerHTML = html;
   $('#postMenuModal').classList.add('show');
 }
@@ -2597,6 +2600,7 @@ document.addEventListener('click', e => {
       editingPostId = p.id;
       $('#editPostTitle').value = p.title || ''; $('#editPostText').value = plainText(p.body || p.desc);
       $('#editPostModal').classList.add('show');
+    } else if (act === 'share-img') { sharePostImage(p).catch(() => toast('ساخت تصویر ناموفق بود', 'error'));
     } else if (act === 'pin' && p.authorId === state.user.phone) {
       const was = p.pinned; state.posts.forEach(x => { if (x.authorId === p.authorId) x.pinned = false; }); p.pinned = !was; save(); renderMyProfile(); toast(p.pinned ? 'پست سنجاق شد' : 'سنجاق برداشته شد');
     } else if (act === 'report') {
@@ -2689,6 +2693,57 @@ document.addEventListener('click', e => {
 });
 try { stripAvatars(); save(); } catch (e) {}
 
+// ---- password helpers, low-power mode, share as image
+(function () {
+  const f = $('#authPass'), box = document.createElement('div');
+  box.style.cssText = 'display:flex;justify-content:space-between;align-items:center;margin:6px 4px 0;font-size:11.5px';
+  box.innerHTML = '<button type="button" id="togglePass" style="color:var(--accent);font-weight:700">نمایش رمز</button><span id="passStrength" style="color:var(--muted)"></span>';
+  f.insertAdjacentElement('afterend', box);
+  $('#togglePass').addEventListener('click', () => { const hid = f.type === 'password'; f.type = hid ? 'text' : 'password'; $('#togglePass').textContent = hid ? 'مخفی کردن' : 'نمایش رمز'; });
+  f.addEventListener('input', () => {
+    const el = $('#passStrength'), v = f.value;
+    if (authMode !== 'signup' || !v) { el.textContent = ''; return; }
+    let sc = 0; if (v.length >= 8) sc++; if (/\d/.test(v) && /[A-Za-z\u0600-\u06FF]/.test(v)) sc++; if (/[^\w\u0600-\u06FF]|[A-Z]/.test(v)) sc++;
+    const r = v.length < 6 ? ['خیلی کوتاه', '#ef4444'] : [['ضعیف', '#ef4444'], ['متوسط', '#f59e0b'], ['خوب', '#10b981'], ['قوی', '#10b981']][sc];
+    el.textContent = 'قدرت رمز: ' + r[0]; el.style.color = r[1];
+  });
+})();
+function applyReduceMotion() {
+  const on = localStorage.getItem('luno_reduce_motion') === '1';
+  document.body.classList.toggle('reduce-motion', on);
+  $('#reduceTitle').textContent = 'حالت کم‌مصرف: ' + (on ? 'روشن' : 'خاموش');
+}
+applyReduceMotion();
+document.addEventListener('click', e => {
+  if (e.target.closest('#reduceItem')) { localStorage.setItem('luno_reduce_motion', localStorage.getItem('luno_reduce_motion') === '1' ? '0' : '1'); applyReduceMotion(); }
+});
+async function sharePostImage(p) {
+  const W = 1080, pad = 70, text = plainText(p.body || p.desc);
+  const img = p.image ? await new Promise(r => { const i = new Image(); i.onload = () => r(i); i.onerror = () => r(null); i.src = p.image; }) : null;
+  const c = document.createElement('canvas'); c.width = W; let ctx = c.getContext('2d');
+  const FONT = 'Vazirmatn, Tahoma, sans-serif', setF = (px, w) => { ctx.font = (w || 400) + ' ' + px + 'px ' + FONT; ctx.direction = 'rtl'; ctx.textAlign = 'right'; };
+  setF(40);
+  const lines = [];
+  text.split('\n').forEach(par => { let line = ''; par.split(' ').forEach(w => { const t = line ? line + ' ' + w : w; if (ctx.measureText(t).width > W - pad * 2 && line) { lines.push(line); line = w; } else line = t; }); lines.push(line); });
+  const shown = lines.slice(0, 16), imgH = img ? Math.min(Math.round(W * img.height / img.width), 1100) : 0;
+  c.height = 150 + imgH + (p.title ? 110 : 0) + shown.length * 66 + 190;
+  ctx = c.getContext('2d');
+  ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, W, c.height);
+  ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#e0427e'; ctx.fillRect(0, 0, W, 14);
+  let y = 100; ctx.direction = 'ltr'; ctx.textAlign = 'left'; ctx.font = '900 54px ' + FONT; ctx.fillText('Luno.', pad, y); y += 50;
+  if (img) { ctx.drawImage(img, 0, y, W, imgH); y += imgH + 30; }
+  ctx.fillStyle = '#111827';
+  if (p.title) { setF(52, 800); y += 60; ctx.fillText(p.title, W - pad, y); y += 50; }
+  setF(40); ctx.fillStyle = '#374151';
+  shown.forEach(l => { y += 66; ctx.fillText(l, W - pad, y); });
+  y += 90; ctx.fillStyle = '#9ca3af'; setF(34); ctx.fillText(p.author + ' · لونو', W - pad, y);
+  const blob = await new Promise(r => c.toBlob(r, 'image/png'));
+  const file = new File([blob], 'luno-post.png', { type: 'image/png' });
+  if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file] }); return; }
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'luno-post.png';
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000); toast('تصویر ذخیره شد');
+}
+
 function openFromHash() {
   const m = location.hash.match(/^#post-(.+)$/);
   if (m && state.user && state.posts.some(p => p.id === m[1])) openPostDetail(m[1]);
@@ -2722,4 +2777,4 @@ setTimeout(() => {
 }, 700);
 </script>
 </body>
-                                                                        </html>
+                                                                                                                                                                        </html>
