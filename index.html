@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#ffffff">
 <title>Luno</title>
+<meta name="description" content="لونو؛ مجله‌ای برای لحظه‌های تو. پست، مقاله و گفتگو.">
+<meta property="og:type" content="website"><meta property="og:title" content="Luno"><meta property="og:description" content="مجله‌ای برای لحظه‌های تو">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23e0427e'/%3E%3Ctext x='50' y='72' font-size='62' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='900'%3EL%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;800;900&family=Shabnam:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -521,6 +524,11 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 .admin-tab{padding:12px 14px;font-size:12px;font-weight:700;color:var(--muted);border-bottom:2.5px solid transparent;white-space:nowrap;background:none;transition:var(--tr)}
 .admin-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
 @media(min-width:600px){body{padding:20px 0;background:#e8e8ec}.app{border-radius:20px;max-height:900px;min-height:calc(100dvh - 40px)}.bottom-nav{border-radius:0 0 20px 20px}#page-chat.active{border-radius:20px;height:calc(100dvh - 40px);top:50%;transform:translate(-50%,-50%);bottom:auto}.article-progress{top:20px;max-width:480px;border-radius:20px 20px 0 0;overflow:hidden}}
+.trend-row{padding:12px 16px 0}.trend-row h4{font-size:12px;font-weight:800;margin-bottom:8px}.trend-chips{display:flex;gap:6px;flex-wrap:wrap}.trend-chip{background:var(--accent-soft);color:var(--accent);border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700}
+#mentionBox{position:fixed;z-index:400;background:var(--paper);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);display:none;min-width:180px;overflow:hidden}
+#mentionBox button{display:flex;gap:8px;align-items:center;width:100%;padding:9px 12px;font-size:13px;text-align:right}#mentionBox img{width:24px;height:24px;border-radius:50%}
+.draft-item{display:flex;align-items:center;gap:10px;padding:12px 4px;border-bottom:1px solid var(--line-2)}.draft-item>div{flex:1;min-width:0;cursor:pointer}.draft-item h4{font-size:13px;font-weight:800}.draft-item p{font-size:11px;color:var(--muted)}
+body.focus-read .app-header{display:none}
 </style>
 </head>
 <body>
@@ -660,14 +668,14 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
       <div class="article-progress"><div class="article-progress-bar" id="artProgress"></div></div>
       <div class="chat-top"><button class="back-btn" data-back><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button><h4 id="artPageTitle" style="font-size:14px;font-weight:800;flex:1">مقاله</h4></div>
       <div class="article-cover" id="artCoverWrap"><img id="artImg" src="" alt=""><div class="article-cover-title"><span class="tag" id="artTag"></span><h1 id="artTitle"></h1></div></div>
-      <div class="article-meta-row"><img id="artAvatar" alt="" data-art-author><b id="artAuthor" data-art-author></b><span style="flex:1"></span><span class="reading-time" id="artReadingTime"></span></div>
+      <div class="article-meta-row"><img id="artAvatar" alt="" data-art-author><b id="artAuthor" data-art-author></b><span style="flex:1"></span><span class="reading-time" id="artReadingTime"></span><button type="button" id="focusBtn" class="reading-time" style="margin-inline-start:8px;cursor:pointer;font-weight:800">Aa</button></div>
       <div class="article-body" id="artBody"></div>
     </section>
 
     <section class="page" id="page-create">
       <div class="create-wrap">
         <div class="create-box">
-          <div class="create-head"><h2>ایجاد پست</h2><div class="draft-badge" id="draftBadge"><span class="draft-dot"></span>پیش‌نویس ذخیره شد</div></div>
+          <div class="create-head"><h2>ایجاد پست</h2><div class="draft-badge" id="draftBadge"><span class="draft-dot"></span>پیش‌نویس ذخیره شد</div><button type="button" id="draftsBtn" style="font-size:12px;font-weight:800;color:var(--accent)">پیش‌نویس‌ها</button></div>
           <label class="upload-area"><div class="upload-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div><span id="uploadLabel">افزودن تصویر</span><input type="file" id="imageInput" accept="image/*"></label>
           <div class="preview" id="preview"><img id="previewImg" src="" alt=""><button type="button" id="removeImg">×</button></div>
           <input class="field" id="postTitle" maxlength="100" placeholder="عنوان مطلب (اختیاری برای پست)">
@@ -768,6 +776,12 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
           <div class="s-item" data-go="about"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg><div><h4>درباره ما</h4><p>درباره لونو</p></div><span class="arrow">›</span></div>
         </div>
 
+        <div class="settings-section-title">داده‌ها</div>
+        <div class="settings-list">
+          <div class="s-item" id="exportBtn"><svg viewBox="0 0 24 24"><path d="M12 3v12m0 0-4-4m4 4 4-4M5 21h14"/></svg><div><h4>دریافت پشتیبان</h4><p>ذخیره‌ی اطلاعات روی دستگاه</p></div><span class="arrow">›</span></div>
+          <div class="s-item" id="importBtn"><svg viewBox="0 0 24 24"><path d="M12 21V9m0 0-4 4m4-4 4 4M5 3h14"/></svg><div><h4>بازیابی پشتیبان</h4><p>بارگذاری فایل پشتیبان</p></div><span class="arrow">›</span></div>
+        </div>
+
         <div class="settings-section-title">خطر</div>
         <div class="settings-list">
           <div class="s-item danger" id="logoutBtn"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg><div><h4>خروج از حساب</h4><p>خروج از حساب کاربری</p></div><span class="arrow">›</span></div>
@@ -781,8 +795,12 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
         <p>استفاده از برنامه لونو به معنی پذیرش قوانین زیر است:</p>
         <h2>۱. محتوای کاربران</h2>
         <p>کاربران مسئول محتوایی هستند که منتشر می‌کنند. انتشار محتوای توهین‌آمیز، غیرقانونی یا نقض حق نشر ممنوع است.</p>
-        <h2>۲. حریم خصوصی</h2>
-        <p>اطلاعات شما نزد ما محفوظ است و بدون اجازه شما در اختیار دیگران قرار نمی‌گیرد.</p>
+        <h2>۲. حریم خصوصی و نگهداری اطلاعات</h2>
+        <p>در نسخه‌ی فعلی، اطلاعات شما (حساب، پست‌ها، پیام‌ها) فقط روی همین دستگاه و در مرورگر ذخیره می‌شود و به سرور ارسال نمی‌شود. با پاک شدن اطلاعات مرورگر ممکن است از بین برود؛ از «تنظیمات» می‌توانید پشتیبان بگیرید.</p>
+        <h2>۳. رفتار کاربران</h2>
+        <p>آزار، تهدید، انتشار اطلاعات شخصی دیگران و هرزنامه ممنوع است و مدیر می‌تواند محتوای متخلف را حذف کند.</p>
+        <h2>۴. تغییر قوانین</h2>
+        <p>این قوانین ممکن است در نسخه‌های بعدی به‌روزرسانی شود.</p>
       </div>
     </section>
 
@@ -833,6 +851,7 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
   <div class="modal" id="newCollectionModal"><div class="modal-box"><div class="modal-head"><h3>کالکشن جدید</h3><button class="modal-close" data-close>×</button></div><div class="modal-body"><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">نام کالکشن</label><input class="field" id="collectionNameInput" placeholder="مثلاً: انیمه‌های خوب"><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">آیکون (ایموجی)</label><input class="field" id="collectionIconInput" placeholder="📁" maxlength="2"></div><div class="modal-foot"><button id="createCollectionBtn" style="flex:1">ایجاد</button></div></div></div>
   <div class="modal" id="editModal"><div class="modal-box"><div class="modal-head"><h3>ویرایش پروفایل</h3><button class="modal-close" data-close>×</button></div><div class="modal-body"><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">نام</label><input class="field" id="editName"><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">بیوگرافی</label><textarea class="field" id="editBio" rows="3"></textarea><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">شهر</label><input class="field" id="editCity" placeholder="مثلاً: تهران"><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">شغل</label><input class="field" id="editJob" placeholder="مثلاً: طراح گرافیک"><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">لینک (اختیاری)</label><input class="field" id="editLink" placeholder="https://..."><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">تصویر پروفایل</label><input type="file" id="editAvatar" accept="image/*" class="field"></div><div class="modal-foot"><button id="saveProfileBtn" style="flex:1">ذخیره</button></div></div></div>
 
+  <div class="modal" id="draftsModal"><div class="modal-box"><div class="modal-head"><h3>پیش‌نویس‌ها</h3><button class="modal-close" data-close>×</button></div><div class="modal-body" id="draftsList"></div></div></div>
   <div class="confirm" id="confirmBox"><div class="confirm-box"><h3 id="confirmTitle"></h3><p id="confirmMsg"></p><div class="confirm-actions"><button class="cancel" id="confirmCancel">انصراف</button><button class="danger" id="confirmOk">تأیید</button></div></div></div>
 
   <div class="img-viewer" id="imgViewer"><button class="close-viewer" id="closeViewer">×</button><img id="viewerImg" src="" alt=""></div>
@@ -893,6 +912,13 @@ let state = {
 };
 
 function save() {
+  try { _save(); }
+  catch (e) {
+    if (e && (e.name === 'QuotaExceededError' || e.code === 22)) toast('حافظه مرورگر پر شده؛ چند پست یا عکس قدیمی رو حذف کن', 'error');
+    else console.error(e);
+  }
+}
+function _save() {
   localStorage.setItem('luno_posts', JSON.stringify(state.posts));
   localStorage.setItem('luno_liked', JSON.stringify(state.liked));
   localStorage.setItem('luno_saved', JSON.stringify(state.saved));
@@ -911,7 +937,7 @@ const esc = s => String(s||'').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;'
 function processText(text) {
   let out = esc(text);
   out = out.replace(/(@[\u0600-\u06FFa-zA-Z0-9_]+)/g, '<a href="#" data-mention="$1">$1</a>');
-  out = out.replace(/(#[\u0600-\u06FFa-zA-Z0-9_]+)/g, '<a href="#" data-hashtag="$1">$1</a>');
+  out = out.replace(/(?<![&\w])(#[\u0600-\u06FFa-zA-Z0-9_]+)/g, '<a href="#" data-hashtag="$1">$1</a>');
   return out;
 }
 const isAdmin = () => state.user?.phone === ADMIN_PHONE;
@@ -961,8 +987,7 @@ function formatTime(ts) {
   if (diff < 3600) return Math.floor(diff/60) + ' دقیقه پیش';
   if (diff < 86400) return Math.floor(diff/3600) + ' ساعت پیش';
   if (diff < 604800) return Math.floor(diff/86400) + ' روز پیش';
-  if (diff < 2592000) return Math.floor(diff/604800) + ' هفته پیش';
-  return Math.floor(diff/2592000) + ' ماه پیش';
+  return new Date(ts).toLocaleDateString('fa-IR-u-ca-persian', { day: 'numeric', month: 'long', year: 'numeric' });
 }
 function readingTime(text) {
   const words = (text || '').split(/\s+/).length;
@@ -1136,6 +1161,7 @@ function enterApp() {
   else { $('#avatarColorGrid').style.display = 'none'; $('#avatarColorStatus').textContent = 'مخصوص کاربران ویژه'; }
   state.history = ['home'];
   history.replaceState({ page: 'home' }, '');
+  setTimeout(openFromHash, 400);
 }
 function updateBadge() {
   const unread = state.notifications.filter(n => !n.read).length;
@@ -1365,6 +1391,12 @@ function renderSearch(q = '') {
     return;
   }
   suggestions.style.display = 'none';
+  if (q.startsWith('#') && q.length > 1) {
+    const re = new RegExp(q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?![\\w\\u0600-\\u06FF])');
+    const hits = state.posts.filter(p => re.test((p.title || '') + ' ' + (p.desc || '') + ' ' + (p.body || ''))).sort((a, b) => b.createdAt - a.createdAt);
+    wrap.innerHTML = hits.length ? hits.map(renderPost).join('') : emptyState('پستی با این هشتگ پیدا نشد', 'search');
+    return;
+  }
   if (state.searchTab === 'articles') {
     let items = state.posts.filter(p => p.asArticle === true && p.hasImage !== false && p.image);
     if (q) items = items.filter(p => ((p.title || '') + ' ' + p.category + ' ' + (p.desc || '')).includes(q));
@@ -1404,7 +1436,7 @@ function renderExplore() {
     wrap.innerHTML = emptyState('هنوز پستی برای کاوش منتشر نشده', 'edit', 'ساخت اولین پست', 'go-create');
     return;
   }
-  wrap.innerHTML = `<div class="explore-grid">${imgPosts.map(p => `
+  wrap.innerHTML = exploreExtras() + `<div class="explore-grid">${imgPosts.map(p => `
     <div class="explore-item" data-post-detail="${p.id}">
       <img src="${p.image}" alt="" loading="lazy" onerror="this.src='${PLACEHOLDER}'">
       ${(p.likes || 0) > 0 ? `<span class="ex-badge"><svg viewBox="0 0 24 24"><path d="M20.8 8.6c0 5.5-8.8 11-8.8 11s-8.8-5.5-8.8-11A4.6 4.6 0 0 1 12 6.1a4.6 4.6 0 0 1 8.8 2.5Z"/></svg>${p.likes}</span>` : ''}
@@ -1446,7 +1478,11 @@ function renderUserRow(u) {
 }
 function sendChatRequest(uid) {
   if (isFriend(uid) || isPending(uid)) return;
-  state.pending.push({ to: uid, at: Date.now() }); save(); renderFriends(); toast('درخواست چت ارسال شد');
+  state.friends.push(uid);
+  const fu = extractRealUsers().find(x => x.id === uid);
+  addNotif('«' + (fu ? fu.name : 'کاربر') + '» به دوستان اضافه شد', fu && fu.avatar);
+  save(); renderFriends(); toast('به دوستان اضافه شد');
+  if ($('#page-user').classList.contains('active')) openUserProfile(uid);
 }
 function removeFriend(uid) {
   showConfirm('حذف دوست', `مطمئنی می‌خوای از دوستانت حذف کنی؟`, () => {
@@ -1462,7 +1498,7 @@ function renderNotifs() {
   const wrap = $('#notifsList');
   if (state.notifTab === 'notifs') {
     if (!state.notifications.length) { wrap.innerHTML = emptyState('اعلان جدیدی نداری', 'bell', '', '', 'اعلان خالیه'); return; }
-    wrap.innerHTML = state.notifications.map(n => `<div class="notif"><img src="${n.avatar || DEFAULT_AVATAR}" alt=""><div class="notif-info"><p>${n.text}</p><time>${esc(n.time || 'همین حالا')}</time></div><button class="notif-del" data-del-notif="${n.id}">×</button></div>`).join('');
+    wrap.innerHTML = state.notifications.map(n => `<div class="notif"><img src="${n.avatar || DEFAULT_AVATAR}" alt=""><div class="notif-info"><p>${esc(n.text)}</p><time>${esc(n.time || 'همین حالا')}</time></div><button class="notif-del" data-del-notif="${n.id}">×</button></div>`).join('');
     state.notifications.forEach(n => n.read = true); save(); updateBadge();
   } else {
     const ids = Object.keys(state.chats).filter(uid => (state.chats[uid] || []).length > 0);
@@ -1606,12 +1642,12 @@ $('#saveProfileBtn').addEventListener('click', () => {
     }
     renderMyProfile(); $('#editModal').classList.remove('show'); $('#editAvatar').value = ''; toast('ذخیره شد');
   };
-  if (f) { const r = new FileReader(); r.onload = e => { state.user.avatar = e.target.result; done(); }; r.readAsDataURL(f); }
+  if (f) { const r = new FileReader(); r.onload = async e => { state.user.avatar = await shrinkDataUrl(e.target.result, 256, 0.7); done(); }; r.readAsDataURL(f); }
   else done();
 });
 $('#myCover').addEventListener('click', () => {
   const input = document.createElement('input'); input.type = 'file'; input.accept = 'image/*';
-  input.onchange = e => { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = ev => { state.user.cover = ev.target.result; save(); renderMyProfile(); toast('کاور تغییر کرد'); }; r.readAsDataURL(f); };
+  input.onchange = e => { const f = e.target.files[0]; if (!f) return; const r = new FileReader(); r.onload = async ev => { state.user.cover = await shrinkDataUrl(ev.target.result, 1000, 0.7); save(); renderMyProfile(); toast('کاور تغییر کرد'); }; r.readAsDataURL(f); };
   input.click();
 });
 
@@ -1722,7 +1758,7 @@ function renderInlineComment(c, i, postId) {
           <div class="reply-row-body">
             <b>${esc(r.user)}</b>
             <p>${processText(r.text)}</p>
-            <time>${esc(r.time)}</time>
+            <time>${esc(r.time)}</time><button class="comment-action-btn" data-reply-to-user="${esc(r.user)}" data-parent="${i}">پاسخ</button>
           </div>
         </div>
       `).join('')}</div>` : ''}
@@ -1813,11 +1849,11 @@ function sendDetailComment() {
   toast('نظر ثبت شد');
 }
 
-let currentArticleAuthorId = null;
+let currentArticleAuthorId = null, currentArticleId = null;
 function openArticle(id) {
   const p = state.posts.find(x => x.id === id); if (!p) return;
   if (!p.asArticle) { openPostDetail(id); return; }
-  currentArticleAuthorId = p.authorId;
+  currentArticleAuthorId = p.authorId; currentArticleId = p.id;
   $('#artPageTitle').textContent = 'مقاله';
   $('#artImg').src = p.image || PLACEHOLDER;
   $('#artTitle').textContent = p.title || '';
@@ -1826,7 +1862,7 @@ function openArticle(id) {
   $('#artAvatar').src = p.authorAvatar || DEFAULT_AVATAR;
   $('#artReadingTime').innerHTML = readingTime(p.body || p.desc || '');
   $('#artBody').innerHTML = (p.body || `<p>${processText(p.desc)}</p>`);
-  $('#artProgress').style.width = '0%'; showPage('article');
+  $('#artProgress').style.width = '0%'; showPage('article'); setTimeout(restoreProgress, 80);
 }
 $('#mainScroll').addEventListener('scroll', () => {
   if ($('#page-article').classList.contains('active')) {
@@ -1897,23 +1933,6 @@ function compressImage(file, maxWidth = 1200, quality = 0.7) {
     reader.readAsDataURL(file);
   });
 }
-function saveDraft() {
-  const draft = { title: $('#postTitle').value, text: $('#postText').value, tags: state.selectedTags, asArticle: state.asArticle };
-  if (draft.title || draft.text) {
-    localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
-    const badge = $('#draftBadge'); badge.classList.add('show'); setTimeout(() => badge.classList.remove('show'), 1500);
-  }
-}
-function loadDraft() {
-  const draft = JSON.parse(localStorage.getItem(DRAFT_KEY) || 'null'); if (!draft) return;
-  $('#postTitle').value = draft.title || ''; $('#postText').value = draft.text || '';
-  $('#charCount').textContent = (draft.text || '').length;
-  state.selectedTags = draft.tags || [];
-  $$('.tag-chip').forEach(c => c.classList.toggle('active', state.selectedTags.includes(c.dataset.tag)));
-  state.asArticle = draft.asArticle || false;
-  $('#articleSwitch').classList.toggle('on', state.asArticle); $('#articleToggle').classList.toggle('active', state.asArticle);
-}
-function clearDraft() { localStorage.removeItem(DRAFT_KEY); }
 $('#postText').addEventListener('input', e => {
   const len = e.target.value.length; $('#charCount').textContent = len;
   $('#charCountWrap').classList.toggle('warn', len > 1500 && len < 1900);
@@ -2270,7 +2289,7 @@ document.addEventListener('click', e => {
   const mention = e.target.closest('[data-mention]');
   if (mention) { e.preventDefault(); const name = mention.dataset.mention.slice(1); $('#searchInput').value = name; showPage('search'); renderSearch(name); return; }
   const hashtag = e.target.closest('[data-hashtag]');
-  if (hashtag) { e.preventDefault(); const tag = hashtag.dataset.hashtag.slice(1); $('#searchInput').value = tag; showPage('search'); renderSearch(tag); return; }
+  if (hashtag) { e.preventDefault(); const tag = hashtag.dataset.hashtag; state.searchMode = 'search'; $('#searchInput').value = tag; showPage('search'); renderSearch(tag); return; }
 
   const adu = e.target.closest('[data-admin-del-user]');
   if (adu) {
@@ -2279,7 +2298,16 @@ document.addEventListener('click', e => {
       const users = JSON.parse(localStorage.getItem('luno_users') || '[]');
       const filtered = users.filter(u => u.phone !== phone);
       localStorage.setItem('luno_users', JSON.stringify(filtered));
+      const goneIds = state.posts.filter(p => p.authorId === phone).map(p => p.id);
       state.posts = state.posts.filter(p => p.authorId !== phone);
+      goneIds.forEach(id => delete state.comments[id]);
+      Object.keys(state.comments).forEach(pid => {
+        state.comments[pid] = (state.comments[pid] || []).filter(c => c.userId !== phone)
+          .map(c => ({ ...c, replies: (c.replies || []).filter(r => r.userId !== phone) }));
+      });
+      delete state.chats[phone];
+      state.friends = state.friends.filter(x => x !== phone);
+      state.pending = state.pending.filter(r => r.to !== phone);
       save(); renderAdmin(); toast('کاربر حذف شد');
     });
     return;
@@ -2363,6 +2391,178 @@ function init() {
   applyChatBg(localStorage.getItem('luno_chat_bg') || 'none');
   renderAccentGrid(); renderChatBgGrid(); renderEmojiPicker();
 }
+// ---- backup / restore
+const BACKUP_SKIP = ['luno_users', 'luno_user', 'luno_approved_colors'];
+$('#exportBtn').addEventListener('click', () => {
+  const data = {};
+  Object.keys(localStorage).filter(k => k.startsWith('luno_') && !BACKUP_SKIP.includes(k)).forEach(k => data[k] = localStorage.getItem(k));
+  const blob = new Blob([JSON.stringify({ app: 'luno', v: 1, at: Date.now(), data })], { type: 'application/json' });
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = 'luno-backup-' + new Date().toISOString().slice(0, 10) + '.json';
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+  toast('پشتیبان دانلود شد');
+});
+$('#importBtn').addEventListener('click', () => {
+  const inp = document.createElement('input'); inp.type = 'file'; inp.accept = 'application/json,.json';
+  inp.onchange = () => {
+    const f = inp.files[0]; if (!f) return; const r = new FileReader();
+    r.onload = () => {
+      let j; try { j = JSON.parse(r.result); if (j.app !== 'luno' || typeof j.data !== 'object') throw 0; } catch (e) { toast('فایل پشتیبان معتبر نیست', 'error'); return; }
+      showConfirm('بازیابی پشتیبان', 'اطلاعات فعلی (پست‌ها، چت‌ها و ...) با پشتیبان جایگزین می‌شود. ادامه می‌دی؟', () => {
+        try { Object.entries(j.data).forEach(([k, v]) => { if (k.startsWith('luno_') && !BACKUP_SKIP.includes(k) && typeof v === 'string') localStorage.setItem(k, v); }); }
+        catch (e) { toast('حافظه پر است', 'error'); return; }
+        location.reload();
+      });
+    };
+    r.readAsText(f);
+  };
+  inp.click();
+});
+
+// ---- multiple drafts
+const DRAFTS_KEY = 'luno_drafts';
+const getDrafts = () => { try { return JSON.parse(localStorage.getItem(DRAFTS_KEY) || '[]'); } catch (e) { return []; } };
+const setDrafts = d => { try { localStorage.setItem(DRAFTS_KEY, JSON.stringify(d)); } catch (e) { toast('حافظه پر است', 'error'); } };
+let draftId = null, draftBooted = false;
+function saveDraft() {
+  const title = $('#postTitle').value, text = $('#postText').value;
+  if (!title && !text) return;
+  const ds = getDrafts(); let d = ds.find(x => x.id === draftId);
+  if (!d) { d = { id: 'd' + Date.now() }; draftId = d.id; ds.unshift(d); }
+  Object.assign(d, { title, text, tags: state.selectedTags, asArticle: state.asArticle, at: Date.now() });
+  setDrafts(ds.slice(0, 20));
+  const badge = $('#draftBadge'); badge.classList.add('show'); setTimeout(() => badge.classList.remove('show'), 1500);
+}
+function loadDraft(id) {
+  const ds = getDrafts(); let d = null;
+  if (id) d = ds.find(x => x.id === id);
+  else if (draftId) d = ds.find(x => x.id === draftId);
+  else if (!draftBooted) d = ds[0];
+  draftBooted = true;
+  if (!d) return;
+  draftId = d.id;
+  $('#postTitle').value = d.title || ''; $('#postText').value = d.text || '';
+  $('#charCount').textContent = (d.text || '').length;
+  state.selectedTags = d.tags || [];
+  $$('.tag-chip').forEach(c => c.classList.toggle('active', state.selectedTags.includes(c.dataset.tag)));
+  state.asArticle = d.asArticle || false;
+  $('#articleSwitch').classList.toggle('on', state.asArticle); $('#articleToggle').classList.toggle('active', state.asArticle);
+}
+function clearDraft() { setDrafts(getDrafts().filter(x => x.id !== draftId)); draftId = null; }
+function renderDrafts() {
+  const ds = getDrafts();
+  $('#draftsList').innerHTML = (ds.length ? ds.map(d => `<div class="draft-item"><div data-draft-open="${d.id}"><h4>${esc((d.title || d.text || 'بدون عنوان').slice(0, 40))}</h4><p>${formatTime(d.at)}</p></div><button data-draft-del="${d.id}" style="font-size:18px">🗑</button></div>`).join('')
+    : '<p style="font-size:12.5px;color:var(--muted);text-align:center;padding:20px 0">پیش‌نویسی نداری</p>')
+    + '<button class="btn-main" id="newDraftBtn" style="margin-top:12px">پیش‌نویس جدید</button>';
+}
+
+// ---- trending hashtags + continue reading
+const getProgress = () => { try { return JSON.parse(localStorage.getItem('luno_progress') || '{}'); } catch (e) { return {}; } };
+function exploreExtras() {
+  const counts = {};
+  state.posts.forEach(p => ((p.title || '') + ' ' + (p.desc || '')).match(/#[\u0600-\u06FFa-zA-Z0-9_]+/g)?.forEach(t => counts[t] = (counts[t] || 0) + 1));
+  const tags = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 8);
+  const prog = getProgress();
+  const cont = state.posts.filter(p => p.asArticle && prog[p.id] > 3 && prog[p.id] < 95).slice(0, 5);
+  let h = '';
+  if (cont.length) h += `<div class="trend-row"><h4>ادامه مطالعه</h4><div class="trend-chips">${cont.map(p => `<button class="trend-chip" data-article="${p.id}">${esc((p.title || 'مقاله').slice(0, 24))} · ${Math.round(prog[p.id])}٪</button>`).join('')}</div></div>`;
+  if (tags.length) h += `<div class="trend-row"><h4>هشتگ‌های داغ</h4><div class="trend-chips">${tags.map(([t, n]) => `<button class="trend-chip" data-hashtag="${esc(t)}">${esc(t)} (${n})</button>`).join('')}</div></div>`;
+  return h;
+}
+
+// ---- reading mode + saved position
+let readMode = +(localStorage.getItem('luno_read_mode') || 0), progTimer;
+function applyReadMode() {
+  const on = $('#page-article').classList.contains('active');
+  document.body.classList.toggle('focus-read', on && readMode === 2);
+  $('#artBody').style.fontSize = ['', '17px', '19.5px'][readMode];
+  $('#focusBtn').textContent = ['Aa', 'Aa+', 'تمرکز'][readMode];
+}
+$('#focusBtn').addEventListener('click', () => { readMode = (readMode + 1) % 3; localStorage.setItem('luno_read_mode', readMode); applyReadMode(); });
+$('#mainScroll').addEventListener('scroll', () => {
+  if (!currentArticleId || !$('#page-article').classList.contains('active')) return;
+  clearTimeout(progTimer);
+  progTimer = setTimeout(() => {
+    const el = $('#mainScroll'), max = el.scrollHeight - el.clientHeight; if (max <= 0) return;
+    const pr = getProgress(); pr[currentArticleId] = el.scrollTop / max * 100;
+    try { localStorage.setItem('luno_progress', JSON.stringify(pr)); } catch (e) {}
+  }, 300);
+});
+function restoreProgress() {
+  const pct = getProgress()[currentArticleId];
+  if (pct > 3 && pct < 95) { const el = $('#mainScroll'); el.scrollTop = (el.scrollHeight - el.clientHeight) * pct / 100; }
+}
+const _showPage = showPage;
+showPage = function (id, push) { _showPage(id, push); applyReadMode(); };
+
+// ---- mention autocomplete + reply to replies
+const firstName = n => String(n).trim().split(/\s+/)[0];
+const mentionBox = document.createElement('div'); mentionBox.id = 'mentionBox'; document.body.appendChild(mentionBox);
+let mentionInput = null;
+document.addEventListener('input', e => {
+  const t = e.target;
+  if (!(t.id === 'detailCommentInput' || t.id === 'commentInput' || (t.matches && t.matches('[data-reply-input]')))) return;
+  const m = t.value.slice(0, t.selectionStart).match(/@([\u0600-\u06FFa-zA-Z0-9_]*)$/);
+  const users = m ? extractRealUsers().filter(u => !m[1] || u.name.includes(m[1])).slice(0, 5) : [];
+  if (!users.length) { mentionBox.style.display = 'none'; return; }
+  mentionInput = t;
+  mentionBox.innerHTML = users.map(u => `<button type="button" data-mention-pick="${esc(firstName(u.name))}"><img src="${esc(u.avatar || DEFAULT_AVATAR)}" alt="">${esc(u.name)}</button>`).join('');
+  const r = t.getBoundingClientRect();
+  mentionBox.style.display = 'block'; mentionBox.style.right = Math.max(8, innerWidth - r.right) + 'px'; mentionBox.style.bottom = (innerHeight - r.top + 6) + 'px';
+});
+mentionBox.addEventListener('pointerdown', e => {
+  const b = e.target.closest('[data-mention-pick]'); if (!b || !mentionInput) return;
+  e.preventDefault();
+  const t = mentionInput, pos = t.selectionStart;
+  const before = t.value.slice(0, pos).replace(/@([\u0600-\u06FFa-zA-Z0-9_]*)$/, '@' + b.dataset.mentionPick + ' ');
+  t.value = before + t.value.slice(pos); t.focus(); t.setSelectionRange(before.length, before.length);
+  mentionBox.style.display = 'none';
+});
+document.addEventListener('click', e => {
+  const rr = e.target.closest('[data-reply-to-user]');
+  if (rr) {
+    e.stopPropagation();
+    const box = $('#replyInput-' + rr.dataset.parent); if (!box) return;
+    box.style.display = 'flex'; const inp = box.querySelector('input');
+    inp.value = '@' + firstName(rr.dataset.replyToUser) + ' '; inp.focus(); return;
+  }
+  if (e.target.closest('#draftsBtn')) { saveDraft(); renderDrafts(); $('#draftsModal').classList.add('show'); return; }
+  const dop = e.target.closest('[data-draft-open]');
+  if (dop) { loadDraft(dop.dataset.draftOpen); $('#draftsModal').classList.remove('show'); return; }
+  const ddl = e.target.closest('[data-draft-del]');
+  if (ddl) { setDrafts(getDrafts().filter(x => x.id !== ddl.dataset.draftDel)); if (draftId === ddl.dataset.draftDel) draftId = null; renderDrafts(); return; }
+  if (e.target.closest('#newDraftBtn')) {
+    saveDraft(); draftId = null;
+    $('#postTitle').value = ''; $('#postText').value = ''; $('#charCount').textContent = '0';
+    state.selectedTags = []; state.asArticle = false; $$('.tag-chip').forEach(c => c.classList.remove('active'));
+    $('#articleSwitch').classList.remove('on'); $('#articleToggle').classList.remove('active');
+    $('#draftsModal').classList.remove('show');
+  }
+});
+
+function openFromHash() {
+  const m = location.hash.match(/^#post-(.+)$/);
+  if (m && state.user && state.posts.some(p => p.id === m[1])) openPostDetail(m[1]);
+}
+window.addEventListener('hashchange', openFromHash);
+function addNotif(text, avatar) {
+  state.notifications.unshift({ id: 'n' + Date.now() + Math.random().toString(36).slice(2, 6), text, avatar: avatar || DEFAULT_AVATAR, time: 'همین حالا', read: false });
+  updateBadge();
+}
+function shrinkDataUrl(dataUrl, maxW, q) {
+  return new Promise(res => {
+    const img = new Image();
+    img.onload = () => {
+      let w = img.width, h = img.height;
+      if (w > maxW) { h = h * maxW / w; w = maxW; }
+      const c = document.createElement('canvas'); c.width = w; c.height = h;
+      c.getContext('2d').drawImage(img, 0, 0, w, h);
+      res(c.toDataURL('image/jpeg', q));
+    };
+    img.onerror = () => res(dataUrl);
+    img.src = dataUrl;
+  });
+}
 init();
 
 setTimeout(() => {
@@ -2373,4 +2573,4 @@ setTimeout(() => {
 }, 700);
 </script>
 </body>
-                </html>
+  </html>
