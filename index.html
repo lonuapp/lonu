@@ -531,6 +531,7 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 body.focus-read .app-header{display:none}
 .trend-chip.on{background:var(--accent);color:#fff}
 button:focus-visible,input:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.clamp{display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}.more-btn{color:var(--accent);font-weight:800;font-size:12.5px;padding:4px 0}.pin{position:relative}
 </style>
 </head>
 <body>
@@ -583,7 +584,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,[tabindex]:focus
           <div class="search-box"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7.5"/><path d="m16.5 16.5 4.5 4.5"/></svg><input id="searchInput" placeholder="جستجو در مقاله‌ها و کاربران..."></div>
           <div id="searchSuggestions"></div>
           <div class="search-tabs" id="searchTabs">
-            <button class="stab active" data-search="articles">مقاله‌ها</button>
+            <button class="stab active" data-search="articles">پست و مقاله</button>
             <button class="stab" data-search="users">کاربران</button>
           </div>
         </div>
@@ -786,6 +787,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,[tabindex]:focus
 
         <div class="settings-section-title">حریم خصوصی</div>
         <div class="settings-list">
+          <div class="s-item" id="statsItem"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><div><h4>آمار پست‌های من</h4><p>پسند و نظر هر پست</p></div><span class="arrow">›</span></div>
           <div class="s-item" id="blockedItem"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg><div><h4>کاربران مسدودشده</h4><p>مدیریت لیست مسدودی</p></div><span class="arrow">›</span></div>
         </div>
 
@@ -863,6 +865,7 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,[tabindex]:focus
     <input id="editPostTitle" placeholder="عنوان" style="width:100%;border:1.5px solid var(--line);border-radius:10px;padding:12px;margin-bottom:10px;background:var(--paper)">
     <textarea id="editPostText" rows="7" maxlength="2000" style="width:100%;border:1.5px solid var(--line);border-radius:10px;padding:12px;background:var(--paper);resize:vertical"></textarea>
     <button class="btn-main" id="saveEditPost" style="margin-top:12px">ذخیره</button></div></div></div>
+  <div class="modal" id="statsModal"><div class="modal-box"><div class="modal-head"><h3>آمار پست‌های من</h3><button class="modal-close" data-close>×</button></div><div class="modal-body" id="statsList"></div></div></div>
   <div class="modal" id="blockedModal"><div class="modal-box"><div class="modal-head"><h3>کاربران مسدودشده</h3><button class="modal-close" data-close>×</button></div><div class="modal-body" id="blockedList"></div></div></div>
   <div class="confirm" id="confirmBox"><div class="confirm-box"><h3 id="confirmTitle"></h3><p id="confirmMsg"></p><div class="confirm-actions"><button class="cancel" id="confirmCancel">انصراف</button><button class="danger" id="confirmOk">تأیید</button></div></div></div>
 
@@ -924,7 +927,7 @@ let state = {
 };
 
 function save() {
-  try { _save(); }
+  try { stripAvatars(); _save(); }
   catch (e) {
     if (e && (e.name === 'QuotaExceededError' || e.code === 22)) toast('حافظه مرورگر پر شده؛ چند پست یا عکس قدیمی رو حذف کن', 'error');
     else console.error(e);
@@ -1256,7 +1259,7 @@ function renderHome() {
     $('#feed').innerHTML = emptyState(state.feedFilter === 'popular' ? 'هنوز پستی محبوب نشده' : 'هنوز پستی منتشر نشده', 'edit', state.feedFilter === 'newest' ? 'ساخت اولین پست' : '', 'go-create');
     return;
   }
-  $('#feed').innerHTML = posts.map(renderPost).join('');
+  $('#feed').innerHTML = posts.slice(0, feedLimit).map(renderPost).join('') + (posts.length > feedLimit ? '<div style="padding:16px"><button class="btn-main" data-more-feed>نمایش پست‌های بیشتر</button></div>' : '');
 }
 function avatarClass(phone) { return getUserAvatarColor(phone) ? 'colored' : ''; }
 function avatarStyle(phone) { const c = getUserAvatarColor(phone); return c ? `style="--avatar-color:${c}"` : ''; }
@@ -1276,8 +1279,8 @@ function renderPost(p) {
     return `<div class="text-post" data-post="${p.id}">
       <div class="text-post-head"><span class="text-post-cat">${esc(p.category)}</span>${canManage ? `<button class="text-post-menu" data-menu="${p.id}">⋯</button>` : ''}</div>
       ${title}
-      <p>${processText(p.desc || '')}</p>
-      <div class="text-post-author"><img src="${p.authorAvatar || DEFAULT_AVATAR}" class="${imgClass}" ${imgStyle} alt="" data-user="${p.authorId}"><b data-user="${p.authorId}">${esc(p.author)}</b><span class="sp"></span><span>${formatTime(p.createdAt)}</span></div>
+      <p class="${longText(p) ? 'clamp' : ''}">${fullHtml(p)}</p>${longText(p) ? '<button class="more-btn" data-more>ادامه</button>' : ''}
+      <div class="text-post-author"><img src="${avatarOf(p.authorId, p.authorAvatar)}" class="${imgClass}" ${imgStyle} alt="" data-user="${p.authorId}"><b data-user="${p.authorId}">${esc(p.author)}</b><span class="sp"></span><span>${formatTime(p.createdAt)}${p.edited ? ' · ویرایش‌شده' : ''}</span></div>
       <div class="text-post-actions">
         <button class="${isLiked(p.id) ? 'liked' : ''}" data-like="${p.id}">${HEART_SVG}<span data-likes-count="${p.id}">${p.likes || 0}</span></button>
         <button data-comment="${p.id}">${COMMENT_SVG}<span data-comment-count="${p.id}">${commentCount}</span></button>
@@ -1289,13 +1292,13 @@ function renderPost(p) {
   const captionSlice = (p.desc || '').slice(0, 130);
   return `<div class="post" data-post="${p.id}">
     <div class="post-header">
-      <img class="post-avatar ${imgClass}" ${imgStyle} src="${p.authorAvatar || DEFAULT_AVATAR}" alt="" data-user="${p.authorId}">
-      <div class="post-user" data-user="${p.authorId}"><b>${esc(p.author)}</b><small>${esc(p.category)} · ${formatTime(p.createdAt)}</small></div>
+      <img class="post-avatar ${imgClass}" ${imgStyle} src="${avatarOf(p.authorId, p.authorAvatar)}" alt="" data-user="${p.authorId}">
+      <div class="post-user" data-user="${p.authorId}"><b>${esc(p.author)}</b><small>${esc(p.category)} · ${formatTime(p.createdAt)}${p.edited ? ' · ویرایش‌شده' : ''}</small></div>
       ${canManage ? `<button class="post-menu" data-menu="${p.id}">⋯</button>` : ''}
     </div>
     <div class="post-image" data-img-view="${p.id}" data-dbltap="${p.id}">
       <div class="img-placeholder"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div>
-      <img src="${p.image}" alt="" class="loading" onload="this.classList.remove('loading');this.previousElementSibling.style.display='none'" onerror="this.src='${PLACEHOLDER}'">
+      <img src="${p.image}" alt="" loading="lazy" class="loading" onload="this.classList.remove('loading');this.previousElementSibling.style.display='none'" onerror="this.src='${PLACEHOLDER}'">
       <div class="post-heart">❤️</div>
     </div>
     <div class="post-actions">
@@ -1309,7 +1312,7 @@ function renderPost(p) {
       <div class="post-likes" data-likes="${p.id}"><b>${(p.likes || 0).toLocaleString('fa-IR')}</b> پسند</div>
       ${captionSlice ? `<div class="post-caption"><b class="pi-author">${esc(p.author)}</b>${processText(captionSlice)}</div>` : ''}
       ${commentsCount > 0 ? `<button class="post-comment-link" data-comment="${p.id}">مشاهده هر <span data-comment-count="${p.id}">${commentsCount}</span> نظر</button>` : `<button class="post-comment-link" data-comment="${p.id}" style="display:none">مشاهده هر <span data-comment-count="${p.id}">0</span> نظر</button>`}
-      <div class="post-time">${formatTime(p.createdAt)}</div>
+      <div class="post-time">${formatTime(p.createdAt)}${p.edited ? ' · ویرایش‌شده' : ''}</div>
     </div>
   </div>`;
 }
@@ -1395,7 +1398,7 @@ function renderSearch(q = '') {
     suggestions.style.display = 'block'; renderSearchSuggestions();
     if (state.searchTab === 'articles') {
       const items = state.posts.filter(p => !isBlocked(p.authorId) && p.asArticle === true && p.hasImage !== false && p.image).sort((a,b) => b.createdAt - a.createdAt);
-      wrap.innerHTML = items.length ? items.map(p => `<div class="article-row" data-article="${p.id}"><img src="${p.image}" alt=""><div class="article-row-info"><h3>${esc(p.title)}</h3><p>${esc((p.desc || '').slice(0, 80))}</p><div class="article-row-meta"><img src="${p.authorAvatar || DEFAULT_AVATAR}" alt=""><span>${esc(p.author)} · ${formatTime(p.createdAt)}</span></div></div></div>`).join('') : emptyState('هنوز مقاله‌ای منتشر نشده', 'search');
+      wrap.innerHTML = items.length ? items.map(p => `<div class="article-row" data-article="${p.id}"><img src="${p.image}" alt=""><div class="article-row-info"><h3>${esc(p.title)}</h3><p>${esc((p.desc || '').slice(0, 80))}</p><div class="article-row-meta"><img src="${avatarOf(p.authorId, p.authorAvatar)}" alt=""><span>${esc(p.author)} · ${formatTime(p.createdAt)}${p.edited ? ' · ویرایش‌شده' : ''}</span></div></div></div>`).join('') : emptyState('هنوز مقاله‌ای منتشر نشده', 'search');
     } else {
       const users = extractRealUsers();
       wrap.innerHTML = users.length ? users.map(u => renderUserRow(u)).join('') : emptyState('هنوز کاربری ثبت‌نام نکرده', 'users');
@@ -1410,11 +1413,17 @@ function renderSearch(q = '') {
     return;
   }
   if (state.searchTab === 'articles') {
+    const ql = q.toLowerCase();
+    const found = state.posts.filter(p => !isBlocked(p.authorId) && ((p.title || '') + ' ' + (p.category || '') + ' ' + plainText(p.body || p.desc)).toLowerCase().includes(ql)).sort((a, b) => b.createdAt - a.createdAt);
+    wrap.innerHTML = found.length ? found.map(renderPost).join('') : emptyState('پستی پیدا نشد', 'search');
+    return;
+  }
+  if (state.searchTab === 'articles') {
     let items = state.posts.filter(p => !isBlocked(p.authorId) && p.asArticle === true && p.hasImage !== false && p.image);
     if (q) items = items.filter(p => ((p.title || '') + ' ' + p.category + ' ' + (p.desc || '')).includes(q));
     items.sort((a, b) => b.createdAt - a.createdAt);
     if (!items.length) { wrap.innerHTML = emptyState('مقاله‌ای پیدا نشد', 'search'); return; }
-    wrap.innerHTML = items.map(p => `<div class="article-row" data-article="${p.id}"><img src="${p.image}" alt="" onerror="this.src='${PLACEHOLDER}'"><div class="article-row-info"><h3>${esc(p.title)}</h3><p>${esc((p.desc || '').slice(0, 80))}</p><div class="article-row-meta"><img src="${p.authorAvatar || DEFAULT_AVATAR}" alt=""><span>${esc(p.author)} · ${formatTime(p.createdAt)}</span></div></div></div>`).join('');
+    wrap.innerHTML = items.map(p => `<div class="article-row" data-article="${p.id}"><img src="${p.image}" alt="" onerror="this.src='${PLACEHOLDER}'"><div class="article-row-info"><h3>${esc(p.title)}</h3><p>${esc((p.desc || '').slice(0, 80))}</p><div class="article-row-meta"><img src="${avatarOf(p.authorId, p.authorAvatar)}" alt=""><span>${esc(p.author)} · ${formatTime(p.createdAt)}${p.edited ? ' · ویرایش‌شده' : ''}</span></div></div></div>`).join('');
   } else {
     let users = extractRealUsers();
     if (q) users = users.filter(u => u.name.includes(q) || (u.bio || '').includes(q));
@@ -1572,7 +1581,7 @@ function renderMyProfile() {
   $('#page-profile').classList.toggle('is-admin-profile', isAdmin());
   $('#myName').textContent = state.user.name;
   $('#myBio').textContent = state.user.bio || 'بیوگرافی خالی است';
-  $('#myAvatar').src = state.user.avatar || DEFAULT_AVATAR;
+  $('#myAvatar').src = state.useavatarOf(r.userId, r.avatar);
   const myColor = state.avatarColors[state.user.phone];
   $('#myAvatar').classList.toggle('colored', !!myColor);
   if (myColor) $('#myAvatar').style.setProperty('--avatar-color', myColor);
@@ -1585,8 +1594,8 @@ function renderMyProfile() {
   $('#myFriendsCount').textContent = state.friends.length;
 
   if (state.profileTab === 'posts') {
-    const imgPosts = myPosts.filter(p => p.hasImage !== false && p.image && p.asArticle !== true);
-    let html = imgPosts.length ? `<div class="pin-grid">${imgPosts.map(p => `<div class="pin" data-post-detail="${p.id}"><img src="${p.image}" alt="" onerror="this.src='${PLACEHOLDER}'"></div>`).join('')}</div>` : emptyState('هنوز پست تصویری نساختی', 'edit', 'ساخت پست', 'go-create');
+    const imgPosts = myPosts.filter(p => p.hasImage !== false && p.image && p.asArticle !== true).sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0));
+    let html = imgPosts.length ? `<div class="pin-grid">${imgPosts.map(p => `<div class="pin" data-post-detail="${p.id}">${p.pinned ? '<span style="position:absolute;top:6px;right:6px;z-index:2">📌</span>' : ''}<img src="${p.image}" alt="" onerror="this.src='${PLACEHOLDER}'"></div>`).join('')}</div>` : emptyState('هنوز پست تصویری نساختی', 'edit', 'ساخت پست', 'go-create');
     $('#myProfileContent').innerHTML = html;
   } else if (state.profileTab === 'text') {
     const textPosts = myPosts.filter(p => p.hasImage === false || !p.image);
@@ -1682,7 +1691,7 @@ function openUserProfile(uid) {
   else btns = `<button class="pbtn primary" data-request="${uid}">درخواست چت</button>`;
   $('#userBtns').innerHTML = btns;
   const userPosts = state.posts.filter(p => p.authorId === uid);
-  $('#userPostsList').innerHTML = userPosts.length ? `<div class="pin-grid">${userPosts.filter(p => p.hasImage !== false && p.image).map(p => `<div class="pin" data-post-detail="${p.id}"><img src="${p.image}" alt=""></div>`).join('')}</div>` : emptyState('هنوز پستی منتشر نکرده', 'edit');
+  $('#userPostsList').innerHTML = userPosts.length ? `<div class="pin-grid">${userPosts.filter(p => p.hasImage !== false && p.image).map(p => `<div class="pin" data-post-detail="${p.id}">${p.pinned ? '<span style="position:absolute;top:6px;right:6px;z-index:2">📌</span>' : ''}<img src="${p.image}" alt=""></div>`).join('')}</div>` : emptyState('هنوز پستی منتشر نکرده', 'edit');
   showPage('user');
 }
 
@@ -1743,7 +1752,7 @@ function openCollection(idx) {
   state.currentCollection = idx;
   $('#collectionTitle').textContent = `${c.icon || '📁'} ${c.name}`;
   const posts = state.posts.filter(p => c.posts.includes(p.id));
-  $('#collectionPosts').innerHTML = posts.length ? posts.map(p => (p.hasImage === false || !p.image) ? `<div class="pin pin-text" data-post-detail="${p.id}"><h4>${esc(p.title || 'بدون عنوان')}</h4></div>` : `<div class="pin" data-post-detail="${p.id}"><img src="${p.image || PLACEHOLDER}" alt=""></div>`).join('') : `<div style="grid-column:1/-1;padding:20px;text-align:center;color:var(--muted);font-size:13px">کالکشن خالیه</div>`;
+  $('#collectionPosts').innerHTML = posts.length ? posts.map(p => (p.hasImage === false || !p.image) ? `<div class="pin pin-text" data-post-detail="${p.id}"><h4>${esc(p.title || 'بدون عنوان')}</h4></div>` : `<div class="pin" data-post-detail="${p.id}">${p.pinned ? '<span style="position:absolute;top:6px;right:6px;z-index:2">📌</span>' : ''}<img src="${p.image || PLACEHOLDER}" alt=""></div>`).join('') : `<div style="grid-column:1/-1;padding:20px;text-align:center;color:var(--muted);font-size:13px">کالکشن خالیه</div>`;
   showPage('collection');
 }
 
@@ -1752,7 +1761,7 @@ function renderInlineComment(c, i, postId) {
   const canEdit = isMine && (Date.now() - (c.createdAt || 0)) < COMMENT_EDIT_WINDOW;
   const replies = c.replies || [];
   return `<div class="comment-row">
-    <img class="avatar" src="${c.avatar || DEFAULT_AVATAR}" alt="" data-user="${c.userId||''}">
+    <img class="avatar" src="${avatarOf(c.userId, c.avatar)}" alt="" data-user="${c.userId||''}">
     <div class="comment-row-body">
       <b>${esc(c.user)}</b>
       <p>${processText(c.text)}</p>
@@ -1766,7 +1775,7 @@ function renderInlineComment(c, i, postId) {
       </div>
       ${replies.length ? `<div class="comment-replies">${replies.map(r => `
         <div class="reply-row">
-          <img src="${r.avatar || DEFAULT_AVATAR}" alt="">
+          <img src="${avatarOf(r.userId, r.avatar)}" alt="">
           <div class="reply-row-body">
             <b>${esc(r.user)}</b>
             <p>${processText(r.text)}</p>
@@ -1794,8 +1803,8 @@ function openPostDetail(id) {
 
   let html = `
     <div class="post-header" style="padding:14px 16px;border-bottom:1px solid var(--line-2)">
-      <img class="post-avatar ${imgClass}" ${imgStyle} src="${p.authorAvatar || DEFAULT_AVATAR}" alt="" data-user="${p.authorId}">
-      <div class="post-user" data-user="${p.authorId}"><b>${esc(p.author)}</b><small>${esc(p.category)} · ${formatTime(p.createdAt)}</small></div>
+      <img class="post-avatar ${imgClass}" ${imgStyle} src="${avatarOf(p.authorId, p.authorAvatar)}" alt="" data-user="${p.authorId}">
+      <div class="post-user" data-user="${p.authorId}"><b>${esc(p.author)}</b><small>${esc(p.category)} · ${formatTime(p.createdAt)}${p.edited ? ' · ویرایش‌شده' : ''}</small></div>
       ${canManage ? `<button class="post-menu" data-menu="${p.id}">⋯</button>` : ''}
     </div>
   `;
@@ -1803,7 +1812,7 @@ function openPostDetail(id) {
   if (isTextPost) {
     html += `<div style="padding:18px 16px">
       ${p.title ? `<h2 style="font-size:18px;font-weight:800;margin-bottom:10px;line-height:1.5">${esc(p.title)}</h2>` : ''}
-      <div style="font-size:14px;line-height:2;color:var(--ink-2);white-space:pre-wrap;word-wrap:break-word">${processText(p.desc || '')}</div>
+      <div style="font-size:14px;line-height:2;color:var(--ink-2);white-space:pre-wrap;word-wrap:break-word">${fullHtml(p)}</div>
     </div>`;
   } else {
     html += `<div class="post-image" data-dbltap="${p.id}" style="background:#000">
@@ -1823,7 +1832,7 @@ function openPostDetail(id) {
     <div class="post-info" style="padding-bottom:16px">
       <div class="post-likes" data-likes="${p.id}"><b>${(p.likes || 0).toLocaleString('fa-IR')}</b> پسند</div>
       ${p.desc && !isTextPost ? `<div class="post-caption"><b class="pi-author">${esc(p.author)}</b>${processText(p.desc)}</div>` : ''}
-      <div class="post-time">${formatTime(p.createdAt)}</div>
+      <div class="post-time">${formatTime(p.createdAt)}${p.edited ? ' · ویرایش‌شده' : ''}</div>
     </div>
     <div style="border-top:1px solid var(--line-2);padding:16px">
       <h4 style="font-size:13px;font-weight:800;margin-bottom:12px">نظرات (<span data-comment-count="${p.id}">${comments.length}</span>)</h4>
@@ -1871,7 +1880,7 @@ function openArticle(id) {
   $('#artTitle').textContent = p.title || '';
   $('#artTag').textContent = p.category;
   $('#artAuthor').textContent = p.author;
-  $('#artAvatar').src = p.authorAvatar || DEFAULT_AVATAR;
+  $('#artAvatar').src = avatarOf(p.authorId, p.authorAvatar);
   $('#artReadingTime').innerHTML = readingTime(p.body || p.desc || '');
   $('#artBody').innerHTML = (p.body || `<p>${processText(p.desc)}</p>`);
   $('#artProgress').style.width = '0%'; showPage('article'); setTimeout(restoreProgress, 80);
@@ -2006,7 +2015,7 @@ function openPostMenu(postId) {
   html += `<button class="menu-item" data-menu-action="save-col"><svg viewBox="0 0 24 24"><path d="M6 4h12a1 1 0 0 1 1 1v16l-7-4-7 4V5a1 1 0 0 1 1-1Z"/></svg>ذخیره در کالکشن</button>`;
   html += `<button class="menu-item" data-menu-action="copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>کپی لینک</button>`;
   if (isMine || adm) html += `<button class="menu-item danger" data-menu-action="delete"><svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>حذف پست</button>`;
-  if (isMine) html += `<button class="menu-item" data-menu-action="edit">✏️ ویرایش پست</button>`;
+  if (isMine) html += `<button class="menu-item" data-menu-action="edit">✏️ ویرایش پست</button><button class="menu-item" data-menu-action="pin">📌 ${p.pinned ? 'برداشتن سنجاق' : 'سنجاق در پروفایل'}</button>`;
   else html += `<button class="menu-item" data-menu-action="report">🚩 گزارش پست</button><button class="menu-item" data-menu-action="block">🚫 مسدود کردن نویسنده</button>`;
   $('#postMenuList').innerHTML = html;
   $('#postMenuModal').classList.add('show');
@@ -2067,7 +2076,7 @@ function renderAdmin() {
       <input class="admin-search" id="adminCommentSearch" placeholder="جستجوی نظر...">
       <div id="adminCommentList">${allComments.slice(0, 50).map(c => `
         <div class="admin-item">
-          <img src="${c.avatar || DEFAULT_AVATAR}" alt="">
+          <img src="${avatarOf(c.userId, c.avatar)}" alt="">
           <div class="admin-item-info"><h4>${esc(c.user)}</h4><p>${esc(c.text.slice(0, 50))}</p></div>
           <div class="admin-item-actions">
             <button class="admin-btn danger" data-admin-del-comment="${c.postId}:${c.idx}">حذف</button>
@@ -2386,7 +2395,7 @@ document.addEventListener('input', e => {
     const allComments = [];
     Object.entries(state.comments).forEach(([pid, arr]) => arr.forEach((c, idx) => allComments.push({ ...c, postId: pid, idx })));
     const filtered = allComments.filter(c => c.text.includes(q) || c.user.includes(q));
-    $('#adminCommentList').innerHTML = filtered.slice(0, 50).map(c => `<div class="admin-item"><img src="${c.avatar || DEFAULT_AVATAR}" alt=""><div class="admin-item-info"><h4>${esc(c.user)}</h4><p>${esc(c.text.slice(0, 50))}</p></div><div class="admin-item-actions"><button class="admin-btn danger" data-admin-del-comment="${c.postId}:${c.idx}">حذف</button></div></div>`).join('');
+    $('#adminCommentList').innerHTML = filtered.slice(0, 50).map(c => `<div class="admin-item"><img src="${avatarOf(c.userId, c.avatar)}" alt=""><div class="admin-item-info"><h4>${esc(c.user)}</h4><p>${esc(c.text.slice(0, 50))}</p></div><div class="admin-item-actions"><button class="admin-btn danger" data-admin-del-comment="${c.postId}:${c.idx}">حذف</button></div></div>`).join('');
   }
 });
 
@@ -2588,6 +2597,8 @@ document.addEventListener('click', e => {
       editingPostId = p.id;
       $('#editPostTitle').value = p.title || ''; $('#editPostText').value = plainText(p.body || p.desc);
       $('#editPostModal').classList.add('show');
+    } else if (act === 'pin' && p.authorId === state.user.phone) {
+      const was = p.pinned; state.posts.forEach(x => { if (x.authorId === p.authorId) x.pinned = false; }); p.pinned = !was; save(); renderMyProfile(); toast(p.pinned ? 'پست سنجاق شد' : 'سنجاق برداشته شد');
     } else if (act === 'report') {
       if (getReports().some(r => r.postId === p.id && r.by === state.user.phone)) { toast('قبلاً این پست رو گزارش کردی', 'info'); return; }
       showConfirm('گزارش پست', 'این پست برای بررسی مدیر ارسال بشه؟', () => {
@@ -2644,6 +2655,40 @@ function labelButtons() { Object.entries(ARIA).forEach(([s, l]) => $$(s).forEach
 let _lt; new MutationObserver(() => { clearTimeout(_lt); _lt = setTimeout(labelButtons, 200); }).observe(document.body, { childList: true, subtree: true });
 labelButtons();
 
+// ---- long text, avatars, pagination, stats
+var feedLimit = 20;
+function fullHtml(p) { return p.body ? String(p.body).replace(/^<p>|<\/p>$/g, '') : processText(p.desc || ''); }
+function longText(p) { return plainText(p.body || p.desc).length > 320; }
+var _avT = 0, _avMap = {};
+function avatarMap() {
+  if (Date.now() - _avT > 1500) { _avT = Date.now(); _avMap = {}; try { JSON.parse(localStorage.getItem('luno_users') || '[]').forEach(u => _avMap[u.phone] = u.avatar); } catch (e) {} }
+  return _avMap;
+}
+function avatarOf(id, fallback) { return avatarMap()[id] || fallback || DEFAULT_AVATAR; }
+function stripAvatars() {
+  const m = avatarMap();
+  state.posts.forEach(p => { if (m[p.authorId]) delete p.authorAvatar; });
+  Object.values(state.comments).forEach(arr => arr.forEach(c => { if (m[c.userId]) delete c.avatar; (c.replies || []).forEach(r => { if (m[r.userId]) delete r.avatar; }); }));
+}
+function renderStats() {
+  const mine = state.posts.filter(p => p.authorId === state.user.phone);
+  const cm = p => (state.comments[p.id] || []).length;
+  const likes = mine.reduce((s, p) => s + (p.likes || 0), 0), comments = mine.reduce((s, p) => s + cm(p), 0);
+  const top = [...mine].sort((a, b) => (b.likes || 0) - (a.likes || 0)).slice(0, 5);
+  $('#statsList').innerHTML = `<div class="trend-chips" style="margin-bottom:12px"><span class="trend-chip">${mine.length} پست</span><span class="trend-chip">${likes} پسند</span><span class="trend-chip">${comments} نظر</span></div>`
+    + (top.length ? top.map(p => `<div class="draft-item"><div data-post-detail="${p.id}"><h4>${esc((p.title || plainText(p.body || p.desc)).slice(0, 40))}</h4><p>${p.likes || 0} پسند · ${cm(p)} نظر</p></div></div>`).join('')
+      : '<p style="font-size:12.5px;color:var(--muted);text-align:center;padding:20px 0">هنوز پستی نساختی</p>');
+}
+document.addEventListener('click', e => {
+  const mb = e.target.closest('[data-more]');
+  if (mb) { e.stopPropagation(); const t = mb.previousElementSibling; if (t) t.classList.remove('clamp'); mb.remove(); return; }
+  if (e.target.closest('[data-more-feed]')) { feedLimit += 20; renderHome(); return; }
+  if (e.target.closest('[data-feed]') && feedLimit !== 20) { feedLimit = 20; renderHome(); }
+  if (e.target.closest('#statsItem')) { renderStats(); $('#statsModal').classList.add('show'); return; }
+  if (e.target.closest('#statsList [data-post-detail]')) $('#statsModal').classList.remove('show');
+});
+try { stripAvatars(); save(); } catch (e) {}
+
 function openFromHash() {
   const m = location.hash.match(/^#post-(.+)$/);
   if (m && state.user && state.posts.some(p => p.id === m[1])) openPostDetail(m[1]);
@@ -2677,4 +2722,4 @@ setTimeout(() => {
 }, 700);
 </script>
 </body>
-  </html>
+          </html>
