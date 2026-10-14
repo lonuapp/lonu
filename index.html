@@ -529,6 +529,8 @@ textarea.field{min-height:90px;resize:vertical;line-height:1.8}
 #mentionBox button{display:flex;gap:8px;align-items:center;width:100%;padding:9px 12px;font-size:13px;text-align:right}#mentionBox img{width:24px;height:24px;border-radius:50%}
 .draft-item{display:flex;align-items:center;gap:10px;padding:12px 4px;border-bottom:1px solid var(--line-2)}.draft-item>div{flex:1;min-width:0;cursor:pointer}.draft-item h4{font-size:13px;font-weight:800}.draft-item p{font-size:11px;color:var(--muted)}
 body.focus-read .app-header{display:none}
+.trend-chip.on{background:var(--accent);color:#fff}
+button:focus-visible,input:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 </style>
 </head>
 <body>
@@ -782,6 +784,11 @@ body.focus-read .app-header{display:none}
           <div class="s-item" id="importBtn"><svg viewBox="0 0 24 24"><path d="M12 21V9m0 0-4 4m4-4 4 4M5 3h14"/></svg><div><h4>بازیابی پشتیبان</h4><p>بارگذاری فایل پشتیبان</p></div><span class="arrow">›</span></div>
         </div>
 
+        <div class="settings-section-title">حریم خصوصی</div>
+        <div class="settings-list">
+          <div class="s-item" id="blockedItem"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg><div><h4>کاربران مسدودشده</h4><p>مدیریت لیست مسدودی</p></div><span class="arrow">›</span></div>
+        </div>
+
         <div class="settings-section-title">خطر</div>
         <div class="settings-list">
           <div class="s-item danger" id="logoutBtn"><svg viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg><div><h4>خروج از حساب</h4><p>خروج از حساب کاربری</p></div><span class="arrow">›</span></div>
@@ -852,6 +859,11 @@ body.focus-read .app-header{display:none}
   <div class="modal" id="editModal"><div class="modal-box"><div class="modal-head"><h3>ویرایش پروفایل</h3><button class="modal-close" data-close>×</button></div><div class="modal-body"><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">نام</label><input class="field" id="editName"><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">بیوگرافی</label><textarea class="field" id="editBio" rows="3"></textarea><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">شهر</label><input class="field" id="editCity" placeholder="مثلاً: تهران"><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">شغل</label><input class="field" id="editJob" placeholder="مثلاً: طراح گرافیک"><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">لینک (اختیاری)</label><input class="field" id="editLink" placeholder="https://..."><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">تصویر پروفایل</label><input type="file" id="editAvatar" accept="image/*" class="field"></div><div class="modal-foot"><button id="saveProfileBtn" style="flex:1">ذخیره</button></div></div></div>
 
   <div class="modal" id="draftsModal"><div class="modal-box"><div class="modal-head"><h3>پیش‌نویس‌ها</h3><button class="modal-close" data-close>×</button></div><div class="modal-body" id="draftsList"></div></div></div>
+  <div class="modal" id="editPostModal"><div class="modal-box"><div class="modal-head"><h3>ویرایش پست</h3><button class="modal-close" data-close>×</button></div><div class="modal-body">
+    <input id="editPostTitle" placeholder="عنوان" style="width:100%;border:1.5px solid var(--line);border-radius:10px;padding:12px;margin-bottom:10px;background:var(--paper)">
+    <textarea id="editPostText" rows="7" maxlength="2000" style="width:100%;border:1.5px solid var(--line);border-radius:10px;padding:12px;background:var(--paper);resize:vertical"></textarea>
+    <button class="btn-main" id="saveEditPost" style="margin-top:12px">ذخیره</button></div></div></div>
+  <div class="modal" id="blockedModal"><div class="modal-box"><div class="modal-head"><h3>کاربران مسدودشده</h3><button class="modal-close" data-close>×</button></div><div class="modal-body" id="blockedList"></div></div></div>
   <div class="confirm" id="confirmBox"><div class="confirm-box"><h3 id="confirmTitle"></h3><p id="confirmMsg"></p><div class="confirm-actions"><button class="cancel" id="confirmCancel">انصراف</button><button class="danger" id="confirmOk">تأیید</button></div></div></div>
 
   <div class="img-viewer" id="imgViewer"><button class="close-viewer" id="closeViewer">×</button><img id="viewerImg" src="" alt=""></div>
@@ -1237,7 +1249,7 @@ function viewUserStory(phone) {
 
 function renderHome() {
   renderStories();
-  let posts = [...state.posts];
+  let posts = state.posts.filter(p => !isBlocked(p.authorId) && (!state.feedCat || p.category === state.feedCat));
   if (state.feedFilter === 'popular') posts = posts.filter(p => isPopular(p)).sort((a,b) => (b.likes||0) - (a.likes||0));
   else posts = posts.sort((a,b) => b.createdAt - a.createdAt);
   if (!posts.length) {
@@ -1255,7 +1267,7 @@ const COMMENT_SVG = '<svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-8.
 const BOOKMARK_SVG = '<svg viewBox="0 0 24 24"><path d="M6 4h12a1 1 0 0 1 1 1v16l-7-4-7 4V5a1 1 0 0 1 1-1Z"/></svg>';
 
 function renderPost(p) {
-  const canManage = isAdmin() || p.authorId === state.user?.phone;
+  const canManage = true;
   const imgClass = avatarClass(p.authorId); const imgStyle = avatarStyle(p.authorId);
   const isSavedInCollection = state.collections.some(c => c.posts.includes(p.id));
   if (p.hasImage === false || !p.image) {
@@ -1382,7 +1394,7 @@ function renderSearch(q = '') {
   if (!q) {
     suggestions.style.display = 'block'; renderSearchSuggestions();
     if (state.searchTab === 'articles') {
-      const items = state.posts.filter(p => p.asArticle === true && p.hasImage !== false && p.image).sort((a,b) => b.createdAt - a.createdAt);
+      const items = state.posts.filter(p => !isBlocked(p.authorId) && p.asArticle === true && p.hasImage !== false && p.image).sort((a,b) => b.createdAt - a.createdAt);
       wrap.innerHTML = items.length ? items.map(p => `<div class="article-row" data-article="${p.id}"><img src="${p.image}" alt=""><div class="article-row-info"><h3>${esc(p.title)}</h3><p>${esc((p.desc || '').slice(0, 80))}</p><div class="article-row-meta"><img src="${p.authorAvatar || DEFAULT_AVATAR}" alt=""><span>${esc(p.author)} · ${formatTime(p.createdAt)}</span></div></div></div>`).join('') : emptyState('هنوز مقاله‌ای منتشر نشده', 'search');
     } else {
       const users = extractRealUsers();
@@ -1398,7 +1410,7 @@ function renderSearch(q = '') {
     return;
   }
   if (state.searchTab === 'articles') {
-    let items = state.posts.filter(p => p.asArticle === true && p.hasImage !== false && p.image);
+    let items = state.posts.filter(p => !isBlocked(p.authorId) && p.asArticle === true && p.hasImage !== false && p.image);
     if (q) items = items.filter(p => ((p.title || '') + ' ' + p.category + ' ' + (p.desc || '')).includes(q));
     items.sort((a, b) => b.createdAt - a.createdAt);
     if (!items.length) { wrap.innerHTML = emptyState('مقاله‌ای پیدا نشد', 'search'); return; }
@@ -1430,7 +1442,7 @@ function renderSearchMode() {
 function renderExplore() {
   const wrap = $('#explorePanel');
   const imgPosts = state.posts
-    .filter(p => p.hasImage !== false && p.image && p.asArticle !== true)
+    .filter(p => !isBlocked(p.authorId)).filter(p => p.hasImage !== false && p.image && p.asArticle !== true)
     .sort((a, b) => b.createdAt - a.createdAt);
   if (!imgPosts.length) {
     wrap.innerHTML = emptyState('هنوز پستی برای کاوش منتشر نشده', 'edit', 'ساخت اولین پست', 'go-create');
@@ -1778,7 +1790,7 @@ function openPostDetail(id) {
   const isSavedInCollection = state.collections.some(c => c.posts.includes(p.id));
   const imgClass = avatarClass(p.authorId); const imgStyle = avatarStyle(p.authorId);
   const isTextPost = p.hasImage === false || !p.image;
-  const canManage = isAdmin() || p.authorId === state.user?.phone;
+  const canManage = true;
 
   let html = `
     <div class="post-header" style="padding:14px 16px;border-bottom:1px solid var(--line-2)">
@@ -1994,6 +2006,8 @@ function openPostMenu(postId) {
   html += `<button class="menu-item" data-menu-action="save-col"><svg viewBox="0 0 24 24"><path d="M6 4h12a1 1 0 0 1 1 1v16l-7-4-7 4V5a1 1 0 0 1 1-1Z"/></svg>ذخیره در کالکشن</button>`;
   html += `<button class="menu-item" data-menu-action="copy"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>کپی لینک</button>`;
   if (isMine || adm) html += `<button class="menu-item danger" data-menu-action="delete"><svg viewBox="0 0 24 24"><path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6"/></svg>حذف پست</button>`;
+  if (isMine) html += `<button class="menu-item" data-menu-action="edit">✏️ ویرایش پست</button>`;
+  else html += `<button class="menu-item" data-menu-action="report">🚩 گزارش پست</button><button class="menu-item" data-menu-action="block">🚫 مسدود کردن نویسنده</button>`;
   $('#postMenuList').innerHTML = html;
   $('#postMenuModal').classList.add('show');
 }
@@ -2036,7 +2050,7 @@ function renderAdmin() {
       <div id="adminPostList">${state.posts.slice(0, 50).map(p => `
         <div class="admin-item">
           <img src="${p.image || DEFAULT_AVATAR}" alt="" style="border-radius:8px">
-          <div class="admin-item-info"><h4>${esc((p.title || 'بدون عنوان').slice(0, 40))}</h4><p>${esc(p.author)} · ${esc(p.category)}</p></div>
+          <div class="admin-item-info"><h4>${esc((p.title || 'بدون عنوان').slice(0, 40))}</h4><p>${esc(p.author)} · ${esc(p.category)}${reportBadge(p.id)}</p></div>
           <div class="admin-item-actions">
             <button class="admin-btn primary" data-admin-toggle-popular="${p.id}">${p.isPopular ? 'عادی' : 'محبوب'}</button>
             <button class="admin-btn danger" data-admin-del-post="${p.id}">حذف</button>
@@ -2365,7 +2379,7 @@ document.addEventListener('input', e => {
   if (e.target.id === 'adminPostSearch') {
     const q = e.target.value.trim();
     const filtered = state.posts.filter(p => (p.title || '').includes(q) || p.author.includes(q));
-    $('#adminPostList').innerHTML = filtered.slice(0, 50).map(p => `<div class="admin-item"><img src="${p.image || DEFAULT_AVATAR}" alt="" style="border-radius:8px"><div class="admin-item-info"><h4>${esc((p.title || 'بدون عنوان').slice(0, 40))}</h4><p>${esc(p.author)} · ${esc(p.category)}</p></div><div class="admin-item-actions"><button class="admin-btn primary" data-admin-toggle-popular="${p.id}">${p.isPopular ? 'عادی' : 'محبوب'}</button><button class="admin-btn danger" data-admin-del-post="${p.id}">حذف</button></div></div>`).join('');
+    $('#adminPostList').innerHTML = filtered.slice(0, 50).map(p => `<div class="admin-item"><img src="${p.image || DEFAULT_AVATAR}" alt="" style="border-radius:8px"><div class="admin-item-info"><h4>${esc((p.title || 'بدون عنوان').slice(0, 40))}</h4><p>${esc(p.author)} · ${esc(p.category)}${reportBadge(p.id)}</p></div><div class="admin-item-actions"><button class="admin-btn primary" data-admin-toggle-popular="${p.id}">${p.isPopular ? 'عادی' : 'محبوب'}</button><button class="admin-btn danger" data-admin-del-post="${p.id}">حذف</button></div></div>`).join('');
   }
   if (e.target.id === 'adminCommentSearch') {
     const q = e.target.value.trim();
@@ -2539,6 +2553,96 @@ document.addEventListener('click', e => {
     $('#draftsModal').classList.remove('show');
   }
 });
+
+// ---- blocking
+const blockedKey = () => 'luno_blocked_' + (state.user ? state.user.phone : '');
+let _blCache = null;
+function getBlocked() {
+  if (!_blCache || _blCache.k !== blockedKey()) { let v = []; try { v = JSON.parse(localStorage.getItem(blockedKey()) || '[]'); } catch (e) {} _blCache = { k: blockedKey(), v }; }
+  return _blCache.v;
+}
+function setBlocked(v) { _blCache = { k: blockedKey(), v }; try { localStorage.setItem(blockedKey(), JSON.stringify(v)); } catch (e) {} }
+const isBlocked = id => !!id && getBlocked().includes(id);
+const _rp = renderPost; renderPost = p => isBlocked(p.authorId) ? '' : _rp(p);
+const _ric = renderInlineComment; renderInlineComment = (c, i, pid) => isBlocked(c.userId) ? '' : _ric(c, i, pid);
+const _eu = extractRealUsers; extractRealUsers = () => _eu().filter(u => !isBlocked(u.id));
+function renderBlocked() {
+  const names = {}; JSON.parse(localStorage.getItem('luno_users') || '[]').forEach(u => names[u.phone] = u.name);
+  const b = getBlocked();
+  $('#blockedList').innerHTML = b.length ? b.map(id => `<div class="draft-item"><div><h4>${esc(names[id] || id)}</h4></div><button class="trend-chip" data-unblock="${esc(id)}">رفع مسدودی</button></div>`).join('')
+    : '<p style="font-size:12.5px;color:var(--muted);text-align:center;padding:20px 0">کسی مسدود نشده</p>';
+}
+
+// ---- reports
+const getReports = () => { try { return JSON.parse(localStorage.getItem('luno_reports') || '[]'); } catch (e) { return []; } };
+function reportBadge(pid) { const n = getReports().filter(r => r.postId === pid).length; return n ? ' · 🚩 ' + n : ''; }
+
+// ---- edit post / menu actions / filters
+let editingPostId = null;
+function plainText(html) { const d = document.createElement('div'); d.innerHTML = String(html || '').replace(/<br\s*\/?>/gi, '\n'); return d.textContent; }
+document.addEventListener('click', e => {
+  const ma = e.target.closest('[data-menu-action]');
+  if (ma) {
+    const act = ma.dataset.menuAction, p = state.posts.find(x => x.id === state.currentPostMenu); if (!p) return;
+    if (act === 'edit' && (p.authorId === state.user.phone || isAdmin())) {
+      editingPostId = p.id;
+      $('#editPostTitle').value = p.title || ''; $('#editPostText').value = plainText(p.body || p.desc);
+      $('#editPostModal').classList.add('show');
+    } else if (act === 'report') {
+      if (getReports().some(r => r.postId === p.id && r.by === state.user.phone)) { toast('قبلاً این پست رو گزارش کردی', 'info'); return; }
+      showConfirm('گزارش پست', 'این پست برای بررسی مدیر ارسال بشه؟', () => {
+        const rs = getReports(); rs.push({ postId: p.id, by: state.user.phone, at: Date.now() });
+        try { localStorage.setItem('luno_reports', JSON.stringify(rs)); } catch (er) {}
+        toast('گزارش ثبت شد');
+      });
+    } else if (act === 'block') {
+      showConfirm('مسدود کردن', 'پست‌ها و نظرهای این کاربر دیگه نشون داده نمی‌شن. ادامه می‌دی؟', () => {
+        setBlocked([...new Set([...getBlocked(), p.authorId])]);
+        if (state.history[state.history.length - 1] === 'post-detail') goBack();
+        renderHome(); toast('کاربر مسدود شد');
+      });
+    }
+    return;
+  }
+  if (e.target.closest('#saveEditPost')) {
+    const p = state.posts.find(x => x.id === editingPostId); if (!p) return;
+    if (p.authorId !== state.user.phone && !isAdmin()) return;
+    const title = $('#editPostTitle').value.trim(), text = $('#editPostText').value.trim();
+    if (p.asArticle && title.length < 3) { toast('عنوان مقاله حداقل ۳ کاراکتر', 'error'); return; }
+    if (text.length < (p.asArticle ? 40 : 10)) { toast('متن خیلی کوتاهه', 'error'); return; }
+    p.title = title; p.desc = text.slice(0, 140); p.body = `<p>${processText(text).replace(/\n/g, '<br>')}</p>`; p.edited = true;
+    save(); $('#editPostModal').classList.remove('show'); renderHome();
+    if ($('#page-post-detail').classList.contains('active')) openPostDetail(p.id);
+    if ($('#page-profile').classList.contains('active')) renderMyProfile();
+    toast('پست ویرایش شد'); return;
+  }
+  if (e.target.closest('#blockedItem')) { renderBlocked(); $('#blockedModal').classList.add('show'); return; }
+  const ub = e.target.closest('[data-unblock]');
+  if (ub) { setBlocked(getBlocked().filter(x => x !== ub.dataset.unblock)); renderBlocked(); renderHome(); return; }
+  const ct = e.target.closest('[data-cat]');
+  if (ct) { state.feedCat = ct.dataset.cat; $$('#catRow .trend-chip').forEach(b => b.classList.toggle('on', b === ct)); renderHome(); }
+});
+(function () {
+  const row = document.createElement('div'); row.id = 'catRow';
+  row.style.cssText = 'display:flex;gap:6px;overflow-x:auto;padding:10px 16px 0';
+  const cats = [...new Set($$('.tag-chip').map(c => c.dataset.tag))];
+  row.innerHTML = ['', ...cats].map(c => `<button class="trend-chip ${c === '' ? 'on' : ''}" data-cat="${esc(c)}" style="white-space:nowrap">${c ? esc(c) : 'همه'}</button>`).join('');
+  $('#feed').before(row);
+})();
+
+// ---- friendly errors + aria labels
+let _errAt = 0;
+function friendlyError(err) {
+  console.error(err);
+  if (Date.now() - _errAt < 5000) return; _errAt = Date.now();
+  toast('مشکلی پیش اومد؛ اگه ادامه داشت صفحه رو دوباره باز کن', 'error');
+}
+window.addEventListener('error', e => { if (!/ResizeObserver/.test(e.message || '')) friendlyError(e.error || e.message); });
+window.addEventListener('unhandledrejection', e => friendlyError(e.reason));
+const ARIA = { '[data-like]': 'پسند', '[data-comment]': 'نظرات', '[data-share]': 'اشتراک‌گذاری', '[data-save]': 'ذخیره', '[data-menu]': 'گزینه‌ها', '#themeBtn': 'تغییر تم', '.modal-close': 'بستن', '[data-back]': 'بازگشت', '#chatSend': 'ارسال', '#emojiBtn': 'ایموجی', '#focusBtn': 'اندازه و حالت متن' };
+function labelButtons() { Object.entries(ARIA).forEach(([s, l]) => $$(s).forEach(el => { if (!el.hasAttribute('aria-label')) el.setAttribute('aria-label', l); })); }
+let _lt; new MutationObserver(() => { clearTimeout(_lt); _lt = setTimeout(labelButtons, 200); }).observe(document.body, { childList: true, subtree: true });
+labelButtons();
 
 function openFromHash() {
   const m = location.hash.match(/^#post-(.+)$/);
