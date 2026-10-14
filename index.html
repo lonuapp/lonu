@@ -1581,7 +1581,7 @@ function renderMyProfile() {
   $('#page-profile').classList.toggle('is-admin-profile', isAdmin());
   $('#myName').textContent = state.user.name;
   $('#myBio').textContent = state.user.bio || 'بیوگرافی خالی است';
-  $('#myAvatar').src = state.useavatarOf(r.userId, r.avatar);
+  $('#myAvatar').src = state.user.avatar || DEFAULT_AVATAR;
   const myColor = state.avatarColors[state.user.phone];
   $('#myAvatar').classList.toggle('colored', !!myColor);
   if (myColor) $('#myAvatar').style.setProperty('--avatar-color', myColor);
@@ -2722,4 +2722,4 @@ setTimeout(() => {
 }, 700);
 </script>
 </body>
-          </html>
+                                                                        </html>
