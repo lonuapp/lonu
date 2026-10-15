@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#ffffff">
-<title>Luno</title>
+<title>Lonu</title>
 <meta name="description" content="لونو؛ مجله‌ای برای لحظه‌های تو. پست، مقاله و گفتگو.">
-<meta property="og:type" content="website"><meta property="og:title" content="Luno"><meta property="og:description" content="مجله‌ای برای لحظه‌های تو">
+<meta property="og:type" content="website"><meta property="og:title" content="Lonu"><meta property="og:description" content="مجله‌ای برای لحظه‌های تو">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23e0427e'/%3E%3Ctext x='50' y='72' font-size='62' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='900'%3EL%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -534,15 +534,21 @@ button:focus-visible,input:focus-visible,textarea:focus-visible,[tabindex]:focus
 .clamp{display:-webkit-box;-webkit-line-clamp:6;-webkit-box-orient:vertical;overflow:hidden}.more-btn{color:var(--accent);font-weight:800;font-size:12.5px;padding:4px 0}.pin{position:relative}
 body.reduce-motion *{animation:none!important;transition:none!important}
 </style>
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Lonu"><meta name="robots" content="index,follow">
+<meta property="og:url" content="https://lunomag.ir/"><meta property="og:image" content="https://lunomag.ir/icon-512.png"><meta name="twitter:card" content="summary">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Lonu","alternateName":"لونو","url":"https://lunomag.ir/","inLanguage":"fa"}</script>
 </head>
 <body>
 
 <div class="offline-banner" id="offlineBanner">📡 اتصال اینترنت قطع است</div>
-<div class="loader" id="loader"><div class="loader-logo">Luno<span>.</span></div><div class="loader-bar"></div></div>
+<div class="loader" id="loader"><div class="loader-logo">Lonu<span>.</span></div><div class="loader-bar"></div></div>
 
 <div class="auth hide" id="authScreen">
   <div class="auth-box">
-    <div class="auth-logo">Luno<span>.</span></div>
+    <div class="auth-logo">Lonu<span>.</span></div>
     <div class="auth-sub">مجله‌ای برای لحظه‌های تو</div>
     <form id="authForm" novalidate>
       <div class="auth-field" id="nameField" style="display:none"><label>نام و نام خانوادگی</label><input type="text" id="authName" placeholder="نام و نام خانوادگی"><div class="auth-err" id="nameErr">نام باید حداقل ۳ کاراکتر باشد</div></div>
@@ -556,7 +562,7 @@ body.reduce-motion *{animation:none!important;transition:none!important}
 
 <div class="app hide" id="app">
   <header class="app-header">
-    <div class="header-left"><div class="logo" id="logoBtn">Luno<span>.</span></div><span class="admin-tag hidden" id="adminTag">مدیر</span></div>
+    <div class="header-left"><div class="logo" id="logoBtn">Lonu<span>.</span></div><span class="admin-tag hidden" id="adminTag">مدیر</span></div>
     <div class="header-right">
       <button class="hbtn" id="themeBtn"><svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg></button>
       <button class="hbtn primary" data-go="create"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button>
@@ -819,7 +825,7 @@ body.reduce-motion *{animation:none!important;transition:none!important}
       <div class="chat-top"><button class="back-btn" data-back><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button><h4 style="font-size:14px;font-weight:800">درباره ما</h4></div>
       <div class="about-hero">
         <div class="about-icon"><svg viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
-        <div class="about-title">Luno</div>
+        <div class="about-title">Lonu</div>
         <div class="about-ver">نسخه ۱.۰.۰</div>
       </div>
       <div class="about-features">
@@ -2730,7 +2736,7 @@ async function sharePostImage(p) {
   ctx = c.getContext('2d');
   ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, W, c.height);
   ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || '#e0427e'; ctx.fillRect(0, 0, W, 14);
-  let y = 100; ctx.direction = 'ltr'; ctx.textAlign = 'left'; ctx.font = '900 54px ' + FONT; ctx.fillText('Luno.', pad, y); y += 50;
+  let y = 100; ctx.direction = 'ltr'; ctx.textAlign = 'left'; ctx.font = '900 54px ' + FONT; ctx.fillText('Lonu.', pad, y); y += 50;
   if (img) { ctx.drawImage(img, 0, y, W, imgH); y += imgH + 30; }
   ctx.fillStyle = '#111827';
   if (p.title) { setF(52, 800); y += 60; ctx.fillText(p.title, W - pad, y); y += 50; }
@@ -2776,5 +2782,49 @@ setTimeout(() => {
   else $('#authScreen').classList.remove('hide');
 }, 700);
 </script>
+<!-- luno-addons -->
+<script id="luno-addons">
+(function(){
+const ok=(n,f)=>{try{f()}catch(e){console.error('[addon:'+n+']',e)}};
+const mk=(id,t,d,cls)=>{const e=document.createElement('div');e.className='s-item'+(cls?' '+cls:'');e.id=id;e.innerHTML='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg><div><h4>'+t+'</h4><p>'+d+'</p></div><span class="arrow">›</span>';return e};
+const rerender=()=>{try{typeof renderHome==='function'&&renderHome()}catch(e){}};
+ok('pwa',()=>{
+ if('serviceWorker' in navigator&&(location.protocol==='https:'||location.hostname==='localhost'))navigator.serviceWorker.register('sw.js').catch(()=>{});
+ let dp=null;addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e});
+ const b=document.getElementById('importBtn');if(b)b.parentNode.appendChild(mk('installBtn','نصب برنامه','اضافه کردن لونو به صفحهٔ اصلی گوشی'));
+ document.addEventListener('click',e=>{if(!e.target.closest('#installBtn'))return;if(dp){dp.prompt();dp=null}else toast('از منوی مرورگر گزینهٔ «افزودن به صفحهٔ اصلی» رو بزن','error')});
+});
+ok('esc',()=>document.addEventListener('keydown',e=>{if(e.key!=='Escape')return;document.querySelectorAll('.modal.show,.confirm.show').forEach(m=>m.classList.remove('show'))}));
+ok('lazy',()=>{const f=r=>r.querySelectorAll&&r.querySelectorAll('img:not([loading])').forEach(i=>{i.loading='lazy';i.decoding='async'});f(document);new MutationObserver(m=>m.forEach(x=>x.addedNodes.forEach(n=>n.nodeType===1&&(n.tagName==='IMG'?(n.loading='lazy'):f(n))))).observe(document.body,{childList:true,subtree:true})});
+ok('muted',()=>{
+ const get=()=>{try{return JSON.parse(localStorage.getItem('luno_muted')||'[]')}catch(e){return[]}};
+ const rp=renderPost;renderPost=function(p){const w=get();if(w.length){const s=((p&&p.title||'')+' '+(p&&p.desc||'')).toLowerCase();if(w.some(x=>s.includes(x)))return''}return rp.apply(this,arguments)};
+ const b=document.getElementById('blockedItem');if(b)b.parentNode.appendChild(mk('mutedItem','کلمه‌های بی‌صدا','پست‌های حاوی این کلمه‌ها در فید پنهان می‌شن'));
+ document.addEventListener('click',e=>{if(!e.target.closest('#mutedItem'))return;const v=prompt('کلمه‌ها رو با ویرگول جدا کن (خالی = غیرفعال)',get().join('، '));if(v===null)return;localStorage.setItem('luno_muted',JSON.stringify(v.split(/[,،]/).map(s=>s.trim().toLowerCase()).filter(Boolean)));rerender();toast('ذخیره شد')});
+});
+ok('online',()=>{
+ const b=document.getElementById('blockedItem'),hid=()=>localStorage.getItem('luno_hide_online')==='1';
+ const it=mk('onlineItem','وضعیت آنلاین','');const lab=()=>it.querySelector('p').textContent=hid()?'مخفی است':'نمایش داده می‌شود';lab();
+ if(b)b.parentNode.appendChild(it);
+ document.addEventListener('click',e=>{if(!e.target.closest('#onlineItem'))return;localStorage.setItem('luno_hide_online',hid()?'0':'1');lab();fix()});
+ const s=()=>document.getElementById('chatStatus'),fix=()=>{const x=s();if(x&&hid()&&x.textContent)x.textContent=''};
+ new MutationObserver(fix).observe(document.body,{childList:true,subtree:true,characterData:true});
+});
+ok('delete',()=>{
+ const l=document.getElementById('logoutBtn');if(l)l.parentNode.appendChild(mk('deleteAccBtn','حذف حساب کاربری','حذف دائمی حساب و پست‌های من','danger'));
+ document.addEventListener('click',e=>{if(!e.target.closest('#deleteAccBtn'))return;
+  showConfirm('حذف حساب','حساب و همهٔ پست‌هات برای همیشه پاک می‌شه و برگشتی نداره. مطمئنی؟',()=>{
+   const u=state.user||{};state.posts=state.posts.filter(p=>!(p.authorId&&p.authorId===u.id)&&!(p.author&&p.author===u.name));
+   try{save()}catch(e){}
+   ['luno_user','luno_friends','luno_pending','luno_notifs','luno_chats','luno_liked','luno_saved','luno_collections','luno_recent_searches','luno_muted','luno_hide_online'].forEach(k=>localStorage.removeItem(k));
+   location.reload()})});
+});
+})();
+</script>
+<script src="extras.js"></script>
+<script src="extras2.js"></script>
+<script src="extras3.js"></script>
+<script src="extras4.js"></script>
+<script src="extras5.js"></script>
 </body>
-                                                                                                                                                                        </html>
+          </html>
