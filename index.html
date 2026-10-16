@@ -3882,5 +3882,135 @@ ok('approvedColors',()=>{
 console.log('%c[lunopatch] ✓ applied','color:#22c55e;font-weight:bold');
 })();
 </script>
+<script id="lunomulti">
+(function(){
+'use strict';
+const ok=(n,f)=>{try{f();console.log('[lunomulti:'+n+'] ✓')}catch(e){console.error('[lunomulti:'+n+']',e&&e.message)}};
+
+/* ═══ اسکیمای داده‌های per-user ═══ */
+const USER_SCOPED = [
+  {field:'liked',          base:'luno_liked',           type:'array'},
+  {field:'saved',          base:'luno_saved',           type:'array'},
+  {field:'friends',        base:'luno_friends',         type:'array'},
+  {field:'pending',        base:'luno_pending',         type:'array'},
+  {field:'notifications',  base:'luno_notifs',          type:'array'},
+  {field:'chats',          base:'luno_chats',           type:'object'},
+  {field:'comments',       base:'luno_comments',        type:'object'},
+  {field:'recentSearches', base:'luno_recent_searches', type:'array'},
+  {field:'collections',    base:'luno_collections',     type:'array'}
+];
+const MIGRATION_FLAG = 'luno_per_user_migrated_v1';
+const userKey = (base, phone) => base + '__u__' + phone;
+const emptyOf = t => t === 'array' ? [] : {};
+
+/* ═══ ذخیره‌سازی per-user ═══ */
+function saveUserState(){
+  if(typeof state === 'undefined' || !state.user || !state.user.phone) return;
+  const p = String(state.user.phone);
+  try {
+    USER_SCOPED.forEach(function(item){
+      localStorage.setItem(userKey(item.base, p), JSON.stringify(state[item.field]));
+    });
+  } catch(e){
+    if(e && (e.name === 'QuotaExceededError' || e.code === 22)){
+      try { toast('حافظه مرورگر پر شده؛ چند پست یا عکس قدیمی رو حذف کن', 'error'); } catch(_){}
+    } else console.error('[saveUserState]', e);
+  }
+}
+
+/* ═══ بارگذاری per-user ═══ */
+function loadUserState(phone){
+  if(typeof state === 'undefined' || !phone) return;
+  const p = String(phone);
+  const migrationDone = localStorage.getItem(MIGRATION_FLAG) === '1';
+
+  USER_SCOPED.forEach(function(item){
+    const specific = localStorage.getItem(userKey(item.base, p));
+    if(specific !== null){
+      try { state[item.field] = JSON.parse(specific); return; } catch(e){}
+    }
+    if(!migrationDone){
+      const globalVal = localStorage.getItem(item.base);
+      if(globalVal !== null){
+        try {
+          state[item.field] = JSON.parse(globalVal);
+          localStorage.setItem(userKey(item.base, p), globalVal);
+          return;
+        } catch(e){}
+      }
+    }
+    state[item.field] = emptyOf(item.type);
+  });
+
+  if(!migrationDone){
+    localStorage.setItem(MIGRATION_FLAG, '1');
+    USER_SCOPED.forEach(function(item){
+      try { localStorage.removeItem(item.base); } catch(e){}
+    });
+    console.log('[lunomulti] migrated global keys → per-user for', p);
+  }
+}
+
+/* ═══ صفر کردن state (روی Logout) ═══ */
+function clearUserState(){
+  if(typeof state === 'undefined') return;
+  USER_SCOPED.forEach(function(item){
+    state[item.field] = emptyOf(item.type);
+  });
+  state.currentChat = null;
+  state.currentPostId = null;
+  state.currentPostMenu = null;
+  state.currentCollection = null;
+  state.savingPostId = null;
+  state.history = ['home'];
+  state.scrollPos = {};
+}
+
+/* ═══ ۱) جایگزینی _save: فقط کلیدهای عمومی + per-user ═══ */
+ok('save',()=>{
+  if(typeof window._save !== 'function') throw new Error('_save not found');
+  window._save = function(){
+    localStorage.setItem('luno_posts', JSON.stringify(state.posts));
+    localStorage.setItem('luno_avatar_colors', JSON.stringify(state.avatarColors));
+    if(state.user) localStorage.setItem('luno_user', JSON.stringify(state.user));
+    saveUserState();
+  };
+});
+
+/* ═══ ۲) جایگزینی enterApp: بارگذاری state کاربر ═══ */
+ok('enterApp',()=>{
+  if(typeof window.enterApp !== 'function') throw new Error('enterApp not found');
+  const orig = window.enterApp;
+  window.enterApp = function(){
+    if(state && state.user && state.user.phone){
+      loadUserState(state.user.phone);
+    }
+    return orig.apply(this, arguments);
+  };
+});
+
+/* ═══ ۳) تشخیص Logout و پاک کردن state ═══ */
+ok('logoutWatch',()=>{
+  const authScreen = document.getElementById('authScreen');
+  if(!authScreen) throw new Error('authScreen not found');
+  const obs = new MutationObserver(function(){
+    if(!authScreen.classList.contains('hide') && (!state || !state.user)){
+      clearUserState();
+    }
+  });
+  obs.observe(authScreen, { attributes: true, attributeFilter: ['class'] });
+});
+
+/* ═══ ۴) اجرای اولیه (اگه کاربر از قبل لاگینه) ═══ */
+ok('initial',()=>{
+  if(state && state.user && state.user.phone){
+    loadUserState(state.user.phone);
+    saveUserState();
+  }
+});
+
+console.log('%c[lunomulti] ✓ ready (per-user storage active)','color:#22c55e;font-weight:bold');
+})();
+</script>
 </body>
-                                                                         </html>
+                                                  </html>
