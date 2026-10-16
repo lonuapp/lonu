@@ -555,8 +555,6 @@ body.reduce-motion *{animation:none!important;transition:none!important}
 .bottom-nav .nav.active svg{background:var(--accent-soft);border-radius:14px;padding:5px 14px;box-sizing:content-box;margin-bottom:1px;transition:background .2s}
 .bottom-nav .nav .badge{box-shadow:0 0 0 2px var(--paper)}
 /* stories */
-.story-ring{background:linear-gradient(45deg,#f59e0b,#ef4444 45%,#c026d3 75%,#6366f1)!important;padding:2.5px}
-.story-ring img{border:2.5px solid var(--paper)}
 /* chips */
 .tag-chip{padding:5px 13px;font-size:12px;transition:background .2s,color .2s}
 /* post cards */
@@ -601,7 +599,54 @@ body.reduce-motion *{animation:none!important;transition:none!important}
 [data-theme="dark"] .bubble.them{background:#2b3140;color:#eef1f6}
 [data-theme="dark"] .post-time,[data-theme="dark"] small{color:#a6aebd}
 .xver{text-align:center;font-size:11px;color:var(--muted);padding:18px 0 90px}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+<style id="xv9">
+@property --xa{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes xspin{to{--xa:360deg}}
+@keyframes xfade{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes xbub{from{opacity:0;transform:translateY(8px) scale(.92)}to{opacity:1;transform:none}}
+@keyframes xbounce{0%{transform:translateY(0)}40%{transform:translateY(-5px)}70%{transform:translateY(1px)}100%{transform:none}}
+@keyframes xbreath{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 35%,transparent)}50%{box-shadow:0 0 0 7px transparent}}
+@keyframes xfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+html{scroll-behavior:smooth}
+/* press feedback everywhere */
+button,.s-item,.chat-row,.notif,.user-row,.post-action,.nav,.tag-chip,.story{transition:transform .18s cubic-bezier(.3,1.4,.5,1),background .2s,color .2s,opacity .2s,box-shadow .2s}
+button:active,.s-item:active,.chat-row:active,.notif:active,.user-row:active,.nav:active,.tag-chip:active,.story:active{transform:scale(.94)}
+/* scroll reveal + stagger */
+.xrv{opacity:0}.xrv.xin{animation:xfade .5s cubic-bezier(.2,.8,.2,1) both}
+.s-item,.chat-row,.notif,.user-row{animation:xfade .4s cubic-bezier(.2,.8,.2,1) both}
+.s-item:nth-child(2),.chat-row:nth-child(2),.notif:nth-child(2),.user-row:nth-child(2){animation-delay:.04s}
+.s-item:nth-child(3),.chat-row:nth-child(3),.notif:nth-child(3),.user-row:nth-child(3){animation-delay:.08s}
+.s-item:nth-child(4),.chat-row:nth-child(4),.notif:nth-child(4),.user-row:nth-child(4){animation-delay:.12s}
+.s-item:nth-child(n+5),.chat-row:nth-child(n+5),.notif:nth-child(n+5),.user-row:nth-child(n+5){animation-delay:.16s}
+/* nav */
+.bottom-nav .nav.active svg{animation:xbounce .45s ease}
+.bottom-nav .nav .badge{animation:xbreath 2s infinite}
+/* chat: only the newest bubble animates */
+.bubble:last-child{animation:xbub .32s cubic-bezier(.3,1.4,.5,1) both}
+/* stories */
+.story:not(.plus) .story-ring{background:conic-gradient(from var(--xa),#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5,#feda75);animation:xspin 3.5s linear infinite;padding:3px}
+.story:not(.plus) .story-ring img{border:3px solid var(--paper)}
+.story.mine .story-ring{background:conic-gradient(from var(--xa),var(--accent),#ff8ab8,#7c3aed,var(--accent))}
+.story.plus .story-ring{background:var(--accent-soft);border:2px dashed var(--accent);animation:xbreath 2.4s infinite}
+.story.plus .story-ring svg{animation:xfloat 2.4s ease-in-out infinite}
+.story.mine{position:relative}
+.xsdel{position:absolute;top:-2px;right:-2px;width:20px;height:20px;border-radius:50%;background:#ef4444;color:#fff;font-size:13px;line-height:20px;text-align:center;box-shadow:0 0 0 2px var(--paper);z-index:2}
+/* text post: author on top like a tweet */
+.text-post{display:flex;flex-direction:column;border-radius:0}
+.text-post-author{order:-2;border-bottom:none;padding-bottom:8px}
+.text-post-author img{width:36px;height:36px}
+.text-post-head{order:-1}
+.text-post h3,.text-post p{order:0}
+/* profile photos: 3 columns */
+.pin-grid,.accent-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.pin-grid img,.accent-grid img{width:100%;aspect-ratio:1;object-fit:cover;transition:transform .3s}
+.pin-grid>*:active img{transform:scale(1.04)}
+.xalb{position:absolute;top:6px;left:6px;background:rgba(0,0,0,.55);color:#fff;border-radius:8px;padding:1px 6px;font-size:10px}
+/* toast + modal polish */
+.toast{transition:transform .35s cubic-bezier(.3,1.4,.5,1),opacity .25s}
+.modal{transition:opacity .25s,backdrop-filter .25s}
+.xrm .xrv{opacity:1}
 </style>
 </head>
 <body>
@@ -2955,7 +3000,7 @@ const bot=root.LunoBot={id:'lunobot',name:'پرنسس لونو',version:'0.2',
 };
 ok('wire',()=>{
  const AV='data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#e0427e"/><text x="50" y="68" font-size="52" text-anchor="middle">👸</text></svg>');
- const eu=extractRealUsers;extractRealUsers=function(){const a=eu.apply(this,arguments);if(!a.some(u=>u.id===bot.id))a.unshift({id:bot.id,name:bot.name,avatar:AV,bio:'دستیار آزمایشی لونو',city:'',job:'',link:'',online:true,posts:0,friends:0});return a};
+ const eu=extractRealUsers;extractRealUsers=function(){const a=eu.apply(this,arguments);if(!a.some(u=>u.id===bot.id))a.unshift({id:bot.id,name:bot.name,avatar:AV,bio:'پرنسس قصر لونو 👑',city:'',job:'',link:'',online:true,posts:0,friends:0});return a};
  if(!state.friends.includes(bot.id)){state.friends.push(bot.id);try{save()}catch(e){}}
  const oc=openChat;openChat=function(uid){if(uid===bot.id&&!(state.chats[uid]||[]).length){state.chats[uid]=[{from:'them',text:'سلام عزیزم 🌸 منم پرنسس لونو! خوشحالم اومدی. چطوری؟',time:new Date().toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'})}];try{save()}catch(e){}}return oc.apply(this,arguments)};
  const cs=document.getElementById('chatSend'),inp=document.getElementById('chatInput');let txt='';
@@ -3506,8 +3551,29 @@ try{const ic=s=>{const c=document.createElement('canvas');c.width=c.height=s;con
  let l=document.querySelector('link[rel=manifest]');if(!l){l=document.createElement('link');l.rel='manifest';document.head.appendChild(l)}
  l.href=URL.createObjectURL(new Blob([JSON.stringify(m)],{type:'application/manifest+json'}));
  const a=document.querySelector('link[rel=apple-touch-icon]');if(a)a.href=ic(192)}catch(e){console.error('[extras8:manifest]',e.message)}
-try{const p=document.getElementById('page-settings');if(p){const d=document.createElement('div');d.className='xver';d.id='xVersion';d.textContent='نسخهٔ برنامه ۸ · پرنسس لونو ۰٫۵';p.appendChild(d)}}catch(e){console.error('[extras8:ver]',e.message)}
+try{const p=document.getElementById('page-settings');if(p){const d=document.createElement('div');d.className='xver';d.id='xVersion';d.textContent='نسخهٔ برنامه ۹ · پرنسس لونو ۰٫۶';p.appendChild(d)}}catch(e){console.error('[extras8:ver]',e.message)}
+})();
+</script>
+<script id="xv9js">
+(function(){
+const ok=(n,f)=>{try{f()}catch(e){console.error('[extras9:'+n+']',e&&e.message)}};
+const fa=n=>Number(n).toLocaleString('fa-IR');
+ok('reveal',()=>{const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('xin');io.unobserve(e.target)}}),{threshold:.08});
+ let i=0;const arm=n=>{if(n.nodeType!==1)return;(n.matches&&n.matches('.post,.text-post')?[n]:[...n.querySelectorAll?n.querySelectorAll('.post,.text-post'):[]]).forEach(x=>{if(x.dataset.xr)return;x.dataset.xr=1;x.classList.add('xrv');x.style.animationDelay=(i++%4)*.05+'s';io.observe(x)})};
+ new MutationObserver(m=>m.forEach(r=>r.addedNodes.forEach(arm))).observe(document.body,{childList:true,subtree:true});arm(document.body)});
+ok('storyDelete',()=>{const rs=renderStories;renderStories=function(){const r=rs.apply(this,arguments);const m=document.querySelector('#stories .story.mine');if(m&&!m.querySelector('.xsdel')){const x=document.createElement('span');x.className='xsdel';x.dataset.xsdel='1';x.setAttribute('aria-label','حذف استوری');x.textContent='×';m.appendChild(x)}return r};
+ document.addEventListener('click',e=>{const b=e.target.closest('[data-xsdel]');if(!b)return;e.stopPropagation();e.preventDefault();
+  showConfirm('حذف استوری','استوری‌ات پاک بشه؟',()=>{try{const st=JSON.parse(localStorage.getItem('luno_stories')||'{}');delete st[state.user.phone];localStorage.setItem('luno_stories',JSON.stringify(st));renderStories();toast('استوری حذف شد')}catch(er){}})},true);
+ try{renderStories()}catch(e){}});
+ok('albumBadge',()=>{const rp=renderPost;renderPost=function(p){return rp.apply(this,arguments)}});
+ok('princess',()=>{const B=window.LunoBot;if(!B)return;B.version='0.6';
+ const r0=B.reply;B.reply=async function(t){if(/ناراحت|غمگین|دلم گرفته|حالم بد|تنهام|خسته‌ام/.test(t))localStorage.setItem('luno_bot_mood',JSON.stringify({t:'sad',at:Date.now()}));return r0.apply(this,arguments)};
+ const oc=openChat;openChat=function(uid){if(uid===B.id){try{const now=Date.now(),seen=+localStorage.getItem('luno_bot_seen')||0,nm=localStorage.getItem('luno_bot_name'),a=state.chats[B.id]=state.chats[B.id]||[];
+   const tm=new Date().toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'});let mood=null;try{mood=JSON.parse(localStorage.getItem('luno_bot_mood')||'null')}catch(e){}
+   if(seen&&now-seen>3*36e5){let txt;if(mood&&now-mood.at<72*36e5&&now-mood.at>3*36e5){txt='راستش هنوز به حرفای قبلیت فکر می‌کردم'+(nm?' '+nm:'')+' 💗 الان حالت بهتره؟';localStorage.removeItem('luno_bot_mood')}
+    else txt=(now-seen>24*36e5?'کجا بودی تو؟ دلم برات تنگ شده بود'+(nm?' '+nm:'')+' 🥺':'سلام دوباره'+(nm?' '+nm:'')+' 🌸 خوش برگشتی!');a.push({from:'them',text:txt,time:tm});save()}
+   localStorage.setItem('luno_bot_seen',String(now))}catch(e){}}return oc.apply(this,arguments)}});
 })();
 </script>
 </body>
-  </html>
+                                                                                                    </html>
