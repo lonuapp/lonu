@@ -668,6 +668,122 @@ button:active,.s-item:active,.chat-row:active,.notif:active,.user-row:active,.na
 .xann button{margin-inline-start:auto;font-size:18px;color:var(--muted)}
 .xban{position:fixed;inset:0;z-index:9999;background:var(--paper);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:30px}
 </style>
+<style id="lunoV2">
+/* آیکن چت‌روم کمی بزرگ‌تر */
+#roomBtn{width:40px;height:40px}
+#roomBtn svg{width:25px;height:25px}
+#roomBtn .rbadge{top:0;right:-1px}
+/* فید به سبک تکسا */
+#page-home .stories{border-bottom:0;padding-bottom:6px}
+.feed-bar{display:flex;align-items:center;gap:8px;padding:8px 16px 12px;background:var(--paper);border-bottom:8px solid var(--line-2)}
+.feed-bar .tabs-scroll{flex:1;gap:4px;padding:4px;background:var(--line-2);border-radius:999px;border-bottom:0;min-width:0}
+.feed-bar .tab{flex:1;text-align:center;padding:8px 10px;border-radius:999px;font-size:13px;font-weight:700}
+.feed-bar .tab.active{background:var(--ink);color:var(--paper);font-weight:800}
+.feed-bar .tab.active::after{display:none}
+.cat-btn{height:40px;min-width:40px;border-radius:999px;background:var(--line-2);color:var(--ink);display:flex;align-items:center;justify-content:center;gap:6px;padding:0 11px;flex-shrink:0;font-size:12px;font-weight:800}
+.cat-btn svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
+.cat-btn.on{background:var(--accent);color:#fff}
+.cat-btn span:empty{display:none}
+.cat-sheet{position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.4);display:none;align-items:flex-end;justify-content:center}
+.cat-sheet.show{display:flex}
+.cs-box{width:100%;max-width:480px;background:var(--paper);border-radius:22px 22px 0 0;padding:18px 16px calc(20px + env(safe-area-inset-bottom));animation:csUp .25s ease}
+.cs-box h4{font-size:14px;font-weight:800;margin-bottom:12px}
+.cs-box #catRow{display:flex;flex-wrap:wrap;gap:8px;padding:0;overflow:visible}
+.cs-box .trend-chip{padding:8px 14px;font-size:13px}
+@keyframes csUp{from{transform:translateY(40px);opacity:0}to{transform:none;opacity:1}}
+/* چت‌روم به سبک تکسا: تمیز، بدون حباب */
+#page-room .room-top{padding:12px 14px;border-bottom:1px solid var(--line-2)}
+#page-room .room-title b{font-size:20px;font-weight:900}
+#page-room .room-body{padding:6px 16px 10px;gap:0}
+#page-room .rmw{display:flex;flex-direction:column;contain:content}
+#page-room .rm{gap:11px;padding:11px 0}
+#page-room .rm-av{width:42px;height:42px}
+#page-room .rm-main{flex:1;max-width:none}
+#page-room .rm-head{flex-wrap:nowrap;align-items:center;margin-bottom:3px;gap:7px}
+#page-room .rm-head b{font-size:14.5px;white-space:nowrap}
+#page-room .rm.me .rm-head b{color:var(--accent)}
+#page-room .rm-head small{font-size:11.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+#page-room .rm-sp{flex:1}
+#page-room .rm-t{font-size:11px;color:var(--muted);white-space:nowrap}
+#page-room .rm-dots{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;color:var(--muted);flex-shrink:0;margin-inline-end:-6px}
+#page-room .rm-dots svg{width:18px;height:18px;fill:currentColor}
+#page-room .rm-dots:active{background:var(--line-2)}
+#page-room .rm-bubble{display:block;background:none;border-radius:0;padding:0;font-size:14.5px;line-height:1.9}
+#page-room .rm.me .rm-bubble{background:none}
+#page-room .rm-q{display:block;background:var(--line-2);border-radius:14px;border-inline-start:3px solid var(--accent);padding:6px 11px;margin-bottom:6px}
+#page-room .rm-img{max-width:260px;border-radius:18px}
+#page-room .rm.pend{opacity:.55}
+#page-room .rm-day{align-self:center;margin:10px 0 4px}
+#page-room .rm-rx button{background:var(--line-2);border-color:transparent}
+#page-room .rm-rx button.on{background:var(--accent-soft);border-color:var(--accent)}
+#page-room .room-input{box-shadow:0 2px 14px rgba(0,0,0,.07);background:var(--paper);border-color:var(--line)}
+</style>
+<style id="lunoV3">
+/* ---- چت‌روم: ارتقا ---- */
+#page-room .rm{transition:transform .15s ease-out}
+#page-room .rm.cont{padding-top:1px;padding-bottom:3px}
+#page-room .rm-avsp{width:42px;flex-shrink:0}
+#page-room .rm-a{color:var(--accent);text-decoration:underline;word-break:break-all}
+#page-room .rm-new{align-self:stretch;display:flex;align-items:center;gap:10px;margin:10px 0 4px;color:var(--accent);font-size:11.5px;font-weight:800}
+#page-room .rm-new::before,#page-room .rm-new::after{content:'';flex:1;height:1px;background:var(--accent);opacity:.35}
+#page-room .room-net{background:#f59e0b;color:#fff;text-align:center;font-size:12px;font-weight:700;padding:5px 10px}
+#page-room .room-emo{display:grid;grid-template-columns:repeat(8,1fr);gap:2px;padding:8px 12px;border-top:1px solid var(--line-2);background:var(--paper);max-height:150px;overflow-y:auto}
+#page-room .room-emo.hidden{display:none}
+#page-room .room-emo button{font-size:23px;padding:5px;border-radius:10px}
+#page-room .room-emo button:active{background:var(--line-2);transform:scale(1.2)}
+/* ---- نام کاربری ---- */
+.uname{color:var(--accent);font-weight:700;direction:ltr;unicode-bidi:isolate}
+.profile-un{font-size:12.5px;color:var(--muted);font-weight:700;margin-top:3px;direction:ltr;unicode-bidi:isolate}
+/* ---- تنظیمات ---- */
+#page-settings .chat-top h4{font-size:18px!important;font-weight:900!important}
+#page-settings .settings-section{padding:6px 16px 120px}
+#lcProfile{flex-direction:row!important;align-items:center;text-align:start!important;gap:14px!important;padding:16px!important;border-radius:22px!important;border:0!important;background:linear-gradient(135deg,var(--accent-soft),var(--paper) 70%)!important;box-shadow:0 6px 24px -14px rgba(0,0,0,.25)}
+#lcProfile img{width:66px!important;height:66px!important;margin:0!important;border:3px solid var(--paper);box-shadow:0 0 0 2px var(--accent)}
+#lcProfile .lcp-t{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+#lcProfile .lcp-t b{font-size:17px;font-weight:900}
+#lcProfile .lcp-u{font-size:12.5px;color:var(--accent);font-weight:700;direction:ltr;text-align:start;unicode-bidi:isolate}
+#lcProfile .lcp-t small{font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
+#lcProfile .lcp-ar{font-size:22px;color:var(--muted);opacity:.6}
+#page-settings .settings-section-title{color:var(--accent)!important;font-weight:800!important;font-size:12px!important;padding:22px 8px 8px!important}
+#page-settings .settings-list{border:0!important;border-radius:20px!important;box-shadow:0 4px 20px -14px rgba(0,0,0,.28)}
+#page-settings .s-item{position:relative;border-bottom:0!important;padding:13px 14px!important;gap:13px}
+#page-settings .s-item:not(:last-child)::after{content:'';position:absolute;inset-inline-start:61px;inset-inline-end:0;bottom:0;height:1px;background:var(--line-2)}
+#page-settings .s-item>svg{width:36px!important;height:36px!important;border-radius:11px!important;box-shadow:0 3px 8px -4px rgba(0,0,0,.35)}
+#page-settings .s-item h4{font-size:14px!important}
+#page-settings .setting-group{border:0!important;border-radius:20px!important;padding:16px!important;box-shadow:0 4px 20px -14px rgba(0,0,0,.28)}
+#page-settings .settings-groups{gap:12px!important}
+#page-settings .setting-options{gap:8px}
+#page-settings .setting-opt{padding:9px 16px!important;border-radius:999px!important;font-size:12.5px!important;font-weight:700}
+#page-settings .setting-opt.active{background:var(--accent)!important;color:#fff!important}
+#page-settings .accent-grid{grid-template-columns:repeat(6,1fr)!important;gap:12px!important;padding:6px 0 2px!important}
+#page-settings .accent-color{border:3px solid var(--paper)!important;box-shadow:0 0 0 1.5px var(--line)}
+#page-settings .accent-color.active{box-shadow:0 0 0 2.5px var(--ink)!important;transform:scale(1.08)}
+#page-settings .chat-bg-grid{grid-template-columns:repeat(4,1fr)!important;gap:10px!important}
+#page-settings .chat-bg{border-radius:14px!important}
+.xver{text-align:center;color:var(--muted);font-size:11.5px;padding:6px 0 100px}
+/* ---- دوستان ---- */
+#page-friends .friends-tabs{gap:6px;padding:6px 16px 12px;border-bottom:0}
+#page-friends .ftab{flex:1;text-align:center;padding:10px 8px;border-radius:999px}
+.fsearch{display:flex;align-items:center;gap:8px;margin:0 16px 8px;padding:0 14px;background:var(--line-2);border-radius:999px;height:42px}
+.fsearch svg{width:18px;height:18px;fill:none;stroke:var(--muted);stroke-width:2.2;flex-shrink:0}
+.fsearch input{flex:1;min-width:0;border:0;background:transparent;outline:none;font-size:13.5px}
+.user-row{margin:6px 14px;padding:12px 14px;border:1px solid var(--line-2);border-radius:18px;box-shadow:0 3px 14px -12px rgba(0,0,0,.3)}
+.user-row-avatar img{width:54px;height:54px}
+.user-row-info h4{font-size:14px}
+.user-row-info p{font-size:12px}
+.btn-sm.primary{background:var(--accent);color:#fff}
+/* ---- اعلان‌ها و پیام‌ها ---- */
+#page-notifs .notif-tabs{margin:6px 16px 10px;padding:4px;border:0;background:var(--line-2);border-radius:999px;gap:4px}
+#page-notifs .ntab{padding:10px 0;border:0;border-radius:999px;font-size:13px}
+#page-notifs .ntab.active{background:var(--ink);color:var(--paper)}
+.nbar{display:flex;align-items:center;justify-content:space-between;padding:4px 18px 8px;font-size:12px;color:var(--muted);font-weight:700}
+.nbar button{color:var(--accent);font-size:12px;font-weight:800}
+#page-notifs .notif,#page-notifs .chat-row{margin:6px 14px;padding:13px 14px;border:1px solid var(--line-2);border-radius:18px;box-shadow:0 3px 14px -12px rgba(0,0,0,.3)}
+#page-notifs .notif.new{background:var(--accent-soft);border-color:transparent}
+#page-notifs .notif.new::before{content:'';position:absolute;top:50%;inset-inline-end:10px;width:8px;height:8px;border-radius:50%;background:var(--accent);transform:translateY(-50%)}
+#page-notifs .notif img,#page-notifs .chat-row>img{width:48px;height:48px}
+.notif-info p{font-size:13px!important}
+</style>
 </head>
 <body>
 
@@ -680,6 +796,7 @@ button:active,.s-item:active,.chat-row:active,.notif:active,.user-row:active,.na
     <div class="auth-sub">مجله‌ای برای لحظه‌های تو</div>
     <form id="authForm" novalidate>
       <div class="auth-field" id="nameField" style="display:none"><label>نام و نام خانوادگی</label><input type="text" id="authName" placeholder="نام و نام خانوادگی"><div class="auth-err" id="nameErr">نام باید حداقل ۳ کاراکتر باشد</div></div>
+      <div class="auth-field" id="userField" style="display:none"><label>نام کاربری</label><input type="text" id="authUser" placeholder="مثلاً sara_92" dir="ltr" autocapitalize="none" autocomplete="off" maxlength="20"><div class="auth-err" id="userErr">۳ تا ۲۰ حرف انگلیسی، عدد یا _</div></div>
       <div class="auth-field"><label>شماره موبایل</label><input type="tel" id="authPhone" placeholder="09xxxxxxxxx" inputmode="numeric" maxlength="11"><div class="auth-err" id="phoneErr">شماره معتبر ۱۱ رقمی وارد کنید</div></div>
       <div class="auth-field"><label>رمز عبور</label><input type="password" id="authPass" placeholder="حداقل ۶ کاراکتر"><div class="auth-err" id="passErr">رمز باید حداقل ۶ کاراکتر باشد</div></div>
       <button class="auth-btn" type="submit" id="authBtn">ورود</button>
@@ -698,14 +815,13 @@ button:active,.s-item:active,.chat-row:active,.notif:active,.user-row:active,.na
   </header>
 
   <main id="mainScroll">
-    <div class="ptr" id="ptr"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></svg></div>
 
     <section class="page active" id="page-home">
-      <div class="tabs-scroll">
+      <div class="stories" id="stories"></div>
+      <div class="feed-bar"><div class="tabs-scroll">
         <button class="tab active" data-feed="newest">جدیدترین</button>
         <button class="tab" data-feed="popular">محبوب‌ترین</button>
-      </div>
-      <div class="stories" id="stories"></div>
+      </div><button class="cat-btn" id="catBtn" aria-label="دسته‌ها"><svg viewBox="0 0 24 24"><path d="M4 7h16M7 12h10M10 17h4"/></svg><span id="catLbl"></span></button></div>
       <div id="feed"></div>
     </section>
 
@@ -817,8 +933,8 @@ button:active,.s-item:active,.chat-row:active,.notif:active,.user-row:active,.na
           <label class="upload-area"><div class="upload-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></div><span id="uploadLabel">افزودن تصویر</span><input type="file" id="imageInput" accept="image/*"></label>
           <div class="preview" id="preview"><img id="previewImg" src="" alt=""><button type="button" id="removeImg">×</button></div>
           <input class="field" id="postTitle" maxlength="100" placeholder="عنوان مطلب (اختیاری برای پست)">
-          <div class="field-err" id="titleErr">عنوان مقاله حداقل ۳ کاراکتر باشد</div>
-          <textarea class="field" id="postText" maxlength="2000" placeholder="متن خود را بنویسید..."></textarea>
+          <div class="field-err" id="titleErr">عنوان مقاله حداقل ۵ کاراکتر باشد</div>
+          <textarea class="field" id="postText" maxlength="1000" placeholder="متن خود را بنویسید..."></textarea>
           <div class="char-count" id="charCountWrap"><span id="charCount">0</span> / 2000</div>
           <div class="field-err" id="textErr">متن حداقل ۱۰ کاراکتر</div>
           <div class="tag-row" id="tagRow">
@@ -994,12 +1110,12 @@ button:active,.s-item:active,.chat-row:active,.notif:active,.user-row:active,.na
   <div class="modal" id="postMenuModal"><div class="modal-box"><div class="modal-head"><h3>عملیات پست</h3><button class="modal-close" data-close>×</button></div><div class="menu-list" id="postMenuList"></div></div></div>
   <div class="modal" id="saveToCollectionModal"><div class="modal-box"><div class="modal-head"><h3>ذخیره در کالکشن</h3><button class="modal-close" data-close>×</button></div><div class="modal-body" id="collectionPickerList"></div></div></div>
   <div class="modal" id="newCollectionModal"><div class="modal-box"><div class="modal-head"><h3>کالکشن جدید</h3><button class="modal-close" data-close>×</button></div><div class="modal-body"><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">نام کالکشن</label><input class="field" id="collectionNameInput" placeholder="مثلاً: انیمه‌های خوب"><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">آیکون (ایموجی)</label><input class="field" id="collectionIconInput" placeholder="📁" maxlength="2"></div><div class="modal-foot"><button id="createCollectionBtn" style="flex:1">ایجاد</button></div></div></div>
-  <div class="modal" id="editModal"><div class="modal-box"><div class="modal-head"><h3>ویرایش پروفایل</h3><button class="modal-close" data-close>×</button></div><div class="modal-body"><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">نام</label><input class="field" id="editName"><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">بیوگرافی</label><textarea class="field" id="editBio" rows="3"></textarea><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">شهر</label><input class="field" id="editCity" placeholder="مثلاً: تهران"><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">شغل</label><input class="field" id="editJob" placeholder="مثلاً: طراح گرافیک"><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">لینک (اختیاری)</label><input class="field" id="editLink" placeholder="https://..."><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">تصویر پروفایل</label><input type="file" id="editAvatar" accept="image/*" class="field"></div><div class="modal-foot"><button id="saveProfileBtn" style="flex:1">ذخیره</button></div></div></div>
+  <div class="modal" id="editModal"><div class="modal-box"><div class="modal-head"><h3>ویرایش پروفایل</h3><button class="modal-close" data-close>×</button></div><div class="modal-body"><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">نام</label><input class="field" id="editName"><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">نام کاربری</label><input class="field" id="editUsername" dir="ltr" autocapitalize="none" autocomplete="off" maxlength="20" placeholder="sara_92"><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">بیوگرافی</label><textarea class="field" id="editBio" rows="3"></textarea><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">شهر</label><input class="field" id="editCity" placeholder="مثلاً: تهران"><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">شغل</label><input class="field" id="editJob" placeholder="مثلاً: طراح گرافیک"><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">لینک (اختیاری)</label><input class="field" id="editLink" placeholder="https://..."><label style="display:block;font-size:12px;font-weight:700;margin-bottom:6px">تصویر پروفایل</label><input type="file" id="editAvatar" accept="image/*" class="field"></div><div class="modal-foot"><button id="saveProfileBtn" style="flex:1">ذخیره</button></div></div></div>
 
   <div class="modal" id="draftsModal"><div class="modal-box"><div class="modal-head"><h3>پیش‌نویس‌ها</h3><button class="modal-close" data-close>×</button></div><div class="modal-body" id="draftsList"></div></div></div>
   <div class="modal" id="editPostModal"><div class="modal-box"><div class="modal-head"><h3>ویرایش پست</h3><button class="modal-close" data-close>×</button></div><div class="modal-body">
     <input id="editPostTitle" placeholder="عنوان" style="width:100%;border:1.5px solid var(--line);border-radius:10px;padding:12px;margin-bottom:10px;background:var(--paper)">
-    <textarea id="editPostText" rows="7" maxlength="2000" style="width:100%;border:1.5px solid var(--line);border-radius:10px;padding:12px;background:var(--paper);resize:vertical"></textarea>
+    <textarea id="editPostText" rows="7" maxlength="1000" style="width:100%;border:1.5px solid var(--line);border-radius:10px;padding:12px;background:var(--paper);resize:vertical"></textarea>
     <button class="btn-main" id="saveEditPost" style="margin-top:12px">ذخیره</button></div></div></div>
   <div class="modal" id="statsModal"><div class="modal-box"><div class="modal-head"><h3>آمار پست‌های من</h3><button class="modal-close" data-close>×</button></div><div class="modal-body" id="statsList"></div></div></div>
   <div class="modal" id="blockedModal"><div class="modal-box"><div class="modal-head"><h3>کاربران مسدودشده</h3><button class="modal-close" data-close>×</button></div><div class="modal-body" id="blockedList"></div></div></div>
@@ -1253,7 +1369,7 @@ const EMOJIS = ['😀','😃','😄','😁','😆','😅','🤣','😂','🙂','
 function renderEmojiPicker() { $('#emojiGrid').innerHTML = EMOJIS.map(e => `<button data-emoji="${e}">${e}</button>`).join(''); }let authMode = 'login';
 $('#authSwitchBtn').addEventListener('click', () => {
   authMode = authMode === 'login' ? 'signup' : 'login';
-  $('#nameField').style.display = authMode === 'signup' ? 'block' : 'none';
+  $('#nameField').style.display = authMode === 'signup' ? 'block' : 'none'; $('#userField').style.display = authMode === 'signup' ? 'block' : 'none';
   $('#authSwitchText').textContent = authMode === 'login' ? 'حساب نداری؟' : 'حساب داری؟';
   $('#authSwitchBtn').textContent = authMode === 'login' ? 'ثبت‌نام' : 'ورود';
   $('#authBtn').textContent = authMode === 'login' ? 'ورود' : 'ثبت‌نام';
@@ -1270,7 +1386,7 @@ $('#authForm').addEventListener('submit', e => {
   if (authMode === 'signup') {
     const users = JSON.parse(localStorage.getItem('luno_users') || '[]');
     if (users.find(u => u.phone === phone)) { toast('این شماره قبلاً ثبت شده', 'error'); return; }
-    const newUser = { name, phone, avatar: DEFAULT_AVATAR, bio: '', city:'', job:'', link:'', createdAt: Date.now() };
+    const newUser = { name, username: lunoGenUser(), phone, avatar: DEFAULT_AVATAR, bio: '', city:'', job:'', link:'', createdAt: Date.now() };
     users.push({ ...newUser, password: pass });
     localStorage.setItem('luno_users', JSON.stringify(users));
     state.user = newUser; localStorage.setItem('luno_user', JSON.stringify(newUser));
@@ -1294,7 +1410,7 @@ $('#logoutBtn').addEventListener('click', () => {
     state.scrollPos = {};
     $('#authScreen').classList.remove('hide'); $('#app').classList.add('hide');
     $('#authForm').reset();
-    $('#nameField').style.display = 'none';
+    $('#nameField').style.display = 'none'; $('#userField').style.display = 'none';
     authMode = 'login';
     $('#authSwitchText').textContent = 'حساب نداری؟';
     $('#authSwitchBtn').textContent = 'ثبت‌نام';
@@ -1302,6 +1418,7 @@ $('#logoutBtn').addEventListener('click', () => {
   });
 });
 function enterApp() {
+  lunoEnsureUsernames();
   $('#authScreen').classList.add('hide'); $('#app').classList.remove('hide');
   $('#adminTag').classList.toggle('hidden', !isAdmin());
   document.body.classList.toggle('is-admin', isAdmin());
@@ -1405,6 +1522,32 @@ const HEART_SVG = '<svg viewBox="0 0 24 24"><path d="M20.8 8.6c0 5.5-8.8 11-8.8 
 const COMMENT_SVG = '<svg viewBox="0 0 24 24"><path d="M21 11.5a8.4 8.4 0 0 1-8.5 8.4 9 9 0 0 1-4.3-1L3 20l1.2-4.5A8.3 8.3 0 0 1 3.5 11.5 8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5Z"/></svg>';
 const BOOKMARK_SVG = '<svg viewBox="0 0 24 24"><path d="M6 4h12a1 1 0 0 1 1 1v16l-7-4-7 4V5a1 1 0 0 1 1-1Z"/></svg>';
 
+var _unT = 0, _unMap = {};
+function lunoUsers() { try { return JSON.parse(localStorage.getItem('luno_users') || '[]'); } catch (e) { return []; } }
+function lunoUsernameOf(ph) {
+  if (Date.now() - _unT > 1500) { _unT = Date.now(); _unMap = {}; lunoUsers().forEach(u => { if (u.username) _unMap[u.phone] = u.username; }); }
+  return _unMap[ph] || '';
+}
+function lunoUNdot(ph) { const u = lunoUsernameOf(ph); return u ? '@' + esc(u) + ' · ' : ''; }
+function lunoUserTaken(un, except) { un = String(un || '').toLowerCase(); return lunoUsers().some(u => u.phone !== except && String(u.username || '').toLowerCase() === un); }
+function lunoGenUser(used) {
+  used = used || new Set(lunoUsers().map(u => String(u.username || '').toLowerCase()));
+  let n; do { n = 'user_' + Math.random().toString(36).slice(2, 8); } while (used.has(n));
+  return n;
+}
+function lunoEnsureUsernames() {
+  try {
+    const us = lunoUsers(), used = new Set(us.map(u => String(u.username || '').toLowerCase()).filter(Boolean)); let ch = false;
+    us.forEach(u => { if (!u.username) { u.username = lunoGenUser(used); used.add(u.username); ch = true; } });
+    if (ch) localStorage.setItem('luno_users', JSON.stringify(us));
+    if (state.user && !state.user.username) {
+      const f = us.find(u => u.phone === state.user.phone);
+      state.user.username = f ? f.username : lunoGenUser(used);
+      localStorage.setItem('luno_user', JSON.stringify(state.user));
+    }
+    _unT = 0;
+  } catch (e) {}
+}
 function renderPost(p) {
   const canManage = true;
   const imgClass = avatarClass(p.authorId); const imgStyle = avatarStyle(p.authorId);
@@ -1428,7 +1571,7 @@ function renderPost(p) {
   return `<div class="post" data-post="${p.id}">
     <div class="post-header">
       <img class="post-avatar ${imgClass}" ${imgStyle} src="${avatarOf(p.authorId, p.authorAvatar)}" alt="" data-user="${p.authorId}">
-      <div class="post-user" data-user="${p.authorId}"><b>${esc(p.author)}</b><small>${esc(p.category)} · ${formatTime(p.createdAt)}${p.edited ? ' · ویرایش‌شده' : ''}</small></div>
+      <div class="post-user" data-user="${p.authorId}"><b>${esc(p.author)}</b><small>${lunoUNdot(p.authorId)}${formatTime(p.createdAt)}${p.edited ? ' · ویرایش‌شده' : ''}</small></div>
       ${canManage ? `<button class="post-menu" data-menu="${p.id}">⋯</button>` : ''}
     </div>
     <div class="post-image" data-img-view="${p.id}" data-dbltap="${p.id}">
@@ -1559,7 +1702,7 @@ function renderSearch(q = '') {
     wrap.innerHTML = items.map(p => `<div class="article-row" data-article="${p.id}"><img src="${p.image}" alt="" onerror="this.src='${PLACEHOLDER}'"><div class="article-row-info"><h3>${esc(p.title)}</h3><p>${esc((p.desc || '').slice(0, 80))}</p><div class="article-row-meta"><img src="${avatarOf(p.authorId, p.authorAvatar)}" alt=""><span>${esc(p.author)} · ${formatTime(p.createdAt)}${p.edited ? ' · ویرایش‌شده' : ''}</span></div></div></div>`).join('');
   } else {
     let users = extractRealUsers();
-    if (q) users = users.filter(u => u.name.includes(q) || (u.bio || '').includes(q));
+    if (q) users = users.filter(u => u.name.includes(q) || (lunoUsernameOf(u.id) || '').includes(q.replace(/^@/, '').toLowerCase()) || (u.bio || '').includes(q));
     if (!users.length) { wrap.innerHTML = emptyState('کاربری پیدا نشد', 'users'); return; }
     wrap.innerHTML = users.map(u => renderUserRow(u)).join('');
   }
@@ -1765,7 +1908,7 @@ function renderMyProfile() {
   }
 }
 function openEditProfileModal() {
-  $('#editName').value = state.user.name || '';
+  $('#editName').value = state.user.name || ''; $('#editUsername').value = state.user.username || '';
   $('#editBio').value = state.user.bio || '';
   $('#editCity').value = state.user.city || '';
   $('#editJob').value = state.user.job || '';
@@ -1777,6 +1920,12 @@ $('#editProfileBtn').addEventListener('click', openEditProfileModal);
 $('#editProfileItem').addEventListener('click', openEditProfileModal);
 $('#saveProfileBtn').addEventListener('click', () => {
   const name = $('#editName').value.trim();
+  const newUn = $('#editUsername').value.trim().toLowerCase();
+  if (newUn !== (state.user.username || '')) {
+    if (!/^[a-z0-9_]{3,20}$/.test(newUn)) { toast('نام کاربری: ۳ تا ۲۰ حرف انگلیسی، عدد یا _', 'error'); return; }
+    if (lunoUserTaken(newUn, state.user.phone)) { toast('این نام کاربری قبلاً گرفته شده', 'error'); return; }
+    state.user.username = newUn;
+  }
   const bio = $('#editBio').value.trim();
   const city = $('#editCity').value.trim();
   const job = $('#editJob').value.trim();
@@ -1790,7 +1939,7 @@ $('#saveProfileBtn').addEventListener('click', () => {
     const idx = allUsers.findIndex(u => u.phone === state.user.phone);
     if (idx !== -1) {
       allUsers[idx].name = state.user.name; allUsers[idx].bio = state.user.bio;
-      allUsers[idx].city = state.user.city; allUsers[idx].job = state.user.job; allUsers[idx].link = state.user.link;
+      allUsers[idx].city = state.user.city; allUsers[idx].job = state.user.job; allUsers[idx].link = state.user.link; allUsers[idx].username = state.user.username;
       if (state.user.avatar) allUsers[idx].avatar = state.user.avatar;
       localStorage.setItem('luno_users', JSON.stringify(allUsers));
     }
@@ -1937,7 +2086,7 @@ function openPostDetail(id) {
   let html = `
     <div class="post-header" style="padding:14px 16px;border-bottom:1px solid var(--line-2)">
       <img class="post-avatar ${imgClass}" ${imgStyle} src="${avatarOf(p.authorId, p.authorAvatar)}" alt="" data-user="${p.authorId}">
-      <div class="post-user" data-user="${p.authorId}"><b>${esc(p.author)}</b><small>${esc(p.category)} · ${formatTime(p.createdAt)}${p.edited ? ' · ویرایش‌شده' : ''}</small></div>
+      <div class="post-user" data-user="${p.authorId}"><b>${esc(p.author)}</b><small>${lunoUNdot(p.authorId)}${formatTime(p.createdAt)}${p.edited ? ' · ویرایش‌شده' : ''}</small></div>
       ${canManage ? `<button class="post-menu" data-menu="${p.id}">⋯</button>` : ''}
     </div>
   `;
@@ -2027,28 +2176,6 @@ $('#mainScroll').addEventListener('scroll', () => {
   $('#backTop').classList.toggle('show', $('#mainScroll').scrollTop > 400);
 });
 
-let pullStart = 0, pulling = false;
-$('#mainScroll').addEventListener('touchstart', e => {
-  if ($('#mainScroll').scrollTop === 0 && $('#page-home').classList.contains('active')) { pullStart = e.touches[0].clientY; pulling = true; }
-}, {passive: true});
-$('#mainScroll').addEventListener('touchmove', e => {
-  if (pulling) {
-    const diff = e.touches[0].clientY - pullStart;
-    if (diff > 0 && diff < 100) {
-      const ptr = $('#ptr'); ptr.classList.add('visible');
-      ptr.style.transform = `translate(-50%, ${diff / 2 - 10}px)`;
-      if (diff > 60) ptr.classList.add('active');
-    }
-  }
-}, {passive: true});
-$('#mainScroll').addEventListener('touchend', () => {
-  const ptr = $('#ptr');
-  if (ptr.classList.contains('active')) {
-    ptr.classList.add('loading'); ptr.style.transform = 'translate(-50%, 30px)';
-    setTimeout(() => { renderHome(); ptr.classList.remove('active', 'loading', 'visible'); ptr.style.transform = ''; }, 800);
-  } else { ptr.classList.remove('visible'); ptr.style.transform = ''; }
-  pulling = false;
-});
 $('#backTop').addEventListener('click', () => { $('#mainScroll').scrollTo({top: 0, behavior: 'smooth'}); });
 
 function openComments(postId) {
@@ -2113,10 +2240,10 @@ $('#publishBtn').addEventListener('click', () => {
 
   $('#titleErr').classList.remove('show'); $('#textErr').classList.remove('show');
   let err = false;
-  if (asArticle && title.length < 3) { $('#titleErr').classList.add('show'); err = true; }
-  const minChars = asArticle ? 40 : 10;
+  if (asArticle && title.length < 5) { $('#titleErr').classList.add('show'); err = true; }
+  const minChars = asArticle ? 30 : 10;
   if (body.length < minChars) {
-    $('#textErr').textContent = asArticle ? 'متن مقاله حداقل ۴۰ کاراکتر' : 'متن حداقل ۱۰ کاراکتر';
+    $('#textErr').textContent = asArticle ? 'متن مقاله حداقل ۳۰ کاراکتر' : 'متن حداقل ۱۰ کاراکتر';
     $('#textErr').classList.add('show'); err = true;
   }
   if (err) return;
@@ -2660,10 +2787,10 @@ document.addEventListener('input', e => {
   const t = e.target;
   if (!(t.id === 'detailCommentInput' || t.id === 'commentInput' || (t.matches && t.matches('[data-reply-input]')))) return;
   const m = t.value.slice(0, t.selectionStart).match(/@([\u0600-\u06FFa-zA-Z0-9_]*)$/);
-  const users = m ? extractRealUsers().filter(u => !m[1] || u.name.includes(m[1])).slice(0, 5) : [];
+  const users = m ? extractRealUsers().filter(u => !m[1] || u.name.includes(m[1]) || (lunoUsernameOf(u.id) || '').includes(m[1].toLowerCase())).slice(0, 5) : [];
   if (!users.length) { mentionBox.style.display = 'none'; return; }
   mentionInput = t;
-  mentionBox.innerHTML = users.map(u => `<button type="button" data-mention-pick="${esc(firstName(u.name))}"><img src="${esc(u.avatar || DEFAULT_AVATAR)}" alt="">${esc(u.name)}</button>`).join('');
+  mentionBox.innerHTML = users.map(u => `<button type="button" data-mention-pick="${esc(lunoUsernameOf(u.id) || firstName(u.name))}"><img src="${esc(u.avatar || DEFAULT_AVATAR)}" alt="">${esc(u.name)}${lunoUsernameOf(u.id) ? ' <small style="color:var(--muted);direction:ltr">@' + esc(lunoUsernameOf(u.id)) + '</small>' : ''}</button>`).join('');
   const r = t.getBoundingClientRect();
   mentionBox.style.display = 'block'; mentionBox.style.right = Math.max(8, innerWidth - r.right) + 'px'; mentionBox.style.bottom = (innerHeight - r.top + 6) + 'px';
 });
@@ -2754,8 +2881,8 @@ document.addEventListener('click', e => {
     const p = state.posts.find(x => x.id === editingPostId); if (!p) return;
     if (p.authorId !== state.user.phone && !isAdmin()) return;
     const title = $('#editPostTitle').value.trim(), text = $('#editPostText').value.trim();
-    if (p.asArticle && title.length < 3) { toast('عنوان مقاله حداقل ۳ کاراکتر', 'error'); return; }
-    if (text.length < (p.asArticle ? 40 : 10)) { toast('متن خیلی کوتاهه', 'error'); return; }
+    if (p.asArticle && title.length < 5) { toast('عنوان مقاله حداقل ۵ کاراکتر', 'error'); return; }
+    if (text.length < (p.asArticle ? 30 : 10)) { toast('متن خیلی کوتاهه', 'error'); return; }
     p.title = title; p.desc = text.slice(0, 140); p.body = `<p>${processText(text).replace(/\n/g, '<br>')}</p>`; p.edited = true;
     save(); $('#editPostModal').classList.remove('show'); renderHome();
     if ($('#page-post-detail').classList.contains('active')) openPostDetail(p.id);
@@ -2770,10 +2897,16 @@ document.addEventListener('click', e => {
 });
 (function () {
   const row = document.createElement('div'); row.id = 'catRow';
-  row.style.cssText = 'display:flex;gap:6px;overflow-x:auto;padding:10px 16px 0';
   const cats = [...new Set($$('.tag-chip').map(c => c.dataset.tag))];
-  row.innerHTML = ['', ...cats].map(c => `<button class="trend-chip ${c === '' ? 'on' : ''}" data-cat="${esc(c)}" style="white-space:nowrap">${c ? esc(c) : 'همه'}</button>`).join('');
-  $('#feed').before(row);
+  row.innerHTML = ['', ...cats].map(c => `<button class="trend-chip ${c === '' ? 'on' : ''}" data-cat="${esc(c)}">${c ? esc(c) : 'همه'}</button>`).join('');
+  const sh = document.createElement('div'); sh.className = 'cat-sheet'; sh.id = 'catSheet';
+  sh.innerHTML = '<div class="cs-box"><h4>دسته‌بندی پست‌ها</h4></div>';
+  sh.firstChild.appendChild(row);
+  document.body.appendChild(sh);
+  const btn = $('#catBtn'), lbl = $('#catLbl');
+  const sync = () => { const c = state.feedCat || ''; btn.classList.toggle('on', !!c); lbl.textContent = c; };
+  btn.addEventListener('click', () => sh.classList.add('show'));
+  sh.addEventListener('click', e => { if (e.target === sh || e.target.closest('[data-cat]')) { sh.classList.remove('show'); setTimeout(sync, 0); } });
 })();
 
 // ---- friendly errors + aria labels
@@ -3061,9 +3194,9 @@ ok('profile',()=>{const J=k=>{try{return JSON.parse(localStorage.getItem(k)||'nu
  on('statusItem2',()=>{const v=prompt('وضعیتت چیه؟ (خالی = حذف)',localStorage.getItem('luno_status')||'');if(v===null)return;v.trim()?localStorage.setItem('luno_status',v.trim().slice(0,40)):localStorage.removeItem('luno_status');chips();toast('ذخیره شد')})});
 ok('tstory',()=>{add(mk('tstoryItem','استوری متنی','نوشته روی پس‌زمینهٔ رنگی'));
  on('tstoryItem',()=>{if(!state.user)return;const st=JSON.parse(localStorage.getItem('luno_stories')||'{}'),ex=st[state.user.phone];if(ex&&Date.now()-ex.createdAt<864e5){toast('فقط یک استوری در ۲۴ ساعت مجاز است','error');return}
-  const t=prompt('متن استوری (حداکثر ۱۲۰ حرف)');if(!t||!t.trim())return;const cv=document.createElement('canvas');cv.width=600;cv.height=1000;const c=cv.getContext('2d');
+  const t=prompt('متن استوری (حداکثر ۱۰۰ حرف)');if(!t||!t.trim())return;const cv=document.createElement('canvas');cv.width=600;cv.height=1000;const c=cv.getContext('2d');
   const G=[['#e0427e','#7c3aed'],['#f59e0b','#ef4444'],['#06b6d4','#3b82f6'],['#10b981','#14b8a6']][Math.floor(Math.random()*4)],g=c.createLinearGradient(0,0,600,1000);g.addColorStop(0,G[0]);g.addColorStop(1,G[1]);c.fillStyle=g;c.fillRect(0,0,600,1000);
-  c.fillStyle='#fff';c.font='700 44px Vazirmatn,Tahoma,sans-serif';c.textAlign='center';c.direction='rtl';const ln=[];let cur='';t.trim().slice(0,120).split(/\s+/).forEach(w=>{const n=cur?cur+' '+w:w;if(c.measureText(n).width>520&&cur){ln.push(cur);cur=w}else cur=n});ln.push(cur);
+  c.fillStyle='#fff';c.font='700 44px Vazirmatn,Tahoma,sans-serif';c.textAlign='center';c.direction='rtl';const ln=[];let cur='';t.trim().slice(0,100).split(/\s+/).forEach(w=>{const n=cur?cur+' '+w:w;if(c.measureText(n).width>520&&cur){ln.push(cur);cur=w}else cur=n});ln.push(cur);
   ln.forEach((l,i)=>c.fillText(l,300,500-(ln.length-1)*34+i*68));st[state.user.phone]={image:cv.toDataURL('image/jpeg',.75),createdAt:Date.now()};
   try{localStorage.setItem('luno_stories',JSON.stringify(st));renderStories();toast('استوری منتشر شد')}catch(e){toast('حافظه پر است','error')}})});
 ok('discover',()=>{const m=document.createElement('div');m.className='modal';m.id='xDisc';m.innerHTML='<div class="modal-box"><div class="modal-head"><h3>کشف آدم‌ها</h3><button class="modal-close" data-close>×</button></div><div class="modal-body" id="xDiscBody" style="text-align:center"></div></div>';document.body.appendChild(m);
@@ -3615,7 +3748,7 @@ V.tools=()=>{let n=0;for(const k in localStorage)n+=(k.length+(localStorage.getI
  return '<div class="admin-section"><div class="xh">فضای ذخیره‌سازی مرورگر</div><div class="xmeter"><i style="width:'+pc+'%"></i></div><p style="font-size:12px;color:var(--muted);margin:6px 2px">'+fa(pc)+'٪ پر شده'+(pc>70?' ⚠️ نزدیک سقفه؛ پشتیبان بگیر':'')+'</p>'+
  '<div class="xh">اطلاعیهٔ همگانی</div><textarea class="xin2" id="xAnn" rows="2" placeholder="متن اطلاعیه...">'+esc(an?an.text:'')+'</textarea><div class="xrow"><button class="admin-btn" data-xt="ann">انتشار</button><button class="admin-btn danger" data-xt="annclr">برداشتن</button></div>'+
  '<div class="xh">کلمه‌های ممنوعه</div><input class="xin2" id="xBw" placeholder="با ویرگول جدا کن" value="'+esc(J('luno_badwords',[]).join('، '))+'"><button class="admin-btn" data-xt="bw">ذخیره</button>'+
- '<div class="xh">ضداسپم</div><button class="admin-btn" data-xt="rl">'+(J('luno_ratelimit',true)?'روشن ✓ (حداکثر ۳ پست در دقیقه)':'خاموش')+'</button>'+
+ '<div class="xh">ضداسپم</div><button class="admin-btn" data-xt="rl">'+(J('luno_ratelimit',true)?'روشن ✓ (حداکثر ۳ پست در ساعت)':'خاموش')+'</button>'+
  '<div class="xh">خروجی</div><button class="admin-btn" data-xt="csv">دانلود لیست کاربران (CSV)</button></div>'};
 ok('wrap',()=>{const ra=renderAdmin;renderAdmin=function(){const t=state.adminTab;
  if(V[t]){$$('.admin-tab').forEach(x=>x.classList.toggle('active',x.dataset.atab===t));$('#adminContent').innerHTML=V[t]();return}
@@ -3656,7 +3789,7 @@ ok('feed',()=>{const rp=renderPost;renderPost=function(p){const bw=J('luno_badwo
  let h=rp.apply(this,arguments);if(h&&p&&J('luno_verified',[]).includes(p.authorId))h=h.replace(/(class="post-user"[^>]*>\s*<b>[^<]*)(<\/b>)/,'$1<span class="xtick">✓</span>$2').replace(/(class="text-post-author"[\s\S]*?<b[^>]*>[^<]*)(<\/b>)/,'$1<span class="xtick">✓</span>$2');return h};
  const rh=renderHome;renderHome=function(){const r=rh.apply(this,arguments);const a=J('luno_announce',null),pg=document.getElementById('page-home');document.getElementById('xAnnB')&&document.getElementById('xAnnB').remove();
   if(a&&pg&&localStorage.getItem('luno_ann_seen')!==String(a.id)){const d=document.createElement('div');d.className='xann';d.id='xAnnB';d.innerHTML='<span>📣</span><span>'+esc(a.text)+'</span><button aria-label="بستن">×</button>';d.querySelector('button').onclick=()=>{localStorage.setItem('luno_ann_seen',String(a.id));d.remove()};const st=document.getElementById('stories');(st?st.parentNode:pg).insertBefore(d,st||pg.firstChild)}return r}});
-ok('ratelimit',()=>{const pb=document.getElementById('publishBtn');pb.addEventListener('click',e=>{if(!J('luno_ratelimit',true)||isAdmin())return;const n=state.posts.filter(p=>p.authorId===state.user.phone&&Date.now()-p.createdAt<6e4).length;if(n>=3){e.stopImmediatePropagation();e.preventDefault();toast('کمی صبر کن؛ پست‌های پشت‌سرهم محدوده','error')}},true)});
+ok('ratelimit',()=>{const pb=document.getElementById('publishBtn');pb.addEventListener('click',e=>{if(!J('luno_ratelimit',true)||isAdmin())return;const n=state.posts.filter(p=>p.authorId===state.user.phone&&Date.now()-p.createdAt<36e5).length;if(n>=3){e.stopImmediatePropagation();e.preventDefault();toast('حداکثر ۳ پست در ساعت مجازه؛ کمی بعد دوباره امتحان کن','error')}},true)});
 ok('ban',()=>{const en=enterApp;enterApp=function(){const r=en.apply(this,arguments);if(state.user&&J('luno_banned',[]).includes(state.user.phone)&&!isAdmin()){const d=document.createElement('div');d.className='xban';d.innerHTML='<div style="font-size:46px">🚫</div><h3>حساب شما مسدود شده است</h3><p style="color:var(--muted);font-size:13px">برای پیگیری با مدیر تماس بگیر.</p><button class="auth-btn" style="max-width:240px">خروج</button>';d.querySelector('button').onclick=()=>{localStorage.removeItem('luno_user');location.reload()};document.body.appendChild(d)}return r}});
 ok('princess',()=>{const B=window.LunoBot;if(!B)return;B.version='0.7';const oc=openChat;openChat=function(uid){if(uid===B.id){try{const a=state.chats[B.id]=state.chats[B.id]||[],nm=localStorage.getItem('luno_bot_name'),td=new Date().toDateString(),tm=new Date().toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'});
   const pk=new Intl.DateTimeFormat('en-u-ca-persian-nu-latn',{month:'numeric',day:'numeric'}).formatToParts(new Date()),m=+pk.find(x=>x.type==='month').value,d=+pk.find(x=>x.type==='day').value,bd=(localStorage.getItem('luno_birth')||'').split('/').map(Number);
@@ -3707,6 +3840,8 @@ ok('hash',()=>{
     qa('.auth-err').forEach(el=>el.classList.remove('show'));
     let bad=false;
     if(isSignup&&name.length<3){const el=document.getElementById('nameErr');if(el)el.classList.add('show');bad=true;}
+    const unEl=document.getElementById('authUser');const uname=unEl?unEl.value.trim().toLowerCase():'';
+    if(isSignup){const okFmt=/^[a-z0-9_]{3,20}$/.test(uname);if(!okFmt||lunoUserTaken(uname)){const el=document.getElementById('userErr');if(el){el.textContent=okFmt?'این نام کاربری قبلاً گرفته شده':'۳ تا ۲۰ حرف انگلیسی، عدد یا _';el.classList.add('show')}bad=true;}}
     if(!/^09\d{9}$/.test(phone)){const el=document.getElementById('phoneErr');if(el)el.classList.add('show');bad=true;}
     if(pass.length<6){const el=document.getElementById('passErr');if(el)el.classList.add('show');bad=true;}
     if(bad)return;
@@ -3716,7 +3851,7 @@ ok('hash',()=>{
     if(isSignup){
       const users=JSON.parse(localStorage.getItem('luno_users')||'[]');
       if(users.find(u=>u.phone===phone)){toast('این شماره قبلاً ثبت شده','error');return;}
-      const newUser={name,phone,avatar:DEFAULT_AVATAR,bio:'',city:'',job:'',link:'',createdAt:Date.now()};
+      const newUser={name,username:uname,phone,avatar:DEFAULT_AVATAR,bio:'',city:'',job:'',link:'',createdAt:Date.now()};
       users.push(Object.assign({},newUser,{password:hashed,_hashed:1}));
       try{localStorage.setItem('luno_users',JSON.stringify(users));}catch(e){toast('حافظه پر است','error');return;}
       state.user=newUser;
@@ -4066,11 +4201,12 @@ const SH={
  async j(path,opt){const r=await fetch(DB+path,opt);if(!r.ok)throw new Error('http '+r.status);return r.json()},
  async pull(S){
   const q=S.lastKey?'?orderBy=%22%24key%22&startAt=%22'+encodeURIComponent(S.lastKey)+'%22':'?orderBy=%22%24key%22&limitToLast=40';
-  const [mm,xx,pp]=await Promise.all([this.j('/chatroom.json'+q),this.j('/roomx.json'),this.j('/roompres.json')]);
+  S.pc=(S.pc||0)+1;
+  const [mm,xx,pp]=await Promise.all([this.j('/chatroom.json'+q),this.j('/roomx.json'),(S.pc%6===1)?this.j('/roompres.json'):Promise.resolve(undefined)]);
   if(mm)Object.keys(mm).forEach(k=>{if(!S.map[k]&&mm[k]&&typeof mm[k]==='object')S.map[k]=Object.assign({},mm[k],{id:k})});
   S.msgs=Object.keys(S.map).sort().map(k=>S.map[k]);
   if(S.msgs.length)S.lastKey=S.msgs[S.msgs.length-1].id;
-  S.x=xx||{};S.p=pp||{};
+  S.x=xx||{};if(pp!==undefined)S.p=pp||{};
  },
  async send(m){const r=await this.j('/chatroom.json',{method:'POST',body:JSON.stringify(m)});return r.name},
  async react(id,uid,e){const u='/roomx/'+encodeURIComponent(id)+'/'+encodeURIComponent(uid)+'.json';if(e)await this.j(u,{method:'PUT',body:JSON.stringify(e)});else await fetch(DB+u,{method:'DELETE'})},
@@ -4080,7 +4216,9 @@ const SH={
 const T=DB?SH:LOCAL;
 
 /* ---------- حالت ---------- */
-const S={msgs:[],map:{},x:{},p:{},lastKey:'',sig:''};
+const S={msgs:[],map:{},x:{},p:{},lastKey:'',ids:null,units:[],empty:0};
+const PEND=[];
+let lastTapId='',lastTapAt=0,tapTimer=null;
 let isOpen=false,busy=false,timer=null,reply=null,lastSend=0,seeded=false,newCount=0,netErr=false;
 const deleted=id=>!!(S.x[id]&&S.x[id]._d);
 const muted=()=>J('luno_room_mute',false);
@@ -4158,11 +4296,22 @@ function dayLabel(t){
  const diff=Math.round((sd(n)-sd(d))/86400000);
  return diff===0?'امروز':diff===1?'دیروز':d.toLocaleDateString('fa-IR',{month:'long',day:'numeric'});
 }
-function rowHTML(m){
+function rel(t){
+ const d=Date.now()-t;
+ if(d<45000)return 'همین الان';
+ if(d<3600000)return fa(Math.max(1,Math.floor(d/60000)))+' دقیقه پیش';
+ if(d<86400000)return fa(Math.floor(d/3600000))+' ساعت پیش';
+ return formatTime(t);
+}
+function fmtTxt(x){
+ return esc(x||'').split(/(https?:\/\/[^\s<]+)/).map((q,i)=>i%2?'<a class="rm-a" href="'+q+'" target="_blank" rel="noopener noreferrer">'+(q.length>38?q.slice(0,36)+'…':q)+'</a>':q.replace(/@([A-Za-z0-9_]{3,20})/g,'<span class="rm-mn">@$1</span>')).join('');
+}
+function rowHTML(m,cont){
  const mine=m.uid===rid(),bot=m.uid===BU;
  let av=bot?botAv():(mine?(myThumb||safeAv(m.av)):safeAv(m.av));av=av||DEFAULT_AVATAR;
  const name=bot?BOT_NAME:(m.n||'کاربر');
- const txt=esc(m.x||'').replace(/@([A-Za-z0-9_]{3,20})/g,'<span class="rm-mn">@$1</span>');
+ const un=bot?'princess':(m.u||String(m.uid).slice(0,12));
+ const txt=fmtTxt(m.x);
  const big=!m.im&&!m.r&&isEmoji(m.x);
  const q=m.r?'<div class="rm-q" data-q="'+esc(m.r.id||'')+'"><span class="rm-qn">'+esc(m.r.n||'')+'</span><span class="rm-qt">'+(esc((m.r.x||'').slice(0,80))||'📷 عکس')+'</span></div>':'';
  const img=safeImg(m.im)?'<img class="rm-img" data-view src="'+m.im+'" alt="">':(m.ox?'<span class="rm-gone">🖼 عکس حذف شد</span>':'');
@@ -4173,26 +4322,42 @@ function rowHTML(m){
  const rx=S.x[m.id]||{},cnt={};let my='';
  Object.keys(rx).forEach(k=>{if(k==='_d')return;cnt[rx[k]]=(cnt[rx[k]]||0)+1;if(k===rid())my=rx[k]});
  const chips=Object.keys(cnt).map(e=>'<button data-rx="'+esc(e)+'" class="'+(my===e?'on':'')+'">'+esc(e)+'<span>'+fa(cnt[e])+'</span></button>').join('');
- return '<div class="rm'+(mine?' me':'')+'" data-id="'+esc(m.id)+'"><img class="rm-av" data-prof="'+esc(m.uid)+'" src="'+esc(av)+'" alt="">'+
-  '<div class="rm-main"><div class="rm-head"><b data-prof="'+esc(m.uid)+'">'+esc(name)+'</b><small>@'+esc(String(m.uid).slice(0,12))+'</small>'+(bot?'<span class="rm-tag">ربات</span>':'')+'</div>'+
-  body+(chips?'<div class="rm-rx">'+chips+'</div>':'')+'<div class="rm-time">'+formatTime(m.t)+'</div></div></div>';
+ const head=cont?'':'<div class="rm-head"><b data-prof="'+esc(m.uid)+'">'+esc(name)+'</b><small>@'+esc(un)+'</small>'+(bot?'<span class="rm-tag">ربات</span>':'')+
+  '<span class="rm-sp"></span><span class="rm-t">'+(m.pend?'در حال ارسال…':rel(m.t))+'</span>'+
+  '<button class="rm-dots" data-act aria-label="گزینه‌ها"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="12" cy="19" r="1.5"/></svg></button></div>';
+ const avh=cont?'<span class="rm-avsp"></span>':'<img class="rm-av" data-prof="'+esc(m.uid)+'" src="'+esc(av)+'" alt="">';
+ return '<div class="rm'+(mine?' me':'')+(m.pend?' pend':'')+(cont?' cont':'')+'" data-id="'+esc(m.id)+'">'+avh+
+  '<div class="rm-main">'+head+body+(chips?'<div class="rm-rx">'+chips+'</div>':'')+'</div></div>';
+}
+function unitHTML(m,prev){
+ const nd=!prev||new Date(prev.t).toDateString()!==new Date(m.t).toDateString();
+ const nw=x=>S.seenAt&&x&&x.t>S.seenAt&&x.uid!==rid();
+ const dv=nw(m)&&!nw(prev)?'<div class="rm-new"><span>پیام‌های جدید</span></div>':'';
+ const cont=!nd&&!dv&&prev&&prev.uid===m.uid&&(m.t-prev.t)<300000&&!m.r;
+ return (nd?'<div class="rm-day">'+dayLabel(m.t)+'</div>':'')+dv+rowHTML(m,cont);
 }
 function render(force){
  const body=$('#roomBody');if(!body)return;
- const list=S.msgs.filter(m=>m&&!deleted(m.id));
- const sig=list.map(m=>m.id).join(',')+'|'+JSON.stringify(S.x)+'|'+(myThumb?1:0);
- if(!force&&sig===S.sig){return}
- const prevTop=body.scrollTop,stick=body.scrollHeight-body.scrollTop-body.clientHeight<90;
- const oldN=S.sig?S.sig.split('|')[0].split(',').length:0;
- S.sig=sig;
- if(!list.length){body.innerHTML='<div class="room-empty">هنوز پیامی نیست 👋<br>اولین نفر باش که سلام می‌کنه!</div>'}
- else{
-  let h='',last='';
-  list.forEach(m=>{const d=new Date(m.t).toDateString();if(d!==last){last=d;h+='<div class="rm-day">'+dayLabel(m.t)+'</div>'}h+=rowHTML(m)});
-  body.innerHTML=h;
+ const list=S.msgs.filter(m=>m&&!deleted(m.id)).concat(PEND);
+ const stick=body.scrollHeight-body.scrollTop-body.clientHeight<90,prevTop=body.scrollTop;
+ if(!list.length){
+  if(S.ids===null||S.ids.length||force){S.ids=[];S.units=[];body.innerHTML='<div class="room-empty">هنوز پیامی نیست 👋<br>اولین نفر باش که سلام می‌کنه!</div>';S.empty=1}
+  return;
  }
+ const units=list.map((m,i)=>unitHTML(m,list[i-1])),ids=list.map(m=>m.id),old=S.ids||[];
+ const same=!S.empty&&old.length<=ids.length&&old.every((id,i)=>id===ids[i]||String(id).indexOf('tmp')===0);
+ let added=0;
+ if(same){
+  const kids=body.children;
+  for(let i=0;i<old.length;i++){if(S.units[i]!==units[i]&&kids[i])kids[i].innerHTML=units[i]}
+  for(let i=old.length;i<units.length;i++){const d=document.createElement('div');d.className='rmw';d.innerHTML=units[i];body.appendChild(d);if(list[i].uid!==rid())added++}
+ }else{
+  added=Math.max(0,list.length-old.length);
+  body.innerHTML=units.map(u=>'<div class="rmw">'+u+'</div>').join('');
+ }
+ S.empty=0;S.ids=ids;S.units=units;
  if(stick||force){body.scrollTop=body.scrollHeight;newCount=0;downBtn()}
- else{body.scrollTop=prevTop;if(list.length>oldN){newCount+=list.length-oldN;downBtn()}}
+ else{body.scrollTop=prevTop;if(added>0){newCount+=added;downBtn()}}
 }
 function downBtn(){const b=$('#roomDown');if(!b)return;b.classList.toggle('hidden',!newCount);b.textContent='↓ '+(newCount?fa(newCount)+' پیام جدید':'')}
 function onlineCount(){const n=Date.now();let c=0;Object.keys(S.p||{}).forEach(k=>{if(n-S.p[k]<70000)c++});return Math.max(1,c)}
@@ -4211,13 +4376,14 @@ function markSeen(){if(!ME())return;const last=S.msgs.length?S.msgs[S.msgs.lengt
 async function pull(){
  if(busy||!ME())return;busy=true;
  try{await T.pull(S);netErr=false}catch(e){netErr=true}finally{busy=false}
+ {const nb=$('#roomNet');if(nb)nb.classList.toggle('hidden',!netErr)}
  if(J(seenKey(),null)===null&&!isOpen)markSeen();
  updatePill();badge();if(isOpen)render();
  if(!seeded&&!netErr){seeded=true;if(!S.msgs.length&&(!DB||isAdmin()))post({uid:BU,n:BOT_NAME,av:botAv(),t:Date.now(),x:'سلام به چت‌روم لونو خوش اومدید 🌸 اینجا همه می‌تونن با هم حرف بزنن. اگه کاری داشتید بنویسید «پرنسس ...» تا جواب بدم.'}).catch(()=>{})}
 }
 function loop(){
  clearTimeout(timer);
- const d=!ME()?1500:isOpen?(DB?2500:1500):(DB?12000:5000);
+ const d=!ME()?1500:isOpen?(DB?1800:700):(DB?12000:5000);
  timer=setTimeout(async()=>{if(!document.hidden)await pull();loop()},d);
 }
 async function post(m){
@@ -4227,16 +4393,24 @@ async function post(m){
  return m;
 }
 async function sendUser(text,im){
- if(!ME())return;
+ if(!ME())return false;
  text=String(text||'').trim().slice(0,500);
- if(!text&&!im)return;
- const now=Date.now();if(now-lastSend<1000){toast('کمی آهسته‌تر 😊','error');return}
+ if(!text&&!im)return false;
+ const now=Date.now();if(now-lastSend<1000){toast('کمی آهسته‌تر 😊','error');return false}
  lastSend=now;
- const m={uid:rid(),n:state.user.name,av:await getMyThumb(),t:now,x:text,im:im||''};
+ const m={uid:rid(),n:state.user.name,u:state.user.username||'',av:await getMyThumb(),t:now,x:text,im:im||''};
+ try{navigator.vibrate&&navigator.vibrate(8)}catch(x){}
  if(reply)m.r={id:reply.id,uid:reply.uid,n:reply.n,x:reply.x};
- try{await post(m)}catch(e){toast(e.message==='quota'?'حافظه پر است؛ عکس کمتر بفرست':'ارسال نشد؛ اینترنت رو چک کن','error');return}
- clearReply();newCount=0;render(true);
+ const tmp=Object.assign({},m,{id:'tmp'+now,pend:1});
+ PEND.push(tmp);clearReply();newCount=0;render(true);
+ const copy=Object.assign({},m);
+ try{await post(copy)}catch(e){
+  PEND.splice(PEND.indexOf(tmp),1);render(true);
+  toast(e.message==='quota'?'حافظه پر است؛ عکس کمتر بفرست':'ارسال نشد؛ اینترنت رو چک کن','error');return false;
+ }
+ m.id=copy.id;PEND.splice(PEND.indexOf(tmp),1);render(true);
  botMaybe(m);
+ return true;
 }
 async function botMaybe(m){
  try{
@@ -4286,7 +4460,7 @@ async function toggleReact(id,e){
 
 /* ---------- کار با صفحه ---------- */
 async function onOpen(){
- isOpen=true;newCount=0;downBtn();
+ isOpen=true;newCount=0;downBtn();S.seenAt=J(seenKey(),0);
  const me=$('#roomMe');if(me)me.src=(state.user&&state.user.avatar)||DEFAULT_AVATAR;
  await getMyThumb();
  try{await T.ping(rid())}catch(e){}
@@ -4305,16 +4479,32 @@ function bind(){
   if(q){const t=body.querySelector('.rm[data-id="'+CSS.escape(q.dataset.q)+'"]');if(t){t.scrollIntoView({block:'center',behavior:'smooth'});t.classList.add('flash');setTimeout(()=>t.classList.remove('flash'),1300)}else toast('پیام اصلی پیدا نشد');return}
   const v=e.target.closest('[data-view]');
   if(v){$('#viewerImg').src=v.src;$('#imgViewer').classList.add('show');document.body.style.overflow='hidden';return}
-  if(e.target.closest('[data-act]'))openSheet(id);
+  if(e.target.closest('a.rm-a'))return;
+  if(String(id).indexOf('tmp')===0)return;
+  if(e.target.closest('.rm-dots')){openSheet(id);return}
+  if(e.target.closest('[data-act]')){
+   const n=Date.now();
+   if(lastTapId===id&&n-lastTapAt<320){clearTimeout(tapTimer);lastTapId='';toggleReact(id,'❤️');try{navigator.vibrate&&navigator.vibrate(10)}catch(x){}return}
+   lastTapId=id;lastTapAt=n;clearTimeout(tapTimer);tapTimer=setTimeout(()=>{lastTapId='';openSheet(id)},320);
+  }
  });
  body.addEventListener('scroll',()=>{if(body.scrollHeight-body.scrollTop-body.clientHeight<90){newCount=0;downBtn()}},{passive:true});
  $('#roomDown').addEventListener('click',()=>{body.scrollTo({top:body.scrollHeight,behavior:'smooth'});newCount=0;downBtn()});
  const inp=$('#roomText'),sb=$('#roomSend');
  const sync=()=>{sb.disabled=!inp.value.trim()};inp.addEventListener('input',sync);sync();
- const go=async()=>{const v=inp.value;if(!v.trim())return;inp.value='';sync();await sendUser(v,'');inp.focus()};
+ const go=async()=>{const v=inp.value;if(!v.trim())return;inp.value='';sync();const r=await sendUser(v,'');if(r===false&&!inp.value){inp.value=v;sync()}inp.focus()};
  sb.addEventListener('click',go);
  inp.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.isComposing){e.preventDefault();go()}});
  $('#roomReplyX').addEventListener('click',clearReply);
+ const EMO=['😀','😂','🥰','😍','😘','😎','🤔','😢','😭','😡','👍','👏','🙏','🔥','❤️','💔','🎉','✨','🌸','👑','😅','🙈','💪','🤝'];
+ const ep=$('#roomEmo');ep.innerHTML=EMO.map(e=>'<button type="button">'+e+'</button>').join('');
+ $('#roomEmoBtn').addEventListener('click',()=>ep.classList.toggle('hidden'));
+ ep.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;inp.value+=b.textContent;sync();inp.focus()});
+ let sx=0,sy=0,sw=null,mv=false;
+ body.addEventListener('touchstart',e=>{const r=e.target.closest('.rm');if(!r||e.touches.length!==1){sw=null;return}sw=r;sx=e.touches[0].clientX;sy=e.touches[0].clientY;mv=false},{passive:true});
+ body.addEventListener('touchmove',e=>{if(!sw)return;const dx=e.touches[0].clientX-sx,dy=e.touches[0].clientY-sy;if(!mv&&Math.abs(dy)>Math.abs(dx)){sw=null;return}if(Math.abs(dx)>10){mv=true;sw.style.transform='translateX('+(Math.max(-70,Math.min(70,dx))*.6)+'px)'}},{passive:true});
+ body.addEventListener('touchend',e=>{if(!sw)return;const r=sw;sw=null;const dx=((e.changedTouches[0]||{}).clientX||0)-sx;r.style.transform='';if(mv&&Math.abs(dx)>70){const m=S.msgs.find(x=>x.id===r.dataset.id);if(m){setReply(m);try{navigator.vibrate&&navigator.vibrate(12)}catch(x){}}}},{passive:true});
+ setInterval(()=>{if(isOpen)render()},30000);
  $('#roomPhoto').addEventListener('click',()=>$('#roomFile').click());
  $('#roomFile').addEventListener('change',async function(){
   const f=this.files&&this.files[0];this.value='';if(!f)return;
@@ -4354,10 +4544,10 @@ ok('init',()=>{
   sec.innerHTML='<div class="room-top"><button class="back-btn" data-back aria-label="بازگشت"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>'+
    '<div class="room-title"><b>چت‌روم</b><span class="room-pill"><i></i><span id="roomOnline">۱ آنلاین</span></span></div>'+
    '<button class="hbtn" id="roomMenuBtn" aria-label="گزینه‌ها"><svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="12" cy="19" r="1.2"/></svg></button></div>'+
-   '<div class="room-body" id="roomBody"></div><button class="room-down hidden" id="roomDown"></button>'+
+   '<div class="room-net hidden" id="roomNet">اتصال برقرار نیست؛ دوباره تلاش می‌کنم…</div><div class="room-body" id="roomBody"></div><button class="room-down hidden" id="roomDown"></button>'+
    '<div class="room-reply hidden" id="roomReply"><div class="rr"><b></b><span></span></div><button id="roomReplyX" aria-label="لغو پاسخ">×</button></div>'+
-   '<div class="room-input"><img id="roomMe" alt=""><input type="text" id="roomText" placeholder="پیام بنویس…" maxlength="500" autocomplete="off" enterkeyhint="send">'+
-   '<button id="roomPhoto" aria-label="ارسال عکس"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></button><input type="file" id="roomFile" accept="image/*" hidden>'+
+   '<div class="room-emo hidden" id="roomEmo"></div><div class="room-input"><img id="roomMe" alt=""><input type="text" id="roomText" placeholder="پیام بنویس…" maxlength="500" autocomplete="off" enterkeyhint="send">'+
+   '<button id="roomEmoBtn" aria-label="ایموجی"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 14a4.5 4.5 0 0 0 8 0M9 9.5h.01M15 9.5h.01"/></svg></button><button id="roomPhoto" aria-label="ارسال عکس"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg></button><input type="file" id="roomFile" accept="image/*" hidden>'+
    '<button class="rm-send" id="roomSend" aria-label="ارسال"><svg viewBox="0 0 24 24"><path d="m22 2-7 20-4-9-9-4 20-7Z"/></svg></button></div>';
   const chat=$('#page-chat');(chat?chat.parentNode:$('#mainScroll')).appendChild(sec);
  }
@@ -4376,6 +4566,102 @@ ok('init',()=>{
 });
 })();
 
+</script>
+<script id="lunov11">
+(function(){
+const ok=(n,f)=>{try{f()}catch(e){console.error('[v11:'+n+']',e&&e.message)}};
+const fa=n=>Number(n).toLocaleString('fa-IR');
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+
+/* کارت پروفایل تنظیمات با نام کاربری */
+ok('settings',()=>{
+ const card=()=>{const c=document.getElementById('lcProfile');if(!c||!state.user)return;const u=state.user;
+  c.innerHTML='<img src="'+esc(avatarOf(u.phone,u.avatar))+'" alt=""><div class="lcp-t"><b>'+esc(u.name||'')+'</b>'+(u.username?'<span class="lcp-u">@'+esc(u.username)+'</span>':'')+'<small>'+esc(u.bio||'برای ویرایش پروفایل لمس کن')+'</small></div><span class="lcp-ar">›</span>'};
+ const _sp=showPage;showPage=function(id){const r=_sp.apply(this,arguments);if(id==='settings')setTimeout(card,0);return r};
+ const xv=document.getElementById('xVersion');if(xv)xv.textContent='نسخهٔ برنامه ۱۱ · پرنسس لونو ۰٫۸';
+});
+
+/* نام کاربری توی پروفایل‌ها و هدر چت */
+ok('usernames',()=>{
+ const slot=(sel,id)=>{const el=document.querySelector(sel);if(!el)return null;let u=document.getElementById(id);if(!u){u=document.createElement('div');u.id=id;u.className='profile-un';el.insertAdjacentElement('afterend',u)}return u};
+ const _rm=renderMyProfile;renderMyProfile=function(){const r=_rm.apply(this,arguments);try{const u=slot('#myName','myUname');if(u&&state.user)u.textContent=state.user.username?'@'+state.user.username:''}catch(e){}return r};
+ const _ou=openUserProfile;openUserProfile=function(uid){const r=_ou.apply(this,arguments);try{const u=slot('#userName','userUname');if(u){const n=lunoUsernameOf(uid);u.textContent=n?'@'+n:''}}catch(e){}return r};
+ const _oc=openChat;openChat=function(uid){const r=_oc.apply(this,arguments);try{const n=lunoUsernameOf(uid),st=document.getElementById('chatStatus');if(n&&st&&uid!==(window.LunoBot&&LunoBot.id))st.textContent='@'+n+' · '+st.textContent}catch(e){}return r};
+ const _ru=renderUserRow;renderUserRow=function(u){let h=_ru.apply(this,arguments);const n=lunoUsernameOf(u.id);return n?h.replace('<p>','<p><span class="uname">@'+esc(n)+'</span>'+(u.bio?' · ':'')):h};
+});
+
+/* دوستان: جستجو */
+ok('friends',()=>{
+ const fl=document.getElementById('friendsList');if(!fl)return;
+ if(!document.getElementById('friendSearch')){
+  const w=document.createElement('div');w.className='fsearch';
+  w.innerHTML='<svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7.5"/><path d="m16.5 16.5 4.5 4.5"/></svg><input id="friendSearch" placeholder="جستجوی نام یا نام کاربری" autocomplete="off">';
+  fl.parentNode.insertBefore(w,fl);w.querySelector('input').addEventListener('input',filt);
+ }
+ function filt(){const q=(document.getElementById('friendSearch').value||'').trim().toLowerCase().replace(/^@/,'');document.querySelectorAll('#friendsList .user-row').forEach(r=>{r.style.display=!q||r.textContent.toLowerCase().indexOf(q)>-1?'':'none'})}
+ const _rf=renderFriends;renderFriends=function(){const r=_rf.apply(this,arguments);filt();return r};
+});
+
+/* اعلان‌ها: تازه‌ها مشخص + پاک کردن همه */
+ok('notifs',()=>{
+ const _rn=renderNotifs;
+ renderNotifs=function(){
+  const unread=(state.notifications||[]).map(n=>!n.read);
+  const r=_rn.apply(this,arguments);
+  const w=document.getElementById('notifsList');
+  if(w&&state.notifTab==='notifs'){
+   const rows=w.querySelectorAll('.notif');
+   rows.forEach((el,i)=>{if(unread[i])el.classList.add('new')});
+   if(rows.length&&!w.querySelector('.nbar')){const b=document.createElement('div');b.className='nbar';b.innerHTML='<span>'+fa(rows.length)+' اعلان</span><button id="clearNotifs">پاک کردن همه</button>';w.insertBefore(b,w.firstChild)}
+  }
+  return r;
+ };
+ document.addEventListener('click',e=>{if(e.target.closest('#clearNotifs'))showConfirm('پاک کردن اعلان‌ها','همه اعلان‌ها پاک بشن؟',()=>{state.notifications=[];save();renderNotifs();try{updateBadge()}catch(x){}})});
+});
+
+/* پرنسس لونو ۰٫۸ */
+ok('bot',()=>{
+ const B=window.LunoBot;if(!B)return;
+ B.version='0.8';
+ const dig=s=>String(s).replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d));
+ const calc=t=>{
+  const e=dig(t).replace(/[×xX✕]/g,'*').replace(/÷/g,'/').replace(/٫/g,'.').replace(/[,،\s]/g,'');
+  if(e.length>40||!/^[\d+\-*/().%]+$/.test(e)||!/\d/.test(e)||/\*\*/.test(e))return null;
+  try{const v=Function('"use strict";return ('+e+')')();return typeof v==='number'&&isFinite(v)?v:null}catch(x){return null}
+ };
+ const ans=v=>v===null?'اینو نتونستم حساب کنم 🤔 یه چیزی مثل «۱۲×۸+۳» بنویس.':'می‌شه '+fa(+v.toFixed(6))+' 🧮';
+ const RID=[['چیزی که هرچی بیشتر ازش برداری، بزرگ‌تر می‌شه چیه؟','چاله 🕳️'],['چی همیشه جلوته ولی نمی‌تونی ببینیش؟','آینده ⏳'],['چی پا نداره ولی راه می‌ره؟','ساعت ⏰'],['هرچی بیشتر بشورمش، کثیف‌تر می‌شه. چیم؟','آب 💧']];
+ const FACT=['عسل هیچ‌وقت خراب نمی‌شه؛ عسل چند هزار ساله هم هنوز خوراکیه 🍯','اختاپوس سه‌تا قلب داره 🐙','ستاره‌دریا مغز نداره ⭐','موزها از نظر علمی توت محسوب می‌شن 🍌','صدای گربه‌ها فقط برای آدم‌هاست؛ با هم‌نوعاشون کمتر میو می‌کنن 🐱'];
+ const MOT=['هر روز یه قدم کوچیک، آخرش می‌شه یه مسیر بزرگ 🌱','سخت بودن راه یعنی داری بالا می‌ری ⛰️','خودت رو با دیروزِ خودت مقایسه کن، نه با بقیه 🌸','اشتباه کردن یعنی تلاش کردی. ادامه بده 💪'];
+ const R=[
+  [/^(?=.*[\d۰-۹٠-٩])(?=.*[+\-*/×÷%])[\s\d۰-۹٠-٩+\-*/×÷().٫,%=؟?xX]+$/,m=>ans(calc(m.input.replace(/[=؟?]/g,'')))],
+  [/(?:حساب کن|حاصل|چنده)\s*:?\s*(.+)/,m=>ans(calc(m[1].replace(/[=؟?]/g,'')))],
+  [/سکه/,()=>'سکه رو انداختم... '+pick(['شیر 🦁','خط ✍️'])+' اومد!'],
+  [/تاس/,()=>'تاس انداختم: '+fa(1+Math.floor(Math.random()*6))+' 🎲'],
+  [/عدد\s*(?:شانسی|تصادفی)(?:\D*(\d+)\D+(\d+))?/,m=>{let a=+dig(m[1]||1),b=+dig(m[2]||100);if(a>b){const t=a;a=b;b=t}return 'عدد شانسی بین '+fa(a)+' و '+fa(b)+': '+fa(a+Math.floor(Math.random()*(b-a+1)))+' ✨'}],
+  [/معما/,()=>{const r=pick(RID);return 'معما: '+r[0]+'\n\n(جواب: '+r[1]+')'}],
+  [/نکته.*(جالب|باحال)|اطلاعات.*(جالب|باحال)|چیز.*(جالب|باحال)|فکت/,()=>'می‌دونستی؟ '+pick(FACT)],
+  [/انگیزه|دلگرم|امیدوارم کن/,()=>pick(MOT)],
+  [/چت.?روم/,()=>'چت‌روم یه اتاق گفتگوی عمومیه؛ همه با هم حرف می‌زنن 💬 روی پیام دوبار بزن تا ❤️ بخوره، پیام رو بکش تا جواب بدی، و برای ایموجی از دکمهٔ کنار عکس استفاده کن. بالای صفحه، کنار «+» پیداش می‌کنی.'],
+  [/نام کاربری|یوزرنیم|آیدی|username/i,()=>'نام کاربری اسم یکتای توئه که با @ نمایش داده می‌شه، مثل @sara_92 ✨ از «ویرایش پروفایل» می‌تونی عوضش کنی؛ فقط حرف انگلیسی، عدد و _ (۳ تا ۲۰ کاراکتر).'],
+  [/فید|دسته.?بندی|محبوب.?ترین|جدیدترین/,()=>'توی صفحهٔ اصلی، زیر استوری‌ها سه تا دکمه داری: جدیدترین، محبوب‌ترین و دوستان. دکمهٔ کناریشون هم دسته‌بندی پست‌هاست 🗂️'],
+  [/آپدیت|نسخه|چی.*جدید|چه چیزی.*جدید/,()=>'من نسخهٔ ۰٫۸ام ✨ حالا حساب می‌کنم، سکه و تاس می‌ندازم، معما و نکتهٔ جالب می‌گم، و از چت‌روم و نام کاربری هم خبر دارم.'],
+  [/استرس|امتحان دارم|نگرانم|دلهره/,()=>pick(['نفس عمیق بکش، چهار ثانیه بگیر، شش ثانیه آروم بده 🌬️ تو از پسش برمیای.','استرس یعنی برات مهمه. یه قدم کوچیک بردار، من هم اینجام 💗'])],
+  [/کمک|راهنما|help/i,()=>'اینا رو بلدم 🌸\n• حساب: «۱۲×۸+۳»\n• «سکه بنداز» / «تاس بنداز» / «عدد شانسی»\n• «معما» / «یه نکتهٔ جالب» / «انگیزه»\n• «اسمم ...» و «یادم بنداز ...»\n• هرچی خواستی دربارهٔ چت‌روم و نام کاربری بپرس']
+ ];
+ B.rules.splice(1,0,...R);
+ try{
+  const K='luno_bot_ann',seen=localStorage.getItem(K);
+  if(seen!==B.version){
+   const a=state.chats&&state.chats[B.id];
+   if(a&&a.length){a.push({from:'them',text:'✨ آپدیت شدم! نسخهٔ '+B.version+': حساب و ماشین‌حساب، سکه و تاس، معما و نکتهٔ جالب. بنویس «کمک» 🌸',time:new Date().toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'})});save()}
+   localStorage.setItem(K,B.version);
+  }
+ }catch(e){}
+});
+
+try{lunoEnsureUsernames()}catch(e){}
+})();
 </script>
 </body>
                                                   </html>
