@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fa" dir="ltr">
+<html lang="fa" dir="rtl">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -3664,5 +3664,223 @@ ok('princess',()=>{const B=window.LunoBot;if(!B)return;B.version='0.7';const oc=
    if(txt){a.push({from:'them',text:txt,time:tm});save()}localStorage.setItem('luno_bot_day',td)}}catch(e){}}return oc.apply(this,arguments)}});
 })();
 </script>
+<script id="lunopatch">
+(function(){
+'use strict';
+const ok=(n,f)=>{try{f()}catch(e){console.error('[patch:'+n+']',e&&e.message)}};
+const qa=(s,r)=>Array.prototype.slice.call((r||document).querySelectorAll(s));
+
+/* ═══ ۱) هش کردن رمز عبور با SHA-256 ═══ */
+ok('hash',()=>{
+  async function lunoHash(pass){
+    const plain='luno::'+String(pass);
+    try{
+      if(typeof crypto!=='undefined'&&crypto.subtle&&crypto.subtle.digest){
+        const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(plain));
+        return '$h$s$'+Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
+      }
+    }catch(e){}
+    let h1=0x811c9dc5,h2=0x1b873593;
+    for(let i=0;i<plain.length;i++){
+      const c=plain.charCodeAt(i);
+      h1=Math.imul(h1^c,16777619)>>>0;
+      h2=Math.imul(h2^c,0x85ebca6b)>>>0;
+    }
+    return '$h$f$'+h1.toString(16).padStart(8,'0')+h2.toString(16).padStart(8,'0');
+  }
+  window.lunoHash=lunoHash;
+
+  document.addEventListener('submit',async ev=>{
+    if(!ev.target||ev.target.id!=='authForm')return;
+    ev.preventDefault();ev.stopPropagation();
+    if(ev.stopImmediatePropagation)ev.stopImmediatePropagation();
+
+    const nameEl=document.getElementById('authName');
+    const phoneEl=document.getElementById('authPhone');
+    const passEl=document.getElementById('authPass');
+    if(!phoneEl||!passEl)return;
+    const name=nameEl?nameEl.value.trim():'';
+    const phone=phoneEl.value.trim();
+    const pass=passEl.value;
+    const isSignup=(typeof authMode!=='undefined')&&(authMode==='signup');
+
+    qa('.auth-err').forEach(el=>el.classList.remove('show'));
+    let bad=false;
+    if(isSignup&&name.length<3){const el=document.getElementById('nameErr');if(el)el.classList.add('show');bad=true;}
+    if(!/^09\d{9}$/.test(phone)){const el=document.getElementById('phoneErr');if(el)el.classList.add('show');bad=true;}
+    if(pass.length<6){const el=document.getElementById('passErr');if(el)el.classList.add('show');bad=true;}
+    if(bad)return;
+
+    const hashed=await lunoHash(pass);
+
+    if(isSignup){
+      const users=JSON.parse(localStorage.getItem('luno_users')||'[]');
+      if(users.find(u=>u.phone===phone)){toast('این شماره قبلاً ثبت شده','error');return;}
+      const newUser={name,phone,avatar:DEFAULT_AVATAR,bio:'',city:'',job:'',link:'',createdAt:Date.now()};
+      users.push(Object.assign({},newUser,{password:hashed,_hashed:1}));
+      try{localStorage.setItem('luno_users',JSON.stringify(users));}catch(e){toast('حافظه پر است','error');return;}
+      state.user=newUser;
+      try{localStorage.setItem('luno_user',JSON.stringify(newUser));}catch(e){}
+      toast('حساب ساخته شد');
+      setTimeout(()=>{try{showConfetti();}catch(e){}},500);
+      enterApp();
+    }else{
+      const users=JSON.parse(localStorage.getItem('luno_users')||'[]');
+      const idx=users.findIndex(u=>u.phone===phone);
+      if(idx===-1){toast('شماره یا رمز اشتباه','error');return;}
+      const u=users[idx];
+      let good=false;
+      if(typeof u.password==='string'&&u.password.indexOf('$h$')===0){
+        good=u.password===hashed;
+      }else{
+        good=u.password===pass;
+        if(good){u.password=hashed;u._hashed=1;try{localStorage.setItem('luno_users',JSON.stringify(users));}catch(e){}}
+      }
+      if(!good){toast('شماره یا رمز اشتباه','error');return;}
+      const rest=Object.assign({},u);
+      delete rest.password;delete rest._hashed;
+      state.user=rest;
+      try{localStorage.setItem('luno_user',JSON.stringify(rest));}catch(e){}
+      toast('خوش آمدی');
+      enterApp();
+    }
+  },true);
+});
+
+/* ═══ ۲) RTL (fallback اگه HTML دستی تغییر نکرد) ═══ */
+ok('rtl',()=>{
+  const dir=localStorage.getItem('luno_dir')||'rtl';
+  document.documentElement.setAttribute('dir',dir);
+  const st=document.createElement('style');
+  st.textContent=[
+    'html[dir="rtl"] input[type="tel"],html[dir="rtl"] input[inputmode="numeric"]{direction:ltr;text-align:left}',
+    'html[dir="rtl"] .profile-extra-item a{direction:ltr;unicode-bidi:embed}',
+    'html[dir="rtl"] .auth-logo,html[dir="rtl"] .logo,html[dir="rtl"] .loader-logo{direction:ltr}'
+  ].join('\n');
+  document.head.appendChild(st);
+});
+
+/* ═══ ۳) رفع Regex Lookbehind (سازگاری Safari قدیمی) ═══ */
+ok('regex',()=>{
+  window.processText=function(text){
+    let out=esc(text);
+    out=out.replace(/(@[\u0600-\u06FFa-zA-Z0-9_]+)/g,'<a href="#" data-mention="$1">$1</a>');
+    out=out.replace(/(^|[^\w&])(#[\u0600-\u06FFa-zA-Z0-9_]+)/g,'$1<a href="#" data-hashtag="$2">$2</a>');
+    return out;
+  };
+});
+
+/* ═══ ۴) رفع باگ Back button (کاربر داخل اپ زندانی نشه) ═══ */
+ok('back',()=>{
+  let skipNextPush=false;
+  const _showPage=window.showPage;
+  if(typeof _showPage==='function'){
+    window.showPage=function(id,push){
+      if(push===false&&id==='home'){
+        skipNextPush=true;
+        Promise.resolve().then(()=>{skipNextPush=false;});
+      }
+      return _showPage.apply(this,arguments);
+    };
+  }
+  const _ps=history.pushState.bind(history);
+  history.pushState=function(s,t,u){
+    if(skipNextPush){skipNextPush=false;return;}
+    return _ps(s,t,u);
+  };
+});
+
+/* ═══ ۵) رندر مجدد نظرسنجی بعد از انتشار ═══ */
+ok('poll',()=>{
+  document.addEventListener('click',ev=>{
+    if(!ev.target||!ev.target.closest||!ev.target.closest('#publishBtn'))return;
+    setTimeout(()=>{
+      try{
+        if(state&&state.history&&state.history[state.history.length-1]==='home')renderHome();
+      }catch(e){}
+    },400);
+  },true);
+});
+
+/* ═══ ۶) پس‌زمینهٔ چت: اندازه و تکرار الگوها ═══ */
+ok('chatbg',()=>{
+  const _apply=window.applyChatBg;
+  window.applyChatBg=function(bgName){
+    if(typeof _apply==='function')_apply.apply(this,arguments);
+    try{
+      const list=(typeof CHAT_BGS!=='undefined')?CHAT_BGS:[];
+      const bg=list.find(b=>b.name===bgName)||list[0];
+      const el=document.getElementById('page-chat');
+      if(!el||!bg)return;
+      if(bg.size){
+        el.style.backgroundSize=bg.size;
+        el.style.backgroundRepeat='repeat';
+      }else{
+        el.style.backgroundSize=(bg.value==='none')?'auto':'cover';
+        el.style.backgroundRepeat='no-repeat';
+      }
+    }catch(e){}
+  };
+  setTimeout(()=>{try{window.applyChatBg(localStorage.getItem('luno_chat_bg')||'none');}catch(e){}},200);
+});
+
+/* ═══ ۷) فید دوستان: شامل پست‌های خودت ═══ */
+ok('friendsfeed',()=>{
+  const _rh=window.renderHome;
+  if(typeof _rh!=='function')return;
+  window.renderHome=function(){
+    if(state.feedFilter!=='friends'||!state.user)return _rh.apply(this,arguments);
+    const all=state.posts;
+    const botId=window.LunoBot&&window.LunoBot.id;
+    state.posts=all.filter(p=>p.authorId&&(
+      p.authorId===state.user.phone||isFriend(p.authorId)
+    )&&p.authorId!==botId);
+    state.feedFilter='newest';
+    try{_rh.apply(this,arguments);}
+    finally{state.posts=all;state.feedFilter='friends';}
+  };
+});
+
+/* ═══ ۸) پنل ادمین برای فعال‌سازی رنگ حاشیه آواتار ═══ */
+ok('approvedColors',()=>{
+  function decorate(){
+    qa('#adminUserList .admin-item').forEach(it=>{
+      if(it.dataset.xac==='1')return;
+      const delBtn=it.querySelector('[data-admin-del-user]');
+      if(!delBtn)return;
+      it.dataset.xac='1';
+      const phone=delBtn.dataset.adminDelUser;
+      let approved=[];
+      try{approved=JSON.parse(localStorage.getItem('luno_approved_colors')||'[]');}catch(e){}
+      const btn=document.createElement('button');
+      btn.className='admin-btn'+(approved.indexOf(phone)>=0?'':' primary');
+      btn.dataset.xacToggle=phone;
+      btn.textContent=approved.indexOf(phone)>=0?'🎨✓':'🎨';
+      btn.title='اجازهٔ رنگ حاشیه آواتار';
+      if(delBtn.parentNode)delBtn.parentNode.insertBefore(btn,delBtn);
+    });
+  }
+  document.addEventListener('click',ev=>{
+    const b=ev.target&&ev.target.closest&&ev.target.closest('[data-xac-toggle]');
+    if(!b)return;
+    ev.stopPropagation();
+    const phone=b.dataset.xacToggle;
+    let arr=[];
+    try{arr=JSON.parse(localStorage.getItem('luno_approved_colors')||'[]');}catch(e){}
+    const i=arr.indexOf(phone);
+    if(i===-1)arr.push(phone);else arr.splice(i,1);
+    try{localStorage.setItem('luno_approved_colors',JSON.stringify(arr));}catch(e){}
+    decorate();
+    if(typeof toast==='function')toast(i===-1?'کاربر ویژه شد':'از کاربران ویژه حذف شد');
+  });
+  if(typeof MutationObserver!=='undefined'){
+    new MutationObserver(()=>{if(state.adminTab==='users')decorate();}).observe(document.body,{childList:true,subtree:true});
+  }
+  setTimeout(decorate,1500);
+});
+
+console.log('%c[lunopatch] ✓ applied','color:#22c55e;font-weight:bold');
+})();
+</script>
 </body>
-  </html>
+                                                                         </html>
