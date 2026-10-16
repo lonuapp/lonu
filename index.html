@@ -1555,7 +1555,7 @@ function openChat(uid) {
   $('#chatAvatar').src = u.avatar; $('#chatName').textContent = u.name;
   $('#chatStatus').textContent = u.online ? 'آنلاین' : 'آفلاین';
   if (!state.chats[uid]) state.chats[uid] = [];
-  renderChatBody(); showPage('chat'); setTimeout(() => $('#chatInput').focus(), 300);
+  renderChatBody(); showPage('chat');
 }
 function renderChatBody() {
   const uid = state.currentChat; if (!uid) return;
@@ -2119,7 +2119,7 @@ function showPage(id, push = true) {
   setTimeout(() => { $('#mainScroll').scrollTop = state.scrollPos[id] || 0; }, 10);
 }
 function goBack() {
-  if ($('#page-chat').classList.contains('active')) { $('#page-chat').classList.remove('active'); state.currentChat = null; if (state.history.length > 1) state.history.pop(); return; }
+  if ($('#page-chat').classList.contains('active')) { $('#page-chat').classList.remove('active'); state.currentChat = null; if (state.history.length > 1) state.history.pop(); showPage(state.history[state.history.length - 1] || 'home', false); return; }
   const openModal = $('.modal.show') || $('.confirm.show');
   if (openModal) { openModal.classList.remove('show'); return; }
   if (state.history.length <= 1 || state.history[state.history.length - 1] === 'home') { history.back(); return; }
@@ -2128,7 +2128,7 @@ function goBack() {
   showPage(prev, false);
 }
 window.addEventListener('popstate', () => {
-  if ($('#page-chat').classList.contains('active')) { $('#page-chat').classList.remove('active'); state.currentChat = null; history.pushState({ page: state.history[state.history.length - 1] || 'home' }, ''); return; }
+  if ($('#page-chat').classList.contains('active')) { $('#page-chat').classList.remove('active'); state.currentChat = null; if (state.history.length > 1) state.history.pop(); showPage(state.history[state.history.length - 1] || 'home', false); history.pushState({ page: state.history[state.history.length - 1] || 'home' }, ''); return; }
   const openModal = $('.modal.show') || $('.confirm.show');
   if (openModal) { openModal.classList.remove('show'); history.pushState({ page: state.history[state.history.length - 1] || 'home' }, ''); return; }
   if (state.history.length > 1 && state.history[state.history.length - 1] !== 'home') {
@@ -3060,6 +3060,105 @@ ok('album',()=>{const t=document.getElementById('preview');if(!t)return;let ex=[
 })();
 
 </script>
+<script id="lunobrain">
+/* LunoBot brain v0.5 — یادگیری از گفتگو (کاملاً محلی، روی همین گوشی ذخیره می‌شه) */
+(function(){
+const B=window.LunoBot;if(!B)return;
+const K='luno_bot_brain',MAXR=300,MAXS=60;
+const ok=(n,f)=>{try{return f()}catch(e){console.error('[brain:'+n+']',e&&e.message)}};
+const fa=n=>Number(n).toLocaleString('fa-IR');
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const load=()=>{try{const o=JSON.parse(localStorage.getItem(K)||'{}');return{rules:o.rules||[],facts:o.facts||[],seen:o.seen||[],pending:o.pending||null}}catch(e){return{rules:[],facts:[],seen:[],pending:null}}};
+let M=load();
+const save=()=>{try{localStorage.setItem(K,JSON.stringify(M))}catch(e){M.seen=M.seen.slice(-10);try{localStorage.setItem(K,JSON.stringify(M))}catch(e2){}}};
+B.brain={get:()=>M,size:()=>M.rules.length+M.facts.length};
+B.version='0.5';
+
+/* ---------- نرمال‌سازی و شباهت ---------- */
+const norm=s=>String(s||'').toLowerCase().replace(/ي/g,'ی').replace(/ك/g,'ک').replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[\u200c\u200f\u200e]/g,' ').replace(/[^\p{L}\p{N}\s]/gu,' ').replace(/\s+/g,' ').trim();
+const bi=s=>{s=s.replace(/\s/g,'');const o={};for(let i=0;i<s.length-1;i++){const g=s.slice(i,i+2);o[g]=(o[g]||0)+1}return o};
+const sim=(a,b)=>{a=norm(a);b=norm(b);if(!a||!b)return 0;if(a===b)return 1;if(a.length<4||b.length<4)return 0;
+ const ta=new Set(a.split(' ')),tb=new Set(b.split(' '));let inter=0;ta.forEach(x=>tb.has(x)&&inter++);const jac=inter/(ta.size+tb.size-inter);
+ const A=bi(a),Bm=bi(b);let ov=0,na=0,nb=0;for(const g in A){na+=A[g];if(Bm[g])ov+=Math.min(A[g],Bm[g])}for(const g in Bm)nb+=Bm[g];const dice=na+nb?2*ov/(na+nb):0;
+ return Math.max(jac>=0.6?jac:0,dice>=0.75?dice:0)};
+const matchesBuiltin=t=>B.rules.some(r=>{try{return r[0].test(t)}catch(e){return false}});
+const SAFE=/خودکشی|خودم رو بکشم|می‌خوام بمیرم|نمی‌خوام زنده باشم|دیگه نمی‌خوام ادامه بدم/;
+const isQuestion=t=>/[؟?]/.test(t)||/^(چرا|چطور|چجوری|چی|چیه|کی|کجا|چند|آیا|چه)\b/.test(norm(t))||/(چیه|چطوره|کیه|کجاست|چنده|چرا)$/.test(norm(t));
+
+/* ---------- سطح مغز ---------- */
+const level=n=>n<5?'نوزاد 🍼':n<15?'کودک 🌱':n<40?'دانش‌آموز 📚':n<100?'باهوش 🧠':'نابغه 🎓';
+const report=()=>{const n=B.brain.size();return 'مغزم الان '+fa(M.rules.length)+' جواب و '+fa(M.facts.length)+' حقیقت دربارهٔ تو یاد گرفته (سطح: '+level(n)+'). '+(n<5?'بهم یاد بده! مثلاً بگو «یاد بگیر: سلام چطوری = من خوبم».':'هر چی بیشتر حرف بزنیم، بزرگ‌تر می‌شه 🧠')};
+
+/* ---------- حقیقت‌ها از جمله‌های خودتو ---------- */
+const FACTS=[
+ [/(?:من\s+)?(?:اهل|ساکن)\s+([^\s،.!؟]+(?:\s[^\s،.!؟]+)?)/,'city',m=>'اهل '+m[1]],
+ [/(?:سنم|سن من)\s*(?:رو|را)?\s*([0-9۰-۹]{1,3})/,'age',m=>m[1]+' سال سن داری'],
+ [/شغلم\s+(.{2,30}?)(?:\s+(?:است|هست))?$/,'job',m=>'شغلت '+m[1]+' است'],
+ [/(?:من\s+)?دوست دارم\s+(.{2,40})/,'like',m=>'دوست داری '+m[1].trim()],
+ [/(?:من\s+)?(?:عاشق)\s+(.{2,30})(?:\s+هستم)?$/,'like',m=>'عاشق '+m[1].trim()+' هستی'],
+ [/^من\s+(.{2,25}?)\s+(?:هستم|ام)$/,'id',m=>'تو '+m[1]+' هستی']
+];
+const addFact=(k,txt)=>{if(M.facts.some(f=>norm(f.t)===norm(txt)))return false;M.facts.push({k,t:txt,ts:Date.now()});if(M.facts.length>100)M.facts.shift();return true};
+
+/* ---------- افزودن/حذف قانون ---------- */
+const addRule=(q,a)=>{q=q.trim().slice(0,120);a=a.trim().slice(0,300);if(!q||!a)return false;
+ const ex=M.rules.find(r=>norm(r.q)===norm(q));if(ex){ex.a=a;ex.ts=Date.now()}else{M.rules.push({q,a,n:0,ts:Date.now()});if(M.rules.length>MAXR)M.rules.shift()}return true};
+const best=t=>{let b=null,s=0;for(const r of M.rules){const x=sim(t,r.q);if(x>s){s=x;b=r}}return s>=0.75||(b&&s>=0.6&&norm(t).split(' ').length>1)?b:null};
+
+/* ---------- جواب‌دهنده‌ی اصلی ---------- */
+const orig=B.reply;
+B.reply=async function(text,ctx){
+ const raw=String(text||'').trim();let t=raw;
+ if(SAFE.test(t))return orig.call(B,text,ctx);
+ // 0) نوبت یاد گرفتن (بات سؤال پرسیده بود)
+ if(M.pending&&Date.now()-M.pending.ts<10*60*1000){
+  const q=M.pending.q;
+  if(/^(ولش کن|بیخیال|نمی‌دونم|نمیدونم|بی‌خیال|لغو)/.test(t)){M.pending=null;save();return pick(['باشه، بیخیال 😊 هر وقت خواستی یادم بده.','اوکی عزیزم، بعداً 🌸'])}
+  if((!matchesBuiltin(t)||norm(t).split(' ').length>=2)&&!/^(یاد بگیر|یادبگیر|فراموش|اگه|اگر|وقتی|چی یاد گرفتی|همه چیز)/.test(t)&&!SAFE.test(t)){
+   M.pending=null;addRule(q,t);save();
+   return pick(['ممنون که یادم دادی! 🧠 دفعهٔ بعد که بپرسی «'+q.slice(0,40)+'» همینو می‌گم.','آهان، فهمیدم! یادم موند ✨ ('+fa(B.brain.size())+' چیز بلدم)'])+' سطح: '+level(B.brain.size());
+  }
+  M.pending=null;
+ }else if(M.pending){M.pending=null}
+ // 1) دستورهای صریح
+ let m;
+ if((m=t.match(/^(?:یاد\s?بگیر)\s*[:：]?\s*(.+?)\s*(?:=|←|->|بگو|جوابش)\s*(.+)$/))||(m=t.match(/^(?:اگه|اگر|وقتی)\s+(?:گفتم|گفتن|بگم)\s+(.+?)\s+(?:بگو|جواب بده(?: که)?)\s+(.+)$/))){
+  if(SAFE.test(m[1]))return 'این یکی رو نمی‌تونم عوض کنم 💗';
+  addRule(m[1],m[2]);save();return 'باشه! یاد گرفتم: وقتی بگی «'+m[1].trim().slice(0,40)+'» می‌گم «'+m[2].trim().slice(0,60)+'» 🧠 ('+fa(B.brain.size())+' چیز بلدم)'}
+ if(/^(?:همه\s?چیز(?: رو)?|همهٔ?\s?چی(?: رو)?)\s+(?:رو\s+)?فراموش کن|مغزت رو پاک کن/.test(t)){const n=B.brain.size();M.rules=[];M.facts=[];M.seen=[];M.pending=null;save();return 'همه‌چیز رو فراموش کردم ('+fa(n)+' مورد) 🧹 از صفر شروع می‌کنیم.'}
+ if((m=t.match(/^فراموش کن\s+(.+)$/))){const q=m[1];const i=M.rules.findIndex(r=>sim(q,r.q)>=0.6||norm(r.q).includes(norm(q)));
+  if(i>-1){const r=M.rules.splice(i,1)[0];save();return 'باشه، «'+r.q.slice(0,40)+'» رو فراموش کردم 🧹'}
+  const j=M.facts.findIndex(f=>norm(f.t).includes(norm(q)));if(j>-1){M.facts.splice(j,1);save();return 'باشه، اون رو دیگه یادم نیست 🧹'}
+  return 'چیزی با این اسم یادم نیست 🤔'}
+ if(/چی یاد گرفتی|چه چیزایی یاد گرفتی|مغزت|چقدر یاد گرفتی|هوشت|سطحت|باهوش شدی/.test(t))return report();
+ if(/^(?:لیست )?(?:یادگیری|آموخته)/.test(t)||/چی بهت یاد دادم/.test(t)){return M.rules.length?'اینا رو بهم یاد دادی: '+M.rules.slice(-8).map((r,i)=>fa(i+1)+') «'+r.q.slice(0,25)+'»').join('؛ '):'هنوز چیزی بهم یاد ندادی. بگو «یاد بگیر: ... = ...»'}
+ if(/منو می‌شناسی|درباره(?:‌| )?ی? من چی می‌دونی|چی از من می‌دونی|چی دربارهٔ من یادته/.test(t)){
+  const n=localStorage.getItem('luno_bot_name');const f=M.facts.slice(-6).map(x=>x.t);
+  if(!n&&!f.length)return 'هنوز چیز زیادی دربارهٔ تو نمی‌دونم! بگو «اسمم ...» یا «دوست دارم ...» تا یاد بگیرم 💕';
+  return 'یادمه که'+(n?' اسمت '+n+' است':'')+(f.length?(n?'، و':'')+' '+f.join('، '):'')+' 💕'}
+ if(/^(کمک|راهنما|help)\W*$/i.test(t)){const r=await orig.call(B,text,ctx);return r+' 🧠 برای یاد دادن: «یاد بگیر: سؤال = جواب» ، برای دیدن مغزم: «چی یاد گرفتی؟» ، برای پاک کردن: «فراموش کن ...»'}
+ // 2) جواب‌های یادگرفته‌شده
+ const hit=best(t);
+ if(hit){hit.n=(hit.n||0)+1;save();return hit.a}
+ // 3) یاد گرفتن حقیقت‌ها از جمله‌های کاربر (فقط اگه قانون آماده‌ای نداشت)
+ {
+  for(const [re,k,fn] of FACTS){const mm=t.match(re);if(mm){const f=fn(mm);if(addFact(k,f)){save();return pick(['جالبه! یادم موند که '+f+' 📝','آهان، پس '+f+'. نوشتمش ✨'])+' ('+fa(B.brain.size())+' چیز بلدم)'}return 'آره، اینو قبلاً گفته بودی 😉'}}
+ }
+ // 4) هیچ‌کدوم: اگه سؤال بود، بپرس و یاد بگیر
+ if(!matchesBuiltin(t)||(isQuestion(t)&&norm(t).split(' ').length>=5)){
+  const rec=M.seen.map(s=>({s,x:sim(t,s)})).sort((a,b)=>b.x-a.x)[0];
+  M.seen.push(t.slice(0,120));if(M.seen.length>MAXS)M.seen.shift();
+  if(isQuestion(t)){M.pending={q:t.slice(0,120),ts:Date.now()};save();
+   return pick(['این رو نمی‌دونم 😅 تو بگو جوابش چیه؟ هر چی بنویسی یادم می‌مونه 🧠','نمی‌دونم! اگه جوابش رو یادم بدی، دفعهٔ بعد خودم می‌گم 💡 جوابش چی باشه؟','سؤال خوبیه! من هنوز بلد نیستم؛ تو یادم بده؟ جوابش چیه؟ 🌱'])}
+  save();
+  if(rec&&rec.x>=0.45)return 'یادمه قبلاً گفتی «'+rec.s.slice(0,50)+'»؛ ربطی داره؟ 🤔';
+ }
+ save();
+ return orig.call(B,text,ctx);
+};
+})();
+
+</script>
 <script id="lunofix">
 /* lunofix v3 — فقط چیزهایی که توی extras نبود: تب «دوستان» + نمایش چت بات در پیام‌ها */
 (function(){
@@ -3114,8 +3213,36 @@ ok('friendsfeed',()=>{
   }
  };
 });
+
+/* ---------- ۳) منوی پیام: پاسخ / ری‌اکشن / کپی / حذف ---------- */
+ok('bubblemenu',()=>{
+ const st=document.createElement('style');
+ st.textContent='[data-xreply]{display:none!important}.lc-menu-bg{position:fixed;inset:0;background:rgba(0,0,0,.35);z-index:9500;display:flex;align-items:flex-end;justify-content:center}.lc-menu{width:100%;max-width:480px;background:var(--paper);color:var(--ink);border-radius:20px 20px 0 0;padding:14px 16px calc(14px + env(safe-area-inset-bottom))}.lc-react{display:flex;justify-content:space-around;padding:4px 0 12px;border-bottom:1px solid var(--line-2);margin-bottom:6px}.lc-react button{font-size:26px;padding:6px 8px;border-radius:12px}.lc-react button.on{background:var(--line-2)}.lc-act{display:flex;align-items:center;gap:10px;width:100%;padding:13px 6px;font-size:14px;font-weight:700;text-align:right}.lc-act.danger{color:#e53935}';
+ document.head.appendChild(st);
+ const close=()=>{const e=document.querySelector('.lc-menu-bg');if(e)e.remove()};
+ document.addEventListener('click',e=>{
+  const b=e.target.closest('#chatBody .bubble');
+  if(!b||e.target.closest('[data-xreply]'))return;
+  e.stopPropagation();
+  const i=+b.dataset.bubbleIdx,uid=state.currentChat,m=(state.chats[uid]||[])[i];if(!m)return;
+  close();
+  const bg=document.createElement('div');bg.className='lc-menu-bg';
+  bg.innerHTML='<div class="lc-menu"><div class="lc-react">'+['❤️','😂','👍','😮','😢','🙏'].map(x=>'<button type="button" data-lc-r="'+x+'"'+(m.react===x?' class="on"':'')+'>'+x+'</button>').join('')+'</div><button type="button" class="lc-act" data-lc-a="reply">↩ پاسخ</button><button type="button" class="lc-act" data-lc-a="copy">📋 کپی متن</button><button type="button" class="lc-act danger" data-lc-a="del">🗑 حذف پیام</button></div>';
+  bg.addEventListener('click',ev=>{
+   if(ev.target===bg){close();return}
+   const r=ev.target.closest('[data-lc-r]'),a=ev.target.closest('[data-lc-a]');
+   if(r){m.react=m.react===r.dataset.lcR?'':r.dataset.lcR;try{save()}catch(x){}close();renderChatBody();return}
+   if(!a)return;
+   const act=a.dataset.lcA;close();
+   if(act==='reply'){const rb=document.querySelector('#chatBody [data-xreply="'+i+'"]');if(rb)rb.click()}
+   else if(act==='copy'){const t=String(m.text).replace(/<[^>]*>/g,'');try{navigator.clipboard.writeText(t);toast('کپی شد')}catch(x){toast('کپی نشد','error')}}
+   else if(act==='del'){showConfirm('حذف پیام','این پیام حذف بشه؟',()=>{(state.chats[uid]||[]).splice(i,1);try{save()}catch(x){}renderChatBody();toast('پیام حذف شد')})}
+  });
+  document.body.appendChild(bg);
+ },true);
+});
 })();
 
 </script>
 </body>
-                                                                                                                                                    </html>
+                                                                                                                                                                                                                                               </html>
