@@ -2821,10 +2821,301 @@ ok('delete',()=>{
 });
 })();
 </script>
-<script src="extras.js"></script>
-<script src="extras2.js"></script>
-<script src="extras3.js"></script>
-<script src="extras4.js"></script>
-<script src="extras5.js"></script>
+<script data-from="extras.js">
+(function(){
+const ok=(n,f)=>{try{f()}catch(e){console.error('[extras:'+n+']',e)}};
+const mk=(id,t,d)=>{const e=document.createElement('div');e.className='s-item';e.id=id;e.innerHTML='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg><div><h4>'+t+'</h4><p>'+d+'</p></div><span class="arrow">›</span>';return e};
+const add=e=>{const b=document.getElementById('blockedItem');b&&b.parentNode.appendChild(e)};
+const on=(id,f)=>document.addEventListener('click',e=>{if(e.target.closest('#'+id))f(e)});
+ok('css',()=>{const s=document.createElement('style');s.textContent='[data-post]{content-visibility:auto;contain-intrinsic-size:auto 320px}.xcount{font-size:11px;color:var(--muted);direction:ltr;text-align:left;margin-top:4px}.xtour{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:9000;display:flex;align-items:center;justify-content:center;padding:24px}.xtour>div{background:var(--paper);border-radius:16px;padding:22px;max-width:340px;text-align:center}.xtour h3{margin-bottom:8px}.xtour p{font-size:13px;color:var(--ink-2);line-height:2;margin-bottom:16px}.xtour button{background:var(--accent);color:#fff;border-radius:10px;padding:10px 22px;font-weight:700}@media print{nav,.offline-banner{display:none!important}}';document.head.appendChild(s)});
+ok('count',()=>{const t=document.getElementById('postText');if(!t)return;const c=document.createElement('div');c.className='xcount';t.insertAdjacentElement('afterend',c);const u=()=>{const v=t.value.trim();c.textContent=(v?v.split(/\s+/).length:0)+' کلمه · '+t.value.length+' / 2000'};t.addEventListener('input',u);u()});
+ok('trap',()=>document.addEventListener('keydown',e=>{if(e.key!=='Tab')return;const m=document.querySelector('.modal.show,.confirm.show');if(!m)return;const f=[...m.querySelectorAll('button,input,textarea,select,a[href]')].filter(x=>x.offsetParent);if(!f.length)return;const a=f[0],z=f[f.length-1];if(e.shiftKey&&document.activeElement===a){e.preventDefault();z.focus()}else if(!e.shiftKey&&document.activeElement===z){e.preventDefault();a.focus()}}));
+ok('keys',()=>document.addEventListener('keydown',e=>{const t=e.target;if(/INPUT|TEXTAREA|SELECT/.test(t.tagName)||t.isContentEditable||e.ctrlKey||e.metaKey||e.altKey)return;if(e.key==='/'){const s=document.getElementById('searchInput');if(s){e.preventDefault();showPage('search');setTimeout(()=>s.focus(),50)}}else if(e.key==='h')showPage('home')}));
+ok('invite',()=>{add(mk('inviteItem','دعوت دوستان','ارسال لینک لونو به دوستات'));on('inviteItem',()=>{const u=/^https?:/.test(location.href)?location.origin+location.pathname:'https://lunomag.ir',m='بیا توی لونو؛ مجله‌ای برای لحظه‌های تو';if(navigator.share)navigator.share({title:'Lonu',text:m,url:u}).catch(()=>{});else window.open('https://t.me/share/url?url='+encodeURIComponent(u)+'&text='+encodeURIComponent(m),'_blank','noopener')})});
+ok('notif',()=>{const off=()=>localStorage.getItem('luno_notif_off')==='1',an=addNotif;addNotif=function(){if(off())return;return an.apply(this,arguments)};const it=mk('notifPrefItem','اعلان‌ها','');const l=()=>it.querySelector('p').textContent=off()?'خاموش':'روشن';l();add(it);on('notifPrefItem',()=>{localStorage.setItem('luno_notif_off',off()?'0':'1');l()})});
+ok('streak',()=>{const d=new Date().toDateString(),y=new Date(Date.now()-864e5).toDateString();let s;try{s=JSON.parse(localStorage.getItem('luno_streak')||'null')}catch(e){}s=s||{n:0,last:''};if(s.last!==d){s.n=s.last===y?s.n+1:1;s.last=d;localStorage.setItem('luno_streak',JSON.stringify(s))}add(mk('streakItem','رکورد حضور '+(s.n>=30?'🏆':s.n>=7?'🥇':s.n>=3?'🥈':'🌱'),s.n+' روز پشت‌سرهم'))});
+ok('tour',()=>{if(localStorage.getItem('luno_tour')||!localStorage.getItem('luno_user'))return;const st=[['به لونو خوش اومدی','پست و مقاله بخون و بنویس.'],['جستجو و هشتگ','با هشتگ موضوع‌ها رو پیدا کن.'],['حریم خصوصی','از تنظیمات، کلمهٔ بی‌صدا و وضعیت آنلاین رو کنترل کن.']];let i=0;setTimeout(()=>{const o=document.createElement('div');o.className='xtour';const d=()=>{o.innerHTML='<div><h3>'+st[i][0]+'</h3><p>'+st[i][1]+'</p><button>'+(i<2?'بعدی':'شروع')+'</button></div>'};d();o.addEventListener('click',e=>{if(!e.target.closest('button'))return;if(++i<st.length)d();else{localStorage.setItem('luno_tour','1');o.remove()}});document.body.appendChild(o)},1500)});
+})();
+
+</script>
+<script data-from="extras2.js">
+(function(){
+const ok=(n,f)=>{try{f()}catch(e){console.error('[extras2:'+n+']',e)}};
+ok('chatReply',()=>{
+ let pend=null;const bar=document.createElement('div');bar.className='hidden';
+ bar.style.cssText='padding:6px 12px;font-size:12px;color:var(--ink-2);border-top:1px solid var(--line-2);display:flex;gap:8px;align-items:center;background:var(--paper)';
+ bar.innerHTML='<span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"></span><button type="button" aria-label="لغو پاسخ">×</button>';
+ const ib=document.querySelector('#page-chat .chat-inputbar');ib.parentNode.insertBefore(bar,ib);
+ const setP=t=>{pend=t;bar.classList.toggle('hidden',!t);bar.firstChild.textContent=t?'↩ '+t.slice(0,60):''};
+ bar.querySelector('button').addEventListener('click',()=>setP(null));
+ const rb=renderChatBody;renderChatBody=function(){rb.apply(this,arguments);const msgs=state.chats[state.currentChat]||[];
+  document.querySelectorAll('#chatBody .bubble').forEach(b=>{const i=+b.dataset.bubbleIdx,m=msgs[i];if(!m)return;
+   if(m.reply){const q=document.createElement('div');q.style.cssText='font-size:11px;opacity:.75;border-right:3px solid var(--accent);padding:2px 8px;margin-bottom:5px';q.textContent=m.reply;b.insertBefore(q,b.firstChild)}
+   const r=document.createElement('button');r.type='button';r.textContent='↩';r.setAttribute('aria-label','پاسخ');r.dataset.xreply=i;r.style.cssText='position:absolute;top:2px;left:4px;font-size:11px;opacity:.5;padding:2px 4px';b.appendChild(r)})};
+ document.addEventListener('click',e=>{const r=e.target.closest('[data-xreply]');if(!r)return;e.stopPropagation();const m=(state.chats[state.currentChat]||[])[+r.dataset.xreply];if(m){setP(String(m.text).replace(/<[^>]*>/g,''));document.getElementById('chatInput').focus()}},true);
+ const cs=document.getElementById('chatSend');let n0=0;
+ cs.addEventListener('click',()=>{const a=state.chats[state.currentChat];n0=a?a.length:0},true);
+ cs.addEventListener('click',()=>{const a=state.chats[state.currentChat];if(pend&&a&&a.length>n0){a[a.length-1].reply=pend;setP(null);save();renderChatBody()}});
+});
+ok('chatSearch',()=>{
+ const top=document.querySelector('#page-chat .chat-top'),b=document.createElement('button');b.type='button';b.textContent='🔍';b.setAttribute('aria-label','جستجو در چت');b.style.cssText='margin-inline-start:auto;padding:6px';top.appendChild(b);
+ const inp=document.createElement('input');inp.className='hidden';inp.placeholder='جستجو در پیام‌ها...';inp.style.cssText='margin:6px 12px;padding:8px 12px;border:1.5px solid var(--line);border-radius:10px;background:var(--paper)';top.insertAdjacentElement('afterend',inp);
+ const f=()=>{const q=inp.value.trim().toLowerCase();document.querySelectorAll('#chatBody .bubble').forEach(x=>x.style.display=!q||x.textContent.toLowerCase().includes(q)?'':'none')};
+ b.addEventListener('click',()=>{inp.classList.toggle('hidden');if(!inp.classList.contains('hidden'))inp.focus();else{inp.value='';f()}});inp.addEventListener('input',f);
+ const rb=renderChatBody;renderChatBody=function(){rb.apply(this,arguments);f()};
+});
+})();
+
+</script>
+<script data-from="extras3.js">
+(function(){
+const root=typeof window!=='undefined'?window:globalThis;
+const ok=(n,f)=>{try{f()}catch(e){console.error('[extras3:'+n+']',e&&e.message)}};
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+const LS=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
+/* ---- LunoBot v0.2: ruled-based, no network. To upgrade later, replace LunoBot.reply with an async function that calls your backend. ---- */
+const bot=root.LunoBot={id:'lunobot',name:'پرنسس لونو',version:'0.2',
+ rules:[
+  [/اسمم چیه|اسم من چیه|منو می‌شناسی/,()=>{const n=LS('luno_bot_name');return n?'البته! اسمت '+n+' است 👑':'هنوز اسمت رو نگفتی. بنویس «اسمم ...»'}],
+  [/حالت چطوره|چطوری|خوبی\??$/,()=>pick(['من عالی‌ام، ممنون که پرسیدی 🌸 تو چطوری؟','خوبم! امیدوارم تو هم خوب باشی ✨'])],
+  [/صبح بخیر|شب بخیر|عصر بخیر/,()=>{const h=new Date().getHours();return h<5||h>=21?'شب بخیر! خوب بخوابی 🌙':h<12?'صبح بخیر! روز خوبی داشته باشی ☀️':'وقت بخیر! 🌷'}],
+  [/دوستت دارم|عاشقتم|قشنگی|خوشگلی/,()=>pick(['لطف داری 💖','وای، ممنون! تو هم عالی‌ای 👑'])],
+  [/اسمم\s+(.+)/,m=>{const n=m[1].trim().slice(0,30);try{localStorage.setItem('luno_bot_name',n)}catch(e){}return 'خوشبختم '+n+'! از الان اسمت رو یادمه 😊'}],
+  [/سلام|درود|hello|\bhi\b/i,()=>{const n=LS('luno_bot_name');return pick(['سلام'+(n?' '+n:'')+'! من پرنسس لونو هستم 👋','درود'+(n?' '+n:'')+'! چه خبر؟'])}],
+  [/کیستی|کی هستی|اسم تو|اسمت چیه/,()=>'من پرنسس لونو هستم، دستیار آزمایشی لونو 👑 فعلاً با قاعده‌های ساده جواب می‌دم و قراره کم‌کم باهوش‌تر بشم.'],
+  [/ساعت/,()=>'ساعت الان '+new Date().toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'})+' است.'],
+  [/تاریخ|امروز|چندمه/,()=>'امروز '+new Date().toLocaleDateString('fa-IR-u-ca-persian',{weekday:'long',day:'numeric',month:'long',year:'numeric'})+' است.'],
+  [/کمک|راهنما|چه کار|چیکار|help/i,()=>'می‌تونی ازم بپرسی: ساعت، تاریخ، جوک، قابلیت‌های لونو. یا بگو «اسمم ...» تا اسمت رو یادم بمونه.'],
+  [/قابلیت|لونو|برنامه/,()=>'توی لونو می‌تونی پست و مقاله بنویسی، استوری بذاری، چت کنی، پست‌ها رو توی کالکشن ذخیره کنی و با هشتگ جستجو کنی.'],
+  [/جوک|بخند|خنده/,()=>pick(['به برنامه‌نویس گفتن: دو تا شیر بخر، اگه تخم‌مرغ داشتن شش تا بخر. با شش تا شیر برگشت!','چرا برنامه‌نویس‌ها تاریکی رو دوست دارن؟ چون نور باگ جذب می‌کنه 🐛'])],
+  [/مرسی|ممنون|thanks/i,()=>'خواهش می‌کنم 🌸'],
+  [/خداحافظ|بای|bye/i,()=>'به امید دیدار! 👋']],
+ fallback:t=>pick(['هنوز یاد نگرفتم دربارهٔ این جواب بدم. «کمک» رو امتحان کن.','جالبه! بیشتر توضیح بده، یا بنویس «کمک».','این رو متوجه نشدم؛ من هنوز نسخهٔ خیلی ساده‌ام.']),
+ async reply(text){for(const [re,fn] of this.rules){const m=text.match(re);if(m)return fn(m)}return this.fallback(text)}
+};
+ok('wire',()=>{
+ const AV='data:image/svg+xml;utf8,'+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#e0427e"/><text x="50" y="68" font-size="52" text-anchor="middle">🤖</text></svg>');
+ const eu=extractRealUsers;extractRealUsers=function(){const a=eu.apply(this,arguments);if(!a.some(u=>u.id===bot.id))a.unshift({id:bot.id,name:bot.name,avatar:AV,bio:'دستیار آزمایشی لونو',city:'',job:'',link:'',online:true,posts:0,friends:0});return a};
+ if(!state.friends.includes(bot.id)){state.friends.push(bot.id);try{save()}catch(e){}}
+ const oc=openChat;openChat=function(uid){if(uid===bot.id&&!(state.chats[uid]||[]).length){state.chats[uid]=[{from:'them',text:'سلام عزیزم 🌸 منم پرنسس لونو! خوشحالم اومدی. چطوری؟',time:new Date().toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'})}];try{save()}catch(e){}}return oc.apply(this,arguments)};
+ const cs=document.getElementById('chatSend'),inp=document.getElementById('chatInput');let txt='';
+ cs.addEventListener('click',()=>{txt=inp.value.trim()},true);
+ cs.addEventListener('click',()=>{if(state.currentChat!==bot.id||!txt)return;const q=txt;txt='';const st=document.getElementById('chatStatus');if(st)st.textContent='در حال نوشتن...';
+  setTimeout(async()=>{let r;try{r=await bot.reply(q,{chat:state.chats[bot.id]})}catch(e){r='وای، یه لحظه گیج شدم 😅 دوباره بگو؟'}await new Promise(z=>setTimeout(z,Math.min(2600,500+String(r).length*45)));
+   (state.chats[bot.id]=state.chats[bot.id]||[]).push({from:'them',text:String(r),time:new Date().toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'})});
+   try{save()}catch(e){}if(st&&state.currentChat===bot.id)st.textContent='آنلاین';if(state.currentChat===bot.id)renderChatBody()},300)});
+ const b=document.getElementById('blockedItem');if(b){const it=document.createElement('div');it.className='s-item';it.id='botItem';it.innerHTML='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg><div><h4>چت با پرنسس لونو</h4><p>دستیار آزمایشی برای تست پیام‌ها</p></div><span class="arrow">›</span>';b.parentNode.appendChild(it);
+  document.addEventListener('click',e=>{if(e.target.closest('#botItem'))openChat(bot.id)})}
+});
+})();
+
+</script>
+<script data-from="extras4.js">
+(function(){
+const ok=(n,f)=>{try{f()}catch(e){console.error('[extras4:'+n+']',e&&e.message)}};
+const mk=(id,t,d)=>{const e=document.createElement('div');e.className='s-item';e.id=id;e.innerHTML='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg><div><h4>'+t+'</h4><p>'+d+'</p></div><span class="arrow">›</span>';return e};
+const add=e=>{const b=document.getElementById('blockedItem');b&&b.parentNode.appendChild(e)};
+const on=(id,f)=>document.addEventListener('click',e=>{if(e.target.closest('#'+id))f(e)});
+ok('css',()=>{const s=document.createElement('style');s.textContent='.xchip{background:var(--accent-soft);color:var(--accent);border-radius:20px;padding:3px 10px;font-size:11.5px;font-weight:700}.xbtn{padding:6px 12px;border:1px solid var(--line);border-radius:10px;font-size:12px}';document.head.appendChild(s)});
+ok('csort',()=>{const h=document.querySelector('#commentModal .modal-head'),b=document.createElement('button');b.type='button';b.className='xbtn';b.style.marginInlineStart='auto';let nw=false;const lab=()=>b.textContent=nw?'جدیدترین':'قدیمی‌ترین';lab();h.insertBefore(b,h.querySelector('.modal-close'));
+ const oc=openComments;openComments=function(){oc.apply(this,arguments);const body=document.getElementById('commentsBody');if(nw)[...body.querySelectorAll(':scope>.comment-row')].reverse().forEach(r=>body.appendChild(r))};
+ b.addEventListener('click',()=>{nw=!nw;lab();if(state.currentPostId)openComments(state.currentPostId)})});
+ok('article',()=>{const w=document.getElementById('artCoverWrap');if(!w)return;const bar=document.createElement('div');bar.style.cssText='display:flex;gap:8px;padding:10px 14px';
+ bar.innerHTML='<button type="button" id="xRead" class="xbtn">🔊 خواندن با صدا</button><button type="button" id="xPrint" class="xbtn">🖨️ چاپ</button>';w.insertAdjacentElement('afterend',bar);
+ const ss=window.speechSynthesis,rd=document.getElementById('xRead'),L='🔊 خواندن با صدا';
+ rd.addEventListener('click',()=>{if(!ss){toast('مرورگرت خواندن با صدا رو پشتیبانی نمی‌کنه','error');return}if(ss.speaking){ss.cancel();rd.textContent=L;return}
+  const u=new SpeechSynthesisUtterance(((document.getElementById('artTitle').textContent||'')+'. '+document.getElementById('artBody').textContent).slice(0,8000));u.lang='fa-IR';u.onend=u.onerror=()=>rd.textContent=L;rd.textContent='⏹ توقف';ss.speak(u)});
+ document.getElementById('xPrint').addEventListener('click',()=>window.print());
+ const sp=showPage;showPage=function(id){if(ss&&ss.speaking&&id!=='article'){ss.cancel();rd.textContent=L}return sp.apply(this,arguments)}});
+ok('profile',()=>{const J=k=>{try{return JSON.parse(localStorage.getItem(k)||'null')}catch(e){return null}};
+ const chips=()=>{const bio=document.getElementById('myBio');if(!bio)return;let c=document.getElementById('xChips');if(!c){c=document.createElement('div');c.id='xChips';c.style.cssText='display:flex;flex-wrap:wrap;gap:6px;margin-top:8px';bio.insertAdjacentElement('afterend',c)}
+  const st=localStorage.getItem('luno_status'),it=J('luno_interests')||[];c.innerHTML=(st?'<span class="xchip">'+esc(st)+'</span>':'')+it.map(x=>'<span class="xchip">#'+esc(x)+'</span>').join('')};
+ const rm=renderMyProfile;renderMyProfile=function(){const r=rm.apply(this,arguments);chips();return r};
+ add(mk('interestsItem','علایق من','تا ۸ علاقه؛ توی پروفایلت نمایش داده می‌شه'));add(mk('statusItem2','وضعیت کوتاه','یه ایموجی و چند کلمه'));
+ on('interestsItem',()=>{const v=prompt('علایق رو با ویرگول جدا کن',(J('luno_interests')||[]).join('، '));if(v===null)return;localStorage.setItem('luno_interests',JSON.stringify(v.split(/[,،]/).map(s=>s.trim().slice(0,20)).filter(Boolean).slice(0,8)));chips();toast('ذخیره شد')});
+ on('statusItem2',()=>{const v=prompt('وضعیتت چیه؟ (خالی = حذف)',localStorage.getItem('luno_status')||'');if(v===null)return;v.trim()?localStorage.setItem('luno_status',v.trim().slice(0,40)):localStorage.removeItem('luno_status');chips();toast('ذخیره شد')})});
+ok('tstory',()=>{add(mk('tstoryItem','استوری متنی','نوشته روی پس‌زمینهٔ رنگی'));
+ on('tstoryItem',()=>{if(!state.user)return;const st=JSON.parse(localStorage.getItem('luno_stories')||'{}'),ex=st[state.user.phone];if(ex&&Date.now()-ex.createdAt<864e5){toast('فقط یک استوری در ۲۴ ساعت مجاز است','error');return}
+  const t=prompt('متن استوری (حداکثر ۱۲۰ حرف)');if(!t||!t.trim())return;const cv=document.createElement('canvas');cv.width=600;cv.height=1000;const c=cv.getContext('2d');
+  const G=[['#e0427e','#7c3aed'],['#f59e0b','#ef4444'],['#06b6d4','#3b82f6'],['#10b981','#14b8a6']][Math.floor(Math.random()*4)],g=c.createLinearGradient(0,0,600,1000);g.addColorStop(0,G[0]);g.addColorStop(1,G[1]);c.fillStyle=g;c.fillRect(0,0,600,1000);
+  c.fillStyle='#fff';c.font='700 44px Vazirmatn,Tahoma,sans-serif';c.textAlign='center';c.direction='rtl';const ln=[];let cur='';t.trim().slice(0,120).split(/\s+/).forEach(w=>{const n=cur?cur+' '+w:w;if(c.measureText(n).width>520&&cur){ln.push(cur);cur=w}else cur=n});ln.push(cur);
+  ln.forEach((l,i)=>c.fillText(l,300,500-(ln.length-1)*34+i*68));st[state.user.phone]={image:cv.toDataURL('image/jpeg',.75),createdAt:Date.now()};
+  try{localStorage.setItem('luno_stories',JSON.stringify(st));renderStories();toast('استوری منتشر شد')}catch(e){toast('حافظه پر است','error')}})});
+ok('discover',()=>{const m=document.createElement('div');m.className='modal';m.id='xDisc';m.innerHTML='<div class="modal-box"><div class="modal-head"><h3>کشف آدم‌ها</h3><button class="modal-close" data-close>×</button></div><div class="modal-body" id="xDiscBody" style="text-align:center"></div></div>';document.body.appendChild(m);
+ let q=[];const body=m.querySelector('#xDiscBody');
+ const act=a=>{const u=q.shift();if(a==='add'&&u)sendChatRequest(u.id);next()};
+ const next=()=>{const u=q[0];if(!u){body.innerHTML='<p style="padding:30px 0;color:var(--muted)">فعلاً کسی برای نمایش نیست</p>';return}
+  body.innerHTML='<div id="xCard" style="touch-action:pan-y;padding:22px 12px;border:1px solid var(--line);border-radius:16px;background:var(--paper);transition:transform .2s"><img src="'+u.avatar+'" alt="" style="width:96px;height:96px;border-radius:50%;margin:0 auto 10px;object-fit:cover"><h3>'+esc(u.name)+'</h3><p style="color:var(--muted);font-size:12.5px;margin:6px 0">'+esc([u.job,u.city].filter(Boolean).join(' · '))+'</p><p style="font-size:13px;line-height:1.9">'+esc(u.bio||'')+'</p></div><div style="display:flex;gap:10px;justify-content:center;margin-top:14px"><button type="button" data-xd="skip" class="xbtn">رد کردن</button><button type="button" data-xd="add" style="padding:8px 20px;background:var(--accent);color:#fff;border-radius:12px;font-weight:700">دوستی</button></div>';
+  const cd=body.querySelector('#xCard');let x0=null,dx=0;cd.addEventListener('pointerdown',e=>{x0=e.clientX;cd.setPointerCapture(e.pointerId);cd.style.transition='none'});
+  cd.addEventListener('pointermove',e=>{if(x0===null)return;dx=e.clientX-x0;cd.style.transform='translateX('+dx+'px) rotate('+dx/20+'deg)'});
+  cd.addEventListener('pointerup',()=>{cd.style.transition='';const d=dx;x0=null;dx=0;if(Math.abs(d)>90)act(d>0?'add':'skip');else cd.style.transform=''})};
+ body.addEventListener('click',e=>{const b=e.target.closest('[data-xd]');if(b)act(b.dataset.xd)});
+ add(mk('discItem','کشف آدم‌ها','کارت‌های کشیدنی؛ راست = دوستی، چپ = رد'));
+ on('discItem',()=>{q=extractRealUsers().filter(u=>u.id!=='lunobot'&&!isFriend(u.id)&&!isPending(u.id));next();m.classList.add('show')})});
+})();
+
+</script>
+<script data-from="extras5.js">
+(function(){
+const root=typeof window!=='undefined'?window:globalThis;
+const ok=(n,f)=>{try{f()}catch(e){console.error('[extras5:'+n+']',e&&e.message)}};
+const mk=(id,t,d)=>{const e=document.createElement('div');e.className='s-item';e.id=id;e.innerHTML='<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/></svg><div><h4>'+t+'</h4><p>'+d+'</p></div><span class="arrow">›</span>';return e};
+const add=e=>{const b=document.getElementById('blockedItem');b&&b.parentNode.appendChild(e)};
+const on=(id,f)=>document.addEventListener('click',e=>{if(e.target.closest('#'+id))f(e)});
+const me=()=>state.user&&state.user.phone;
+ok('css',()=>{const s=document.createElement('style');s.textContent='.xpoll{margin:8px 14px 12px;display:flex;flex-direction:column;gap:6px}.xpo-b{position:relative;overflow:hidden;display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border:1px solid var(--line);border-radius:10px;font-size:13px;text-align:right}.xpo-b.on{border-color:var(--accent)}.xbar{position:absolute;inset:0 auto 0 0;background:var(--accent-soft);transition:width .4s}.xpo-b>span.xl,.xpo-b>b{position:relative}';document.head.appendChild(s)});
+ok('dedupe',()=>document.querySelectorAll('.xcount').forEach(e=>e.remove()));
+ok('poll',()=>{
+ const t=document.getElementById('postText'),box=document.createElement('div');box.style.margin='8px 0';
+ box.innerHTML='<button type="button" id="xPollTg" class="xbtn" style="padding:6px 12px;border:1px solid var(--line);border-radius:10px;font-size:12px">📊 افزودن نظرسنجی</button><div id="xPollF" class="hidden" style="margin-top:8px;display:flex;flex-direction:column;gap:6px">'+[1,2,3,4].map(i=>'<input class="field xpo" maxlength="40" placeholder="گزینهٔ '+i+(i>2?' (اختیاری)':'')+'">').join('')+'</div>';
+ t.insertAdjacentElement('afterend',box);document.getElementById('xPollTg').addEventListener('click',()=>document.getElementById('xPollF').classList.toggle('hidden'));
+ const pct=(p,i)=>{const s=p.poll.opts.reduce((a,o)=>a+o.v,0);return s?Math.round(p.poll.opts[i].v*100/s):0};
+ const ph=p=>{const v=(p.poll.voted||{})[me()];return '<div class="xpoll" data-xpollbox="'+p.id+'">'+p.poll.opts.map((o,i)=>'<button type="button" class="xpo-b'+(v===i?' on':'')+'" data-xpoll="'+p.id+'" data-i="'+i+'"><span class="xbar" style="width:'+(v!==undefined?pct(p,i):0)+'%"></span><span class="xl">'+esc(o.t)+'</span>'+(v!==undefined?'<b>'+pct(p,i).toLocaleString('fa-IR')+'٪</b>':'')+'</button>').join('')+'</div>'};
+ const rp=renderPost;renderPost=function(p){const h=rp.apply(this,arguments);return p&&p.poll&&h?h.replace(/<\/div>\s*$/,ph(p)+'</div>'):h};
+ document.addEventListener('click',e=>{const b=e.target.closest('[data-xpoll]');if(!b)return;e.stopPropagation();const p=state.posts.find(x=>x.id===b.dataset.xpoll);if(!p||!p.poll||!me())return;p.poll.voted=p.poll.voted||{};
+  if(p.poll.voted[me()]!==undefined){toast('قبلاً رأی دادی','error');return}const i=+b.dataset.i;p.poll.opts[i].v++;p.poll.voted[me()]=i;save();b.closest('[data-xpollbox]').outerHTML=ph(p)},true);
+ const pb=document.getElementById('publishBtn');let first=null,opts=[];
+ pb.addEventListener('click',()=>{first=state.posts[0]&&state.posts[0].id;opts=[...document.querySelectorAll('.xpo')].map(i=>i.value.trim()).filter(Boolean)},true);
+ pb.addEventListener('click',()=>{if(opts.length<2)return;const o=opts.slice();let n=0;const iv=setInterval(()=>{const p=state.posts[0];
+  if(p&&p.id!==first&&p.authorId===me()){clearInterval(iv);p.poll={opts:o.map(x=>({t:x,v:0})),voted:{}};save();document.querySelectorAll('.xpo').forEach(i=>i.value='');document.getElementById('xPollF').classList.add('hidden');try{renderHome()}catch(e){}}else if(++n>15)clearInterval(iv)},150)});
+});
+ok('friendsOnly',()=>{let inH=false;const f1=()=>localStorage.getItem('luno_friends_only')==='1';
+ const rh=renderHome;renderHome=function(){inH=true;try{return rh.apply(this,arguments)}finally{inH=false;const f=document.getElementById('feed');if(f1()&&f&&!f.querySelector('[data-post]'))f.innerHTML=emptyState('هنوز پستی از دوستانت نیست','users')}};
+ const rp=renderPost;renderPost=function(p){if(inH&&f1()&&p&&p.authorId!==me()&&!isFriend(p.authorId))return'';return rp.apply(this,arguments)};
+ const it=mk('fonlyItem','فید فقط دوستان','');const l=()=>it.querySelector('p').textContent=f1()?'روشن؛ فقط پست دوستان و خودت':'خاموش؛ همهٔ پست‌ها';l();add(it);
+ on('fonlyItem',()=>{localStorage.setItem('luno_friends_only',f1()?'0':'1');l();try{renderHome()}catch(e){}})});
+ok('pin',()=>{const J=()=>{try{return JSON.parse(localStorage.getItem('luno_chat_pins')||'[]')}catch(e){return[]}};
+ const uid=r=>{const x=r.querySelector('[data-user]');return x&&x.dataset.user};
+ const rf=renderFriends;renderFriends=function(){const r=rf.apply(this,arguments);const w=document.getElementById('friendsList');if(!w||state.friendTab!=='friends')return r;const pins=J();
+  [...w.querySelectorAll('.user-row')].forEach(row=>{const id=uid(row);if(!id)return;const b=document.createElement('button');b.type='button';b.dataset.xpin=id;b.textContent=pins.includes(id)?'📌':'📍';b.setAttribute('aria-label','سنجاق چت');b.style.padding='4px';row.appendChild(b)});
+  pins.slice().reverse().forEach(id=>{const row=[...w.querySelectorAll('.user-row')].find(x=>uid(x)===id);if(row)w.insertBefore(row,w.firstChild)});return r};
+ document.addEventListener('click',e=>{const b=e.target.closest('[data-xpin]');if(!b)return;e.stopPropagation();const id=b.dataset.xpin;let p=J();p=p.includes(id)?p.filter(x=>x!==id):[id,...p];localStorage.setItem('luno_chat_pins',JSON.stringify(p));renderFriends()},true)});
+ok('birth',()=>{const M=['فروردین','اردیبهشت','خرداد','تیر','مرداد','شهریور','مهر','آبان','آذر','دی','بهمن','اسفند'];
+ const nd=s=>s.replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)).replace(/[٠-٩]/g,d=>'٠١٢٣٤٥٦٧٨٩'.indexOf(d));
+ const lab=()=>{const v=localStorage.getItem('luno_birth');if(!v)return'';const [,m,d]=v.split('/').map(Number);return M[m-1]?'🎂 '+d.toLocaleString('fa-IR')+' '+M[m-1]:''};
+ const rm=renderMyProfile;renderMyProfile=function(){const r=rm.apply(this,arguments);const c=document.getElementById('xChips'),l=lab();if(c&&l){const s=document.createElement('span');s.className='xchip';s.textContent=l;c.appendChild(s)}return r};
+ add(mk('birthItem','تاریخ تولد','ماه و روز تولد روی پروفایلت دیده می‌شه'));
+ on('birthItem',()=>{const v=prompt('تاریخ تولد شمسی، مثل ۱۳۸۰/۰۷/۱۵ (خالی = حذف)',localStorage.getItem('luno_birth')||'');if(v===null)return;const s=nd(v.trim());if(!s){localStorage.removeItem('luno_birth');try{renderMyProfile()}catch(e){}return}
+  const m=s.match(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})$/);if(!m||+m[2]<1||+m[2]>12||+m[3]<1||+m[3]>31){toast('فرمت درست نیست','error');return}localStorage.setItem('luno_birth',+m[1]+'/'+(+m[2])+'/'+(+m[3]));try{renderMyProfile()}catch(e){}toast('ذخیره شد')})});
+ok('bot',()=>{const B=root.LunoBot;if(!B)return;B.version='0.3';const K='luno_bot_notes',g=()=>{try{return JSON.parse(localStorage.getItem(K)||'[]')}catch(e){return[]}};
+ B.rules.unshift(
+  [/یادم بنداز\s+(.+)/,m=>{const a=g();a.push(m[1].trim().slice(0,100));const b=a.slice(-20);localStorage.setItem(K,JSON.stringify(b));return 'یادداشت شد 📝 ('+b.length.toLocaleString('fa-IR')+' یادداشت)'}],
+  [/پاک.*یادداشت/,()=>{localStorage.removeItem(K);return 'همهٔ یادداشت‌ها پاک شد 🧹'}],
+  [/یادداشت‌?ها|لیست یادداشت/,()=>{const a=g();return a.length?'یادداشت‌هات: '+a.map((x,i)=>(i+1).toLocaleString('fa-IR')+') '+x).join('؛ '):'هنوز یادداشتی نداری. بنویس «یادم بنداز ...»'}],
+  [/نظرسنجی|کشف|استوری متنی/,()=>'توی نسخهٔ جدید لونو می‌تونی نظرسنجی بذاری، آدم‌ها رو با کارت‌های کشیدنی کشف کنی و استوری متنی بسازی. توی تنظیمات و ادیتور پست پیداشون می‌کنی.'])});
+})();
+
+</script>
+<script data-from="extras6.js">
+(function(){
+const root=typeof window!=='undefined'?window:globalThis;
+const ok=(n,f)=>{try{f()}catch(e){console.error('[extras6:'+n+']',e&&e.message)}};
+const LS=k=>{try{return localStorage.getItem(k)}catch(e){return null}};
+const last={};const pick=a=>{const k=a.join('|'),c=a.filter(x=>x!==last[k]),x=(c.length?c:a)[Math.floor(Math.random()*(c.length?c:a).length)];last[k]=x;return x};
+const nm=()=>LS('luno_bot_name'),nn=()=>nm()?' '+nm():'';
+const fa=n=>Number(n).toLocaleString('fa-IR');
+ok('persona',()=>{const B=root.LunoBot;if(!B)return;B.version='0.4';const NK='luno_bot_notes',gn=()=>{try{return JSON.parse(LS(NK)||'[]')}catch(e){return[]}};
+ const R=[
+  [/خودکشی|خودم رو بکشم|می‌خوام بمیرم|نمی‌خوام زنده باشم|دیگه نمی‌خوام ادامه بدم/,()=>'عزیزم، دلم برات می‌لرزه. تنها نباش، همین الان با یکی از آدم‌های نزدیکت حرف بزن. اگه حس می‌کنی در خطری، با اورژانس اجتماعی ۱۲۳ یا اورژانس ۱۱۵ تماس بگیر. من هم اینجام و گوش می‌دم 💗'],
+  [/یادم بنداز\s+(.+)/,m=>{const a=gn();a.push(m[1].trim().slice(0,100));const b=a.slice(-20);localStorage.setItem(NK,JSON.stringify(b));return pick(['باشه، نوشتمش 📝','چشم، یادم می‌مونه ✨'])+' ('+fa(b.length)+' تا یادداشت دارم)'}],
+  [/پاک.*یادداشت/,()=>{localStorage.removeItem(NK);return 'همه رو پاک کردم 🧹'}],
+  [/یادداشت‌?ها|لیست یادداشت/,()=>{const a=gn();return a.length?'اینا رو نوشتم: '+a.map((x,i)=>fa(i+1)+') '+x).join('؛ '):'هنوز چیزی ننوشتم! بگو «یادم بنداز ...» 😊'}],
+  [/اسمم چیه|اسم من چیه|منو می‌شناسی/,()=>nm()?'معلومه که می‌شناسمت، '+nm()+' جون 💕':'هنوز اسمت رو نگفتی! بگو ببینم؟'],
+  [/اسمم\s+(.+)/,m=>{const n=m[1].trim().slice(0,30);localStorage.setItem('luno_bot_name',n);return pick(['وای چه اسم قشنگی! خوشبختم '+n+' جون 💕',n+'؟ چه اسم خوشگلی، حتماً یادم می‌مونه 🌸'])}],
+  [/ربات|هوش مصنوعی|آدم(ی| هستی)|واقعی|\bai\b|\bbot\b/i,()=>'راستش من یه شخصیت مجازی‌ام، پرنسس داستانیِ لونو 👑 آدم واقعی نیستم، ولی سعی می‌کنم مثل یه دوست باهات حرف بزنم. بد نیست؟ 😊'],
+  [/کیستی|کی هستی|اسمت چیه|خودت رو معرفی/,()=>'منم پرنسس لونو 👑 توی یه قصر کوچیک وسط لونو زندگی می‌کنم و عاشق مجله و گپ زدنم. تو چی؟'],
+  [/ناراحت|غمگین|دلم گرفته|حالم بد|گریه|تنهام/,()=>pick(['ای جانم 🫂 بیا اینجا. چی شده؟ بگو برام، گوش می‌دم.','دلم گرفت برات. اگه دوست داری تعریف کن، عجله‌ای نیست 💗'])],
+  [/خسته‌ام|خسته ام|خوابم میاد|بی‌حوصله/,()=>pick(['آخی، یه چایی داغ بخور و یه ذره استراحت کن ☕ حقته.','خسته‌ای؟ امروز خیلی دویدی احتمالاً. چند دقیقه چشمات رو ببند 🌙'])],
+  [/خوشحالم|خوشحال|عالی بود|خوب بود|برنده|قبول شدم|موفق/,()=>pick(['وااای عاشق همین خبرم! 🥰 تعریف کن ببینم!','چه خوب! دلم برات شاد شد 🎉 بیشتر بگو!'])],
+  [/دوستت دارم|عاشقتم|قشنگی|خوشگلی|ناز/,()=>pick(['وای خجالت کشیدم 🙈 تو لطف داری!','آخ دلم 💖 تو هم خیلی مهربونی'])],
+  [/سلام|درود|hello|\bhi\b/i,()=>{const h=new Date().getHours();return pick(['سلام'+nn()+' جونم 🌸 چه خبر؟','سلام'+nn()+'! اتفاقاً داشتم به تو فکر می‌کردم 😄','هی'+nn()+'! خوش اومدی ✨'])+(h<5?' این وقت شب بیداری؟ 🌙':'')}],
+  [/صبح بخیر|شب بخیر|عصر بخیر/,()=>{const h=new Date().getHours();return h<5||h>=21?'شب بخیر عزیزم، خوب بخوابی و خواب‌های قشنگ ببینی 🌙':h<12?'صبح بخیر! امیدوارم روز قشنگی داشته باشی ☀️':'وقت بخیر! 🌷'}],
+  [/حالت چطوره|چطوری|خوبی\??$|چه خبر/,()=>pick(['من خوبم! الان یه چایی دارم و دارم استوری‌ها رو می‌بینم ☕ تو چی؟','خوبم عزیزم، ممنون که پرسیدی 🌸 امروز چطور بود؟','هیچی، تو قصر بودم و حوصله‌ام سر رفته بود. خوب شد اومدی 😄'])],
+  [/چیکار می‌کنی|چی کار می‌کنی|مشغولی|مشغول چی/,()=>pick(['داشتم تو باغ قصر قدم می‌زدم 🌷 تو چی؟','هیچی، یه مقالهٔ لونو می‌خوندم. تو؟'])],
+  [/ساعت/,()=>'ساعت الان '+new Date().toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'})+' است ⏰'],
+  [/تاریخ|امروز|چندمه/,()=>'امروز '+new Date().toLocaleDateString('fa-IR-u-ca-persian',{weekday:'long',day:'numeric',month:'long'})+' است 📅'],
+  [/جوک|بخند|خنده/,()=>pick(['به برنامه‌نویس گفتن دو تا شیر بخر، اگه تخم‌مرغ داشتن شش تا بخر. با شش تا شیر برگشت 😂','می‌دونی چرا پرنسس‌ها همیشه دیر می‌رسن؟ چون تاج‌شون رو گم می‌کنن 👑😅'])],
+  [/غذا|رنگ|فیلم|کتاب|موسیقی|آهنگ/,()=>pick(['من عاشق رنگ صورتی‌ام و شیرینی‌های خونگی 🍰 تو چی دوست داری؟','آخ این رو دوست دارم! من کتاب و آهنگ‌های آروم رو ترجیح می‌دم 🎧 تو چی؟'])],
+  [/نظرسنجی|کشف|استوری متنی|قابلیت|لونو|برنامه/,()=>'توی لونو می‌تونی پست و مقاله بنویسی، استوری بذاری، نظرسنجی بسازی و با کارت‌ها آدم‌های جدید کشف کنی. بعضی‌هاش توی تنظیمات قایمه 😉'],
+  [/کمک|راهنما|help/i,()=>'هر چی دلت خواست بگو! می‌تونی «اسمم ...» بگی یا «یادم بنداز ...» تا برات یادداشت کنم. یا فقط گپ بزنیم 🌸'],
+  [/مرسی|ممنون|thanks/i,()=>pick(['قربونت 🌸','خواهش می‌کنم عزیزم 💕'])],
+  [/خداحافظ|بای|فعلاً|bye/i,()=>pick(['برو به سلامت، دلم برات تنگ می‌شه 🌷','فعلاً عزیزم! زود برگرد 👋'])],
+  [/^(آره|اره|بله|اوهوم|آرهh)[.!؟]*$/,()=>pick(['خب بعدش؟ 😄','جدی؟ بیشتر بگو!'])],
+  [/^(نه|نخیر|نچ)[.!؟]*$/,()=>pick(['اوه، باشه. چرا؟','باشه عزیزم، هرجور راحتی 🙂'])],
+  [/^(باشه|اوکی|ok|okay)[.!؟]*$/i,()=>pick(['باشه 😊','اوکی عزیزم 🌸'])],
+  [/😂|🤣|هه+|خخ+|ههه/,()=>pick(['😂 خنده‌ام گرفت!','هههه چقدر خوب 😄'])]
+ ];
+ B.rules.length=0;R.forEach(r=>B.rules.push(r));
+ B.fallback=t=>t.trim().length<6?pick(['هوم؟ 🤔','آها... ادامه بده 🙂']):/[؟?]/.test(t)?pick(['سوال سختیه 😅 من هنوز همه‌چی بلد نیستم. تو نظرت چیه؟','هوم، نمی‌دونم! خودت چی فکر می‌کنی؟']):pick(['آها، جالبه! بیشتر بگو 🌸','می‌فهمم... چرا این رو می‌گی؟','وای جدی؟ تعریف کن برام 😊'])});
+ok('album',()=>{const t=document.getElementById('preview');if(!t)return;let ex=[];
+ const s=document.createElement('style');s.textContent='.xalbum{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:6px;padding:0 14px 8px}.xalbum img{flex:0 0 85%;scroll-snap-align:center;border-radius:10px;max-height:340px;object-fit:cover}.xalbum-l{font-size:11px;color:var(--muted);padding:2px 14px}.xthumbs{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}.xthumbs img{width:54px;height:54px;object-fit:cover;border-radius:8px}';document.head.appendChild(s);
+ const w=document.createElement('div');w.innerHTML='<label class="xbtn" style="display:inline-block;padding:6px 12px;border:1px solid var(--line);border-radius:10px;font-size:12px;cursor:pointer">🖼️ عکس‌های بیشتر (تا ۳)<input type="file" id="xMore" accept="image/*" multiple hidden></label><div class="xthumbs" id="xThumbs"></div>';t.insertAdjacentElement('afterend',w);
+ const draw=()=>{document.getElementById('xThumbs').innerHTML=ex.map((x,i)=>'<img src="'+x+'" alt="" data-xrm="'+i+'">').join('')};
+ document.getElementById('xMore').addEventListener('change',async function(){for(const f of [...this.files].slice(0,3-ex.length)){try{ex.push(await compressImage(f,900,0.6))}catch(e){toast('خطا در پردازش تصویر','error')}}this.value='';draw()});
+ document.getElementById('xThumbs').addEventListener('click',e=>{const i=e.target.dataset&&e.target.dataset.xrm;if(i!==undefined){ex.splice(+i,1);draw()}});
+ const pb=document.getElementById('publishBtn');let first=null,imgs=[];
+ pb.addEventListener('click',()=>{first=state.posts[0]&&state.posts[0].id;imgs=ex.slice()},true);
+ pb.addEventListener('click',()=>{const p=state.posts[0];if(imgs.length&&p&&p.id!==first&&p.image){p.images=imgs;try{save()}catch(e){}ex=[];draw();try{renderHome()}catch(e){}}});
+ const rp=renderPost;renderPost=function(p){const h=rp.apply(this,arguments);return p&&p.images&&p.images.length&&h?h.replace('<div class="post-actions">','<div class="xalbum-l">آلبوم · '+fa(p.images.length)+' عکس دیگه ←</div><div class="xalbum">'+p.images.map(x=>'<img src="'+x+'" alt="" loading="lazy">').join('')+'</div><div class="post-actions">'):h}});
+})();
+
+</script>
+<script id="lunofix">
+/* lunofix v3 — فقط چیزهایی که توی extras نبود: تب «دوستان» + نمایش چت بات در پیام‌ها */
+(function(){
+const ok=(n,f)=>{try{f()}catch(e){console.error('[lunofix:'+n+']',e)}};
+const fa=n=>Number(n).toLocaleString('fa-IR');
+const nowT=()=>new Date().toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'});
+
+/* ---------- ۱) چت بات توی تب «پیام‌ها» دیده بشه + پیام آپدیت ---------- */
+ok('botchat',()=>{
+ const B=window.LunoBot;if(!B)return;
+ const ID=B.id;
+ // بات فقط وقتی چتش پر باشه توی لیست پیام‌ها میاد؛ پس پیام خوش‌آمد رو از اول می‌ذاریم
+ const chats=state.chats;
+ if(!chats[ID]||!chats[ID].length)chats[ID]=[{from:'them',text:'سلام عزیزم 🌸 منم پرنسس لونو! خوشحالم اومدی. چطوری؟',time:nowT()}];
+ // هر بار نسخهٔ بات بالا بره، خود بات خبر می‌ده
+ const K='luno_bot_seen_ver',seen=localStorage.getItem(K);
+ if(seen&&seen!==B.version){
+  chats[ID].push({from:'them',text:'✨ من آپدیت شدم! نسخهٔ '+B.version+' آماده است. بنویس «کمک» تا ببینی چی یاد گرفتم.',time:nowT()});
+  try{addNotif('پرنسس لونو آپدیت شد (نسخهٔ '+B.version+')')}catch(e){}
+ }
+ localStorage.setItem(K,B.version);
+ try{save()}catch(e){}
+ // اگه به هر دلیلی لیست پیام‌ها خالی موند، ردیف بات رو دستی نشون بده
+ const _rn=renderNotifs;
+ renderNotifs=function(){
+  try{_rn.apply(this,arguments)}catch(e){console.error('[renderNotifs]',e)}
+  if(state.notifTab!=='chats')return;
+  const w=document.getElementById('notifsList');
+  if(w&&!w.innerHTML.trim()){
+   const u=extractRealUsers().find(x=>x.id===ID),m=state.chats[ID]||[],l=m[m.length-1];
+   if(u)w.innerHTML=`<div class="chat-row"><img src="${u.avatar}" alt="" data-chat="${ID}"><div class="chat-row-info" data-chat="${ID}"><h4>${esc(u.name)}</h4><p>${l?esc(l.text):''}</p></div><span class="chat-row-time">${l?esc(l.time||''):''}</span></div>`;
+  }
+ };
+});
+
+/* ---------- ۲) تب «دوستان» توی فید ---------- */
+ok('friendsfeed',()=>{
+ const tabs=document.querySelector('#page-home .tabs-scroll');
+ if(tabs&&!tabs.querySelector('[data-feed="friends"]')){
+  const b=document.createElement('button');b.className='tab';b.dataset.feed='friends';b.textContent='دوستان';tabs.appendChild(b);
+ }
+ const _rh=renderHome;
+ renderHome=function(){
+  if(state.feedFilter!=='friends')return _rh.apply(this,arguments);
+  const all=state.posts;
+  state.posts=all.filter(p=>p.authorId&&isFriend(p.authorId)&&p.authorId!==(window.LunoBot&&window.LunoBot.id));
+  state.feedFilter='newest';
+  try{_rh.apply(this,arguments)}finally{state.posts=all;state.feedFilter='friends'}
+  if(!document.querySelector('#feed [data-post]')){
+   const real=state.friends.filter(f=>f!==(window.LunoBot&&window.LunoBot.id)).length;
+   document.getElementById('feed').innerHTML=emptyState(real?'دوستانت هنوز پستی نذاشتن':'هنوز دوستی نداری. چند نفر رو اضافه کن تا پستاشون اینجا بیاد','users','رفتن به دوستان','go-friends','پست دوستان');
+  }
+ };
+});
+})();
+
+</script>
 </body>
-                                                                                                                                                                                                                                     </html>
+                                                                                                                                                    </html>
