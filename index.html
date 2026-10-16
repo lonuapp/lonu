@@ -648,6 +648,26 @@ button:active,.s-item:active,.chat-row:active,.notif:active,.user-row:active,.na
 .modal{transition:opacity .25s,backdrop-filter .25s}
 .xrm .xrv{opacity:1}
 </style>
+<style id="xv10">
+@keyframes xgrow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.xcard{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:10px;animation:xfade .4s both}
+.xcard b{font-size:13.5px}.xcard p{font-size:12px;color:var(--muted);margin:4px 0 10px}
+.xrow{display:flex;gap:8px;flex-wrap:wrap}
+.xchart{display:flex;align-items:flex-end;gap:8px;height:130px;padding:14px 8px 0;background:var(--paper);border:1px solid var(--line);border-radius:16px;margin:12px 0}
+.xbarw{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;font-size:10px;color:var(--muted)}
+.xbar2{width:100%;max-width:26px;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,var(--accent),#7c3aed);transform-origin:bottom;animation:xgrow .7s cubic-bezier(.2,.8,.2,1) both;min-height:3px}
+.xh{font-size:13px;font-weight:800;margin:16px 4px 6px}
+.xmeter{height:10px;border-radius:10px;background:var(--line-2);overflow:hidden}.xmeter i{display:block;height:100%;background:linear-gradient(90deg,#22c55e,#f59e0b,#ef4444);transition:width .8s}
+.xin2{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--paper);color:var(--ink);margin:6px 0}
+.xtick{color:#3b82f6;font-size:12px;margin-inline-start:3px}
+.xtag{display:inline-block;font-size:10px;font-weight:700;border-radius:8px;padding:1px 7px;margin-inline-start:4px;background:var(--accent-soft);color:var(--accent)}
+.xtag.bad{background:#fee2e2;color:#dc2626}
+.xsnack{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);background:#111827;color:#fff;border-radius:14px;padding:10px 14px;display:flex;gap:12px;align-items:center;z-index:9500;font-size:13px;animation:xup .3s both}
+.xsnack button{color:#93c5fd;font-weight:800}
+.xann{margin:10px 14px;padding:12px 14px;border-radius:14px;background:linear-gradient(135deg,var(--accent-soft),transparent);border:1px solid var(--line);display:flex;gap:10px;align-items:center;font-size:13px;animation:xfade .5s both}
+.xann button{margin-inline-start:auto;font-size:18px;color:var(--muted)}
+.xban{position:fixed;inset:0;z-index:9999;background:var(--paper);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:30px}
+</style>
 </head>
 <body>
 
@@ -3551,7 +3571,7 @@ try{const ic=s=>{const c=document.createElement('canvas');c.width=c.height=s;con
  let l=document.querySelector('link[rel=manifest]');if(!l){l=document.createElement('link');l.rel='manifest';document.head.appendChild(l)}
  l.href=URL.createObjectURL(new Blob([JSON.stringify(m)],{type:'application/manifest+json'}));
  const a=document.querySelector('link[rel=apple-touch-icon]');if(a)a.href=ic(192)}catch(e){console.error('[extras8:manifest]',e.message)}
-try{const p=document.getElementById('page-settings');if(p){const d=document.createElement('div');d.className='xver';d.id='xVersion';d.textContent='نسخهٔ برنامه ۹ · پرنسس لونو ۰٫۶';p.appendChild(d)}}catch(e){console.error('[extras8:ver]',e.message)}
+try{const p=document.getElementById('page-settings');if(p){const d=document.createElement('div');d.className='xver';d.id='xVersion';d.textContent='نسخهٔ برنامه ۱۰ · پرنسس لونو ۰٫۷';p.appendChild(d)}}catch(e){console.error('[extras8:ver]',e.message)}
 })();
 </script>
 <script id="xv9js">
@@ -3575,5 +3595,74 @@ ok('princess',()=>{const B=window.LunoBot;if(!B)return;B.version='0.6';
    localStorage.setItem('luno_bot_seen',String(now))}catch(e){}}return oc.apply(this,arguments)}});
 })();
 </script>
+<script id="xv10js">
+(function(){
+const ok=(n,f)=>{try{f()}catch(e){console.error('[extras10:'+n+']',e&&e.message)}};
+const fa=n=>Number(n).toLocaleString('fa-IR');
+const J=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k)||'null');return v==null?d:v}catch(e){return d}};
+const W=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+const fdt=t=>new Date(t).toLocaleString('fa-IR',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'});
+const log=a=>{const l=J('luno_admin_log',[]);l.unshift({t:Date.now(),a});W('luno_admin_log',l.slice(0,100))};
+const uname=ph=>{const u=J('luno_users',[]).find(x=>x.phone===ph);return u?u.name:ph};
+window.addEventListener('error',e=>{const l=J('luno_errlog',[]);l.unshift({t:Date.now(),m:String(e.message).slice(0,120)});W('luno_errlog',l.slice(0,30))});
+ok('tabs',()=>{const tb=document.getElementById('adminTabs');[['reports','گزارش‌ها'],['tools','ابزارها'],['log','فعالیت']].forEach(([k,n])=>{const b=document.createElement('button');b.className='admin-tab';b.dataset.atab=k;b.textContent=n;tb.appendChild(b)})});
+const V={};
+V.reports=()=>{const rs=J('luno_reports',[]),g={};rs.forEach(r=>(g[r.postId]=g[r.postId]||[]).push(r));const ids=Object.keys(g).sort((a,b)=>g[b].length-g[a].length);
+ if(!ids.length)return '<div class="empty"><h3>گزارشی نیست 🎉</h3><p>وقتی کاربرا پستی رو گزارش کنن، اینجا می‌آد.</p></div>';
+ return '<div class="admin-section">'+ids.map(id=>{const p=state.posts.find(x=>x.id===id);return '<div class="xcard"><b>'+(p?esc(p.title||p.desc||'پست'):'پست حذف شده')+'</b><p>'+(p?esc(p.author||uname(p.authorId))+' · ':'')+'🚩 '+fa(g[id].length)+' گزارش</p><div class="xrow"><button class="admin-btn" data-xrd="'+id+'">رد گزارش</button>'+(p?'<button class="admin-btn danger" data-xdp="'+id+'">حذف پست</button><button class="admin-btn danger" data-xbn="'+p.authorId+'">مسدود نویسنده</button>':'')+'</div></div>'}).join('')+'</div>'};
+V.log=()=>{const l=J('luno_admin_log',[]),er=J('luno_errlog',[]);return '<div class="admin-section"><div class="xh">فعالیت مدیر</div>'+(l.length?l.map(x=>'<div class="xcard" style="padding:10px"><b style="font-size:12.5px">'+esc(x.a)+'</b><p style="margin:2px 0 0">'+fdt(x.t)+'</p></div>').join(''):'<p style="color:var(--muted);padding:6px">هنوز فعالیتی ثبت نشده</p>')+'<div class="xh">خطاهای برنامه ('+fa(er.length)+')</div>'+er.slice(0,8).map(x=>'<div class="xcard" style="padding:10px"><p style="margin:0">'+fdt(x.t)+' · '+esc(x.m)+'</p></div>').join('')+'<button class="admin-btn danger" data-xt="clrlog" style="margin-top:8px">پاک کردن لاگ‌ها</button></div>'};
+V.tools=()=>{let n=0;for(const k in localStorage)n+=(k.length+(localStorage.getItem(k)||'').length)*2;const pc=Math.min(100,Math.round(n/52428.8));const an=J('luno_announce',null);
+ return '<div class="admin-section"><div class="xh">فضای ذخیره‌سازی مرورگر</div><div class="xmeter"><i style="width:'+pc+'%"></i></div><p style="font-size:12px;color:var(--muted);margin:6px 2px">'+fa(pc)+'٪ پر شده'+(pc>70?' ⚠️ نزدیک سقفه؛ پشتیبان بگیر':'')+'</p>'+
+ '<div class="xh">اطلاعیهٔ همگانی</div><textarea class="xin2" id="xAnn" rows="2" placeholder="متن اطلاعیه...">'+esc(an?an.text:'')+'</textarea><div class="xrow"><button class="admin-btn" data-xt="ann">انتشار</button><button class="admin-btn danger" data-xt="annclr">برداشتن</button></div>'+
+ '<div class="xh">کلمه‌های ممنوعه</div><input class="xin2" id="xBw" placeholder="با ویرگول جدا کن" value="'+esc(J('luno_badwords',[]).join('، '))+'"><button class="admin-btn" data-xt="bw">ذخیره</button>'+
+ '<div class="xh">ضداسپم</div><button class="admin-btn" data-xt="rl">'+(J('luno_ratelimit',true)?'روشن ✓ (حداکثر ۳ پست در دقیقه)':'خاموش')+'</button>'+
+ '<div class="xh">خروجی</div><button class="admin-btn" data-xt="csv">دانلود لیست کاربران (CSV)</button></div>'};
+ok('wrap',()=>{const ra=renderAdmin;renderAdmin=function(){const t=state.adminTab;
+ if(V[t]){$$('.admin-tab').forEach(x=>x.classList.toggle('active',x.dataset.atab===t));$('#adminContent').innerHTML=V[t]();return}
+ const r=ra.apply(this,arguments);if(t==='overview')overview();return r}});
+const overview=()=>{const c=$('#adminContent');if(!c||c.querySelector('.xchart'))return;const day=864e5,now=new Date().setHours(0,0,0,0),us=J('luno_users',[]),cats={},au={};
+ const cnt=(arr,key)=>Array.from({length:7},(_,i)=>{const a=now-(6-i)*day;return arr.filter(x=>x[key]>=a&&x[key]<a+day).length});
+ const pc=cnt(state.posts,'createdAt'),uc=cnt(us,'createdAt'),mx=Math.max(1,...pc,...uc);
+ state.posts.forEach(p=>{cats[p.category||'—']=(cats[p.category||'—']||0)+1;au[p.authorId]=(au[p.authorId]||0)+1});
+ const top=Object.entries(au).sort((a,b)=>b[1]-a[1]).slice(0,3),cm=Math.max(1,...Object.values(cats));
+ const days=Array.from({length:7},(_,i)=>new Date(now-(6-i)*day).toLocaleDateString('fa-IR',{weekday:'short'}));
+ c.insertAdjacentHTML('beforeend','<div class="xh">پست‌های ۷ روز اخیر</div><div class="xchart">'+pc.map((v,i)=>'<div class="xbarw">'+fa(v)+'<div class="xbar2" style="height:'+Math.round(v/mx*85)+'%;animation-delay:'+i*.06+'s"></div>'+days[i]+'</div>').join('')+'</div>'+
+  '<div class="xh">کاربران جدید ۷ روز اخیر: '+fa(uc.reduce((a,b)=>a+b,0))+'</div><div class="xh">پرکارترین‌ها</div>'+(top.map(([k,v])=>'<div class="xcard" style="padding:10px"><b>'+esc(uname(k))+'</b> <span class="xtag">'+fa(v)+' پست</span></div>').join('')||'<p style="color:var(--muted)">—</p>')+
+  '<div class="xh">دسته‌بندی‌ها</div>'+Object.entries(cats).map(([k,v])=>'<div style="display:flex;gap:8px;align-items:center;font-size:12px;margin:5px 0"><span style="width:70px">'+esc(k)+'</span><div class="xmeter" style="flex:1"><i style="width:'+Math.round(v/cm*100)+'%;background:var(--accent)"></i></div>'+fa(v)+'</div>').join(''));
+ c.querySelectorAll('.admin-stat-card .num').forEach(el=>{const to=parseInt(String(el.textContent).replace(/[^\d]/g,''))||0;if(!to)return;let st=null;const f=t=>{st=st||t;const k=Math.min(1,(t-st)/700);el.textContent=fa(Math.round(to*(1-Math.pow(1-k,3))));if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)})};
+const decorate=()=>{const bn=J('luno_banned',[]),vf=J('luno_verified',[]);document.querySelectorAll('#adminUserList .admin-item').forEach(it=>{if(it.dataset.xd)return;const d=it.querySelector('[data-admin-del-user]');if(!d)return;it.dataset.xd=1;const ph=d.dataset.adminDelUser,h=it.querySelector('h4'),a=it.querySelector('.admin-item-actions');
+ if(vf.includes(ph))h.insertAdjacentHTML('beforeend','<span class="xtick">✓</span>');if(bn.includes(ph))h.insertAdjacentHTML('beforeend','<span class="xtag bad">مسدود</span>');
+ a.insertAdjacentHTML('afterbegin','<button class="admin-btn" data-xvf="'+ph+'">'+(vf.includes(ph)?'برداشتن تیک':'تیک')+'</button><button class="admin-btn" data-xbn="'+ph+'">'+(bn.includes(ph)?'رفع مسدودی':'مسدود')+'</button>')})};
+ok('observe',()=>new MutationObserver(()=>{if(state.adminTab==='users')decorate()}).observe(document.getElementById('adminContent'),{childList:true,subtree:true}));
+const toggle=(k,ph)=>{const l=J(k,[]),i=l.indexOf(ph);i<0?l.push(ph):l.splice(i,1);W(k,l);return i<0};
+const snack=(txt,undo)=>{document.querySelectorAll('.xsnack').forEach(x=>x.remove());const d=document.createElement('div');d.className='xsnack';d.innerHTML='<span>'+txt+'</span>'+(undo?'<button>برگردان</button>':'');document.body.appendChild(d);if(undo)d.querySelector('button').onclick=()=>{undo();d.remove()};setTimeout(()=>d.remove(),8000)};
+const sig=()=>state.posts.length+'|'+Object.values(state.comments).flat().length+'|'+J('luno_users',[]).length;
+ok('undo',()=>document.addEventListener('click',e=>{const b=e.target.closest('[data-admin-del-user],[data-admin-del-post],[data-admin-del-comment]');if(!b)return;
+ const snap={posts:JSON.stringify(state.posts),comments:JSON.stringify(state.comments),users:localStorage.getItem('luno_users'),chats:JSON.stringify(state.chats),friends:JSON.stringify(state.friends)},s0=sig(),what=b.hasAttribute('data-admin-del-user')?'کاربر':b.hasAttribute('data-admin-del-post')?'پست':'نظر';let n=0;
+ const iv=setInterval(()=>{if(sig()!==s0){clearInterval(iv);log('حذف '+what);snack(what+' حذف شد',()=>{state.posts=JSON.parse(snap.posts);state.comments=JSON.parse(snap.comments);state.chats=JSON.parse(snap.chats);state.friends=JSON.parse(snap.friends);if(snap.users)localStorage.setItem('luno_users',snap.users);save();renderAdmin();log('بازگردانی '+what)})}else if(++n>60)clearInterval(iv)},300)},true));
+document.addEventListener('click',e=>{const t=e.target;let b;
+ if(b=t.closest('[data-xbn]')){const ph=b.dataset.xbn,on=toggle('luno_banned',ph);log((on?'مسدود شد: ':'رفع مسدودی: ')+uname(ph));toast(on?'کاربر مسدود شد':'مسدودی برداشته شد');renderAdmin()}
+ else if(b=t.closest('[data-xvf]')){const ph=b.dataset.xvf,on=toggle('luno_verified',ph);log((on?'تیک تأیید: ':'برداشتن تیک: ')+uname(ph));toast(on?'تیک تأیید داده شد':'تیک برداشته شد');const it=b.closest('.admin-item');if(it)it.removeAttribute('data-xd');renderAdmin()}
+ else if(b=t.closest('[data-xrd]')){W('luno_reports',J('luno_reports',[]).filter(r=>r.postId!==b.dataset.xrd));log('رد گزارش‌ها');renderAdmin()}
+ else if(b=t.closest('[data-xdp]')){const id=b.dataset.xdp;showConfirm('حذف پست','پست و گزارش‌هاش پاک بشه؟',()=>{const old=JSON.stringify(state.posts);state.posts=state.posts.filter(p=>p.id!==id);delete state.comments[id];W('luno_reports',J('luno_reports',[]).filter(r=>r.postId!==id));save();log('حذف پست گزارش‌شده');renderAdmin();snack('پست حذف شد',()=>{state.posts=JSON.parse(old);save();renderAdmin()})})}
+ else if(b=t.closest('[data-xt]')){const k=b.dataset.xt;
+  if(k==='ann'){const v=document.getElementById('xAnn').value.trim();if(v){W('luno_announce',{id:Date.now(),text:v});log('اطلاعیه منتشر شد');toast('منتشر شد')}}
+  else if(k==='annclr'){localStorage.removeItem('luno_announce');log('اطلاعیه برداشته شد');toast('برداشته شد');renderAdmin()}
+  else if(k==='bw'){W('luno_badwords',document.getElementById('xBw').value.split(/[,،]/).map(x=>x.trim().toLowerCase()).filter(Boolean));log('کلمه‌های ممنوعه به‌روز شد');toast('ذخیره شد')}
+  else if(k==='rl'){W('luno_ratelimit',!J('luno_ratelimit',true));renderAdmin()}
+  else if(k==='clrlog'){localStorage.removeItem('luno_admin_log');localStorage.removeItem('luno_errlog');renderAdmin()}
+  else if(k==='csv'){const rows=[['name','phone','posts','createdAt']].concat(J('luno_users',[]).map(u=>[u.name,u.phone,state.posts.filter(p=>p.authorId===u.phone).length,new Date(u.createdAt||0).toISOString()]));const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+rows.map(r=>r.map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')).join('\n')],{type:'text/csv'}));a.download='lonu-users.csv';a.click()}}},false);
+ok('feed',()=>{const rp=renderPost;renderPost=function(p){const bw=J('luno_badwords',[]);if(bw.length&&p&&!isAdmin()){const x=((p.title||'')+' '+(p.desc||'')).toLowerCase();if(bw.some(w=>x.includes(w)))return''}
+ let h=rp.apply(this,arguments);if(h&&p&&J('luno_verified',[]).includes(p.authorId))h=h.replace(/(class="post-user"[^>]*>\s*<b>[^<]*)(<\/b>)/,'$1<span class="xtick">✓</span>$2').replace(/(class="text-post-author"[\s\S]*?<b[^>]*>[^<]*)(<\/b>)/,'$1<span class="xtick">✓</span>$2');return h};
+ const rh=renderHome;renderHome=function(){const r=rh.apply(this,arguments);const a=J('luno_announce',null),pg=document.getElementById('page-home');document.getElementById('xAnnB')&&document.getElementById('xAnnB').remove();
+  if(a&&pg&&localStorage.getItem('luno_ann_seen')!==String(a.id)){const d=document.createElement('div');d.className='xann';d.id='xAnnB';d.innerHTML='<span>📣</span><span>'+esc(a.text)+'</span><button aria-label="بستن">×</button>';d.querySelector('button').onclick=()=>{localStorage.setItem('luno_ann_seen',String(a.id));d.remove()};const st=document.getElementById('stories');(st?st.parentNode:pg).insertBefore(d,st||pg.firstChild)}return r}});
+ok('ratelimit',()=>{const pb=document.getElementById('publishBtn');pb.addEventListener('click',e=>{if(!J('luno_ratelimit',true)||isAdmin())return;const n=state.posts.filter(p=>p.authorId===state.user.phone&&Date.now()-p.createdAt<6e4).length;if(n>=3){e.stopImmediatePropagation();e.preventDefault();toast('کمی صبر کن؛ پست‌های پشت‌سرهم محدوده','error')}},true)});
+ok('ban',()=>{const en=enterApp;enterApp=function(){const r=en.apply(this,arguments);if(state.user&&J('luno_banned',[]).includes(state.user.phone)&&!isAdmin()){const d=document.createElement('div');d.className='xban';d.innerHTML='<div style="font-size:46px">🚫</div><h3>حساب شما مسدود شده است</h3><p style="color:var(--muted);font-size:13px">برای پیگیری با مدیر تماس بگیر.</p><button class="auth-btn" style="max-width:240px">خروج</button>';d.querySelector('button').onclick=()=>{localStorage.removeItem('luno_user');location.reload()};document.body.appendChild(d)}return r}});
+ok('princess',()=>{const B=window.LunoBot;if(!B)return;B.version='0.7';const oc=openChat;openChat=function(uid){if(uid===B.id){try{const a=state.chats[B.id]=state.chats[B.id]||[],nm=localStorage.getItem('luno_bot_name'),td=new Date().toDateString(),tm=new Date().toLocaleTimeString('fa-IR',{hour:'2-digit',minute:'2-digit'});
+  const pk=new Intl.DateTimeFormat('en-u-ca-persian-nu-latn',{month:'numeric',day:'numeric'}).formatToParts(new Date()),m=+pk.find(x=>x.type==='month').value,d=+pk.find(x=>x.type==='day').value,bd=(localStorage.getItem('luno_birth')||'').split('/').map(Number);
+  if(localStorage.getItem('luno_bot_day')!==td){let txt=null;if(bd.length===3&&bd[1]===m&&bd[2]===d)txt='تولدت مبارک'+(nm?' '+nm:'')+'!!! 🎂🎉 امروز روز توئه، هرچی دوست داری آرزو کن 👑';else{const st=J('luno_streak',{n:0});if(st.n>=3)txt='می‌دونی؟ '+fa(st.n)+' روزه هر روز میای پیشم 🥰 خیلی خوشحالم!'}
+   if(txt){a.push({from:'them',text:txt,time:tm});save()}localStorage.setItem('luno_bot_day',td)}}catch(e){}}return oc.apply(this,arguments)}});
+})();
+</script>
 </body>
-                                                                                                    </html>
+  </html>
