@@ -1285,10 +1285,9 @@ function renderPost(p) {
     const title = p.title && p.title.trim() ? `<h3>${esc(p.title)}</h3>` : '';
     const commentCount = (state.comments[p.id] || []).length;
     return `<div class="text-post" data-post="${p.id}">
-      <div class="text-post-head"><span class="text-post-cat">${esc(p.category)}</span>${canManage ? `<button class="text-post-menu" data-menu="${p.id}">⋯</button>` : ''}</div>
       ${title}
       <p class="${longText(p) ? 'clamp' : ''}">${fullHtml(p)}</p>${longText(p) ? '<button class="more-btn" data-more>ادامه</button>' : ''}
-      <div class="text-post-author"><img src="${avatarOf(p.authorId, p.authorAvatar)}" class="${imgClass}" ${imgStyle} alt="" data-user="${p.authorId}"><b data-user="${p.authorId}">${esc(p.author)}</b><span class="sp"></span><span>${formatTime(p.createdAt)}${p.edited ? ' · ویرایش‌شده' : ''}</span></div>
+      <div class="text-post-author"><img src="${avatarOf(p.authorId, p.authorAvatar)}" class="${imgClass}" ${imgStyle} alt="" data-user="${p.authorId}"><b data-user="${p.authorId}">${esc(p.author)}</b><span class="sp"></span><span>${formatTime(p.createdAt)}${p.edited ? ' · ویرایش‌شده' : ''}</span>${canManage ? `<button class="text-post-menu" data-menu="${p.id}">⋯</button>` : ''}</div>
       <div class="text-post-actions">
         <button class="${isLiked(p.id) ? 'liked' : ''}" data-like="${p.id}">${HEART_SVG}<span data-likes-count="${p.id}">${p.likes || 0}</span></button>
         <button data-comment="${p.id}">${COMMENT_SVG}<span data-comment-count="${p.id}">${commentCount}</span></button>
@@ -1310,16 +1309,14 @@ function renderPost(p) {
       <div class="post-heart">❤️</div>
     </div>
     <div class="post-actions">
-      <button class="post-action ${isLiked(p.id) ? 'liked' : ''}" data-like="${p.id}">${HEART_SVG}</button>
-      <button class="post-action" data-comment="${p.id}">${COMMENT_SVG}</button>
+      <button class="post-action ${isLiked(p.id) ? 'liked' : ''}" data-like="${p.id}">${HEART_SVG}<span class="pa-n" data-likes-count="${p.id}">${p.likes || 0}</span></button>
+      <button class="post-action" data-comment="${p.id}">${COMMENT_SVG}<span class="pa-n" data-comment-count="${p.id}">${commentsCount}</span></button>
       <button class="post-action" data-share="${p.id}">${SHARE_SVG}</button>
       <span class="post-action-spacer"></span>
       <button class="post-action ${isSavedInCollection ? 'saved' : ''}" data-save="${p.id}">${BOOKMARK_SVG}</button>
     </div>
     <div class="post-info">
-      <div class="post-likes" data-likes="${p.id}"><b>${(p.likes || 0).toLocaleString('fa-IR')}</b> پسند</div>
       ${captionSlice ? `<div class="post-caption"><b class="pi-author">${esc(p.author)}</b>${processText(captionSlice)}</div>` : ''}
-      ${commentsCount > 0 ? `<button class="post-comment-link" data-comment="${p.id}">مشاهده هر <span data-comment-count="${p.id}">${commentsCount}</span> نظر</button>` : `<button class="post-comment-link" data-comment="${p.id}" style="display:none">مشاهده هر <span data-comment-count="${p.id}">0</span> نظر</button>`}
       <div class="post-time">${formatTime(p.createdAt)}${p.edited ? ' · ویرایش‌شده' : ''}</div>
     </div>
   </div>`;
@@ -1373,7 +1370,7 @@ function updateCommentCounts(postId) {
   const post = document.querySelector(`.post[data-post="${postId}"], .text-post[data-post="${postId}"]`);
   if (post) {
     const info = post.querySelector('.post-info') || post.querySelector('.text-post-actions');
-    if (info && post.classList.contains('post')) {
+    if (info && post.classList.contains('post') && info.querySelector('.post-comment-link')) {
       let link = info.querySelector('.post-comment-link');
       const timeEl = info.querySelector('.post-time');
       if (count > 0) {
@@ -1775,7 +1772,7 @@ function renderInlineComment(c, i, postId) {
       <p>${processText(c.text)}</p>
       ${c.edited ? '<span class="edited-label">(ویرایش شده)</span>' : ''}
       <div class="comment-actions">
-        <time>${esc(c.time)}</time>
+        <time>${c.createdAt ? formatTime(c.createdAt) : esc(c.time)}</time>
         <button class="comment-like-inline ${c.liked ? 'liked' : ''}" data-like-comment="${i}">❤️ ${c.likes || 0}</button>
         <button class="comment-action-btn" data-reply-to="${i}">پاسخ</button>
         ${canEdit ? `<button class="comment-action-btn" data-edit-comment="${i}">ویرایش</button>` : ''}
@@ -1787,7 +1784,7 @@ function renderInlineComment(c, i, postId) {
           <div class="reply-row-body">
             <b>${esc(r.user)}</b>
             <p>${processText(r.text)}</p>
-            <time>${esc(r.time)}</time><button class="comment-action-btn" data-reply-to-user="${esc(r.user)}" data-parent="${i}">پاسخ</button>
+            <time>${r.createdAt ? formatTime(r.createdAt) : esc(r.time)}</time><button class="comment-action-btn" data-reply-to-user="${esc(r.user)}" data-parent="${i}">پاسخ</button>
           </div>
         </div>
       `).join('')}</div>` : ''}
@@ -1982,8 +1979,8 @@ $('#articleToggle').addEventListener('click', () => { state.asArticle = !state.a
 $('#publishBtn').addEventListener('click', () => {
   const title = $('#postTitle').value.trim(); const body = $('#postText').value.trim();
   const image = $('#preview').classList.contains('show') ? $('#previewImg').src : null;
-  const category = state.selectedTags[0] || 'سبک زندگی';
   const hasImage = !!image;
+  const category = hasImage ? (state.selectedTags[0] || 'سبک زندگی') : '';
   const asArticle = state.asArticle && hasImage;
 
   $('#titleErr').classList.remove('show'); $('#textErr').classList.remove('show');
@@ -2269,7 +2266,7 @@ document.addEventListener('click', e => {
     const c = state.comments[state.currentPostId]?.[idx];
     if (c) {
       if (!c.replies) c.replies = [];
-      c.replies.push({ user: state.user.name, userId: state.user.phone, avatar: state.user.avatar, text, time: 'همین حالا' });
+      c.replies.push({ user: state.user.name, userId: state.user.phone, avatar: state.user.avatar, text, time: 'همین حالا', createdAt: Date.now() });
       save(); inp.value = ''; if ($('#commentModal').classList.contains('show')) openComments(state.currentPostId); updateCommentCounts(state.currentPostId); toast('پاسخ ثبت شد');
     }
     return;
@@ -3241,8 +3238,202 @@ ok('bubblemenu',()=>{
   document.body.appendChild(bg);
  },true);
 });
+
+/* ---------- ۴) اسلایدر عکس‌ها مثل اینستاگرام (جایگزین نوار «آلبوم») ---------- */
+ok('carousel',()=>{
+ const st=document.createElement('style');
+ st.textContent='.lc-car{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;aspect-ratio:1/1;max-height:640px;width:100%;background:#000}.lc-car::-webkit-scrollbar{display:none}.post-image .lc-car img{flex:0 0 100%;width:100%!important;height:100%!important;max-height:none!important;object-fit:contain;scroll-snap-align:center;scroll-snap-stop:always;opacity:1!important}.lc-count{position:absolute;top:12px;right:12px;background:rgba(0,0,0,.6);color:#fff;font-size:12px;font-weight:800;padding:3px 10px;border-radius:999px;pointer-events:none;z-index:2}.lc-dots{position:absolute;bottom:10px;left:0;right:0;display:flex;justify-content:center;gap:5px;pointer-events:none;z-index:2}.lc-dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.45)}.lc-dots i.on{background:#fff}';
+ document.head.appendChild(st);
+ const car=p=>{
+  const a=[p.image].concat(p.images||[]);
+  return '<div class="lc-car" data-n="'+a.length+'">'+a.map((s,i)=>'<img src="'+s+'" alt=""'+(i?'':' onload="const c=this.parentNode;if(!c.dataset.ar){c.dataset.ar=1;c.style.aspectRatio=Math.min(1.91,Math.max(.8,this.naturalWidth/this.naturalHeight))}"')+'>').join('')+'</div><div class="lc-count">'+fa(1)+'/'+fa(a.length)+'</div><div class="lc-dots">'+a.map((_,i)=>'<i'+(i?'':' class="on"')+'></i>').join('')+'</div>';
+ };
+ const _rp=renderPost;
+ renderPost=function(p){
+  let h=_rp.apply(this,arguments);
+  if(!h||!p||!p.image||!p.images||!p.images.length)return h;
+  h=h.replace(/<div class="xalbum-l">[\s\S]*?<\/div><div class="xalbum">[\s\S]*?<\/div>/,'');
+  const a=h.indexOf('<div class="img-placeholder">'),b=h.indexOf('<div class="post-heart">');
+  if(a>-1&&b>a)h=h.slice(0,a)+car(p)+h.slice(b);
+  return h;
+ };
+ const _opd=openPostDetail;
+ openPostDetail=function(id){
+  const r=_opd.apply(this,arguments);
+  try{
+   const p=state.posts.find(x=>x.id===id);
+   if(p&&p.image&&p.images&&p.images.length){
+    const im=document.querySelector('#postDetailWrap .post-image > img');
+    if(im){im.insertAdjacentHTML('beforebegin',car(p));im.remove()}
+   }
+  }catch(e){}
+  return r;
+ };
+ document.addEventListener('scroll',e=>{
+  const c=e.target;if(!c||!c.classList||!c.classList.contains('lc-car'))return;
+  const n=+c.dataset.n,i=Math.min(n-1,Math.round(Math.abs(c.scrollLeft)/c.clientWidth));
+  const cnt=c.nextElementSibling,d=cnt&&cnt.nextElementSibling;
+  if(cnt)cnt.textContent=fa(i+1)+'/'+fa(n);
+  if(d)[].forEach.call(d.children,(x,k)=>x.classList.toggle('on',k===i));
+ },true);
+});
+
+/* ---------- ۵) بازطراحی: صفحهٔ انتشار، تنظیمات، کارت پست ---------- */
+ok('redesign',()=>{
+ const st=document.createElement('style');
+ st.textContent=`
+/* --- کارت پست: شمارنده کنار آیکون‌ها --- */
+.post-action{width:auto;min-width:34px;gap:6px;padding:0 2px}
+.post-action .pa-n{font-size:13px;font-weight:800;color:var(--ink)}
+.post-action.liked .pa-n{color:#ef4444}
+.post-actions{gap:14px}
+.text-post-author .text-post-menu{margin-inline-start:6px}
+/* --- صفحهٔ انتشار --- */
+#page-create .create-wrap{padding:14px 14px 110px}
+#page-create .create-box{background:transparent;border:0;padding:0}
+#page-create .create-head{margin-bottom:14px}
+#page-create .create-head h2{font-size:21px;font-weight:900}
+#page-create .upload-area{display:flex;flex-direction:column;align-items:center;gap:2px;background:var(--paper);border:1.5px dashed var(--line);border-radius:20px;padding:26px 16px;margin-bottom:12px}
+#page-create .upload-icon{width:52px;height:52px;border-radius:16px;background:var(--accent-soft);margin:0 0 6px}
+#page-create .upload-icon svg{stroke:var(--accent)}
+#page-create .upload-area #uploadLabel{font-size:14px;font-weight:800;color:var(--ink)}
+#page-create .upload-area::after{content:'عکس اختیاریه؛ پست متنی هم می‌تونی بذاری';font-size:11.5px;color:var(--muted);font-weight:500}
+#page-create.has-img .upload-area{display:none}
+#page-create .preview{border-radius:20px;box-shadow:0 8px 28px -10px rgba(0,0,0,.35);margin-bottom:10px}
+#page-create .preview img{width:100%;max-height:380px;object-fit:cover;display:block}
+#page-create .lc-more{display:none;margin:0 0 12px}
+#page-create.has-img .lc-more{display:block}
+#page-create .xbtn{display:inline-flex!important;align-items:center;gap:6px;background:var(--accent-soft)!important;color:var(--accent)!important;border:0!important;border-radius:999px!important;padding:9px 16px!important;font-size:12.5px!important;font-weight:800!important}
+#page-create #xPollTg{background:var(--line-2)!important;color:var(--ink)!important}
+#page-create .field{background:var(--paper);border:1.5px solid var(--line-2);border-radius:16px;padding:14px 16px;margin-bottom:10px}
+#page-create .field:focus{border-color:var(--accent)}
+#page-create textarea.field{min-height:150px;line-height:1.9}
+#page-create .lc-sec{font-size:12.5px;font-weight:800;color:var(--ink);margin:14px 4px 8px;display:none}
+#page-create .lc-sec small{font-weight:500;color:var(--muted);margin-inline-start:6px}
+#page-create.has-img .lc-sec{display:block}
+#page-create #tagRow,#page-create #articleToggle{display:none}
+#page-create.has-img #tagRow{display:flex;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin-bottom:12px}
+#page-create.has-img #articleToggle{display:flex}
+#page-create .tag-chip{white-space:nowrap;padding:8px 16px;border-radius:999px;font-weight:700}
+#page-create .tag-chip.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+#page-create .toggle-row{background:var(--paper);border:1.5px solid var(--line-2);border-radius:16px}
+#page-create .btn-main{position:sticky;bottom:12px;z-index:5;height:52px;border-radius:16px;font-size:15px;background:var(--accent);color:#fff;box-shadow:0 10px 24px -10px var(--accent)}
+/* --- تنظیمات (شبیه تلگرام) --- */
+#page-settings .settings-section{padding:6px 14px 110px}
+#lcProfile{display:flex;flex-direction:column;align-items:center;gap:3px;padding:24px 16px 18px;background:var(--paper);border:1px solid var(--line-2);border-radius:22px;margin:8px 0 4px;cursor:pointer;text-align:center}
+#lcProfile img{width:88px;height:88px;border-radius:50%;object-fit:cover;margin-bottom:8px;background:var(--line-2)}
+#lcProfile b{font-size:19px;font-weight:900}
+#lcProfile small{font-size:12px;color:var(--muted);font-weight:500;max-width:90%}
+#page-settings .settings-section-title{font-size:12px;font-weight:700;color:var(--muted);text-transform:none;letter-spacing:0;padding:18px 10px 8px}
+#page-settings .settings-list{gap:0;background:var(--paper);border:1px solid var(--line-2);border-radius:18px;overflow:hidden}
+#page-settings .s-item{border:0;border-radius:0;background:transparent;padding:12px 14px;border-bottom:1px solid var(--line-2)}
+#page-settings .s-item:last-child{border-bottom:0}
+#page-settings .s-item:active{background:var(--line-2)}
+#page-settings .s-item>svg{width:34px;height:34px;padding:8px;border-radius:10px;background:var(--ic,#3b82f6);stroke:#fff!important;fill:none!important;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;box-sizing:border-box}
+#page-settings .s-item h4{font-size:14px;font-weight:700}
+#page-settings .s-item p{font-size:11.5px;color:var(--muted);margin-top:2px}
+#page-settings .s-item .arrow{color:var(--muted);opacity:.55;font-size:18px}
+#page-settings .s-item.danger{--ic:#ef4444}
+#page-settings .s-item.danger h4{color:#ef4444}
+#lcAppearance .arrow{display:inline-block;transition:transform .2s}
+#lcAppearance.open .arrow{transform:rotate(90deg)}
+#page-settings .settings-groups{display:none;margin-top:10px}
+#page-settings .settings-groups.lc-open{display:flex}
+#page-settings .setting-group{border-radius:18px}
+`;
+ document.head.appendChild(st);
+
+ /* ---- صفحهٔ انتشار: دسته‌بندی/مقاله فقط وقتی عکس هست ---- */
+ const pg=document.getElementById('page-create'),pv=document.getElementById('preview');
+ if(pg&&pv){
+  const sync=()=>pg.classList.toggle('has-img',pv.classList.contains('show'));
+  new MutationObserver(sync).observe(pv,{attributes:true,attributeFilter:['class']});sync();
+  const tr=document.getElementById('tagRow');
+  if(tr&&!document.getElementById('lcCat')){const l=document.createElement('div');l.id='lcCat';l.className='lc-sec';l.innerHTML='دسته‌بندی<small>برای پست تصویری</small>';tr.parentNode.insertBefore(l,tr)}
+  const xm=document.getElementById('xMore');if(xm){const w=xm.closest('div');if(w)w.classList.add('lc-more')}
+ }
+
+ /* ---- تنظیمات ---- */
+ const sp=document.getElementById('page-settings');if(!sp)return;
+ const P={
+  download:'<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>',
+  mute:'<path d="M11 5 6 9H2v6h4l5 4V5z"/><path d="m23 9-6 6M17 9l6 6"/>',
+  online:'<circle cx="12" cy="12" r="3"/><path d="M7.8 16.2a6 6 0 0 1 0-8.4M16.2 7.8a6 6 0 0 1 0 8.4"/>',
+  userplus:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M19 8v6M22 11h-6"/>',
+  bell:'<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/>',
+  flame:'<path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5-1.9-1.5-3.5-4-4-6.5-2.2 2-3.1 3.9-2 6 .5 1 1 1.6 1 3a2.5 2.5 0 0 1-5 0c-.6 1.1-1 2.3-1 3.5a7 7 0 0 0 7 7z"/>',
+  gift:'<rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v9H5v-9M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/>',
+  trash:'<path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v6M14 11v6"/>',
+  compass:'<circle cx="12" cy="12" r="10"/><path d="m16.2 7.8-2.1 6.3-6.3 2.1 2.1-6.3z"/>',
+  users:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/>',
+  heart:'<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21l7.8-7.5 1-1.1a5.5 5.5 0 0 0 0-7.8z"/>',
+  chat:'<path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 8.5 8.5 0 0 1-3.8-.9L3 21l2-5.2A8.4 8.4 0 1 1 21 11.5z"/>',
+  type:'<path d="M4 7V4h16v3M9 20h6M12 4v16"/>',
+  palette:'<circle cx="13.5" cy="6.5" r="1.2"/><circle cx="17.5" cy="10.5" r="1.2"/><circle cx="8.5" cy="7.5" r="1.2"/><circle cx="6.5" cy="12.5" r="1.2"/><path d="M12 2a10 10 0 1 0 0 20 2 2 0 0 0 1.5-3.3 2 2 0 0 1 1.5-3.3H18a4 4 0 0 0 4-4C22 6 17.5 2 12 2z"/>'
+ };
+ const M={installBtn:['download','#22c55e'],mutedItem:['mute','#f59e0b'],onlineItem:['online','#22c55e'],inviteItem:['userplus','#3b82f6'],notifPrefItem:['bell','#ef4444'],streakItem:['flame','#f97316'],birthItem:['gift','#ec4899'],deleteAccBtn:['trash','#ef4444'],discItem:['compass','#8b5cf6'],fonlyItem:['users','#14b8a6'],interestsItem:['heart','#ec4899'],statusItem2:['chat','#3b82f6'],tstoryItem:['type','#8b5cf6'],editProfileItem:[null,'#3b82f6'],exportBtn:[null,'#14b8a6'],importBtn:[null,'#0ea5e9'],reduceItem:[null,'#f59e0b'],statsItem:[null,'#8b5cf6'],blockedItem:[null,'#64748b'],logoutBtn:[null,'#ef4444']};
+ const paint=()=>{
+  sp.querySelectorAll('.s-item').forEach(it=>{
+   const m=M[it.id];
+   if(m){it.style.setProperty('--ic',m[1]);const sv=it.querySelector(':scope>svg');if(m[0]&&sv)sv.innerHTML=P[m[0]]}
+   else if(it.dataset.go==='terms')it.style.setProperty('--ic','#64748b');
+   else if(it.dataset.go==='about')it.style.setProperty('--ic','#0ea5e9');
+  });
+ };
+ // ردیف «ظاهر برنامه» که گروه‌های رنگ/فونت/پس‌زمینه رو باز و بسته می‌کنه
+ const groups=sp.querySelector('.settings-groups'),first=sp.querySelector('.settings-list');
+ if(groups&&first&&!document.getElementById('lcAppearance')){
+  const r=document.createElement('div');r.className='s-item';r.id='lcAppearance';
+  r.innerHTML='<svg viewBox="0 0 24 24">'+P.palette+'</svg><div><h4>ظاهر برنامه</h4><p>رنگ، حالت تاریک، فونت و پس‌زمینهٔ چت</p></div><span class="arrow">›</span>';
+  r.style.setProperty('--ic','#8b5cf6');first.appendChild(r);
+  r.addEventListener('click',()=>{const o=groups.classList.toggle('lc-open');r.classList.toggle('open',o)});
+  [].forEach.call(sp.querySelectorAll('.settings-section-title'),t=>{if(t.textContent.trim()==='ظاهر برنامه')t.style.display='none'});
+  first.insertAdjacentElement('afterend',groups);
+ }
+ // کارت پروفایل بالای تنظیمات
+ const sec=sp.querySelector('.settings-section');
+ const card=()=>{
+  if(!sec||!state.user)return;
+  let c=document.getElementById('lcProfile');
+  if(!c){c=document.createElement('div');c.id='lcProfile';c.addEventListener('click',()=>{const e=document.getElementById('editProfileItem');if(e)e.click()});sec.insertBefore(c,sec.firstChild)}
+  const u=state.user;
+  c.innerHTML='<img src="'+avatarOf(u.phone,u.avatar)+'" alt=""><b>'+esc(u.name||'')+'</b><small>'+esc(u.bio||'برای ویرایش پروفایل لمس کن')+'</small>';
+ };
+ const _sp=showPage;
+ showPage=function(id){const r=_sp.apply(this,arguments);if(id==='settings'){card();paint()}return r};
+ card();paint();
+ // گروه‌بندی مرتب آیتم‌ها (extras آیتم‌هاشون رو همه‌جا پخش کرده بودن)
+ const regroup=()=>{
+  if(!sec)return;
+  const items=[].slice.call(sp.querySelectorAll('.s-item'));
+  const find=k=>k==='BOT'?items.find(e=>/پرنسس/.test(e.textContent)):(k==='terms'||k==='about')?items.find(e=>e.dataset.go===k):items.find(e=>e.id===k);
+  const G=[['حساب کاربری',['editProfileItem','lcAppearance','birthItem','interestsItem','statusItem2']],
+   ['امکانات',['tstoryItem','discItem','streakItem','BOT','inviteItem','installBtn']],
+   ['حریم خصوصی و اعلان‌ها',['onlineItem','mutedItem','notifPrefItem','blockedItem','fonlyItem','reduceItem']],
+   ['داده‌ها',['statsItem','exportBtn','importBtn']],
+   ['اطلاعات',['terms','about']],
+   ['خروج و حذف',['logoutBtn','deleteAccBtn']]];
+  const used=new Set(),built=[];
+  G.forEach(g=>{const arr=g[1].map(find).filter(Boolean);arr.forEach(e=>used.add(e));built.push([g[0],arr])});
+  const rest=items.filter(e=>!used.has(e));rest.forEach(e=>built[1][1].push(e));
+  [].slice.call(sec.querySelectorAll(':scope>.settings-list,:scope>.settings-section-title')).forEach(e=>e.remove());
+  built.forEach((b,i)=>{
+   if(!b[1].length)return;
+   const t=document.createElement('div');t.className='settings-section-title';t.textContent=b[0];
+   const l=document.createElement('div');l.className='settings-list';b[1].forEach(e=>l.appendChild(e));
+   sec.appendChild(t);sec.appendChild(l);
+   if(i===0&&groups)sec.appendChild(groups);
+  });
+ };
+ const paint0=paint;
+ const paintAll=()=>{regroup();paint0();const bt=[].slice.call(sp.querySelectorAll('.s-item')).find(e=>/پرنسس/.test(e.textContent));if(bt){bt.style.setProperty('--ic','#ec4899');const sv=bt.querySelector(':scope>svg');if(sv)sv.innerHTML=P.chat}};
+ const _sp2=showPage;
+ showPage=function(id){const r=_sp2.apply(this,arguments);if(id==='settings')paintAll();return r};
+ // آیتم‌هایی که extras با تأخیر اضافه می‌کنن
+ setTimeout(paintAll,2500);
+});
 })();
 
 </script>
 </body>
-                                                                                                                                                                                                                                               </html>
+              </html>
