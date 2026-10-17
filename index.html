@@ -4071,7 +4071,6 @@ const USER_SCOPED = [
   {field:'pending',        base:'luno_pending',         type:'array'},
   {field:'notifications',  base:'luno_notifs',          type:'array'},
   {field:'chats',          base:'luno_chats',           type:'object'},
-  {field:'comments',       base:'luno_comments',        type:'object'},
   {field:'recentSearches', base:'luno_recent_searches', type:'array'},
   {field:'collections',    base:'luno_collections',     type:'array'}
 ];
@@ -4127,6 +4126,30 @@ function loadUserState(phone){
   }
 }
 
+/* ═══ کامنت‌ها مشترکن (مثل پست‌ها)؛ کامنت‌های قدیمیِ per-user یک بار ادغام می‌شن ═══ */
+function mergeComments(){
+  try {
+    const FLAG = 'luno_comments_global_v1';
+    let g = {}; try { g = JSON.parse(localStorage.getItem('luno_comments') || '{}') || {}; } catch(e){}
+    if(localStorage.getItem(FLAG) !== '1'){
+      const keys = []; for(let i = 0; i < localStorage.length; i++){ const k = localStorage.key(i); if(k && k.indexOf('luno_comments__u__') === 0) keys.push(k); }
+      keys.forEach(function(k){
+        let o = {}; try { o = JSON.parse(localStorage.getItem(k) || '{}') || {}; } catch(e){}
+        Object.keys(o).forEach(function(pid){
+          g[pid] = g[pid] || [];
+          const seen = new Set(g[pid].map(function(c){ return c.userId + '|' + c.createdAt + '|' + c.text; }));
+          (o[pid] || []).forEach(function(c){ const key = c.userId + '|' + c.createdAt + '|' + c.text; if(!seen.has(key)){ g[pid].push(c); seen.add(key); } });
+        });
+      });
+      Object.keys(g).forEach(function(pid){ g[pid].sort(function(a, b){ return (b.createdAt || 0) - (a.createdAt || 0); }); });
+      localStorage.setItem('luno_comments', JSON.stringify(g));
+      localStorage.setItem(FLAG, '1');
+      keys.forEach(function(k){ try { localStorage.removeItem(k); } catch(e){} });
+    }
+    state.comments = g;
+  } catch(e){ console.error('[mergeComments]', e); }
+}
+
 /* ═══ صفر کردن state (روی Logout) ═══ */
 function clearUserState(){
   if(typeof state === 'undefined') return;
@@ -4149,6 +4172,7 @@ ok('save',()=>{
     localStorage.setItem('luno_posts', JSON.stringify(state.posts));
     localStorage.setItem('luno_avatar_colors', JSON.stringify(state.avatarColors));
     if(state.user) localStorage.setItem('luno_user', JSON.stringify(state.user));
+    localStorage.setItem('luno_comments', JSON.stringify(state.comments));
     saveUserState();
   };
 });
@@ -4161,6 +4185,7 @@ ok('enterApp',()=>{
     if(state && state.user && state.user.phone){
       loadUserState(state.user.phone);
     }
+    mergeComments();
     return orig.apply(this, arguments);
   };
 });
